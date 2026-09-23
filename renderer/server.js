@@ -22,22 +22,68 @@ const keyvS3 = new KeyvS3({
 });
 const cache = createCache({ stores: [keyvS3], stdTTL: 60 * 60 * 24 * 7 });
 
-let browser;
-let browserStartTime = Date.now();
-async function getBrowser() {
-  const now = Date.now();
-  if (!browser || now - browserStartTime > MAX_BROWSER_LIFETIME || !browser.isConnected()) {
-    if (browser) await browser.close();
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox"],
-    });
-    browserStartTime = now;
+const MAX_BROWSER_LIFETIME = 1000 * 60 * 10;
+const NAVIGATION_TIMEOUT = 20000;
+const NON_HTML_PATH = /^\/assets\/|\.(js|mjs|css|map|json|xml|txt|ico|png|jpe?g|gif|svg|webp|avif|woff2?|ttf|otf|eot|pdf|zip|gz|mp4|webm)$/i;
+
+let current = null;
+let launching = null;
+
+async function closeBrowser(entry) {
+  try {
+    await entry.browser.close();
+  } catch (err) {
+    console.warn("Error closing browser, killing it:", err.message);
+  } finally {
+    const proc = entry.browser.process();
+    if (proc && proc.exitCode === null && proc.signalCode === null) {
+      proc.kill("SIGKILL");
+    }
   }
-  return browser;
 }
+
+function retire(entry) {
+  entry.retired = true;
+  if (entry.activePages === 0) closeBrowser(entry);
+}
+
+async function acquireBrowser() {
+  const expired =
+    current &&
+    (Date.now() - current.startTime > MAX_BROWSER_LIFETIME ||
+      !current.browser.connected);
+  if (expired) {
+    retire(current);
+    current = null;
+  }
+  if (!current) {
+    if (!launching) {
+      launching = puppeteer
+        .launch({
+          headless: true,
+          args: ["--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox"],
+        })
+        .then((browser) => {
+          current = { browser, startTime: Date.now(), activePages: 0 };
+          return current;
+        })
+        .finally(() => {
+          launching = null;
+        });
+    }
+    await launching;
+  }
+  const entry = current;
+  entry.activePages++;
+  return entry;
+}
+
+function releaseBrowser(entry) {
+  entry.activePages--;
+  if (entry.retired && entry.activePages === 0) closeBrowser(entry);
+}
+
 const limit = pLimit.default(parseInt(p_limit));
-const MAX_BROWSER_LIFETIME = 1000 * 60 * 10; 
 
 app.use(
   promMid({
@@ -48,6 +94,13 @@ app.use(
     responseLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
   })
 );
+
+app.get("/healthz", (req, res) => {
+  if (current && !current.browser.connected) {
+    return res.status(503).send("browser disconnected");
+  }
+  return res.send("ok");
+});
 
 app.get("/render", async (req, res) => {
   return limit(() => renderPage(req, res));
@@ -61,23 +114,26 @@ async function renderPage(req, res) {
     return res.status(400).send("Missing or invalid ?url= query parameter");
   }
 
+  if (NON_HTML_PATH.test(new URL(targetUrl).pathname)) {
+    return res.status(404).send("Not a renderable page");
+  }
+
   const cacheKey = `${targetUrl}|${raw}`;
   const cached_result = await cache.get(cacheKey);
   if (cached_result) {
     return res.set("Content-Type", "text/html").send(cached_result);
   }
 
+  let entry;
   let page;
   try {
-    const browserInstance = await getBrowser();
-    page = await browserInstance.newPage();
+    entry = await acquireBrowser();
+    page = await entry.browser.newPage();
 
-    const navResult = await Promise.race([
-      page.goto(targetUrl, { waitUntil: "networkidle2" }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Navigation timed out")), 20000)
-      ),
-    ]);
+    await page.goto(targetUrl, {
+      waitUntil: "networkidle2",
+      timeout: NAVIGATION_TIMEOUT,
+    });
 
     if (raw) {
       const html = await page.content();
@@ -125,7 +181,7 @@ async function renderPage(req, res) {
     await cache.set(cacheKey, html);
     return res.set("Content-Type", "text/html").send(html);
   } catch (err) {
-    console.error("Render error:", err);
+    console.error(`Render error for ${targetUrl}:`, err.message);
     return res.status(500).send("Rendering failed");
   } finally {
     if (page && !page.isClosed()) {
@@ -139,6 +195,7 @@ async function renderPage(req, res) {
         }
       }
     }
+    if (entry) releaseBrowser(entry);
   }
 }
 
@@ -148,7 +205,9 @@ app.listen(PORT, () => {
   );
 });
 
-process.on("SIGINT", async () => {
-  if (browser) await browser.close();
+async function shutdown() {
+  if (current) await closeBrowser(current);
   process.exit();
-});
+}
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);

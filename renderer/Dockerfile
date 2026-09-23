@@ -6,7 +6,7 @@ ENV LANG=en_US.UTF-8 \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libnss3 libatk1.0-0 \
-    libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
+    libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0 tini
 
 RUN groupadd -r pptruser && useradd -u $PPTRUSER_UID -rm -g pptruser -G audio,video pptruser
 USER $PPTRUSER_UID
@@ -18,4 +18,5 @@ RUN npm install
 
 
 EXPOSE 8080
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "node", "server.js" ]
