@@ -1,0 +1,1022 @@
+interactions:
+- request:
+    body: '{"query":{"bool":{"filter":[{"terms":{"status":["completed"]}},{"range":{"_updated_at":{"lte":"now-0d"}}}]}}}'
+    headers:
+      Content-Length:
+      - '109'
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/backoffice-backend-local-hep-workflows/_search
+  response:
+    body:
+      string: "{\"took\":57,\"timed_out\":false,\"_shards\":{\"total\":1,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":3,\"relation\":\"eq\"},\"max_score\":0.0,\"hits\":[{\"_index\":\"backoffice-backend-local-hep-workflows\",\"_id\":\"26f5c03b-6085-4d1c-a300-bfac9df4b1b3\",\"_score\":0.0,\"_source\":{\"data\":{\"titles\":[{\"title\":\"TEST
+        TEST\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"arxiv_eprints\":[{\"value\":\"2504.01123\"}],\"document_type\":[\"article\"],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"public_notes\":[],\"source\":\"arXiv\"},\"journal_coverage\":null,\"classifier_results\":null,\"relevance_prediction\":null,\"reference_count\":null,\"matches\":null,\"id\":\"26f5c03b-6085-4d1c-a300-bfac9df4b1b3\",\"workflow_type\":\"HEP_CREATE\",\"decisions\":[{\"action\":\"hep_reject\",\"user\":{\"email\":\"admin@admin.com\"}}],\"status\":\"completed\",\"_created_at\":\"2025-11-01T00:00:00+00:00\",\"_updated_at\":\"2025-11-01T00:00:00+00:00\"}},{\"_index\":\"backoffice-backend-local-hep-workflows\",\"_id\":\"a0a228e6-b73c-4e17-9fb8-066652e0913b\",\"_score\":0.0,\"_source\":{\"data\":{\"titles\":[{\"title\":\"The
+        withdrawn fixture test\",\"source\":\"Elsevier Ltd\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"document_type\":[\"article\"],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"Elsevier\",\"datetime\":\"2024-11-18T11:34:19.809575\",\"submission_number\":\"scheduled__2024-11-18T11:34:19.809575\"},\"public_notes\":[],\"arxiv_eprints\":[],\"source\":\"Elsevier\"},\"journal_coverage\":null,\"classifier_results\":null,\"relevance_prediction\":null,\"reference_count\":null,\"matches\":null,\"id\":\"a0a228e6-b73c-4e17-9fb8-066652e0913b\",\"workflow_type\":\"HEP_CREATE\",\"decisions\":[{\"action\":\"withdrawn\",\"user\":{\"email\":\"admin@admin.com\"}}],\"status\":\"completed\",\"_created_at\":\"2024-11-25T13:49:53.009000+00:00\",\"_updated_at\":\"2024-11-25T13:49:54.756000+00:00\"}},{\"_index\":\"backoffice-backend-local-hep-workflows\",\"_id\":\"31a4423c-be2d-4817-9669-9adb0195b7d1\",\"_score\":0.0,\"_source\":{\"data\":{\"core\":true,\"titles\":[{\"title\":\"Microcanonical
+        Operator Spectrum, BPS Chaos and Free Probability Theory\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"full_name\":\"Belin,
+        Alexandre\"},{\"full_name\":\"Fu, Yichao\"},{\"full_name\":\"La Rocca, Federico\"}],\"curated\":false,\"figures\":[{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/0_SpinhalfDOFandFreeCompressionalpha001.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/0_SpinhalfDOFandFreeCompressionalpha001.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpinhalfDOFandFreeCompressionalpha001.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/1_SpacspinhalfGUEN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/1_SpacspinhalfGUEN1000alpha001Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpacspinhalfGUEN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/2_SFFspinhalfN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/2_SFFspinhalfN1000alpha001Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SFFspinhalfN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/3_SpinhalfDOFandFreeCompressionalpha025.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/3_SpinhalfDOFandFreeCompressionalpha025.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpinhalfDOFandFreeCompressionalpha025.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/4_SpacspinhalfGUEN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/4_SpacspinhalfGUEN1000alpha025Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpacspinhalfGUEN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/5_SFFspinhalfN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/5_SFFspinhalfN1000alpha025Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SFFspinhalfN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/6_SpinhalfDOFandFreeCompressionalpha05.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/6_SpinhalfDOFandFreeCompressionalpha05.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpinhalfDOFandFreeCompressionalpha05.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/7_SpacspinhalfGUEN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/7_SpacspinhalfGUEN1000alpha05Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SpacspinhalfGUEN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/8_SFFspinhalfN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/8_SFFspinhalfN1000alpha05Avg1000.png\",\"label\":\"fig:spin_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction (blue) of (\\\\ref{Spin_trunc}). Central column: the normalized
+        spacing distribution of $O_K$ (orange), and of the GUE (green). Right column:
+        the connected SFF for $O_K$ (blue), and for the GUE (red).\",\"filename\":\"SFFspinhalfN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/9_SpinhalfDOFandFreeCompressionalpha075.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/9_SpinhalfDOFandFreeCompressionalpha075.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SpinhalfDOFandFreeCompressionalpha075.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/10_SpacspinhalfGUEN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/10_SpacspinhalfGUEN1000alpha075Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SpacspinhalfGUEN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/11_SFFspinhalfN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/11_SFFspinhalfN1000alpha075Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SFFspinhalfN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/12_SpinhalfDOFandFreeCompressionalpha099.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/12_SpinhalfDOFandFreeCompressionalpha099.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SpinhalfDOFandFreeCompressionalpha099.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/13_SpacspinhalfGUEN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/13_SpacspinhalfGUEN1000alpha099Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SpacspinhalfGUEN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/14_SFFspinhalfN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/14_SFFspinhalfN1000alpha099Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SFFspinhalfN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/15_rhospinhalfN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/15_rhospinhalfN1000alpha1Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"rhospinhalfN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/16_SpacspinhalfGUEN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/16_SpacspinhalfGUEN1000alpha1Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SpacspinhalfGUEN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/17_SFFspinhalfN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/17_SFFspinhalfN1000alpha1Avg1000.png\",\"label\":\"fig:spin_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1/2$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from (\\\\ref{Spin_trunc2nd}) (also from free compression in Section
+        \\\\ref{sec: FreeCompression} ). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red)\",\"filename\":\"SFFspinhalfN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/18_rhoflatN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/18_rhoflatN1000alpha001Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/19_SpacflatGUEN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/19_SpacflatGUEN1000alpha001Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/20_SFFflatN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/20_SFFflatN1000alpha001Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/21_rhoflatN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/21_rhoflatN1000alpha025Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/22_SpacflatGUEN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/22_SpacflatGUEN1000alpha025Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/23_SFFflatN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/23_SFFflatN1000alpha025Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/24_rhoflatN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/24_rhoflatN1000alpha05Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/25_SpacflatGUEN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/25_SpacflatGUEN1000alpha05Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/26_SFFflatN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/26_SFFflatN1000alpha05Avg1000.png\",\"label\":\"fig:nondeg\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized level density
+        (yellow). Central column: the normalized spacing distribution of $O_K$ (orange),
+        and of the GUE (green). Right column: the connected SFF for $O_K$ (blue),
+        and for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/27_rhoflatN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/27_rhoflatN1000alpha075Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/28_SpacflatGUEN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/28_SpacflatGUEN1000alpha075Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/29_SFFflatN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/29_SFFflatN1000alpha075Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/30_rhoflatN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/30_rhoflatN1000alpha099Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/31_SpacflatGUEN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/31_SpacflatGUEN1000alpha099Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/32_SFFflatN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/32_SFFflatN1000alpha099Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/33_rhoflatN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/33_rhoflatN1000alpha1Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"rhoflatN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/34_SpacflatGUEN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/34_SpacflatGUEN1000alpha1Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SpacflatGUEN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/35_SFFflatN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/35_SFFflatN1000alpha1Avg1000.png\",\"label\":\"fig:nondeg2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of a non-degenerate spectrum, for various values of
+        $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized level density (yellow).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). There is no eigenvalue recovery in this case.\",\"filename\":\"SFFflatN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/36_Annulus.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/36_Annulus.png\",\"label\":\"fig:annulus\",\"source\":\"arxiv\",\"caption\":\"Graphic
+        representation of the non-crossing permutation $(1,2,8,6,5)(3,4,7)$ on a $(5,3)$-annulus
+        as a partition.\",\"filename\":\"Annulus.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/37_Spin1DOFandFreeCompressionalpha001.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/37_Spin1DOFandFreeCompressionalpha001.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"Spin1DOFandFreeCompressionalpha001.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/38_SpacspinoneGUEN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/38_SpacspinoneGUEN1000alpha001Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/39_SFFspinoneN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/39_SFFspinoneN1000alpha001Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/40_Spin1DOFandFreeCompressionalpha025.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/40_Spin1DOFandFreeCompressionalpha025.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"Spin1DOFandFreeCompressionalpha025.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/41_SpacspinoneGUEN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/41_SpacspinoneGUEN1000alpha025Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/42_SFFspinoneN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/42_SFFspinoneN1000alpha025Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/43_Spin1DOFandFreeCompressionalpha05.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/43_Spin1DOFandFreeCompressionalpha05.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"Spin1DOFandFreeCompressionalpha05.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/44_SpacspinoneGUEN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/44_SpacspinoneGUEN1000alpha05Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/45_SFFspinoneN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/45_SFFspinoneN1000alpha05Avg1000.png\",\"label\":\"fig:spin1_stats\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha\\\\leq\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/46_Spin1DOFandFreeCompressionalpha075.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/46_Spin1DOFandFreeCompressionalpha075.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"Spin1DOFandFreeCompressionalpha075.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/47_SpacspinoneGUEN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/47_SpacspinoneGUEN1000alpha075Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/48_SFFspinoneN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/48_SFFspinoneN1000alpha075Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/49_Spin1DOFandFreeCompressionalpha099.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/49_Spin1DOFandFreeCompressionalpha099.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"Spin1DOFandFreeCompressionalpha099.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/50_SpacspinoneGUEN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/50_SpacspinoneGUEN1000alpha099Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/51_SFFspinoneN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/51_SFFspinoneN1000alpha099Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/52_rhospinoneN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/52_rhospinoneN1000alpha1Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"rhospinoneN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/53_SpacspinoneGUEN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/53_SpacspinoneGUEN1000alpha1Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SpacspinoneGUEN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/54_SFFspinoneN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/54_SFFspinoneN1000alpha1Avg1000.png\",\"label\":\"fig:spin1_stats2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics for the projected spin-$1$ operator for different values of $\\\\alpha>\\\\frac{1}{2}$.
+        Left column: the numerically normalized level density (yellow), the theoretical
+        prediction from free compression in Appendix \\\\ref{App: DOS for spin1}.
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red)\",\"filename\":\"SFFspinoneN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/55_SpinhalfBDOFandFreeCompressionalpha001.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/55_SpinhalfBDOFandFreeCompressionalpha001.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpinhalfBDOFandFreeCompressionalpha001.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/56_SpacspinhalfBGUEN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/56_SpacspinhalfBGUEN1000alpha001Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/57_SFFspinhalfBN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/57_SFFspinhalfBN1000alpha001Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SFFspinhalfBN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/58_SpinhalfBDOFandFreeCompressionalpha025.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/58_SpinhalfBDOFandFreeCompressionalpha025.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpinhalfBDOFandFreeCompressionalpha025.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/59_SpacspinhalfBGUEN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/59_SpacspinhalfBGUEN1000alpha025Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/60_SFFspinhalfBN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/60_SFFspinhalfBN1000alpha025Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SFFspinhalfBN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/61_SpinhalfBDOFandFreeCompressionalpha05.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/61_SpinhalfBDOFandFreeCompressionalpha05.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpinhalfBDOFandFreeCompressionalpha05.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/62_SpacspinhalfBGUEN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/62_SpacspinhalfBGUEN1000alpha05Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/63_SFFspinhalfBN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/63_SFFspinhalfBN1000alpha05Avg1000.png\",\"label\":\"fig:2eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the numerical normalized
+        level density (yellow), the theoretical prediction of (\\\\ref{2eigdistr})
+        (also from free compression in Section \\\\ref{sec: FreeCompression}) (blue).
+        Central column: the normalized spacing distribution of $O_K$ (orange), and
+        of the GUE (green). Right column: the connected SFF for $O_K$ (blue), and
+        for the GUE (red). In red, we highlight the values of $\\\\alpha$ for which
+        the transition occurs.\",\"filename\":\"SFFspinhalfBN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/64_SpinhalfBDOFandFreeCompressionalpha075.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/64_SpinhalfBDOFandFreeCompressionalpha075.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SpinhalfBDOFandFreeCompressionalpha075.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/65_SpacspinhalfBGUEN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/65_SpacspinhalfBGUEN1000alpha075Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/66_SFFspinhalfBN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/66_SFFspinhalfBN1000alpha075Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SFFspinhalfBN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/67_SpinhalfBDOFandFreeCompressionalpha099.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/67_SpinhalfBDOFandFreeCompressionalpha099.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SpinhalfBDOFandFreeCompressionalpha099.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/68_SpacspinhalfBGUEN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/68_SpacspinhalfBGUEN1000alpha099Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/69_SFFspinhalfBN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/69_SFFspinhalfBN1000alpha099Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SFFspinhalfBN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/70_rhospinhalfBN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/70_rhospinhalfBN1000alpha1Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"rhospinhalfBN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/71_SpacspinhalfBGUEN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/71_SpacspinhalfBGUEN1000alpha1Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SpacspinhalfBGUEN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/72_SFFspinhalfBN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/72_SFFspinhalfBN1000alpha1Avg1000.png\",\"label\":\"fig:2eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of two different multiplicities, for various values
+        of $\\\\alpha>\\\\frac{1}{2}$. Left column: the numerical normalized level
+        density (yellow), the theoretical prediction of (\\\\ref{2eigdistr}) (also
+        from free compression in Section \\\\ref{sec: FreeCompression}) (blue). Central
+        column: the normalized spacing distribution of $O_K$ (orange), and of the
+        GUE (green). Right column: the connected SFF for $O_K$ (blue), and for the
+        GUE (red). In red, we highlight the values of $\\\\alpha$ for which the transition
+        occurs.\",\"filename\":\"SFFspinhalfBN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/73_rho4eigN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/73_rho4eigN1000alpha001Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/74_Spac4eigGUEN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/74_Spac4eigGUEN1000alpha001Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/75_SFF4eigN1000alpha001Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/75_SFF4eigN1000alpha001Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha001Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/76_rho4eigN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/76_rho4eigN1000alpha025Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/77_Spac4eigGUEN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/77_Spac4eigGUEN1000alpha025Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/78_SFF4eigN1000alpha025Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/78_SFF4eigN1000alpha025Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha025Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/79_rho4eigN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/79_rho4eigN1000alpha05Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/80_Spac4eigGUEN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/80_Spac4eigGUEN1000alpha05Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/81_SFF4eigN1000alpha05Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/81_SFF4eigN1000alpha05Avg1000.png\",\"label\":\"fig:4eigop\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha\\\\leq\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha05Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/82_rho4eigN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/82_rho4eigN1000alpha075Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/83_Spac4eigGUEN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/83_Spac4eigGUEN1000alpha075Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/84_SFF4eigN1000alpha075Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/84_SFF4eigN1000alpha075Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha075Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/85_rho4eigN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/85_rho4eigN1000alpha099Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/86_Spac4eigGUEN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/86_Spac4eigGUEN1000alpha099Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/87_SFF4eigN1000alpha099Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/87_SFF4eigN1000alpha099Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha099Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/88_rho4eigN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/88_rho4eigN1000alpha1Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"rho4eigN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/89_Spac4eigGUEN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/89_Spac4eigGUEN1000alpha1Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"Spac4eigGUEN1000alpha1Avg1000.png\",\"material\":\"preprint\"},{\"key\":\"31a4423c-be2d-4817-9669-9adb0195b7d1/plots/90_SFF4eigN1000alpha1Avg1000.png\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/plots/90_SFF4eigN1000alpha1Avg1000.png\",\"label\":\"fig:4eigop2\",\"source\":\"arxiv\",\"caption\":\"Different
+        statistics in the case of four eigenvalues with different multiplicities,
+        for various values of $\\\\alpha>\\\\frac{1}{2}$. Left column: the normalized
+        level density (yellow). Central column: the normalized spacing distribution
+        of $O_K$ (orange), and of the GUE (green). Right column: the connected SFF
+        for $O_K$ (blue), and for the GUE (red). In red, we highlight the values of
+        $\\\\alpha$ for which the transition occurs.\",\"filename\":\"SFF4eigN1000alpha1Avg1000.png\",\"material\":\"preprint\"}],\"license\":[{\"url\":\"http://arxiv.org/licenses/nonexclusive-distrib/1.0/\",\"license\":\"arXiv
+        nonexclusive-distrib 1.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"Matrix
+        elements of simple operators are central to thermalization in chaotic quantum
+        many-body systems. Their moments are often described statistically through
+        the Eigenstate Thermalization Hypothesis. In this paper, we study a more refined
+        characterization of these matrix elements: the eigenspectrum of simple operators
+        once projected to microcanonical energy windows. The spectrum encodes all
+        moments of the matrix elements at once, and is particularly relevant when
+        the spectrum of the Hamiltonian is degenerate. Assuming that the eigenbasis
+        of the simple operator is Haar-randomly oriented with respect to that of the
+        Hamiltonian, we prove that the spectrum of an operator projected to a small
+        microcanonical window obeys Gaussian random matrix statistics. We do this
+        directly by studying the probability distribution inherited from the random
+        orientation, as well as using tools from Free Probability Theory. We discuss
+        the implications for BPS chaos and more generally for eigenstate thermalization.\",\"source\":\"arXiv\"}],\"documents\":[{\"key\":\"2609.22422.pdf\",\"url\":\"http://s3:9000/data-store/31a4423c-be2d-4817-9669-9adb0195b7d1/documents/2609.22422.pdf\",\"hidden\":true,\"source\":\"arxiv\",\"fulltext\":true,\"material\":\"preprint\",\"original_url\":\"https://arxiv.org/pdf/2609.22422\"}],\"references\":[{\"raw_refs\":[{\"value\":\"[1]
+        J. M. Deutsch, \u201CQuantum statistical mechanics in a closed system,\u201D
+        Phys. Rev. A 43 (Feb, 1991) 2046\u20132049.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"J.
+        M\"],\"urls\":[{\"value\":\"https://link.aps.org/doi/10.1103/PhysRevA.43.2046\"}],\"label\":\"1\",\"title\":{\"title\":\"Quantum
+        statistical mechanics in a closed system\"},\"texkey\":\"PhysRevA.43.2046\",\"imprint\":{\"publisher\":\"Deutsch\"},\"publication_info\":{\"year\":1991,\"page_end\":\"2049\",\"page_start\":\"2046\",\"journal_title\":\"Phys.Rev.A\",\"journal_volume\":\"43\"}}},{\"raw_refs\":[{\"value\":\"[2]
+        M. Srednicki, \u201CChaos and quantum thermalization,\u201D Phys. Rev. E 50
+        (Aug, 1994) 888\u2013901.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"urls\":[{\"value\":\"https://link.aps.org/doi/10.1103/PhysRevE.50.888\"}],\"label\":\"2\",\"title\":{\"title\":\"Chaos
+        and quantum thermalization\"},\"texkey\":\"PhysRevE.50.888\",\"authors\":[{\"full_name\":\"Srednicki,
+        M.\"}],\"publication_info\":{\"year\":1994,\"page_end\":\"901\",\"page_start\":\"888\",\"journal_title\":\"Phys.Rev.E\",\"journal_volume\":\"50\"}}},{\"raw_refs\":[{\"value\":\"[3]
+        L. D\u2019Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, \u201CFrom quantum
+        chaos and eigenstate thermalization to statistical mechanics and thermodynamics,\u201D
+        Adv. Phys. 65 no. 3, (2016) 239\u2013362, arXiv:1509.06411 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1080/00018732.2016.1198134\"],\"misc\":[\"Adv.
+        Phys. 65 no. 3,  239-362\"],\"label\":\"3\",\"title\":{\"title\":\"From quantum
+        chaos and eigenstate thermalization to statistical mechanics and thermodynamics\"},\"texkey\":\"DAlessio:2015qtq\",\"authors\":[{\"full_name\":\"D'Alessio,
+        L.\"},{\"full_name\":\"Kafri, Y.\"},{\"full_name\":\"Polkovnikov, A.\"},{\"full_name\":\"Rigol,
+        M.\"}],\"arxiv_eprint\":\"1509.06411\",\"publication_info\":{\"year\":2016}}},{\"raw_refs\":[{\"value\":\"[4]
+        L. Foini and J. Kurchan, \u201CEigenstate thermalization hypothesis and out
+        of time order correlators,\u201D Phys. Rev. E 99 no. 4, (2019) 042139, arXiv:1803.10658
+        [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevE.99.042139\"],\"label\":\"4\",\"title\":{\"title\":\"Eigenstate
+        thermalization hypothesis and out of time order correlators\"},\"texkey\":\"Foini:2018sdb\",\"authors\":[{\"full_name\":\"Foini,
+        L.\"},{\"full_name\":\"Kurchan, J.\"}],\"arxiv_eprint\":\"1803.10658\",\"publication_info\":{\"year\":2019,\"artid\":\"042139\",\"journal_title\":\"Phys.Rev.E\",\"journal_volume\":\"99\"}}},{\"raw_refs\":[{\"value\":\"[5]
+        A. Chan, A. De Luca, and J. T. Chalker, \u201CEigenstate Correlations, Thermalization
+        and the Butterfly Effect,\u201D Phys. Rev. Lett. 122 no. 22, (2019) 220601,
+        arXiv:1810.11014 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevLett.122.220601\"],\"label\":\"5\",\"title\":{\"title\":\"Eigenstate
+        Correlations, Thermalization and the Butterfly Effect\"},\"texkey\":\"Chan:2018fsp\",\"authors\":[{\"full_name\":\"Chan,
+        A.\"},{\"full_name\":\"De Luca, A.\"},{\"full_name\":\"Chalker, J.T.\"}],\"arxiv_eprint\":\"1810.11014\",\"publication_info\":{\"year\":2019,\"artid\":\"220601\",\"journal_title\":\"Phys.Rev.Lett.\",\"journal_volume\":\"122\"}}},{\"raw_refs\":[{\"value\":\"[6]
+        C. Murthy and M. Srednicki, \u201CBounds on chaos from the eigenstate thermalization
+        hypothesis,\u201D Phys. Rev. Lett. 123 no. 23, (2019) 230606, arXiv:1906.10808
+        [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevLett.123.230606\"],\"label\":\"6\",\"title\":{\"title\":\"Bounds
+        on chaos from the eigenstate thermalization hypothesis\"},\"texkey\":\"Murthy:2019fgs\",\"authors\":[{\"full_name\":\"Murthy,
+        C.\"},{\"full_name\":\"Srednicki, M.\"}],\"arxiv_eprint\":\"1906.10808\",\"publication_info\":{\"year\":2019,\"artid\":\"230606\",\"journal_title\":\"Phys.Rev.Lett.\",\"journal_volume\":\"123\"}}},{\"raw_refs\":[{\"value\":\"[7]
+        A. Belin, J. de Boer, and D. Liska, \u201CNon-Gaussianities in the Statistical
+        Distribution of Heavy OPE Coefficients and Wormholes,\u201D arXiv:2110.14649
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"7\",\"title\":{\"title\":\"Non-Gaussianities
+        in the Statistical Distribution of Heavy OPE Coefficients and Wormholes\"},\"texkey\":\"Belin:2021ryy\",\"authors\":[{\"full_name\":\"Belin,
+        A.\"},{\"full_name\":\"de Boer, J.\"},{\"full_name\":\"Liska, D.\"}],\"arxiv_eprint\":\"2110.14649\"}},{\"raw_refs\":[{\"value\":\"[8]
+        T. Anous, A. Belin, J. de Boer, and D. Liska, \u201COPE statistics from higher-point
+        crossing,\u201D JHEP 06 (2022) 102, arXiv:2112.09143 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP06(2022)102\"],\"label\":\"8\",\"title\":{\"title\":\"OPE
+        statistics from higher-point crossing\"},\"texkey\":\"Anous:2021caj\",\"authors\":[{\"full_name\":\"Anous,
+        T.\"},{\"full_name\":\"Belin, A.\"},{\"full_name\":\"de Boer, J.\"},{\"full_name\":\"Liska,
+        D.\"}],\"arxiv_eprint\":\"2112.09143\",\"publication_info\":{\"year\":2022,\"artid\":\"102\",\"page_start\":\"102\",\"journal_title\":\"JHEP\",\"journal_volume\":\"06\"}}},{\"raw_refs\":[{\"value\":\"[9]
+        J. Richter, A. Dymarsky, R. Steinigeweg, and J. Gemmer, \u201CEigenstate thermalization
+        hypothesis beyond standard indicators: Emergence of random-matrix behavior
+        at small frequencies,\u201D Phys. Rev. E 102 no. 4, (2020) 042127, arXiv:2007.15070
+        [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevE.102.042127\"],\"label\":\"9\",\"title\":{\"title\":\"Eigenstate
+        thermalization hypothesis beyond standard indicators: Emergence of random-matrix
+        behavior at small frequencies\"},\"texkey\":\"Richter:2020bkf\",\"authors\":[{\"full_name\":\"Richter,
+        J.\"},{\"full_name\":\"Dymarsky, A.\"},{\"full_name\":\"Steinigeweg, R.\"},{\"full_name\":\"Gemmer,
+        J.\"}],\"arxiv_eprint\":\"2007.15070\",\"publication_info\":{\"year\":2020,\"artid\":\"042127\",\"journal_title\":\"Phys.Rev.E\",\"journal_volume\":\"102\"}}},{\"raw_refs\":[{\"value\":\"[10]
+        J. Wang, M. H. Lamann, J. Richter, R. Steinigeweg, A. Dymarsky, and J. Gemmer,
+        \u201CEigenstate Thermalization Hypothesis and Its Deviations from Random-Matrix
+        Theory beyond the Thermalization Time,\u201D Phys. Rev. Lett. 128 no. 18,
+        (2022) 180601, arXiv:2110.04085 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevLett.128.180601\"],\"label\":\"10\",\"title\":{\"title\":\"Eigenstate
+        Thermalization Hypothesis and Its Deviations from Random-Matrix Theory beyond
+        the Thermalization Time\"},\"texkey\":\"Wang:2021mtp\",\"authors\":[{\"full_name\":\"Wang,
+        J.\"},{\"full_name\":\"Lamann, M.H.\"},{\"full_name\":\"Richter, J.\"},{\"full_name\":\"Steinigeweg,
+        R.\"},{\"full_name\":\"Dymarsky, A.\"},{\"full_name\":\"Gemmer, J.\"}],\"arxiv_eprint\":\"2110.04085\",\"publication_info\":{\"year\":2022,\"artid\":\"180601\",\"journal_title\":\"Phys.Rev.Lett.\",\"journal_volume\":\"128\"}}},{\"raw_refs\":[{\"value\":\"[11]
+        J. Wang, J. Richter, M. H. Lamann, R. Steinigeweg, J. Gemmer, and A. Dymarsky,
+        \u201CEmergence of unitary symmetry of microcanonically truncated operators
+        in chaotic quantum systems,\u201D Phys. Rev. E 110 no. 3, (2024) L032203,
+        arXiv:2310.20264 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevE.110.L032203\"],\"label\":\"11\",\"title\":{\"title\":\"Emergence
+        of unitary symmetry of microcanonically truncated operators in chaotic quantum
+        systems\"},\"texkey\":\"Wang:2023qon\",\"authors\":[{\"full_name\":\"Wang,
+        J.\"},{\"full_name\":\"Richter, J.\"},{\"full_name\":\"Lamann, M.H.\"},{\"full_name\":\"Steinigeweg,
+        R.\"},{\"full_name\":\"Gemmer, J.\"},{\"full_name\":\"Dymarsky, A.\"}],\"arxiv_eprint\":\"2310.20264\",\"publication_info\":{\"year\":2024,\"artid\":\"L032203\",\"journal_title\":\"Phys.Rev.E\",\"journal_volume\":\"110\"}}},{\"raw_refs\":[{\"value\":\"[12]
+        A. Dymarsky and H. Liu, \u201CNew characteristic of quantum many-body chaotic
+        systems,\u201D Phys. Rev. E 99 no. 1, (2019) 010102, arXiv:1702.07722 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.2307/2372387\",\"10.1103/PhysRevE.99.010102\",\"10.1063/1.524438\"],\"label\":\"12\",\"title\":{\"title\":\"New
+        characteristic of quantum many-body chaotic systems\"},\"texkey\":\"Dymarsky:2017zoc\",\"authors\":[{\"full_name\":\"Dymarsky,
+        A.\"},{\"full_name\":\"Liu, H.\"}],\"arxiv_eprint\":\"1702.07722\",\"publication_info\":{\"year\":2019,\"artid\":\"010102\",\"journal_title\":\"Phys.Rev.E\",\"journal_volume\":\"99\"}}},{\"raw_refs\":[{\"value\":\"[13]
+        F. Iniguez and M. Srednicki, \u201CMicrocanonical truncations of observables
+        in quantum chaotic systems,\u201D arXiv preprint arXiv:2305.15702 (2023) .\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"arXiv
+        preprint\"],\"label\":\"13\",\"title\":{\"title\":\"Microcanonical truncations
+        of observables in quantum chaotic systems\"},\"texkey\":\"SredIni\",\"authors\":[{\"full_name\":\"Iniguez,
+        F.\"},{\"full_name\":\"Srednicki, M.\"}],\"arxiv_eprint\":\"2305.15702\",\"publication_info\":{\"year\":2023}}},{\"raw_refs\":[{\"value\":\"[14]
+        D. L. Jafferis, D. K. Kolchmeyer, B. Mukhametzhanov, and J. Sonner, \u201CMatrix
+        Models for Eigenstate Thermalization,\u201D Phys. Rev. X 13 no. 3, (2023)
+        031033, arXiv:2209.02130 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"14\",\"title\":{\"title\":\"Matrix
+        Models for Eigenstate Thermalization\"},\"texkey\":\"Jafferis:2022uhu\",\"authors\":[{\"full_name\":\"Jafferis,
+        D.L.\"},{\"full_name\":\"Kolchmeyer, D.K.\"},{\"full_name\":\"Mukhametzhanov,
+        B.\"},{\"full_name\":\"Sonner, J.\"}],\"arxiv_eprint\":\"2209.02130\",\"publication_info\":{\"year\":2023,\"artid\":\"031033\",\"journal_title\":\"Phys.Rev.X\",\"journal_volume\":\"13\"}}},{\"raw_refs\":[{\"value\":\"[15]
+        D. L. Jafferis, D. K. Kolchmeyer, B. Mukhametzhanov, and J. Sonner, \u201CJackiw-Teitelboim
+        gravity with matter, generalized eigenstate thermalization hypothesis, and
+        random matrices,\u201D Phys. Rev. D 108 no. 6, (2023) 066015, arXiv:2209.02131
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"15\",\"title\":{\"title\":\"Jackiw-Teitelboim
+        gravity with matter, generalized eigenstate thermalization hypothesis, and
+        random matrices\"},\"texkey\":\"Jafferis:2022wez\",\"authors\":[{\"full_name\":\"Jafferis,
+        D.L.\"},{\"full_name\":\"Kolchmeyer, D.K.\"},{\"full_name\":\"Mukhametzhanov,
+        B.\"},{\"full_name\":\"Sonner, J.\"}],\"arxiv_eprint\":\"2209.02131\",\"publication_info\":{\"year\":2023,\"artid\":\"066015\",\"journal_title\":\"Phys.Rev.D\",\"journal_volume\":\"108\"}}},{\"raw_refs\":[{\"value\":\"[16]
+        H. W. Lin, J. Maldacena, L. Rozenberg, and J. Shan, \u201CHolography for people
+        with no time,\u201D SciPost Phys. 14 no. 6, (2023) 150, arXiv:2207.00407 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"SciPost
+        Phys. 14 no. 6,  150\"],\"label\":\"16\",\"title\":{\"title\":\"Holography
+        for people with no time\"},\"texkey\":\"Lin:2022rzw\",\"authors\":[{\"full_name\":\"Lin,
+        H.W.\"},{\"full_name\":\"Maldacena, J.\"},{\"full_name\":\"Rozenberg, L.\"},{\"full_name\":\"Shan,
+        J.\"}],\"arxiv_eprint\":\"2207.00407\",\"publication_info\":{\"year\":2023}}},{\"raw_refs\":[{\"value\":\"[17]
+        H. W. Lin, J. Maldacena, L. Rozenberg, and J. Shan, \u201CLooking at supersymmetric
+        black holes for a very long time,\u201D SciPost Phys. 14 no. 5, (2023) 128,
+        arXiv:2207.00408 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"SciPost
+        Phys. 14 no. 5,  128\"],\"label\":\"17\",\"title\":{\"title\":\"Looking at
+        supersymmetric black holes for a very long time\"},\"texkey\":\"Lin:2022zxd\",\"authors\":[{\"full_name\":\"Lin,
+        H.W.\"},{\"full_name\":\"Maldacena, J.\"},{\"full_name\":\"Rozenberg, L.\"},{\"full_name\":\"Shan,
+        J.\"}],\"arxiv_eprint\":\"2207.00408\",\"publication_info\":{\"year\":2023}}},{\"raw_refs\":[{\"value\":\"[18]
+        Y. Chen, H. W. Lin, and S. H. Shenker, \u201CBPS Chaos,\u201D arXiv:2407.19387
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"18\",\"title\":{\"title\":\"BPS
+        Chaos\"},\"texkey\":\"Chen:2024oqv\",\"authors\":[{\"full_name\":\"Chen, Y.\"},{\"full_name\":\"Lin,
+        H.W.\"},{\"full_name\":\"Shenker, S.H.\"}],\"arxiv_eprint\":\"2407.19387\"}},{\"raw_refs\":[{\"value\":\"[19]
+        R. Gopakumar and D. J. Gross, \u201CMastering the master field,\u201D Nucl.
+        Phys. B 451 (1995) 379\u2013415, arXiv:hep-th/9411021.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Nucl.
+        Phys. B 451  379-415, arXiv:\"],\"label\":\"19\",\"title\":{\"title\":\"Mastering
+        the master field\"},\"texkey\":\"Gopakumar:1994iq\",\"authors\":[{\"full_name\":\"Gopakumar,
+        R.\"},{\"full_name\":\"Gross, D.J.\"}],\"arxiv_eprint\":\"hep-th/9411021\",\"publication_info\":{\"year\":1995}}},{\"raw_refs\":[{\"value\":\"[20]
+        J. Wang, \u201CBeyond islands: a free probabilistic approach,\u201D JHEP 10
+        (2023) 040, arXiv:2209.10546 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"20\",\"title\":{\"title\":\"Beyond
+        islands: a free probabilistic approach\"},\"texkey\":\"Wang:2022ots\",\"authors\":[{\"full_name\":\"Wang,
+        J.\"}],\"arxiv_eprint\":\"2209.10546\",\"publication_info\":{\"year\":2023,\"artid\":\"040\",\"page_start\":\"040\",\"journal_title\":\"JHEP\",\"journal_volume\":\"10\"}}},{\"raw_refs\":[{\"value\":\"[21]
+        H. A. Camargo, Y. Fu, V. Jahnke, K.-Y. Kim, and K. Pal, \u201CQuantum signatures
+        of chaos from free probability,\u201D JHEP 10 (2025) 138, arXiv:2503.20338
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"21\",\"title\":{\"title\":\"Quantum
+        signatures of chaos from free probability\"},\"texkey\":\"Camargo:2025zxr\",\"authors\":[{\"full_name\":\"Camargo,
+        H.A.\"},{\"full_name\":\"Fu, Y.\"},{\"full_name\":\"Jahnke, V.\"},{\"full_name\":\"Kim,
+        K.-Y.\"},{\"full_name\":\"Pal, K.\"}],\"arxiv_eprint\":\"2503.20338\",\"publication_info\":{\"year\":2025,\"artid\":\"138\",\"page_start\":\"138\",\"journal_title\":\"JHEP\",\"journal_volume\":\"10\"}}},{\"raw_refs\":[{\"value\":\"[22]
+        S. Pappalardi, L. Foini, and J. Kurchan, \u201CEigenstate Thermalization Hypothesis
+        and Free Probability,\u201D Phys. Rev. Lett. 129 no. 17, (2022) 170603, arXiv:2204.11679
+        [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"22\",\"title\":{\"title\":\"Eigenstate
+        Thermalization Hypothesis and Free Probability\"},\"texkey\":\"Pappalardi:2022aaz\",\"authors\":[{\"full_name\":\"Pappalardi,
+        S.\"},{\"full_name\":\"Foini, L.\"},{\"full_name\":\"Kurchan, J.\"}],\"arxiv_eprint\":\"2204.11679\",\"publication_info\":{\"year\":2022,\"artid\":\"170603\",\"journal_title\":\"Phys.Rev.Lett.\",\"journal_volume\":\"129\"}}},{\"raw_refs\":[{\"value\":\"[23]
+        M. Fava, J. Kurchan, and S. Pappalardi, \u201CDesigns via Free Probability,\u201D
+        Phys. Rev. X 15 no. 1, (2025) 011031, arXiv:2308.06200 [quant-ph].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"23\",\"title\":{\"title\":\"Designs
+        via Free Probability\"},\"texkey\":\"Fava:2023pac\",\"authors\":[{\"full_name\":\"Fava,
+        M.\"},{\"full_name\":\"Kurchan, J.\"},{\"full_name\":\"Pappalardi, S.\"}],\"arxiv_eprint\":\"2308.06200\",\"publication_info\":{\"year\":2025,\"artid\":\"011031\",\"journal_title\":\"Phys.Rev.X\",\"journal_volume\":\"15\"}}},{\"raw_refs\":[{\"value\":\"[24]
+        E. Vallini, L. Foini, and S. Pappalardi, \u201CRefinements of the Eigenstate
+        Thermalization Hypothesis under Local Rotational Invariance via Free Probability,\u201D
+        arXiv:2511.23217 [cond-mat.stat-mech].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"24\",\"title\":{\"title\":\"Refinements
+        of the Eigenstate Thermalization Hypothesis under Local Rotational Invariance
+        via Free Probability\"},\"texkey\":\"Vallini:2025vvq\",\"authors\":[{\"full_name\":\"Vallini,
+        E.\"},{\"full_name\":\"Foini, L.\"},{\"full_name\":\"Pappalardi, S.\"}],\"arxiv_eprint\":\"2511.23217\"}},{\"raw_refs\":[{\"value\":\"[25]
+        L. Zhang, \u201CDirac Delta Function of Matrix Argument,\u201D Int. J. Theor.
+        Phys. 60 (2021) 2445\u20132472, arXiv:1607.02871 [quant-ph].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Int.
+        J\",\"Theor. Phys. 60  2445-2472\"],\"label\":\"25\",\"title\":{\"title\":\"Dirac
+        Delta Function of Matrix Argument\"},\"texkey\":\"Zhang:2016mdq\",\"authors\":[{\"full_name\":\"Zhang,
+        L.\"}],\"arxiv_eprint\":\"1607.02871\",\"publication_info\":{\"year\":2021}}},{\"raw_refs\":[{\"value\":\"[26]
+        J. Zhang, M. Kieburg, and P. J. Forrester, \u201CHarmonic analysis for rank-1
+        randomised horn problems,\u201D Letters in Mathematical Physics 111 (2019)
+        .\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Letters
+        in Mathematical Physics 111\"],\"label\":\"26\",\"title\":{\"title\":\"Harmonic
+        analysis for rank-1 randomised horn problems\"},\"texkey\":\"Zhang2019HarmonicAF\",\"authors\":[{\"full_name\":\"Zhang,
+        J.\"},{\"full_name\":\"Kieburg, M.\"},{\"full_name\":\"Forrester, P.J.\"}],\"publication_info\":{\"year\":2019}}},{\"raw_refs\":[{\"value\":\"[27]
+        Harish-Chandra, \u201CDifferential Operators on a Semisimple Lie Algebra,\u201D
+        Am. J. Math. 79 no. 1, (1957) 87.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Harish-Chandra\",\"Am\",\"79
+        no. 1,  87\"],\"label\":\"27\",\"title\":{\"title\":\"Differential Operators
+        on a Semisimple Lie Algebra\"},\"texkey\":\"Harish-Chandra:1957dhy\",\"authors\":[{\"full_name\":\"Math,
+        J.\"}],\"publication_info\":{\"year\":1957}}},{\"raw_refs\":[{\"value\":\"[28]
+        C. Itzykson and J. B. Zuber, \u201CThe Planar Approximation. 2.,\u201D J.
+        Math. Phys. 21 (1980) 411.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"J.
+        Math\",\"Phys. 21  411\"],\"label\":\"28\",\"title\":{\"title\":\"The Planar
+        Approximation. 2.\"},\"texkey\":\"Itzykson:1979fi\",\"authors\":[{\"full_name\":\"Itzykson,
+        C.\"},{\"full_name\":\"Zuber, J.B.\"}],\"publication_info\":{\"year\":1980}}},{\"raw_refs\":[{\"value\":\"[29]
+        J. Faraut, \u201CRayleigh theorem, projection of orbital measures and spline
+        functions,\u201D Advances in Pure and Applied Mathematics 6 no. 4, (2015)
+        261\u2013283.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1515/apam-2015-5012\"],\"misc\":[\"Advances
+        in Pure and Applied Mathematics 6 no. 4,  261-283\"],\"label\":\"29\",\"title\":{\"title\":\"Rayleigh
+        theorem, projection of orbital measures and spline functions\"},\"texkey\":\"Faraut2015\",\"authors\":[{\"full_name\":\"Faraut,
+        J.\"}],\"publication_info\":{\"year\":2015}}},{\"raw_refs\":[{\"value\":\"[30]
+        C. Andre\u0301ief, \u201CNote sur une relation entre les inte\u0301grales
+        de\u0301finies des produits des fonctions,\u201D Me\u0301m. de la Soc. Sci.
+        Bordeaux 2 no. 1, (1883) 1\u201314.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Mem.
+        de la Soc. Sci. Bordeaux 2 no. 1, (1883) 1-14\"],\"label\":\"30\",\"title\":{\"title\":\"Note
+        sur une relation entre les integrales definies des produits des fonctions\"},\"texkey\":\"andreief1883note\",\"authors\":[{\"full_name\":\"Andreief,
+        C.\"}]}},{\"raw_refs\":[{\"value\":\"[31] C. De Boor, A Practical Guide to
+        Splines. Applied Mathematical Sciences. Springer New York, 1978.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"to
+        Splines. Applied Mathematical Sciences\",\"New York\"],\"label\":\"31\",\"texkey\":\"de1978practical\",\"authors\":[{\"full_name\":\"De
+        Boor, C.\"},{\"full_name\":\"Guide, A. Practical\"}],\"imprint\":{\"publisher\":\"Springer\"},\"publication_info\":{\"year\":1978}}},{\"raw_refs\":[{\"value\":\"[32]
+        J. W. Lindeberg, \u201CEine neue herleitung des exponentialgesetzes in der
+        wahrscheinlichkeitsrechnung,\u201D Mathematische Zeitschrift 15 (1922) 211\u2013225.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Mathematische
+        Zeitschrift 15  211-225\"],\"label\":\"32\",\"title\":{\"title\":\"Eine neue
+        herleitung des exponentialgesetzes in der wahrscheinlichkeitsrechnung\"},\"texkey\":\"Lindeberg1922EineNH\",\"authors\":[{\"full_name\":\"Lindeberg,
+        J.W.\"}],\"publication_info\":{\"year\":1922}}},{\"raw_refs\":[{\"value\":\"[33]
+        M. A. Unser, A. Aldroubi, and M. Eden, \u201COn the asymptotic convergence
+        of b-spline wavelets to gabor functions,\u201D IEEE Trans. Inf. Theory 38
+        (1992) 864\u2013872.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Trans.
+        Inf. Theory 38  864-872\"],\"label\":\"33\",\"title\":{\"title\":\"On the
+        asymptotic convergence of b-spline wavelets to gabor functions\"},\"texkey\":\"Unser1992OnTA\",\"authors\":[{\"full_name\":\"Unser,
+        M.A.\"},{\"full_name\":\"Aldroubi, A.\"},{\"full_name\":\"Eden, M.\"}],\"imprint\":{\"publisher\":\"IEEE\"},\"publication_info\":{\"year\":1992}}},{\"raw_refs\":[{\"value\":\"[34]
+        T. Tao, Topics in Random Matrix Theory. Graduate Studies in Mathematics. American
+        Mathematical Society, 2023.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Topics
+        in Random Matrix Theory. Graduate Studies in Mathematics. American Mathematical
+        Society\"],\"label\":\"34\",\"texkey\":\"tao2023topics\",\"authors\":[{\"full_name\":\"Tao,
+        T.\"}],\"publication_info\":{\"year\":2023}}},{\"raw_refs\":[{\"value\":\"[35]
+        B. Collins, \u201CMoments and cumulants of polynomial random variables on
+        unitarygroups, the itzykson-zuber integral, and free probability,\u201D International
+        Mathematics Research Notices 2003 no. 17, (2003) 953\u2013982.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"International
+        Mathematics Research Noticesno. 17,  953-982\"],\"label\":\"35\",\"title\":{\"title\":\"Moments
+        and cumulants of polynomial random variables on unitarygroups, the itzykson-zuber
+        integral, and free probability\"},\"texkey\":\"collins2003moments\",\"authors\":[{\"full_name\":\"Collins,
+        B.\"}],\"publication_info\":{\"year\":2003}}},{\"raw_refs\":[{\"value\":\"[36]
+        M. Mehta, Random Matrices. Pure and Applied Mathematics. Academic Press, 2004.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Random
+        Matrices. Pure and Applied Mathematics\",\"Press\"],\"label\":\"36\",\"texkey\":\"mehta2004random\",\"authors\":[{\"full_name\":\"Mehta,
+        M.\"}],\"imprint\":{\"publisher\":\"Academic\"},\"publication_info\":{\"year\":2004}}},{\"raw_refs\":[{\"value\":\"[37]
+        P. M. Bleher, \u201CLectures on random matrix models: the riemann\u2013hilbert
+        approach,\u201D in Random Matrices, Random Processes and Integrable Systems,
+        pp. 251\u2013349. Springer, 2011.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"in
+        Random Matrices, Random Processes and Integrable Systems, pp. 251-349\"],\"label\":\"37\",\"title\":{\"title\":\"Lectures
+        on random matrix models: the riemann-hilbert approach\"},\"texkey\":\"bleher2011lectures\",\"authors\":[{\"full_name\":\"Bleher,
+        P.M.\"}],\"imprint\":{\"publisher\":\"Springer\"},\"publication_info\":{\"year\":2011}}},{\"raw_refs\":[{\"value\":\"[38]
+        F. J. Dyson, \u201CCorrelations between the eigenvalues of a random matrix,\u201D
+        Commun. Math. Phys. 19 no. 3, (1970) 235\u2013250.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/BF01646824\"],\"misc\":[\"Commun.
+        Math. Phys. 19 no. 3,  235-250\"],\"label\":\"38\",\"title\":{\"title\":\"Correlations
+        between the eigenvalues of a random matrix\"},\"texkey\":\"Dyson:1970tza\",\"authors\":[{\"full_name\":\"Dyson,
+        F.J.\"}],\"publication_info\":{\"year\":1970}}},{\"raw_refs\":[{\"value\":\"[39]
+        E. Brezin and A. Zee, \u201CUniversality of the correlations between eigenvalues
+        of large random matrices,\u201D Nucl. Phys. B 402 (1993) 613\u2013627.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1109/18.985948\",\"10.1016/0550-3213(93)90121-5\"],\"misc\":[\"Nucl.
+        Phys. B 402  613-627\"],\"label\":\"39\",\"title\":{\"title\":\"Universality
+        of the correlations between eigenvalues of large random matrices\"},\"texkey\":\"Brezin:1993qg\",\"authors\":[{\"full_name\":\"Brezin,
+        E.\"},{\"full_name\":\"Zee, A.\"}],\"arxiv_eprint\":\"quant-ph/0103098\",\"publication_info\":{\"year\":1993}}},{\"raw_refs\":[{\"value\":\"[40]
+        P. Bleher and A. Its, \u201CSemiclassical asymptotics of orthogonal polynomials,
+        riemann-hilbert problem, and universality in the matrix model,\u201D Annals
+        of Mathematics (1999) 185\u2013266.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1103/PhysRevA.80.012304\"],\"misc\":[\"Annals
+        of Mathematics  185-266\"],\"label\":\"40\",\"title\":{\"title\":\"Semiclassical
+        asymptotics of orthogonal polynomials, riemann-hilbert problem, and universality
+        in the matrix model\"},\"texkey\":\"bleher1999semiclassical\",\"authors\":[{\"full_name\":\"Bleher,
+        P.\"},{\"full_name\":\"Its, A.\"}],\"arxiv_eprint\":\"quant-ph/0606161\",\"publication_info\":{\"year\":1999}}},{\"raw_refs\":[{\"value\":\"[41]
+        B. Collins, \u201CProduct of random projections, jacobi ensembles and universality
+        problems arising from free probability,\u201D Probability theory and related
+        fields 133 no. 3, (2005) 315\u2013344.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP12(2022)069\"],\"misc\":[\"Probability
+        theory and related fields 133 no. 3,  315-344\"],\"label\":\"41\",\"title\":{\"title\":\"Product
+        of random projections, jacobi ensembles and universality problems arising
+        from free probability\"},\"texkey\":\"collins2005product\",\"authors\":[{\"full_name\":\"Collins,
+        B.\"}],\"arxiv_eprint\":\"2203.06511\",\"publication_info\":{\"year\":2005}}},{\"raw_refs\":[{\"value\":\"[42]
+        R. Durrett, Probability: Theory and Examples. Cambridge Series in Statistical
+        and Probabilistic Mathematics. Cambridge University Press, 5 ed., 2019.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Probability:
+        Theory and Examples. Cambridge Series in Statistical and Probabilistic Mathematics.
+        Cambridge University Press, 5 ed\"],\"label\":\"42\",\"texkey\":\"Durrett_2019\",\"authors\":[{\"full_name\":\"Durrett,
+        R.\"}],\"arxiv_eprint\":\"2203.06511\",\"publication_info\":{\"year\":2019}}},{\"raw_refs\":[{\"value\":\"[43]
+        J. A. Mingo and R. Speicher, Free probability and random matrices, vol. 35.
+        Springer, 2017.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP09(2024)163\"],\"misc\":[\"Free
+        probability and random matrices, vol. 35\"],\"label\":\"43\",\"texkey\":\"MinSpei\",\"authors\":[{\"full_name\":\"Mingo,
+        J.A.\"},{\"full_name\":\"Speicher, R.\"}],\"imprint\":{\"publisher\":\"Springer\"},\"arxiv_eprint\":\"2308.03829\",\"publication_info\":{\"year\":2017}}},{\"raw_refs\":[{\"value\":\"[44]
+        D. Voiculescu, \u201CSymmetries of some reduced free product c*-algebras,\u201D
+        in Operator Algebras and their Connections with Topology and Ergodic Theory:
+        Proceedings of the OATE Conference held in Bus\u0327teni, Romania, Aug. 29\u2013Sept.
+        9, 1983, pp. 556\u2013588, Springer. 2006.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP02(2024)003\",\"10.1007/JHEP02(2025)208\"],\"misc\":[\"in
+        Operator Algebras and their Connections with Topology and Ergodic Theory:
+        Proceedings of the OATE Conference held in Bus\u0327teni, Romania, Aug. 29-Sept.
+        9, 1983, pp. 556-588\"],\"label\":\"44\",\"title\":{\"title\":\"Symmetries
+        of some reduced free product c*-algebras\"},\"texkey\":\"Voi2\",\"authors\":[{\"full_name\":\"Voiculescu,
+        D.\"}],\"imprint\":{\"publisher\":\"Springer\"},\"arxiv_eprint\":\"2407.02649\",\"publication_info\":{\"year\":2006}}},{\"raw_refs\":[{\"value\":\"[45]
+        D. Voiculescu, \u201CMultiplication of certain non-commuting random variables,\u201D
+        Journal of Operator Theory (1987) 223\u2013235.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Journal
+        of Operator Theory  223-235\"],\"label\":\"45\",\"title\":{\"title\":\"Multiplication
+        of certain non-commuting random variables\"},\"texkey\":\"Voi\",\"authors\":[{\"full_name\":\"Voiculescu,
+        D.\"}],\"publication_info\":{\"year\":1987}}},{\"raw_refs\":[{\"value\":\"[46]
+        A. Nica and R. Speicher, Lectures on the Combinatorics of Free Probability.
+        London Mathematical Society Lecture Note Series. Cambridge University Press,
+        2006.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Lectures
+        on the Combinatorics of Free Probability. London Mathematical Society Lecture
+        Note Series. Cambridge University Press\"],\"label\":\"46\",\"texkey\":\"Nica_Speicher_2006\",\"authors\":[{\"full_name\":\"Nica,
+        A.\"},{\"full_name\":\"Speicher, R.\"}],\"publication_info\":{\"year\":2006}}},{\"raw_refs\":[{\"value\":\"[47]
+        B. Collins, J. A. Mingo, P. S\u0301niady, and R. Speicher, \u201CSecond order
+        freeness and fluctuations of random matrices. iii: Higher order freeness and
+        free cumulants,\u201D Documenta Mathematica 12 (2007) 1\u201370.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"P.
+        S\u0301niady, and R. Speicher\",\"Documenta Mathematica 12  1-70\"],\"label\":\"47\",\"title\":{\"title\":\"Second
+        order freeness and fluctuations of random matrices. iii: Higher order freeness
+        and free cumulants\"},\"texkey\":\"MinSpeiCol\",\"authors\":[{\"full_name\":\"Collins,
+        B.\"},{\"full_name\":\"Mingo, J.A.\"}],\"publication_info\":{\"year\":2007}}},{\"raw_refs\":[{\"value\":\"[48]
+        P. Drube and P. Pongtanapaisan, \u201CAnnular non-crossing matchings,\u201D
+        arXiv preprint arXiv:1508.01712 (2015) .\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"arXiv
+        preprint\"],\"label\":\"48\",\"title\":{\"title\":\"Annular non-crossing matchings\"},\"texkey\":\"Dru\",\"authors\":[{\"full_name\":\"Drube,
+        P.\"},{\"full_name\":\"Pongtanapaisan, P.\"}],\"arxiv_eprint\":\"1508.01712\",\"publication_info\":{\"year\":2015}}},{\"raw_refs\":[{\"value\":\"[49]
+        D. Voiculescu, \u201CAddition of certain non-commuting random variables,\u201D
+        Journal of Functional Analysis 66 (1986) 323\u2013346.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Journal
+        of Functional Analysis 66  323-346\"],\"label\":\"49\",\"title\":{\"title\":\"Addition
+        of certain non-commuting random variables\"},\"texkey\":\"Voiculescu1986AdditionOC\",\"authors\":[{\"full_name\":\"Voiculescu,
+        D.\"}],\"publication_info\":{\"year\":1986}}},{\"raw_refs\":[{\"value\":\"[50]
+        S. T. Belinschi and H. Bercovici, \u201CA new approach to subordination results
+        in free probability,\u201D Journal d\u2019Analyse Mathe\u0301matique 101 (2007)
+        357\u2013365.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Journal
+        d\u2019Analyse Mathe\u0301matique 101  357-365\"],\"label\":\"50\",\"title\":{\"title\":\"A
+        new approach to subordination results in free probability\"},\"texkey\":\"belinschi2007new\",\"authors\":[{\"full_name\":\"Belinschi,
+        S.T.\"},{\"full_name\":\"Bercovici, H.\"}],\"publication_info\":{\"year\":2007}}},{\"raw_refs\":[{\"value\":\"[51]
+        Y. Chen, S. Colin-Ellerin, O. Mamroud, and K. Papadodimas, \u201CChaos of
+        Berry curvature for BPS microstates,\u201D arXiv:2604.23287 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"51\",\"title\":{\"title\":\"Chaos
+        of Berry curvature for BPS microstates\"},\"texkey\":\"Chen:2026vml\",\"authors\":[{\"full_name\":\"Chen,
+        Y.\"},{\"full_name\":\"Colin-Ellerin, S.\"},{\"full_name\":\"Mamroud, O.\"},{\"full_name\":\"Papadodimas,
+        K.\"}],\"arxiv_eprint\":\"2604.23287\"}},{\"raw_refs\":[{\"value\":\"[52]
+        A. Belin, S. Bintanja, A. Gnecchi, D. R. Musk, and K. Papadodimas, \u201CA
+        1/4-BPS chiral algebra in D1D5: from charge concentration to BPS chaos,\u201D
+        arXiv:2609.00131 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"52\",\"title\":{\"title\":\"A
+        1/4-BPS chiral algebra in D1D5: from charge concentration to BPS chaos\"},\"texkey\":\"Belin:2026vfd\",\"authors\":[{\"full_name\":\"Belin,
+        A.\"},{\"full_name\":\"Bintanja, S.\"},{\"full_name\":\"Gnecchi, A.\"},{\"full_name\":\"Musk,
+        D.R.\"},{\"full_name\":\"Papadodimas, K.\"}],\"arxiv_eprint\":\"2609.00131\"}},{\"raw_refs\":[{\"value\":\"[53]
+        S. Khamnei and K. Papadodimas, \u201Cunpublished,\u201D.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"53\",\"title\":{\"title\":\"unpublished\"},\"texkey\":\"kyriakosunpublished\",\"authors\":[{\"full_name\":\"Khamnei,
+        S.\"},{\"full_name\":\"Papadodimas, K.\"}]}},{\"raw_refs\":[{\"value\":\"[54]
+        D. A. Roberts and B. Yoshida, \u201CChaos and complexity by design,\u201D
+        JHEP 04 (2017) 121, arXiv:1610.04903 [quant-ph].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"54\",\"title\":{\"title\":\"Chaos
+        and complexity by design\"},\"texkey\":\"Roberts:2016hpo\",\"authors\":[{\"full_name\":\"Roberts,
+        D.A.\"},{\"full_name\":\"Yoshida, B.\"}],\"arxiv_eprint\":\"1610.04903\",\"publication_info\":{\"year\":2017,\"artid\":\"121\",\"page_start\":\"121\",\"journal_title\":\"JHEP\",\"journal_volume\":\"04\"}}},{\"raw_refs\":[{\"value\":\"[55]
+        D. P. DiVincenzo, D. W. Leung, and B. M. Terhal, \u201CQuantum data hiding,\u201D
+        IEEE Trans. Info. Theor. 48 no. 3, (2002) 580\u2013598, arXiv:quant-ph/0103098.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Trans.
+        Info. Theor. 48 no. 3,  580-598, arXiv:\"],\"label\":\"55\",\"title\":{\"title\":\"Quantum
+        data hiding\"},\"texkey\":\"DiVincenzo:2001lru\",\"authors\":[{\"full_name\":\"DiVincenzo,
+        D.P.\"},{\"full_name\":\"Leung, D.W.\"},{\"full_name\":\"Terhal, B.M.\"}],\"imprint\":{\"publisher\":\"IEEE\"},\"arxiv_eprint\":\"quant-ph/0103098\",\"publication_info\":{\"year\":2002}}},{\"raw_refs\":[{\"value\":\"[56]
+        C. Dankert, R. Cleve, J. Emerson, and E. Livine, \u201CExact and approximate
+        unitary 2-designs and their application to fidelity estimation,\u201D Phys.
+        Rev. A 80 no. 1, (2009) 012304, arXiv:quant-ph/0606161.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"arXiv:\"],\"label\":\"56\",\"title\":{\"title\":\"Exact
+        and approximate unitary 2-designs and their application to fidelity estimation\"},\"texkey\":\"Dankert:2009yux\",\"authors\":[{\"full_name\":\"Dankert,
+        C.\"},{\"full_name\":\"Cleve, R.\"},{\"full_name\":\"Emerson, J.\"},{\"full_name\":\"Livine,
+        E.\"}],\"arxiv_eprint\":\"quant-ph/0606161\",\"publication_info\":{\"year\":2009,\"artid\":\"012304\",\"journal_title\":\"Phys.Rev.A\",\"journal_volume\":\"80\"}}},{\"raw_refs\":[{\"value\":\"[57]
+        A. Belin and J. de Boer, \u201CRandom Statistics of OPE Coefficients and Euclidean
+        Wormholes,\u201D arXiv:2006.05499 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"57\",\"title\":{\"title\":\"Random
+        Statistics of OPE Coefficients and Euclidean Wormholes\"},\"texkey\":\"Belin:2020hea\",\"authors\":[{\"full_name\":\"Belin,
+        A.\"},{\"full_name\":\"de Boer, J.\"}],\"arxiv_eprint\":\"2006.05499\"}},{\"raw_refs\":[{\"value\":\"[58]
+        J. Chandra, S. Collier, T. Hartman, and A. Maloney, \u201CSemiclassical 3D
+        gravity as an average of large-c CFTs,\u201D JHEP 12 (2022) 069, arXiv:2203.06511
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"58\",\"title\":{\"title\":\"Semiclassical
+        3D gravity as an average of large-c CFTs\"},\"texkey\":\"Chandra:2022bqq\",\"authors\":[{\"full_name\":\"Chandra,
+        J.\"},{\"full_name\":\"Collier, S.\"},{\"full_name\":\"Hartman, T.\"},{\"full_name\":\"Maloney,
+        A.\"}],\"arxiv_eprint\":\"2203.06511\",\"publication_info\":{\"year\":2022,\"artid\":\"069\",\"page_start\":\"069\",\"journal_title\":\"JHEP\",\"journal_volume\":\"12\"}}},{\"raw_refs\":[{\"value\":\"[59]
+        A. Belin, J. de Boer, D. L. Jafferis, P. Nayak, and J. Sonner, \u201CApproximate
+        CFTs and random tensor models,\u201D JHEP 09 (2024) 163, arXiv:2308.03829
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"59\",\"title\":{\"title\":\"Approximate
+        CFTs and random tensor models\"},\"texkey\":\"Belin:2023efa\",\"authors\":[{\"full_name\":\"Belin,
+        A.\"},{\"full_name\":\"de Boer, J.\"},{\"full_name\":\"Jafferis, D.L.\"},{\"full_name\":\"Nayak,
+        P.\"},{\"full_name\":\"Sonner, J.\"}],\"arxiv_eprint\":\"2308.03829\",\"publication_info\":{\"year\":2024,\"artid\":\"163\",\"page_start\":\"163\",\"journal_title\":\"JHEP\",\"journal_volume\":\"09\"}}},{\"raw_refs\":[{\"value\":\"[60]
+        D. L. Jafferis, L. Rozenberg, and G. Wong, \u201C3d gravity as a random ensemble,\u201D
+        JHEP 02 (2025) 208, arXiv:2407.02649 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"60\",\"title\":{\"title\":\"3d
+        gravity as a random ensemble\"},\"texkey\":\"Jafferis:2025vyp\",\"authors\":[{\"full_name\":\"Jafferis,
+        D.L.\"},{\"full_name\":\"Rozenberg, L.\"},{\"full_name\":\"Wong, G.\"}],\"arxiv_eprint\":\"2407.02649\",\"publication_info\":{\"year\":2025,\"artid\":\"208\",\"page_start\":\"208\",\"journal_title\":\"JHEP\",\"journal_volume\":\"02\"}}},{\"raw_refs\":[{\"value\":\"[61]
+        J. de Boer, D. Liska, B. Post, and M. Sasieta, \u201CA principle of maximum
+        ignorance for semiclassical gravity,\u201D JHEP 2024 (2024) 003, arXiv:2311.08132
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"61\",\"title\":{\"title\":\"A
+        principle of maximum ignorance for semiclassical gravity\"},\"texkey\":\"deBoer:2023vsm\",\"authors\":[{\"full_name\":\"de
+        Boer, J.\"},{\"full_name\":\"Liska, D.\"},{\"full_name\":\"Post, B.\"},{\"full_name\":\"Sasieta,
+        M.\"}],\"arxiv_eprint\":\"2311.08132\",\"publication_info\":{\"year\":2024,\"artid\":\"003\",\"page_start\":\"003\",\"journal_title\":\"JHEP\",\"journal_volume\":\"24\"}}},{\"raw_refs\":[{\"value\":\"[62]
+        S. Collier, L. Eberhardt, and M. Zhang, \u201CSolving 3d gravity with Virasoro
+        TQFT,\u201D SciPost Phys. 15 no. 4, (2023) 151, arXiv:2304.13650 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.21468/SciPostPhys.15.4.151\"],\"misc\":[\"SciPost
+        Phys. 15 no. 4,  151\"],\"label\":\"62\",\"title\":{\"title\":\"Solving 3d
+        gravity with Virasoro TQFT\"},\"texkey\":\"Collier:2023fwi\",\"authors\":[{\"full_name\":\"Collier,
+        S.\"},{\"full_name\":\"Eberhardt, L.\"},{\"full_name\":\"Zhang, M.\"}],\"arxiv_eprint\":\"2304.13650\",\"publication_info\":{\"year\":2023}}},{\"raw_refs\":[{\"value\":\"[63]
+        S. Collier, L. Eberhardt, and M. Zhang, \u201C3d gravity from Virasoro TQFT:
+        Holography, wormholes and knots,\u201D SciPost Phys. 17 (2024) 134, arXiv:2401.13900
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.21468/SciPostPhys.17.5.134\"],\"misc\":[\"SciPost
+        Phys. 17  134\"],\"label\":\"63\",\"title\":{\"title\":\"3d gravity from Virasoro
+        TQFT: Holography, wormholes and knots\"},\"texkey\":\"Collier:2024mgv\",\"authors\":[{\"full_name\":\"Collier,
+        S.\"},{\"full_name\":\"Eberhardt, L.\"},{\"full_name\":\"Zhang, M.\"}],\"arxiv_eprint\":\"2401.13900\",\"publication_info\":{\"year\":2024}}},{\"raw_refs\":[{\"value\":\"[64]
+        J. de Boer, D. Liska, and B. Post, \u201CMultiboundary wormholes and OPE statistics,\u201D
+        JHEP 10 (2024) 207, arXiv:2405.13111 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP10(2024)207\"],\"label\":\"64\",\"title\":{\"title\":\"Multiboundary
+        wormholes and OPE statistics\"},\"texkey\":\"deBoer:2024mqg\",\"authors\":[{\"full_name\":\"de
+        Boer, J.\"},{\"full_name\":\"Liska, D.\"},{\"full_name\":\"Post, B.\"}],\"arxiv_eprint\":\"2405.13111\",\"publication_info\":{\"year\":2024,\"artid\":\"207\",\"page_start\":\"207\",\"journal_title\":\"JHEP\",\"journal_volume\":\"10\"}}},{\"raw_refs\":[{\"value\":\"[65]
+        J. de Boer, J. Kames-King, and B. Post, \u201CSurgery and statistics in 3d
+        gravity,\u201D arXiv:2506.04151 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"65\",\"title\":{\"title\":\"Surgery
+        and statistics in 3d gravity\"},\"texkey\":\"deBoer:2025rct\",\"authors\":[{\"full_name\":\"de
+        Boer, J.\"},{\"full_name\":\"Kames-King, J.\"},{\"full_name\":\"Post, B.\"}],\"arxiv_eprint\":\"2506.04151\"}},{\"raw_refs\":[{\"value\":\"[66]
+        T. Hartman, \u201CTriangulating quantum gravity in AdS3,\u201D arXiv:2507.12696
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"66\",\"title\":{\"title\":\"Triangulating
+        quantum gravity in AdS3\"},\"texkey\":\"Hartman:2025ula\",\"authors\":[{\"full_name\":\"Hartman,
+        T.\"}],\"arxiv_eprint\":\"2507.12696\"}},{\"raw_refs\":[{\"value\":\"[67]
+        T. Hartman, \u201CConformal Turaev-Viro Theory,\u201D arXiv:2507.11652 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"67\",\"title\":{\"title\":\"Conformal
+        Turaev-Viro Theory\"},\"texkey\":\"Hartman:2025cyj\",\"authors\":[{\"full_name\":\"Hartman,
+        T.\"}],\"arxiv_eprint\":\"2507.11652\"}},{\"raw_refs\":[{\"value\":\"[68]
+        J. Chandra, \u201CStatistics in 3d gravity from knots and links,\u201D arXiv:2508.10864
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"68\",\"title\":{\"title\":\"Statistics
+        in 3d gravity from knots and links\"},\"texkey\":\"Chandra:2025fef\",\"authors\":[{\"full_name\":\"Chandra,
+        J.\"}],\"arxiv_eprint\":\"2508.10864\"}},{\"raw_refs\":[{\"value\":\"[69]
+        J. Chandra, T. Hartman, and V. Meruliya, \u201CStatistics of three-dimensional
+        black holes from Liouville line defects,\u201D JHEP 11 (2024) 090, arXiv:2404.15183
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1007/JHEP11(2024)090\"],\"label\":\"69\",\"title\":{\"title\":\"Statistics
+        of three-dimensional black holes from Liouville line defects\"},\"texkey\":\"Chandra:2024vhm\",\"authors\":[{\"full_name\":\"Chandra,
+        J.\"},{\"full_name\":\"Hartman, T.\"},{\"full_name\":\"Meruliya, V.\"}],\"arxiv_eprint\":\"2404.15183\",\"publication_info\":{\"year\":2024,\"artid\":\"090\",\"page_start\":\"090\",\"journal_title\":\"JHEP\",\"journal_volume\":\"11\"}}},{\"raw_refs\":[{\"value\":\"[70]
+        L.-Y. Hung and Y. Jiang, \u201CBuilding up quantum spacetimes with BCFT Legos,\u201D
+        arXiv:2404.00877 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"70\",\"title\":{\"title\":\"Building
+        up quantum spacetimes with BCFT Legos\"},\"texkey\":\"Hung:2024gma\",\"authors\":[{\"full_name\":\"Hung,
+        L.-Y.\"},{\"full_name\":\"Jiang, Y.\"}],\"arxiv_eprint\":\"2404.00877\"}},{\"raw_refs\":[{\"value\":\"[71]
+        A. Belin, S. Collier, L. Eberhardt, D. Liska, and B. Post, \u201CA universal
+        sum over topologies in 3d gravity,\u201D SciPost Phys. 21 (2026) 017, arXiv:2601.07906
+        [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.21468/SciPostPhys.21.1.017\"],\"misc\":[\"SciPost
+        Phys. 21  017\"],\"label\":\"71\",\"title\":{\"title\":\"A universal sum over
+        topologies in 3d gravity\"},\"texkey\":\"Belin:2026pko\",\"authors\":[{\"full_name\":\"Belin,
+        A.\"},{\"full_name\":\"Collier, S.\"},{\"full_name\":\"Eberhardt, L.\"},{\"full_name\":\"Liska,
+        D.\"},{\"full_name\":\"Post, B.\"}],\"arxiv_eprint\":\"2601.07906\",\"publication_info\":{\"year\":2026}}},{\"raw_refs\":[{\"value\":\"[72]
+        D. L. Jafferis and D. Wang, \u201CThe many facets of a hyperbolic tetrahedron:
+        open and closed triangulations of 3d gravity,\u201D arXiv:2604.09396 [hep-th].\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"72\",\"title\":{\"title\":\"The
+        many facets of a hyperbolic tetrahedron: open and closed triangulations of
+        3d gravity\"},\"texkey\":\"Jafferis:2026gzn\",\"authors\":[{\"full_name\":\"Jafferis,
+        D.L.\"},{\"full_name\":\"Wang, D.\"}],\"arxiv_eprint\":\"2604.09396\"}},{\"raw_refs\":[{\"value\":\"[73]
+        B. Collins, R. Gurau, and L. Lionni, \u201CFree cumulants and freeness for
+        unitarily invariant random tensors,\u201D 2025. https://arxiv.org/abs/2410.00908.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"73\",\"title\":{\"title\":\"Free
+        cumulants and freeness for unitarily invariant random tensors\"},\"texkey\":\"collins2025freecumulantsfreenessunitarily\",\"authors\":[{\"full_name\":\"Collins,
+        B.\"},{\"full_name\":\"Gurau, R.\"},{\"full_name\":\"Lionni, L.\"}],\"arxiv_eprint\":\"2410.00908\",\"publication_info\":{\"year\":2025}}},{\"raw_refs\":[{\"value\":\"[74]
+        I. Nechita and S.-J. Park, \u201CTensor free probability theory: asymptotic
+        tensor freeness and central limit theorem,\u201D 2025. https://arxiv.org/abs/2504.01782.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"74\",\"title\":{\"title\":\"Tensor
+        free probability theory: asymptotic tensor freeness and central limit theorem\"},\"texkey\":\"nechita2025tensorfreeprobabilitytheory\",\"authors\":[{\"full_name\":\"Nechita,
+        I.\"},{\"full_name\":\"Park, S.-J.\"}],\"arxiv_eprint\":\"2504.01782\",\"publication_info\":{\"year\":2025}}},{\"raw_refs\":[{\"value\":\"[75]
+        R. Bonnin and C. Bordenave, \u201CFreeness for tensors,\u201D 2026. https://arxiv.org/abs/2407.18881.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"75\",\"title\":{\"title\":\"Freeness
+        for tensors\"},\"texkey\":\"bonnin2026freenesstensors\",\"authors\":[{\"full_name\":\"Bonnin,
+        R.\"},{\"full_name\":\"Bordenave, C.\"}],\"arxiv_eprint\":\"2407.18881\",\"publication_info\":{\"year\":2026}}},{\"raw_refs\":[{\"value\":\"[76]
+        D. Kunisky, C. Moore, and A. S. Wein, \u201CTensor cumulants for statistical
+        inference on invariant distributions,\u201D 2024. https://arxiv.org/abs/2404.18735.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"label\":\"76\",\"title\":{\"title\":\"Tensor
+        cumulants for statistical inference on invariant distributions\"},\"texkey\":\"kunisky2024tensorcumulantsstatisticalinference\",\"authors\":[{\"full_name\":\"Kunisky,
+        D.\"},{\"full_name\":\"Moore, C.\"},{\"full_name\":\"Wein, A.S.\"}],\"arxiv_eprint\":\"2404.18735\",\"publication_info\":{\"year\":2024}}},{\"raw_refs\":[{\"value\":\"[77]
+        C. Lancien, P. Oliveira Santos, and P. Youssef, \u201CCentral limit theorem
+        for tensor products of free variables,\u201D Canadian Journal of Mathematics
+        78 no. 3, (Dec., 2024) 913\u2013945.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.4153/S0008414X24001147\"],\"misc\":[\"Canadian
+        Journal of Mathematics 78 no. 3, (Dec.,) 913-945\"],\"label\":\"77\",\"title\":{\"title\":\"Central
+        limit theorem for tensor products of free variables\"},\"texkey\":\"Lancien_2024\",\"authors\":[{\"full_name\":\"Lancien,
+        C.\"},{\"full_name\":\"Santos, P. Oliveira\"},{\"full_name\":\"Youssef, P.\"}],\"publication_info\":{\"year\":2024}}},{\"raw_refs\":[{\"value\":\"[78]
+        R. C. Thompson, \u201CPrincipal submatrices of normal and hermitian matrices,\u201D
+        Illinois Journal of Mathematics 10 no. 2, (1966) 296\u2013308.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Illinois
+        Journal of Mathematics 10 no. 2,  296-308\"],\"label\":\"78\",\"title\":{\"title\":\"Principal
+        submatrices of normal and hermitian matrices\"},\"texkey\":\"Thomp\",\"authors\":[{\"full_name\":\"Thompson,
+        R.C.\"}],\"publication_info\":{\"year\":1966}}},{\"raw_refs\":[{\"value\":\"[79]
+        C. Charalambides, Enumerative Combinatorics. Discrete Mathematics and Its
+        Applications. Taylor & Francis, 2002.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enumerative
+        Combinatorics. Discrete Mathematics and Its Applications. Taylor & Francis\"],\"label\":\"79\",\"texkey\":\"charalambides2002enumerative\",\"authors\":[{\"full_name\":\"Charalambides,
+        C.\"}],\"publication_info\":{\"year\":2002}}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"43
+        pages + appendices. 11 figures\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2609.22422\",\"categories\":[\"hep-th\",\"cond-mat.str-el\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2026-09-18\",\"number_of_pages\":43,\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2026-09-22T13:09:54.717911+00:00\",\"submission_number\":\"manual__2026-09-22T13:09:41.387119+00:00\"},\"inspire_categories\":[{\"term\":\"Theory-HEP\",\"source\":\"arxiv\"},{\"term\":\"Condensed
+        Matter\",\"source\":\"arxiv\"}],\"control_number\":3115644,\"source\":\"arXiv\"},\"journal_coverage\":null,\"classifier_results\":{\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[],\"core_keywords\":[{\"number\":2,\"keyword\":\"supersymmetry\"},{\"number\":1,\"keyword\":\"quantum
+        information\"}],\"author_keywords\":[],\"single_keywords\":[{\"number\":32,\"keyword\":\"chaos\"},{\"number\":28,\"keyword\":\"statistics\"},{\"number\":23,\"keyword\":\"moment\"},{\"number\":21,\"keyword\":\"expansion
+        1/N\"},{\"number\":19,\"keyword\":\"Hamiltonian\"},{\"number\":13,\"keyword\":\"noncommutative\"},{\"number\":13,\"keyword\":\"correlation\"},{\"number\":12,\"keyword\":\"Wigner\"},{\"number\":10,\"keyword\":\"4/3\"},{\"number\":10,\"keyword\":\"BPS\"},{\"number\":8,\"keyword\":\"numerical
+        calculations\"},{\"number\":8,\"keyword\":\"universality\"},{\"number\":8,\"keyword\":\"algebra\"},{\"number\":7,\"keyword\":\"determinant\"},{\"number\":6,\"keyword\":\"form
+        factor\"},{\"number\":5,\"keyword\":\"circle\"},{\"number\":4,\"keyword\":\"rescaling\"},{\"number\":4,\"keyword\":\"rotation\"},{\"number\":3,\"keyword\":\"operator
+        product expansion\"},{\"number\":3,\"keyword\":\"two-point function\"}],\"composite_keywords\":[{\"number\":26,\"details\":[2,58],\"keyword\":\"matrix
+        model, random\"},{\"number\":9,\"details\":[13,134],\"keyword\":\"spin, operator\"},{\"number\":9,\"details\":[28,48],\"keyword\":\"multiplicity,
+        difference\"},{\"number\":5,\"details\":[134,48],\"keyword\":\"operator, spectrum\"},{\"number\":3,\"details\":[0,0],\"keyword\":\"field
+        theory, conformal\"},{\"number\":2,\"details\":[25,134],\"keyword\":\"unitarity,
+        operator\"},{\"number\":2,\"details\":[3,134],\"keyword\":\"fermion, operator\"},{\"number\":2,\"details\":[53,13],\"keyword\":\"density,
+        spectral\"},{\"number\":2,\"details\":[48,4],\"keyword\":\"spectrum, discrete\"},{\"number\":2,\"details\":[13,6],\"keyword\":\"spin,
+        high\"},{\"number\":1,\"details\":[53,8],\"keyword\":\"density, correlation
+        function\"},{\"number\":1,\"details\":[11,5],\"keyword\":\"Hilbert space,
+        dimension\"},{\"number\":1,\"details\":[13,1],\"keyword\":\"spin, chain\"},{\"number\":1,\"details\":[4,5],\"keyword\":\"scaling,
+        dimension\"},{\"number\":1,\"details\":[1,2],\"keyword\":\"symmetry, crossing\"}],\"filtered_core_keywords\":[{\"number\":2,\"keyword\":\"supersymmetry\"},{\"number\":1,\"keyword\":\"quantum
+        information\"}]}},\"relevance_prediction\":{\"scores\":{\"CORE\":0.6115317940711975,\"Non-CORE\":0.32769858837127686,\"Rejected\":0.06076962873339653},\"decision\":\"CORE\",\"max_score\":0.6115317940711975,\"relevance_score\":1.6115317940711975},\"reference_count\":null,\"matches\":null,\"id\":\"31a4423c-be2d-4817-9669-9adb0195b7d1\",\"workflow_type\":\"HEP_CREATE\",\"decisions\":[{\"action\":\"auto_accept_core\",\"user\":{\"email\":\"admin@admin.com\"}}],\"status\":\"completed\",\"_created_at\":\"2026-09-22T13:09:54.798496+00:00\",\"_updated_at\":\"2026-09-22T13:15:43.624952+00:00\"}}]}}"
+    headers:
+      X-OpenSearch-Version:
+      - OpenSearch/3.4.0 (opensearch)
+      content-length:
+      - '119897'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+version: 1

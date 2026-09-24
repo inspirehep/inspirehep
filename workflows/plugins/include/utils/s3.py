@@ -1,9 +1,12 @@
 import json
+import logging
 import uuid
 from urllib.parse import urlparse
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Variable
+
+logger = logging.getLogger(__name__)
 
 
 class S3JsonStore:
@@ -104,3 +107,14 @@ class S3JsonStore:
     def key_to_s3_url(self, key, bucket_name=None):
         s3_host = self.hook.conn.meta.endpoint_url
         return f"{s3_host}/{bucket_name or self.bucket_name}/{key}"
+
+    def cleanup_prefix(self, prefixes, bucket_name=None):
+        bucket = bucket_name or self.bucket_name
+        for prefix in prefixes:
+            logger.info("Cleaning up S3 prefix: %s in bucket: %s", prefix, bucket)
+            keys_to_delete = self.hook.list_keys(bucket, prefix)
+            logger.info(
+                "Found %s keys to delete for prefix: %s", len(keys_to_delete), prefix
+            )
+            if keys_to_delete:
+                self.hook.delete_objects(keys=keys_to_delete, bucket=bucket)
