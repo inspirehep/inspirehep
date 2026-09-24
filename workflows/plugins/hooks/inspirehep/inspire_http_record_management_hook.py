@@ -18,6 +18,21 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             endpoint=f"/api/{pid_type}/{control_number}",
         )
 
+    def patch_record(
+        self, data: list, pid_type: str, control_number: int, revision_id: int
+    ) -> Response:
+        patch_headers = {
+            "Content-Type": "application/json-patch+json",
+            "If-Match": f'"{revision_id - 1}"',
+        }
+        return self.run_with_advanced_retry(
+            _retry_args=self.tenacity_retry_kwargs,
+            method="PATCH",
+            headers=patch_headers,
+            json=data,
+            endpoint=f"/api/{pid_type}/{control_number}",
+        )
+
     def get_record(self, pid_type: str, control_number: int) -> Response:
         response = self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
