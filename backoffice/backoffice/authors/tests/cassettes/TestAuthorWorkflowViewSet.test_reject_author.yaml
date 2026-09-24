@@ -1,7 +1,8 @@
 interactions:
 - request:
-    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000000", "data": {"test": "test"}}}'
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "logical_date":
+      null, "conf": {"workflow_id": "00000000-0000-0000-0000-000000000000", "data":
+      {"test": "test", "ids": [{"value": "0009-0002-5467-525X", "schema": "ORCID"}]}}}'
     headers:
       Accept:
       - '*/*'
@@ -10,44 +11,34 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '145'
+      - '229'
       Content-Type:
       - application/json
     method: POST
     uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns
   response:
     body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:02.998654+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:02.998654+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:02.998654+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-18T11:55:02.998654+00:00\",\n  \"note\":
-        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
-        \"queued\"\n}\n"
+      string: '{"dag_run_id":"00000000-0000-0000-0000-000000000000","dag_id":"author_create_initialization_dag","logical_date":null,"queued_at":"2026-07-07T11:55:33.961612Z","start_date":null,"end_date":null,"duration":null,"data_interval_start":null,"data_interval_end":null,"run_after":"2026-07-07T11:55:33.957352Z","last_scheduling_decision":null,"run_type":"manual","state":"queued","triggered_by":"rest_api","triggering_user_name":"Anonymous","conf":{"workflow_id":"00000000-0000-0000-0000-000000000000","data":{"test":"test","ids":[{"value":"0009-0002-5467-525X","schema":"ORCID"}]}},"note":null,"dag_versions":[{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}],"bundle_version":null,"dag_display_name":"author_create_initialization_dag","partition_key":null}'
     headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '621'
-      Content-Type:
+      content-length:
+      - '975'
+      content-type:
       - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:03 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
+      date:
+      - Tue, 07 Jul 2026 11:55:33 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
     status:
       code: 200
       message: OK
 - request:
-    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000000", "data": {"value": "reject", "create_ticket":
-      true}}}'
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "dry_run": false,
+      "only_failed": false, "reset_dag_runs": true, "include_downstream": true, "task_ids":
+      ["await_author_check_approval"]}'
     headers:
       Accept:
       - '*/*'
@@ -56,72 +47,30 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '171'
+      - '191'
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_rejected_dag/dagRuns
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/clearTaskInstances
   response:
     body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"create_ticket\": true,\n
-        \     \"value\": \"reject\"\n    },\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n
-        \ },\n  \"dag_id\": \"author_create_rejected_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:03.150804+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:03.150804+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:03.150804+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-18T11:55:03.150804+00:00\",\n  \"note\":
-        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
-        \"queued\"\n}\n"
+      string: '{"task_instances":[{"id":"019f3c6e-faf0-7cf7-8a83-5ce80cced3e4","task_id":"create_author_on_inspire","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:33.999024Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"create_author_on_inspire","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":7,"operator":"_PythonDecoratedOperator","operator_name":"@task","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-faf3-7209-a093-6927b4cc2d1d","task_id":"close_author_create_user_ticket","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.002493Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"close_author_create_user_ticket","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":2,"operator":"_PythonDecoratedOperator","operator_name":"@task","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-faf5-7180-bf83-dba187efc27e","task_id":"await_author_check_approval","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.004243Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"await_author_check_approval","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":9,"operator":"_ShortCircuitDecoratedOperator","operator_name":"@task.short_circuit","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-faf6-761a-bb41-1cca08a1b552","task_id":"author_check_approval_branch","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.005836Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"author_check_approval_branch","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":8,"operator":"_BranchPythonDecoratedOperator","operator_name":"@task.branch","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-faf8-7147-847f-d013430284ee","task_id":"author_create_success_branch","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.007459Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"author_create_success_branch","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":6,"operator":"_BranchPythonDecoratedOperator","operator_name":"@task.branch","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-fafa-794a-a2da-e7717caf39a5","task_id":"author_check_approval_branch__1","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.009385Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"author_check_approval_branch__1","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":4,"operator":"_BranchPythonDecoratedOperator","operator_name":"@task.branch","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-fafc-76fc-bee9-9b61f1da7da3","task_id":"create_author_create_curation_ticket","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.011283Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"create_author_create_curation_ticket","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":3,"operator":"_PythonDecoratedOperator","operator_name":"@task","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-fafd-789b-ad88-519bf316d3c4","task_id":"set_author_create_workflow_status_to_completed","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.013046Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"set_author_create_workflow_status_to_completed","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":1,"operator":"_PythonDecoratedOperator","operator_name":"@task","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}},{"id":"019f3c6e-faff-70f8-8a5d-c41c85708576","task_id":"set_author_create_workflow_status_to_error","dag_id":"author_create_initialization_dag","dag_run_id":"00000000-0000-0000-0000-000000000000","map_index":-1,"logical_date":null,"run_after":"2026-07-07T11:55:33.957352Z","start_date":null,"end_date":"2026-07-07T11:55:34.014685Z","duration":null,"state":null,"try_number":0,"max_tries":0,"task_display_name":"set_author_create_workflow_status_to_error","dag_display_name":"author_create_initialization_dag","hostname":"","unixname":"airflow","pool":"default_pool","pool_slots":1,"queue":"default","priority_weight":1,"operator":"_PythonDecoratedOperator","operator_name":"@task","queued_when":null,"scheduled_when":null,"pid":null,"executor":null,"executor_config":"{}","note":null,"rendered_map_index":null,"rendered_fields":{},"trigger":null,"triggerer_job":null,"dag_version":{"id":"019f3b8f-c67a-73ee-8300-dd5aead850b9","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-07T07:51:46.043065Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}}],"total_entries":9,"next_cursor":null,"previous_cursor":null}'
     headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '647'
-      Content-Type:
+      content-length:
+      - '10373'
+      content-type:
       - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:03 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
+      date:
+      - Tue, 07 Jul 2026 11:55:33 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
     status:
       code: 200
       message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '0'
-    method: DELETE
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: ''
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:03 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 204
-      message: NO CONTENT
 - request:
     body: null
     headers:
@@ -139,19 +88,13 @@ interactions:
     body:
       string: ''
     headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Type:
+      content-type:
       - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:03 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
+      date:
+      - Tue, 07 Jul 2026 11:55:33 GMT
+      server:
+      - uvicorn
     status:
       code: 204
-      message: NO CONTENT
+      message: No Content
 version: 1
