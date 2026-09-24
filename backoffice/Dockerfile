@@ -1,10 +1,10 @@
-FROM registry.cern.ch/cern-sis/base-images/python:3.11.16-slim as python
+FROM registry.cern.ch/cern-sis/base-images/python:3.11.16-slim AS python
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
 
 ARG BUILD_ENVIRONMENT=production
-ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+ENV BUILD_ENV=${BUILD_ENVIRONMENT}
 
 ENV PATH="/root/.local/bin:${PATH}" \
     POETRY_VIRTUALENVS_CREATE=false \
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && rm -rf /var/lib/apt/lists/*
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-1.6.1}"
+ENV POETRY_VERSION="${POETRY_VERSION:-2.2.1}"
 RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
