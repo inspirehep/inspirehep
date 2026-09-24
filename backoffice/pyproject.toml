@@ -26,120 +26,38 @@ known-first-party = [
     "config",
 ]
 
-# ==== mypy ====
-[tool.mypy]
-python_version = "3.11"
-check_untyped_defs = true
-ignore_missing_imports = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_unused_configs = true
-plugins = [
-    "mypy_django_plugin.main",
-    "mypy_drf_plugin.main",
-]
-
-[[tool.mypy.overrides]]
-# Django migrations should not produce any errors:
-module = "*.migrations.*"
-ignore_errors = true
-
-[tool.django-stubs]
-django_settings_module = "config.settings.test"
-
-
-# ==== PyLint ====
-[tool.pylint.MASTER]
-load-plugins = [
-    "pylint_django",
-    "pylint_celery",
-]
-django-settings-module = "config.settings.local"
-
-[tool.pylint.FORMAT]
-max-line-length = 119
-
-[tool.pylint."MESSAGES CONTROL"]
-disable = [
-    "missing-docstring",
-    "invalid-name",
-]
-
-[tool.pylint.DESIGN]
-max-parents = 13
-
-[tool.pylint.TYPECHECK]
-generated-members = [
-    "REQUEST",
-    "acl_users",
-    "aq_parent",
-    "[a-zA-Z]+_set{1,2}",
-    "save",
-    "delete",
-]
-
-
-# ==== djLint ====
-[tool.djlint]
-blank_line_after_tag = "load,extends"
-close_void_tags = true
-format_css = true
-format_js = true
-# TODO: remove T002 when fixed https://github.com/Riverside-Healthcare/djLint/issues/687
-ignore = "H006,H030,H031,T002"
-include = "H017,H035"
-indent = 2
-max_line_length = 119
-profile = "django"
-
-[tool.djlint.css]
-indent_size = 2
-
-[tool.djlint.js]
-indent_size = 2
-
 [tool.poetry]
 name = "backoffice"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["inspire <admin@inspirehep.net.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.11"
-python-slugify = "8.0.1"
-Pillow = "10.0.1"
-argon2-cffi = "23.1.0"
-redis = "^6.2.0"
-hiredis = "2.2.3"
-celery = "5.3.4"
+argon2-cffi = "25.1.0"
+redis = "^8.1.0"
+hiredis = "3.4.2"
+celery = "5.6.3"
 django-celery-beat = "2.9.0"
-flower = "2.0.1"
-uvicorn = {version = "0.23.2", extras = ["standard"]}
 django = "^5.2.0"
-django-environ = "0.11.2"
-django-model-utils = "4.3.1"
-django-crispy-forms = "2.1"
-crispy-bootstrap5 = "0.7"
+django-environ = "0.14.0"
+django-crispy-forms = "2.7"
+crispy-bootstrap5 = "2026.9"
 django-redis = "^6.0.0"
-djangorestframework = "3.14.0"
-django-cors-headers = "4.2.0"
-drf-spectacular = "0.26.5"
-Werkzeug = {version = "3.0.0", extras = ["watchdog"]}
-ipdb = "0.13.13"
-psycopg = {version = "3.1.12", extras = ["c"]}
-watchfiles = "0.20.0"
-gunicorn = "21.2.0"
-Collectfast = "2.2.0"
-django-storages = {version = "1.14.2", extras = ["s3"]}
-django-anymail = "10.1"
-dj-database-url = "^2.1.0"
+djangorestframework = "3.18.1"
+django-cors-headers = "4.9.0"
+drf-spectacular = "0.30.0"
+psycopg = {version = "3.3.6", extras = ["c"]}
+gunicorn = "26.2.0"
+django-storages = {version = "1.14.6", extras = ["s3"]}
+django-anymail = "15.2"
+dj-database-url = "^3.1.2"
 whitenoise = "^6.7.0"
 django-prometheus = "^2.3.1"
-django-opensearch-dsl = "^0.6.2"
-elasticsearch = "6.8.2"
+django-opensearch-dsl = "^0.8.0"
 django-elasticsearch-dsl-drf = {git = "https://github.com/cern-sis/django-elasticsearch-dsl-drf.git", rev = "opensearch"}
 opensearch-dsl = "^2.1.0"
-opensearch-py = "3.1.0"
+opensearch-py = "3.2.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
 sentry-sdk = "^2.60.0"
@@ -147,27 +65,18 @@ django-allauth = {version = "65.0.1", extras = ["headless"]}
 inspire-schemas = "^61.6.33"
 inspire-utils = "^3.0.70"
 
-[tool.poetry.dev-dependencies]
-factory-boy = "3.3.0"
-mypy = "1.5.1"
-django-stubs = {version = "4.2.4", extras = ["compatible-mypy"]}
-pytest = "7.4.2"
-pytest-sugar = "0.9.7"
-djangorestframework-stubs = {version = "3.14.3", extras = ["compatible-mypy"]}
-flake8 = "6.1.0"
-flake8-isort = "6.1.0"
-coverage = "7.3.2"
-black = "23.10.0"
-djlint = "1.34.0"
-pylint-django = "2.5.3"
-pylint-celery = "0.3"
-pre-commit = "3.5.0"
+[tool.poetry.group.dev.dependencies]
+factory-boy = "3.3.3"
+pytest = "9.1.1"
+pytest-sugar = "1.1.1"
+coverage = "7.16.1"
+pre-commit = "4.6.2"
 django-debug-toolbar = "4.2.0"
 django-extensions = "3.2.3"
 django-coverage-plugin = "3.1.0"
-pytest-django = "4.5.2"
+pytest-django = "4.14.0"
 pytest-vcr = "^1.0.2"
-vcrpy = "^6.0.1"
+vcrpy = "^8.3.0"
 parameterized = "^0.9.0"
 
 [build-system]
