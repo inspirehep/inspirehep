@@ -3,29 +3,34 @@ import { fromJS } from 'immutable';
 import { getStore } from '../../../fixtures/store';
 import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
 import { renderWithProviders } from '../../../fixtures/render';
+import { LITERATURE_NS } from '../../../search/constants';
 
 describe('CitationSummaryTableContainer', () => {
   it('pass props from state', () => {
     const store = getStore({
       citations: fromJS({
-        loadingCitationSummary: false,
-        errorCitationSummary: null,
-        citationSummary: {
-          citations: {
-            buckets: {
-              all: { name: 'citeable' },
-              published: { name: 'published' },
+        namespaces: {
+          [LITERATURE_NS]: {
+            loadingCitationSummary: false,
+            errorCitationSummary: null,
+            citationSummary: {
+              citations: {
+                buckets: {
+                  all: { name: 'citeable' },
+                  published: { name: 'published' },
+                },
+              },
+              'h-index': {
+                value: { name: 'h-index' },
+              },
             },
-          },
-          'h-index': {
-            value: { name: 'h-index' },
           },
         },
       }),
     });
 
     const screen = renderWithProviders(
-      <CitationSummaryTableContainer />,
+      <CitationSummaryTableContainer namespace={LITERATURE_NS} />,
       store
     );
 

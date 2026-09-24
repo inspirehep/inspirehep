@@ -44,7 +44,10 @@ describe('citations - async action creator', () => {
         type: types.CITATIONS_SUMMARY_REQUEST,
         payload: { namespace },
       },
-      { type: types.CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
+      {
+        type: types.CITATIONS_SUMMARY_SUCCESS,
+        payload: { foo: 'bar', namespace },
+      },
     ];
 
     await store.dispatch(fetchCitationSummary(namespace));
@@ -85,6 +88,7 @@ describe('citations - async action creator', () => {
         type: types.CITATIONS_SUMMARY_ERROR,
         payload: {
           error: { status: 404, message: 'Error' },
+          namespace,
         },
       },
     ];
