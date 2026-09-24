@@ -14,7 +14,7 @@ exports[`FigureListItem > renders figure list item 1`] = `
         <div
           aria-busy="true"
           aria-live="polite"
-          class="ant-spin ant-spin-spinning css-dev-only-do-not-override-mncuj7"
+          class="ant-spin ant-spin-spinning ant-spin-section css-dev-only-do-not-override-oc1rc0 css-var-root"
           style="margin: auto; display: block; padding: 2rem 0px;"
         >
           <span

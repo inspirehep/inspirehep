@@ -24,11 +24,13 @@ function AssignNoProfileAction() {
       <DropdownMenu
         disabled
         title={
-          <Tooltip title={CLAIMING_DISABLED_INFO}>
-            <Button disabled data-test-id="btn-claiming-profile">
-              <IconText text="claim" icon={<FileDoneOutlined />} />
-            </Button>
-          </Tooltip>
+          <span>
+            <Tooltip title={CLAIMING_DISABLED_INFO}>
+              <Button disabled data-test-id="btn-claiming-profile">
+                <IconText text="claim" icon={<FileDoneOutlined />} />
+              </Button>
+            </Tooltip>
+          </span>
         }
       />
     </UserAction>

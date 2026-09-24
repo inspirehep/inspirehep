@@ -3,11 +3,11 @@
 exports[`LoginPage > renders page 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
     data-testid="login-page"
   >
     <div
-      class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
+      class="ant-card ant-card-bordered css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="ant-card-body"
@@ -32,7 +32,7 @@ exports[`LoginPage > renders page 1`] = `
         </p>
         <a
           aria-disabled="false"
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined login-button"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined login-button"
           data-testid="login-button"
           href="/api/accounts/login?next=/"
           tabindex="0"

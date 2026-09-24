@@ -6,7 +6,7 @@ exports[`AuthorResultItem > renders full author result 1`] = `
     class="__ContentBox__ h-100"
   >
     <div
-      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="ant-card-body"
@@ -57,7 +57,7 @@ exports[`AuthorResultItem > renders full author result 1`] = `
                 <ul>
                   <li>
                     <span
-                      class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
+                      class="ant-tag ant-tag-filled __UnclickableTag__ css-dev-only-do-not-override-oc1rc0 css-var-root"
                     >
                       hep-th
                     </span>
@@ -83,10 +83,10 @@ exports[`AuthorResultItem > renders full author result 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           >
             <span
               class="__UserAction__"
@@ -131,7 +131,7 @@ exports[`AuthorResultItem > renders full author result 1`] = `
             </span>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
       </div>
@@ -146,7 +146,7 @@ exports[`AuthorResultItem > renders with only name 1`] = `
     class="__ContentBox__ h-100"
   >
     <div
-      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="ant-card-body"
@@ -169,17 +169,16 @@ exports[`AuthorResultItem > renders with only name 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           >
             <span
               class="__UserAction__"
             >
               <button
-                aria-describedby="test-id"
-                class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                 disabled=""
                 type="button"
               >
@@ -219,7 +218,7 @@ exports[`AuthorResultItem > renders with only name 1`] = `
             </span>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
       </div>

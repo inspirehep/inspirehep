@@ -12,7 +12,7 @@ const BOTH_TRUE = [true, true];
 function DateRangeField({ value = [], ...props }) {
   const { form, name, format } = props;
 
-  const [startDate, endDate] = value;
+  const [startDate, endDate] = value === null ? [] : value;
   const valueAsDayjs = useMemo(
     () => [
       startDate && dayjs(startDate, format),
@@ -23,7 +23,8 @@ function DateRangeField({ value = [], ...props }) {
 
   const onChange = useCallback(
     (_, range) => {
-      form.setFieldValue(name, range);
+      const newRange = range === null ? [] : range;
+      form.setFieldValue(name, newRange);
     },
     [form, name]
   );

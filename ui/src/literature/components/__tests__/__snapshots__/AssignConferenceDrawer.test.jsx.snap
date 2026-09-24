@@ -8,17 +8,11 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
   <div />
   <div>
     <div
-      class="ant-drawer ant-drawer-right css-dev-only-do-not-override-mncuj7 ant-drawer-open"
+      class="ant-drawer ant-drawer-right css-dev-only-do-not-override-oc1rc0 css-var-root ant-drawer-open"
       tabindex="-1"
     >
       <div
         class="ant-drawer-mask"
-      />
-      <div
-        aria-hidden="true"
-        data-sentinel="start"
-        style="width: 0px; height: 0px; overflow: hidden; outline: none; position: absolute;"
-        tabindex="0"
       />
       <div
         class="ant-drawer-content-wrapper"
@@ -27,7 +21,7 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
         <div
           aria-labelledby="test-id"
           aria-modal="true"
-          class="ant-drawer-content search-drawer"
+          class="ant-drawer-section search-drawer"
           role="dialog"
         >
           <div
@@ -75,51 +69,43 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
           <div
             class="ant-drawer-body"
           >
-            <span
-              class="ant-input-group-wrapper ant-input-group-wrapper-outlined css-dev-only-do-not-override-mncuj7 ant-input-search ant-input-search-with-button"
+            <div
+              class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-input-search css-var-root ant-input-search-with-button css-dev-only-do-not-override-oc1rc0"
             >
-              <span
-                class="ant-input-wrapper ant-input-group css-dev-only-do-not-override-mncuj7"
+              <input
+                class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var ant-input-compact-item ant-input-compact-first-item"
+                type="search"
+                value=""
+              />
+              <button
+                class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-primary ant-btn-variant-solid ant-btn-compact-item ant-btn-compact-last-item ant-input-search-btn"
+                type="button"
               >
-                <input
-                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                  type="search"
-                  value=""
-                />
                 <span
-                  class="ant-input-group-addon"
+                  class="ant-btn-icon"
                 >
-                  <button
-                    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-primary ant-btn-variant-solid ant-input-search-button"
-                    type="button"
+                  <span
+                    aria-label="search"
+                    class="anticon anticon-search"
+                    role="img"
                   >
-                    <span
-                      class="ant-btn-icon"
+                    <svg
+                      aria-hidden="true"
+                      data-icon="search"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
                     >
-                      <span
-                        aria-label="search"
-                        class="anticon anticon-search"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="search"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </button>
+                      <path
+                        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                      />
+                    </svg>
+                  </span>
                 </span>
-              </span>
-            </span>
+              </button>
+            </div>
             <span
               data-testid="number-of-results"
             >
@@ -128,22 +114,23 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
               results
             </span>
             <div
-              class="ant-radio-group ant-radio-group-outline w-100 css-dev-only-do-not-override-mncuj7"
+              class="ant-radio-group ant-radio-group-outline w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-radio-css-var"
               data-test-id="conference-radio-group"
               data-testid="conference-radio-group"
+              role="radiogroup"
             >
               <div
                 data-testid="search-results"
               />
             </div>
             <div
-              class="ant-row ant-row-end mt2 css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-end mt2 css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <button
-                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                  class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                   data-test-id="assign-conference-button"
                   data-testid="assign-conference-button"
                   disabled=""
@@ -181,12 +168,6 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
           </div>
         </div>
       </div>
-      <div
-        aria-hidden="true"
-        data-sentinel="end"
-        style="width: 0px; height: 0px; overflow: hidden; outline: none; position: absolute;"
-        tabindex="0"
-      />
     </div>
   </div>
 </body>

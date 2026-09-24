@@ -50,13 +50,13 @@ describe("Reference container", () => {
         .children()
         .as("referenceListItems");
       cy.get("@paginationList")
-        .find('span[class="ant-select-selection-item"]')
+        .find(".ant-select-content")
         .as("selectionItem");
 
       cy.get("@referenceListItems").should("have.length", 25);
       cy.get("@selectionItem").should("be.visible");
 
-      cy.get("@paginationList").find(".ant-select-selection-item").click();
+      cy.get("@paginationList").find(".ant-select-content").click();
       cy.get("@paginationList").find("div").contains("50 / page").click();
       cy.waitForRoute();
 
@@ -103,7 +103,7 @@ describe("Reference container", () => {
         .click();
 
       cy.get('[data-test-id="reference-embedded-search"]')
-        .find(".ant-input-search-button")
+        .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
@@ -121,7 +121,7 @@ describe("Reference container", () => {
         .find('[data-test-id="reference-title"]')
         .as("referenceTitle");
 
-      cy.get(".ant-notification-notice-message").should(
+      cy.get(".ant-notification-notice-title").should(
         "have.text",
         "Reference Successfully Modified!",
       );
@@ -164,7 +164,7 @@ describe("Reference container", () => {
         .click();
 
       cy.get('[data-test-id="reference-embedded-search')
-        .find(".ant-input-search-button")
+        .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
@@ -182,7 +182,7 @@ describe("Reference container", () => {
         .find('[data-test-id="reference-title"]')
         .as("referenceTitle");
 
-      cy.get(".ant-notification-notice-message").should(
+      cy.get(".ant-notification-notice-title").should(
         "have.text",
         "Reference Successfully Modified!",
       );
@@ -217,10 +217,10 @@ describe("Reference container", () => {
         .children()
         .as("referenceListItems");
       cy.get("@paginationList")
-        .find('span[class="ant-select-selection-item"]')
+        .find(".ant-select-content")
         .as("selectionItem");
 
-      cy.get("@paginationList").find(".ant-select-selection-item").click();
+      cy.get("@paginationList").find(".ant-select-content").click();
       cy.get("@paginationList").find("div").contains("50 / page").click();
 
       cy.get('[data-test-id="reference-item"]', { timeout: 30000 }).should(
@@ -236,7 +236,7 @@ describe("Reference container", () => {
         .should("not.be.disabled")
         .click();
       cy.get('[data-test-id="reference-embedded-search')
-        .find(".ant-input-search-button")
+        .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
@@ -254,7 +254,7 @@ describe("Reference container", () => {
         .find('[data-test-id="reference-title"]')
         .as("referenceTitle");
 
-      cy.get(".ant-notification-notice-message").should(
+      cy.get(".ant-notification-notice-title").should(
         "have.text",
         "Reference Successfully Modified!",
       );
@@ -286,7 +286,7 @@ describe("Reference container", () => {
         .should("not.be.disabled")
         .click();
       cy.get('[data-test-id="reference-embedded-search', { timeout: 5000 })
-        .find(".ant-input-search-button")
+        .find(".ant-input-search-btn")
         .click();
 
       cy.waitForLoading();

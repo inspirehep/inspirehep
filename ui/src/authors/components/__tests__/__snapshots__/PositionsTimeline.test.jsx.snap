@@ -3,65 +3,98 @@
 exports[`PositionsTimeline > renders only first 3 by default 1`] = `
 <DocumentFragment>
   <ol
-    class="ant-timeline css-dev-only-do-not-override-mncuj7"
+    class="ant-steps ant-steps-vertical ant-steps-title-horizontal ant-steps-outlined ant-steps-dot ant-timeline css-dev-only-do-not-override-oc1rc0 css-var-root css-dev-only-do-not-override-oc1rc0 css-var-root"
+    style="--ant-cmp-steps-items-offset: 0;"
   >
     <li
-      class="ant-timeline-item"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div />
-        <div>
-          <span>
-            Inst 1
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          >
+            <div
+              class="ant-steps-item-rail ant-steps-item-rail-finish ant-timeline-item-rail"
+            />
+          </div>
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div />
+            <div>
+              <span>
+                Inst 1
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li
-      class="ant-timeline-item"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div />
-        <div>
-          <span>
-            Inst 2
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          >
+            <div
+              class="ant-steps-item-rail ant-steps-item-rail-finish ant-timeline-item-rail"
+            />
+          </div>
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div />
+            <div>
+              <span>
+                Inst 2
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li
-      class="ant-timeline-item ant-timeline-item-last"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-active ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div />
-        <div>
-          <span>
-            Inst 3
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          />
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div />
+            <div>
+              <span>
+                Inst 3
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -78,80 +111,113 @@ exports[`PositionsTimeline > renders only first 3 by default 1`] = `
 exports[`PositionsTimeline > renders with positions 1`] = `
 <DocumentFragment>
   <ol
-    class="ant-timeline css-dev-only-do-not-override-mncuj7"
+    class="ant-steps ant-steps-vertical ant-steps-title-horizontal ant-steps-outlined ant-steps-dot ant-timeline css-dev-only-do-not-override-oc1rc0 css-var-root css-dev-only-do-not-override-oc1rc0 css-var-root"
+    style="--ant-cmp-steps-items-offset: 0;"
   >
     <li
-      class="ant-timeline-item"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div>
-          1990-1994
-        </div>
-        <div>
-          <strong>
-            UNDERGRADUATE, 
-          </strong>
-          <span>
-            Inst 1
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          >
+            <div
+              class="ant-steps-item-rail ant-steps-item-rail-finish ant-timeline-item-rail"
+            />
+          </div>
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div>
+              1990-1994
+            </div>
+            <div>
+              <strong>
+                UNDERGRADUATE, 
+              </strong>
+              <span>
+                Inst 1
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li
-      class="ant-timeline-item"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div>
-          1994-2000
-        </div>
-        <div>
-          <strong>
-            PHD, 
-          </strong>
-          <span>
-            Inst 2
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          >
+            <div
+              class="ant-steps-item-rail ant-steps-item-rail-finish ant-timeline-item-rail"
+            />
+          </div>
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div>
+              1994-2000
+            </div>
+            <div>
+              <strong>
+                PHD, 
+              </strong>
+              <span>
+                Inst 2
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li
-      class="ant-timeline-item ant-timeline-item-last"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-active ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div>
-          2000-present
-        </div>
-        <div>
-          <strong>
-            STAFF, 
-          </strong>
-          <span>
-            CERN
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          />
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div>
+              2000-present
+            </div>
+            <div>
+              <strong>
+                STAFF, 
+              </strong>
+              <span>
+                CERN
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -162,30 +228,39 @@ exports[`PositionsTimeline > renders with positions 1`] = `
 exports[`PositionsTimeline > renders with single position 1`] = `
 <DocumentFragment>
   <ol
-    class="ant-timeline css-dev-only-do-not-override-mncuj7"
+    class="ant-steps ant-steps-vertical ant-steps-title-horizontal ant-steps-outlined ant-steps-dot ant-timeline css-dev-only-do-not-override-oc1rc0 css-var-root css-dev-only-do-not-override-oc1rc0 css-var-root"
+    style="--ant-cmp-steps-items-offset: 0;"
   >
     <li
-      class="ant-timeline-item ant-timeline-item-last"
+      class="ant-steps-item ant-steps-item-finish ant-steps-item-active ant-steps-item-empty-header ant-timeline-item-placement-start ant-timeline-item"
     >
       <div
-        class="ant-timeline-item-tail"
-      />
-      <div
-        class="ant-timeline-item-head ant-timeline-item-head-blue"
-      />
-      <div
-        class="ant-timeline-item-content"
+        class="ant-steps-item-wrapper ant-timeline-item-wrapper"
       >
-        <div>
-          present
-        </div>
-        <div>
-          <strong>
-            UNDERGRADUATE, 
-          </strong>
-          <span>
-            Inst 1
-          </span>
+        <div
+          class="ant-steps-item-icon ant-wave-target ant-timeline-item-icon"
+        />
+        <div
+          class="ant-steps-item-section ant-timeline-item-section"
+        >
+          <div
+            class="ant-steps-item-header ant-timeline-item-header"
+          />
+          <div
+            class="ant-steps-item-content ant-timeline-item-content"
+          >
+            <div>
+              present
+            </div>
+            <div>
+              <strong>
+                UNDERGRADUATE, 
+              </strong>
+              <span>
+                Inst 1
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </li>

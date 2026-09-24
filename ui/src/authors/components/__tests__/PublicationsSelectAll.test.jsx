@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { fromJS, Set, List } from 'immutable';
+import userEvent from '@testing-library/user-event';
 
 import PublicationsSelectAll from '../PublicationsSelectAll';
 
@@ -57,7 +58,8 @@ describe('PublicationsSelectAll', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onChange with publication ids when checkbox change', () => {
+  it('calls onChange with publication ids when checkbox change', async () => {
+    const user = userEvent.setup();
     const publications = fromJS([
       {
         metadata: {
@@ -83,7 +85,7 @@ describe('PublicationsSelectAll', () => {
         onChange={onChange}
       />
     );
-    getByRole('checkbox').click();
+    await user.click(getByRole('checkbox'));
     expect(onChange).toHaveBeenCalledWith(
       List([1, 2]),
       List([false, false]),

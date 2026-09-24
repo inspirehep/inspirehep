@@ -1,562 +1,562 @@
-describe('Author collection', () => {
-  it('displays disabled claim button with appropriate tooltip when user is not logged in', () => {
-    cy.visit('/authors/1274753');
+describe("Author collection", () => {
+  it("displays disabled claim button with appropriate tooltip when user is not logged in", () => {
+    cy.visit("/authors/1274753");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-login"]').should('be.visible');
+    cy.get('[data-test-id="btn-claiming-login"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when user doesn't have author profile", () => {
     cy.login();
-    cy.visit('/authors/1274753');
+    cy.visit("/authors/1274753");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-profile"]').should('be.visible');
+    cy.get('[data-test-id="btn-claiming-profile"]').should("be.visible");
   });
 
-  context('Author view', () => {
+  context("Author view", () => {
     beforeEach(() => {
-      cy.login('johnellis');
+      cy.login("johnellis");
     });
 
     describe("Claiming from author's own profile", () => {
-      it('assigns paper to user profile successfully', () => {
-        cy.intercept('POST', '/api/assign/literature/assign', {
+      it("assigns paper to user profile successfully", () => {
+        cy.intercept("POST", "/api/assign/literature/assign", {
           statusCode: 200,
           body: {
-            message: 'Success',
+            message: "Success",
           },
-        }).as('getAssignSuccess');
+        }).as("getAssignSuccess");
 
-        cy.visit('/authors/1010819');
+        cy.visit("/authors/1010819");
         cy.waitForLoading();
 
         cy.get('[data-test-id="literature-result-item"]')
           .first()
           .find('[data-test-id="btn-claim"]')
-          .trigger('mouseover');
+          .trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignSuccess');
+        cy.wait("@getAssignSuccess");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          '1 selected paper will be claimed to your profile.'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "1 selected paper will be claimed to your profile.",
         );
       });
 
-      it('removes paper from user profile successfully', () => {
-        cy.intercept('POST', '/api/assign/literature/unassign', {
+      it("removes paper from user profile successfully", () => {
+        cy.intercept("POST", "/api/assign/literature/unassign", {
           statusCode: 200,
           body: {
             stub_author_id: 1787301,
           },
-        }).as('getUnassignSuccess');
+        }).as("getUnassignSuccess");
 
-        cy.visit('/authors/1010819');
+        cy.visit("/authors/1010819");
         cy.waitForLoading();
 
         cy.get('[data-test-id="literature-result-item"]')
           .first()
           .find('[data-test-id="btn-claim"]')
-          .trigger('mouseover');
+          .trigger("mouseover");
         cy.get('[data-test-id="unassign"]').click();
 
-        cy.wait('@getUnassignSuccess');
+        cy.wait("@getUnassignSuccess");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          '1 selected paper will be removed from your profile.'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "1 selected paper will be removed from your profile.",
         );
       });
 
-      it('shows error message when failed to remove paper', () => {
-        cy.intercept('POST', '/api/assign/literature/assign', {
+      it("shows error message when failed to remove paper", () => {
+        cy.intercept("POST", "/api/assign/literature/assign", {
           statusCode: 500,
-        }).as('getAssignFailure');
+        }).as("getAssignFailure");
 
-        cy.visit('/authors/1010819');
+        cy.visit("/authors/1010819");
         cy.waitForLoading();
 
         cy.get('[data-test-id="literature-result-item"]')
           .first()
           .find('[data-test-id="btn-claim"]')
-          .trigger('mouseover');
+          .trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignFailure');
+        cy.wait("@getAssignFailure");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Claim Error!'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "Claim Error!",
         );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          'Something went wrong.'
+        cy.get(".ant-notification-notice-description").should(
+          "have.text",
+          "Something went wrong.",
         );
       });
     });
 
-    describe('Claiming from different profile', () => {
-      it('creates claiming ticket successfully', () => {
+    describe("Claiming from different profile", () => {
+      it("creates claiming ticket successfully", () => {
         cy.intercept(
-          'POST',
-          '/api/assign/literature/assign-different-profile',
+          "POST",
+          "/api/assign/literature/assign-different-profile",
           {
             statusCode: 200,
             body: {
               created_rt_ticket: true,
             },
-          }
-        ).as('getAssignSuccess');
+          },
+        ).as("getAssignSuccess");
 
-        cy.visit('/authors/1274753');
+        cy.visit("/authors/1274753");
         cy.waitForLoading();
 
         cy.get('[data-test-id="literature-result-item"]')
           .first()
           .find('[data-test-id="btn-claim"]')
-          .trigger('mouseover');
+          .trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignSuccess');
+        cy.wait("@getAssignSuccess");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Some claims will be reviewed by our staff for approval.'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "Some claims will be reviewed by our staff for approval.",
         );
       });
 
-      it('shows error message when failed to move paper', () => {
+      it("shows error message when failed to move paper", () => {
         cy.intercept(
-          'POST',
-          '/api/assign/literature/assign-different-profile',
-          { statusCode: 500 }
-        ).as('getAssignFailure');
+          "POST",
+          "/api/assign/literature/assign-different-profile",
+          { statusCode: 500 },
+        ).as("getAssignFailure");
 
-        cy.visit('/authors/1274753');
+        cy.visit("/authors/1274753");
         cy.waitForLoading();
 
         cy.get('[data-test-id="literature-result-item"]')
           .first()
           .find('[data-test-id="btn-claim"]')
-          .trigger('mouseover');
+          .trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignFailure');
+        cy.wait("@getAssignFailure");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Claim Error!'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "Claim Error!",
         );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          'Something went wrong.'
+        cy.get(".ant-notification-notice-description").should(
+          "have.text",
+          "Something went wrong.",
         );
       });
 
-      it('assigns multiple papers', () => {
+      it("assigns multiple papers", () => {
         cy.intercept(
-          'POST',
-          '/api/assign/literature/assign-different-profile',
+          "POST",
+          "/api/assign/literature/assign-different-profile",
           {
             statusCode: 200,
             body: {
               created_rt_ticket: true,
             },
-          }
-        ).as('getAssignSuccess');
+          },
+        ).as("getAssignSuccess");
 
-        cy.visit('/authors/1274753');
+        cy.visit("/authors/1274753");
         cy.waitForLoading();
 
         cy.get('[data-test-id="select-all-publications"]').check();
-        cy.get('[data-test-id="claim-multiple"]').trigger('mouseover');
+        cy.get('[data-test-id="claim-multiple"]').trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignSuccess');
+        cy.wait("@getAssignSuccess");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Some claims will be reviewed by our staff for approval.'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "Some claims will be reviewed by our staff for approval.",
         );
       });
 
-      it('shows error message when failed to move paper', () => {
+      it("shows error message when failed to move paper", () => {
         cy.intercept(
-          'POST',
-          '/api/assign/literature/assign-different-profile',
+          "POST",
+          "/api/assign/literature/assign-different-profile",
           {
             statusCode: 500,
-          }
-        ).as('getAssignFailure');
+          },
+        ).as("getAssignFailure");
 
-        cy.visit('/authors/1274753');
+        cy.visit("/authors/1274753");
         cy.waitForLoading();
 
         cy.get('[data-test-id="select-all-publications"]').check();
-        cy.get('[data-test-id="claim-multiple"]').trigger('mouseover');
+        cy.get('[data-test-id="claim-multiple"]').trigger("mouseover");
         cy.get('[data-test-id="assign-self"]').click();
 
-        cy.wait('@getAssignFailure');
+        cy.wait("@getAssignFailure");
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Claim Error!'
+        cy.get(".ant-notification-notice-title").should(
+          "have.text",
+          "Claim Error!",
         );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          'Something went wrong.'
+        cy.get(".ant-notification-notice-description").should(
+          "have.text",
+          "Something went wrong.",
         );
       });
     });
   });
 
-  context('Curator view', () => {
+  context("Curator view", () => {
     beforeEach(() => {
-      cy.login('cataloger');
+      cy.login("cataloger");
     });
 
-    it('moves paper to user profile successfully', () => {
-      cy.intercept('POST', '/api/assign/literature/assign', {
+    it("moves paper to user profile successfully", () => {
+      cy.intercept("POST", "/api/assign/literature/assign", {
         statusCode: 200,
         body: {
-          message: 'Success',
+          message: "Success",
         },
-      }).as('getAssignSuccess');
+      }).as("getAssignSuccess");
 
-      cy.visit('/authors/1274753');
+      cy.visit("/authors/1274753");
       cy.waitForLoading();
 
       cy.get('[data-test-id="literature-result-item"]')
         .first()
         .find('[data-test-id="btn-claim"]')
-        .trigger('mouseover');
+        .trigger("mouseover");
       cy.get('[data-test-id="assign-self"]').click();
 
-      cy.wait('@getAssignSuccess');
+      cy.wait("@getAssignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Processing request...'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Processing request...",
       );
-      cy.get('.ant-notification-notice-description').should((description) => {
+      cy.get(".ant-notification-notice-description").should((description) => {
         expect(description.text()).to.contain(
-          'will be moved from 1274753 to 1274753.'
+          "will be moved from 1274753 to 1274753.",
         );
       });
     });
 
-    it('removes paper from user profile successfully', () => {
-      cy.intercept('POST', '/api/assign/literature/unassign', {
+    it("removes paper from user profile successfully", () => {
+      cy.intercept("POST", "/api/assign/literature/unassign", {
         statusCode: 200,
-      }).as('getUnassignSuccess');
+      }).as("getUnassignSuccess");
 
-      cy.visit('/authors/1274753');
+      cy.visit("/authors/1274753");
       cy.waitForLoading();
 
       cy.get('[data-test-id="literature-result-item"]')
         .first()
         .find('[data-test-id="btn-claim"]')
-        .trigger('mouseover');
+        .trigger("mouseover");
       cy.get('[data-test-id="unassign"]').click();
 
-      cy.wait('@getUnassignSuccess');
+      cy.wait("@getUnassignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Processing request...'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Processing request...",
       );
       cy.get('[data-test-id="claim-notification-description"').should(
         (description) => {
-          expect(description.text()).to.contain('will be moved from 1274753');
-        }
+          expect(description.text()).to.contain("will be moved from 1274753");
+        },
       );
     });
 
     it("assings paper to other author's profile successfully", () => {
-      cy.intercept('POST', '/api/assign/literature/assign', {
+      cy.intercept("POST", "/api/assign/literature/assign", {
         statusCode: 200,
-      }).as('getAssignSuccess');
+      }).as("getAssignSuccess");
 
-      cy.visit('/authors/1274753');
+      cy.visit("/authors/1274753");
       cy.waitForLoading();
 
       cy.get('[data-test-id="literature-result-item"]')
         .first()
         .find('[data-test-id="btn-claim"]')
-        .trigger('mouseover');
+        .trigger("mouseover");
       cy.get('[data-test-id="assign-another"]').click();
 
-      cy.get('.search-drawer input.ant-input').type('Hotzel');
-      cy.get('.search-drawer button.ant-input-search-button').click();
+      cy.get(".search-drawer input.ant-input").type("Hotzel");
+      cy.get(".search-drawer button.ant-input-search-btn").click();
 
       cy.get('input[value="1274753"]').first().click();
       cy.get('[data-testid="assign-button"').click();
 
-      cy.wait('@getAssignSuccess');
+      cy.wait("@getAssignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Processing request...'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Processing request...",
       );
       cy.get('[data-test-id="claim-notification-description"').should(
         (description) => {
-          expect(description.text()).to.contain('will be moved from 1274753');
-        }
+          expect(description.text()).to.contain("will be moved from 1274753");
+        },
       );
     });
 
-    it('assings paper to new author successfully', () => {
-      cy.intercept('POST', '/api/assign/literature/unassign', {
+    it("assings paper to new author successfully", () => {
+      cy.intercept("POST", "/api/assign/literature/unassign", {
         statusCode: 200,
-      }).as('getAssignNewSuccess');
+      }).as("getAssignNewSuccess");
 
-      cy.visit('/authors/1274753');
+      cy.visit("/authors/1274753");
       cy.waitForLoading();
 
       cy.get('[data-test-id="literature-result-item"]')
         .first()
         .find('[data-test-id="btn-claim"]')
-        .trigger('mouseover');
+        .trigger("mouseover");
       cy.get('[data-test-id="assign-another"]').click();
 
       cy.get('input[value="new"]').click();
       cy.get('[data-testid="assign-button"').click();
 
-      cy.wait('@getAssignNewSuccess');
+      cy.wait("@getAssignNewSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Processing request...'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Processing request...",
       );
       cy.get('[data-test-id="claim-notification-description"').should(
         (description) => {
-          expect(description.text()).to.contain('will be moved from 1274753');
-        }
+          expect(description.text()).to.contain("will be moved from 1274753");
+        },
       );
     });
 
-    it('shows error message when failed to move paper', () => {
-      cy.intercept('POST', '/api/assign/literature/assign', {
+    it("shows error message when failed to move paper", () => {
+      cy.intercept("POST", "/api/assign/literature/assign", {
         statusCode: 500,
-      }).as('getAssignFailure');
+      }).as("getAssignFailure");
 
-      cy.visit('/authors/1274753');
+      cy.visit("/authors/1274753");
       cy.waitForLoading();
 
       cy.get('[data-test-id="literature-result-item"]')
         .first()
         .find('[data-test-id="btn-claim"]')
-        .trigger('mouseover');
+        .trigger("mouseover");
       cy.get('[data-test-id="assign-self"]').click();
 
-      cy.wait('@getAssignFailure');
+      cy.wait("@getAssignFailure");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Claim Error!'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Claim Error!",
       );
-      cy.get('.ant-notification-notice-description').should(
-        'have.text',
-        'Something went wrong.'
+      cy.get(".ant-notification-notice-description").should(
+        "have.text",
+        "Something went wrong.",
       );
     });
   });
 });
 
-describe('Literature collection', () => {
-  it('displays disabled claim button with appropriate tooltip when user is not logged in', () => {
-    cy.visit('/literature/1688995');
+describe("Literature collection", () => {
+  it("displays disabled claim button with appropriate tooltip when user is not logged in", () => {
+    cy.visit("/literature/1688995");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-login"]').should('be.visible');
+    cy.get('[data-test-id="btn-claiming-login"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when user doesn't have author profile", () => {
     cy.login();
-    cy.visit('/literature/1688995');
+    cy.visit("/literature/1688995");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-profile"]').should('be.visible');
+    cy.get('[data-test-id="btn-claiming-profile"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when paper doesn't have authors", () => {
-    cy.login('johnellis');
-    cy.visit('/literature/44707');
+    cy.login("johnellis");
+    cy.visit("/literature/44707");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-authors"]').should('be.visible');
+    cy.get('[data-test-id="btn-claiming-authors"]').should("be.visible");
   });
 
-  context('Claiming enabled', () => {
+  context("Claiming enabled", () => {
     beforeEach(() => {
-      cy.login('johnellis');
+      cy.login("johnellis");
     });
 
-    it('moves paper to user profile automatically when names match', () => {
+    it("moves paper to user profile automatically when names match", () => {
       cy.intercept(
-        'GET',
-        '/api/assign/check-names-compatibility?literature_recid=1688995',
+        "GET",
+        "/api/assign/check-names-compatibility?literature_recid=1688995",
         {
           statusCode: 200,
           body: {
             matched_author_recid: 1010819,
           },
-        }
-      ).as('getCheckNameSuccess');
+        },
+      ).as("getCheckNameSuccess");
 
-      cy.intercept('POST', '/api/assign/literature/assign', {
+      cy.intercept("POST", "/api/assign/literature/assign", {
         statusCode: 200,
         body: {
-          message: 'Success',
+          message: "Success",
         },
-      }).as('getAssignSuccess');
+      }).as("getAssignSuccess");
 
-      cy.visit('/literature/1688995');
+      cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
 
-      cy.wait('@getCheckNameSuccess');
-      cy.wait('@getAssignSuccess');
+      cy.wait("@getCheckNameSuccess");
+      cy.wait("@getAssignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Assignment Successful!'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Assignment Successful!",
       );
-      cy.get('.ant-notification-notice-description').should(
-        'have.text',
-        '1 paper added to your profile'
+      cy.get(".ant-notification-notice-description").should(
+        "have.text",
+        "1 paper added to your profile",
       );
     });
 
-    it('moves paper to user profile automatically when no names match', () => {
+    it("moves paper to user profile automatically when no names match", () => {
       cy.intercept(
-        'GET',
-        '/api/assign/check-names-compatibility?literature_recid=1688995',
+        "GET",
+        "/api/assign/check-names-compatibility?literature_recid=1688995",
         {
           statusCode: 404,
           message: {
-            body: 'Not found',
+            body: "Not found",
           },
-        }
-      ).as('getCheckNameError');
+        },
+      ).as("getCheckNameError");
 
-      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+      cy.intercept("POST", "/api/assign/literature/assign-different-profile", {
         statusCode: 200,
         body: {
-          message: 'Success',
+          message: "Success",
         },
-      }).as('getAssignSuccess');
+      }).as("getAssignSuccess");
 
-      cy.visit('/literature/1331798');
+      cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
       cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
       cy.get('[data-test-id="assign-literature-item-button"').click();
 
-      cy.wait('@getAssignSuccess');
+      cy.wait("@getAssignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Assignment Successful!'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Assignment Successful!",
       );
-      cy.get('.ant-notification-notice-description').should(
-        'have.text',
-        '1 paper added to your profile'
+      cy.get(".ant-notification-notice-description").should(
+        "have.text",
+        "1 paper added to your profile",
       );
     });
 
-    it('moves paper from selected author to user profile successfully and creates ticket', () => {
-      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+    it("moves paper from selected author to user profile successfully and creates ticket", () => {
+      cy.intercept("POST", "/api/assign/literature/assign-different-profile", {
         statusCode: 200,
         body: {
-          message: 'Success',
+          message: "Success",
           created_rt_ticket: true,
         },
-      }).as('getAssignSuccess');
+      }).as("getAssignSuccess");
 
-      cy.visit('/literature/1331798');
+      cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
       cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
       cy.get('[data-test-id="assign-literature-item-button"').click();
 
-      cy.wait('@getAssignSuccess');
+      cy.wait("@getAssignSuccess");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Some claims will be reviewed by our staff for approval.'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Some claims will be reviewed by our staff for approval.",
       );
     });
 
-    it('shows error message when failed to move paper automatically', () => {
-      cy.intercept('POST', '/api/assign/literature/assign', {
+    it("shows error message when failed to move paper automatically", () => {
+      cy.intercept("POST", "/api/assign/literature/assign", {
         statusCode: 500,
-      }).as('getAssignError');
+      }).as("getAssignError");
 
-      cy.visit('/literature/1688995');
+      cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
 
-      cy.wait('@getAssignError');
+      cy.wait("@getAssignError");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Assignment Error!'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Assignment Error!",
       );
-      cy.get('.ant-notification-notice-description').should(
-        'have.text',
-        'Something went wrong.'
+      cy.get(".ant-notification-notice-description").should(
+        "have.text",
+        "Something went wrong.",
       );
     });
 
-    it('displays empty author drawer if fetching all authors failed', () => {
-      cy.intercept('GET', '/api/literature/1331798?field=authors', {
+    it("displays empty author drawer if fetching all authors failed", () => {
+      cy.intercept("GET", "/api/literature/1331798?field=authors", {
         statusCode: 500,
-      }).as('getAuthorsError');
+      }).as("getAuthorsError");
 
-      cy.visit('/literature/1331798');
+      cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
 
-      cy.wait('@getAuthorsError');
+      cy.wait("@getAuthorsError");
 
-      cy.get('.ant-empty-image').should('be.visible');
+      cy.get(".ant-empty-image").should("be.visible");
     });
 
-    it('shows error message when failed to move paper from selected author to user profile', () => {
-      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+    it("shows error message when failed to move paper from selected author to user profile", () => {
+      cy.intercept("POST", "/api/assign/literature/assign-different-profile", {
         statusCode: 500,
-      }).as('getAssignError');
+      }).as("getAssignError");
 
-      cy.visit('/literature/1787272');
+      cy.visit("/literature/1787272");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
       cy.get('[data-test-id="assign-literature-item"]').click();
       cy.get('[data-test-id="literature-drawer-radio-996285"').click();
       cy.get('[data-test-id="assign-literature-item-button"').click();
 
-      cy.wait('@getAssignError');
+      cy.wait("@getAssignError");
 
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Assignment Error!'
+      cy.get(".ant-notification-notice-title").should(
+        "have.text",
+        "Assignment Error!",
       );
-      cy.get('.ant-notification-notice-description').should(
-        'have.text',
-        'This paper cannot be claimed automatically. Please contact us'
+      cy.get(".ant-notification-notice-description").should(
+        "have.text",
+        "This paper cannot be claimed automatically. Please contact us",
       );
     });
   });

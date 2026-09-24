@@ -15,7 +15,7 @@ Cypress.Commands.add("selectLiteratureDocType", (docType) => {
 });
 
 Cypress.Commands.add("testWorkflow", () => {
-  cy.get(".ant-alert-message").should(
+  cy.get(".ant-alert-title").should(
     "have.text",
     "Successfully submitted, thank you! Your submission will be visible upon approval from the INSPIRE team.",
   );

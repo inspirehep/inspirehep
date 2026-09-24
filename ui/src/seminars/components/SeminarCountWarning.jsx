@@ -9,7 +9,7 @@ const WARNING_MESSAGE = (
 );
 
 function SeminarCountWarning() {
-  return <Alert message={WARNING_MESSAGE} type="warning" showIcon />;
+  return <Alert title={WARNING_MESSAGE} type="warning" showIcon />;
 }
 
 export default SeminarCountWarning;

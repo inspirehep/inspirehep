@@ -32,8 +32,8 @@ function changeEmailAddressError(error: { error: Error }) {
 
 function notifyEmailChangeSuccesss() {
   notification.success({
-    message: 'Success',
-    duration: null,
+    title: 'Success',
+    duration: false,
     description: 'Email address changed successfully!',
   });
 }

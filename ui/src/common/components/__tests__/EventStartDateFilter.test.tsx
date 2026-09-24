@@ -64,7 +64,7 @@ describe('EventStartDateFilter', () => {
   });
 
   it('calls onChange with "all" when date range filter is cleared', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ pointerEventsCheck: 0 });
     const onChange = vi.fn();
     const currentDate = new Date('2019-05-05T13:31:00+00:00');
     advanceTo(currentDate);
@@ -77,8 +77,8 @@ describe('EventStartDateFilter', () => {
       />
     );
 
-    const closeIcons = screen.getAllByRole('img', { name: 'close-circle' });
-    await user.click(closeIcons[0].parentElement!);
+    const clearButtons = screen.getAllByLabelText('Clear');
+    await user.click(clearButtons[0]);
 
     expect(onChange).toHaveBeenCalledWith(START_DATE_ALL);
   });

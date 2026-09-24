@@ -3,54 +3,35 @@
 exports[`SearchBoxNamespaceSelect > render initial state with all props set 1`] = `
 <DocumentFragment>
   <div
-    class="ant-select ant-select-outlined css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow"
+    class="ant-select ant-select-outlined css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
     data-testid="select-box"
     style="height: 40px;"
   >
     <div
-      class="ant-select-selector"
+      class="ant-select-content ant-select-content-has-value"
     >
-      <span
-        class="ant-select-selection-wrap"
-      >
-        <span
-          class="ant-select-selection-search"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="rc_select_TEST_OR_SSR_list"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            aria-owns="rc_select_TEST_OR_SSR_list"
-            autocomplete="off"
-            class="ant-select-selection-search-input"
-            id="rc_select_TEST_OR_SSR"
-            readonly=""
-            role="combobox"
-            style="opacity: 0;"
-            type="search"
-            unselectable="on"
-            value=""
-          />
-        </span>
-        <span
-          class="ant-select-selection-item"
-        >
-          <span>
-            authors
-          </span>
-        </span>
+      <span>
+        authors
       </span>
+      <input
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        autocomplete="new-password"
+        class="ant-select-input"
+        id="test-id"
+        readonly=""
+        role="combobox"
+        type="text"
+        value=""
+      />
     </div>
-    <span
-      aria-hidden="true"
-      class="ant-select-arrow"
-      style="user-select: none;"
-      unselectable="on"
+    <div
+      class="ant-select-suffix"
     >
       <span
         aria-label="down"
-        class="anticon anticon-down ant-select-suffix"
+        class="anticon anticon-down"
         role="img"
       >
         <svg
@@ -67,7 +48,7 @@ exports[`SearchBoxNamespaceSelect > render initial state with all props set 1`] 
           />
         </svg>
       </span>
-    </span>
+    </div>
   </div>
 </DocumentFragment>
 `;

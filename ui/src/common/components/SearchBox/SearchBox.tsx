@@ -102,7 +102,6 @@ const SearchBox = ({
       <Space.Compact
         data-testid="searchbox"
         className={className}
-        size="large"
         block
         style={{ alignItems: 'center' }}
       >

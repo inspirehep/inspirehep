@@ -36,7 +36,10 @@ function AssignDrawer({
   visible: boolean;
   onDrawerClose:
     | ((
-        e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>
+        e:
+          | React.MouseEvent<Element, MouseEvent>
+          | KeyboardEvent
+          | React.KeyboardEvent<Element>
       ) => void)
     | undefined;
   selectedPapers: Set<string>;

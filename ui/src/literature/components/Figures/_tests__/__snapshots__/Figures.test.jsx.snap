@@ -3,25 +3,27 @@
 exports[`Figures > renders with figures 1`] = `
 <DocumentFragment>
   <div
-    class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item css-dev-only-do-not-override-mncuj7"
+    class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item css-dev-only-do-not-override-oc1rc0 css-var-root"
     data-testid="pagination-list"
   >
     <div
-      class="ant-spin-nested-loading css-dev-only-do-not-override-mncuj7"
+      aria-busy="false"
+      aria-live="polite"
+      class="ant-spin css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="ant-spin-container"
       >
         <div
-          class="ant-row css-dev-only-do-not-override-mncuj7"
-          style="margin-left: -8px; margin-right: -8px;"
+          class="ant-row ant-list-container css-var-root css-dev-only-do-not-override-oc1rc0 css-var-root"
+          style="margin-inline: -8px;"
         >
           <div
             style="width: 25%; max-width: 25%;"
           >
             <div
-              class="ant-col css-dev-only-do-not-override-mncuj7"
-              style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;"
+              class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
+              style="padding-inline: 8px; flex: 1 1 auto;"
             >
               <div
                 class="ant-list-item"

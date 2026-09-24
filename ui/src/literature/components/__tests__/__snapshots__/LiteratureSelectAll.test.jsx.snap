@@ -3,17 +3,15 @@
 exports[`LiteratureSelectAll > render unchecked if all publications are not part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
+    class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
   >
     <span
-      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0"
     >
       <input
         class="ant-checkbox-input"
         type="checkbox"
-      />
-      <span
-        class="ant-checkbox-inner"
+        value=""
       />
     </span>
   </label>
@@ -23,18 +21,16 @@ exports[`LiteratureSelectAll > render unchecked if all publications are not part
 exports[`LiteratureSelectAll > renders checked if all publications are part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
   >
     <span
-      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0 ant-checkbox-checked"
     >
       <input
         checked=""
         class="ant-checkbox-input"
         type="checkbox"
-      />
-      <span
-        class="ant-checkbox-inner"
+        value=""
       />
     </span>
   </label>

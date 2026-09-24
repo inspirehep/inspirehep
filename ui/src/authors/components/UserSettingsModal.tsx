@@ -7,7 +7,11 @@ function UserSettingsModal({
   onCancel,
   visible,
 }: {
-  onCancel: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onCancel: (
+    e:
+      | React.MouseEvent<HTMLElement, MouseEvent>
+      | React.KeyboardEvent<HTMLElement>
+  ) => void;
   visible: boolean;
 }) {
   return (

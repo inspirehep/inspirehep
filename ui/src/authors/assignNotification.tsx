@@ -35,9 +35,9 @@ const resolveSuccessMessageMixedPapers = (
 export function assigning() {
   notification.info({
     key: ASSIGNING_NOTIFICATION_KEY,
-    message: 'Claiming...',
+    title: 'Claiming...',
     description: 'We are processing your request',
-    duration: null,
+    duration: false,
   });
 }
 
@@ -52,8 +52,8 @@ export function assignSuccess({
 }) {
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message: 'Processing request...',
-    duration: null,
+    title: 'Processing request...',
+    duration: false,
     description: (
       <span data-test-id="claim-notification-description">
         Selected papers ({literatureIds.join(', ')}) will be moved from{' '}
@@ -86,8 +86,8 @@ export function assignSuccessOwnProfile({
         );
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message,
-    duration: null,
+    title: message,
+    duration: false,
   });
 }
 
@@ -95,8 +95,8 @@ export function unassignSuccessOwnProfile(numberOfPapers: number) {
   const message = resolveSuccessMessage(numberOfPapers, 'removed from');
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message,
-    duration: null,
+    title: message,
+    duration: false,
   });
 }
 
@@ -106,8 +106,8 @@ export function assignSuccessDifferentProfileUnclaimedPapers(
   const message = resolveSuccessMessage(numberOfUnclaimedPapers, 'moved to');
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message,
-    duration: null,
+    title: message,
+    duration: false,
   });
 }
 
@@ -115,8 +115,8 @@ export function assignSuccessDifferentProfileClaimedPapers() {
   const message = 'Some claims will be reviewed by our staff for approval.';
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message,
-    duration: null,
+    title: message,
+    duration: false,
   });
 }
 
@@ -124,7 +124,7 @@ export function assignError() {
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.error({
     className: 'super-zindex',
-    message: 'Claim Error!',
+    title: 'Claim Error!',
     description: 'Something went wrong.',
   });
 }

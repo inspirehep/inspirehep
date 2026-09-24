@@ -42,7 +42,7 @@ const SettingsPage = ({
       >
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Alert
-            message={error.get('message') || 'Error occured'}
+            title={error.get('message') || 'Error occured'}
             type="error"
             showIcon
             closable

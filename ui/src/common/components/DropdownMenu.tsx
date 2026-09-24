@@ -21,7 +21,7 @@ const DropdownMenu = ({
       onClick,
       items,
     }}
-    overlayClassName={overlayClassName}
+    classNames={{ root: overlayClassName }}
   >
     {title}
   </Dropdown>

@@ -8,7 +8,7 @@ exports[`FiguresCarousel > renders with all props 1`] = `
   tabindex="-1"
 >
   <button
-    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action close"
+    class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action close"
     type="button"
   >
     <span
@@ -37,7 +37,7 @@ exports[`FiguresCarousel > renders with all props 1`] = `
     </span>
   </button>
   <button
-    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action previous"
+    class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action previous"
     disabled=""
     type="button"
   >
@@ -66,17 +66,16 @@ exports[`FiguresCarousel > renders with all props 1`] = `
     </span>
   </button>
   <div
-    class="ant-row ant-row-center ant-row-middle h-100 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle h-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col carousel-container ant-col-xs-24 ant-col-md-20 ant-col-lg-18 ant-col-xxl-12 css-dev-only-do-not-override-mncuj7"
+      class="ant-col carousel-container ant-col-xs-24 ant-col-md-20 ant-col-lg-18 ant-col-xxl-12 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-carousel css-dev-only-do-not-override-mncuj7"
+        class="ant-carousel css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="slick-slider carousel slick-initialized"
-          dir="ltr"
         >
           <div
             class="slick-list"
@@ -103,7 +102,7 @@ exports[`FiguresCarousel > renders with all props 1`] = `
                       <div
                         aria-busy="true"
                         aria-live="polite"
-                        class="ant-spin ant-spin-spinning css-dev-only-do-not-override-mncuj7"
+                        class="ant-spin ant-spin-spinning ant-spin-section css-dev-only-do-not-override-oc1rc0 css-var-root"
                         style="margin: auto; display: block; padding: 2rem 0px;"
                       >
                         <span
@@ -133,24 +132,12 @@ exports[`FiguresCarousel > renders with all props 1`] = `
               </div>
             </div>
           </div>
-          <ul
-            class="slick-dots slick-dots-bottom"
-            style="display: block;"
-          >
-            <li
-              class="slick-active"
-            >
-              <button>
-                1
-              </button>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
   </div>
   <button
-    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action next"
+    class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg ant-btn-icon-only action next"
     disabled=""
     type="button"
   >

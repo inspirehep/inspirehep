@@ -17,7 +17,7 @@ const ExactMatchesCallout = ({ exactMatches }: ExactMatchesCalloutProps) => {
 
   return (
     <Alert
-      message={
+      title={
         <span>
           <strong>Duplicate IDs:</strong>{' '}
           <LinkWithTargetBlank href={exactMatchesSearchUrl}>

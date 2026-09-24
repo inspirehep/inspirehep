@@ -319,7 +319,7 @@ const LiteratureDetailPageContainer = ({
                             <Alert
                               key={note.get('value')}
                               type="warning"
-                              message={note.get('value')}
+                              title={note.get('value')}
                               showIcon
                             />
                           ) : (

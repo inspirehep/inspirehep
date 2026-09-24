@@ -89,7 +89,7 @@ function SeminarSearch({
                 {timezoneDifferentThanLocal ? (
                   <Alert
                     type="error"
-                    message={<SeminarTimezone timezone={timezone} />}
+                    title={<SeminarTimezone timezone={timezone} />}
                     className="di"
                   />
                 ) : (

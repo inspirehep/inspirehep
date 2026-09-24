@@ -31,7 +31,7 @@ const SignUpPage: React.FC<{
           <Row className="mb3" data-testid="error">
             <Col>
               <Alert
-                message={error.message || 'Something went wrong'}
+                title={error.message || 'Something went wrong'}
                 type="error"
                 showIcon
                 closable

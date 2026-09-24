@@ -56,10 +56,11 @@ function DateRangeFilter({ onChange, range = '' }) {
 
   const onStartDateChange = useCallback(
     (_, dateString) => {
-      const willHaveAnySelectedDate = dateString || endDate;
+      const newStartDate = dateString || '';
+      const willHaveAnySelectedDate = newStartDate || endDate;
       onChange(
         willHaveAnySelectedDate
-          ? `${dateString}${RANGE_AGGREGATION_SELECTION_SEPARATOR}${endDate}`
+          ? `${newStartDate}${RANGE_AGGREGATION_SELECTION_SEPARATOR}${endDate}`
           : undefined
       );
     },
@@ -68,10 +69,11 @@ function DateRangeFilter({ onChange, range = '' }) {
 
   const onEndDateChange = useCallback(
     (_, dateString) => {
-      const willHaveAnySelectedDate = dateString || startDate;
+      const newEndDate = dateString || '';
+      const willHaveAnySelectedDate = newEndDate || startDate;
       onChange(
         willHaveAnySelectedDate
-          ? `${startDate}${RANGE_AGGREGATION_SELECTION_SEPARATOR}${dateString}`
+          ? `${startDate}${RANGE_AGGREGATION_SELECTION_SEPARATOR}${newEndDate}`
           : undefined
       );
     },

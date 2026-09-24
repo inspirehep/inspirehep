@@ -53,7 +53,7 @@ class DataImporter extends Component {
         <Row className="mb3">
           <Col span={24}>
             <Alert
-              message="Fill in the field to automatically import more data from arXiv or DOI"
+              title="Fill in the field to automatically import more data from arXiv or DOI"
               type="info"
             />
           </Col>
@@ -62,7 +62,7 @@ class DataImporter extends Component {
           <Row className="mb3">
             <Col span={24}>
               <Alert
-                message={this.renderAlertMessage()}
+                title={this.renderAlertMessage()}
                 type="error"
                 showIcon
                 closable
