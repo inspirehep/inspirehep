@@ -1,7 +1,7 @@
 import { theme } from 'antd';
-import QuillEditor, { Quill } from 'react-quill';
+import QuillEditor, { Quill } from 'react-quill-new';
 
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import './RichTextEditor.less';
 import EditorToolbar from './EditorToolbar';
 
@@ -14,7 +14,7 @@ const QUILL_MODULES = {
   toolbar: '#toolbar',
 };
 
-const QUILL_FORMATS = ['bold', 'italic', 'list', 'bullet', 'link'];
+const QUILL_FORMATS = ['bold', 'italic', 'list', 'link'];
 
 function useAntInputStyle() {
   const { token } = theme.useToken();

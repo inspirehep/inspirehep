@@ -17,7 +17,15 @@ class RichTextField extends Component {
 
   onChange(content) {
     const { form, name } = this.props;
-    form.setFieldValue(name, content);
+    // quill 2 is buggy and not really maintained, that is why we need to clean the data before sending the form (https://github.com/VaguelySerious/react-quill/issues/62)
+    form.setFieldValue(
+      name,
+      content
+        .replaceAll(/&nbsp;/g, ' ')
+        .replaceAll(/&#39;/g, "'")
+        .replaceAll(/&quot;/g, '"')
+        .replaceAll(/<div><\/div>/g, '<div><br/></div>')
+    );
   }
 
   render() {
