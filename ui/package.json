@@ -45,7 +45,7 @@
     "history": "^5",
     "idlejs": "^3.0.0",
     "immutable": "^4.1.0",
-    "inspire-schemas": "^61.6.33",
+    "inspire-schemas": "^61.6.35",
     "is-valid-orcid": "^1.2.0",
     "lodash": "^4.17.21",
     "math-interval-2": "^1.1.0",

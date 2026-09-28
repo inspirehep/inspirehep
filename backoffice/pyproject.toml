@@ -62,7 +62,7 @@ djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
 sentry-sdk = "^2.60.0"
 django-allauth = {version = "65.0.1", extras = ["headless"]}
-inspire-schemas = "^61.6.33"
+inspire-schemas = "^61.6.35"
 inspire-utils = "^3.0.70"
 
 [tool.poetry.group.dev.dependencies]

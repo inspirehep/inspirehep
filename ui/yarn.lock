@@ -4268,10 +4268,10 @@ indent-string@^4.0.0:
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
-inspire-schemas@^61.6.33:
-  version "61.6.33"
-  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.33.tgz#15f84726e5caecd15f5fd8241705858cd3166d47"
-  integrity sha512-GVlgPk2Kj+UnBnzjqoRl/IIxsu36nxCL0pL+q2FwU4Em6M8Lqw7ITOZV5ZiB/u5PSKweeA+15kR+lHRADEKIrQ==
+inspire-schemas@^61.6.35:
+  version "61.6.35"
+  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.35.tgz#98b6c094be68275228f705d9b7b6c296552534a6"
+  integrity sha512-GD8u3fpc8C+RqGakHKNGITOhOUU8EEiGBc9t2xsG2kJZKQgXBIj3fwE8Uc9qqVHTY8j/CcZGS4P4VogsK5rsxw==
   dependencies:
     buffer-shims "^1.0.0"
 
