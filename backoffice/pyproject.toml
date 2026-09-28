@@ -65,6 +65,7 @@ django-allauth = {version = "65.0.1", extras = ["headless"]}
 inspire-schemas = "^61.6.33"
 inspire-utils = "^3.0.70"
 
+
 [tool.poetry.group.dev.dependencies]
 factory-boy = "3.3.3"
 pytest = "9.1.1"
