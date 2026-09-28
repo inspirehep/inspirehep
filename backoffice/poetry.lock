@@ -2233,18 +2233,18 @@ all = ["coverage (>=7.10.0)", "hypothesis (>=6.141.1)", "mypy (>=1.11.2)", "pyte
 
 [[package]]
 name = "idutils"
-version = "1.7.0"
-description = "Small library for persistent identifiers used in scholarly communication."
+version = "1.6.0"
+description = "\"Small library for persistent identifiers used in scholarly communication.\""
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "idutils-1.7.0-py3-none-any.whl", hash = "sha256:2fb2dc5117c58a71261cbc724aa97c770b0f1540c01e671de7c5be66ad015422"},
-    {file = "idutils-1.7.0.tar.gz", hash = "sha256:848702d9b953a34ba597ac9fd04823fa2ace9dafda3924e91bcf349223cd7442"},
+    {file = "idutils-1.6.0-py2.py3-none-any.whl", hash = "sha256:fe84d9d837c16f1ec9062687fa8bdc133fcbdab6365f894511e67b2aaa1849d7"},
+    {file = "idutils-1.6.0.tar.gz", hash = "sha256:dfffe30a6abdba85b1710ef3bb469ae586f72a3db3f36217b82213ed8de32f85"},
 ]
 
 [package.dependencies]
-isbnlib2 = ">=3.11.7"
+isbnlib = ">=3.10.8"
 
 [package.extras]
 tests = ["pytest-black-ng (>=0.4.0)", "pytest-cache (>=1.0)", "pytest-invenio (>=1.4.0)", "pytest-runner (>=2.6.2)", "sphinx (>=4.5)"]
@@ -2290,33 +2290,31 @@ files = [
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.33"
+version = "61.6.35"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
-python-versions = "*"
+python-versions = "<3.15,>=3.11"
 groups = ["main"]
 files = [
-    {file = "inspire_schemas-61.6.33-py2.py3-none-any.whl", hash = "sha256:3ff694f579ae6d9cce87c791fb44db084ece26c4105a24fa1341f13867ec9b3c"},
-    {file = "inspire_schemas-61.6.33.tar.gz", hash = "sha256:5efa9e0a8923d58632de8b5ef54d69180bea54f0b2bdce2ae8222f4c3437e6d7"},
+    {file = "inspire_schemas-61.6.35-py3-none-any.whl", hash = "sha256:01c63506044c782d7e0fddb32c42b1afd72697bd64d80a63be937dbe95aaef81"},
+    {file = "inspire_schemas-61.6.35.tar.gz", hash = "sha256:b2159abac407395b90afde9addabe8062b706fb24a05cc8f5bff4c459db9194e"},
 ]
 
 [package.dependencies]
-bleach = {version = ">=6.2.0", markers = "python_version >= \"3\""}
-idutils = {version = ">=1.2.1,<2.0", markers = "python_version >= \"3\""}
-inspire-utils = ">=3.0.65,<4.0"
-isodate = "*"
-jsonschema = {version = ">=4.24.0,<5.0", markers = "python_version >= \"3\""}
+bleach = ">=6.2,<7"
+idutils = ">=1.2.1,<1.6.1"
+inspire-utils = ">=3.0.70,<4"
+jsonschema = ">=4.24,<5"
 pylatexenc = "*"
 pytz = "*"
-pyyaml = {version = ">=6.0,<7.0", markers = "python_version >= \"3\""}
+pyyaml = ">=6,<7"
 rfc3987 = "*"
 scrapy = "*"
-six = "*"
-Unidecode = ">=1.0.22,<2.0"
+unidecode = ">=1.0.22,<2"
 
 [package.extras]
-docs = ["Sphinx", "jsonschema2rst (>=0.1.7)"]
-tests = ["check-manifest", "coverage", "deepdiff", "idutils (>=1.2.1,<2.0) ; python_version >= \"3\"", "inspire-idutils (==1.2.4) ; python_version == \"2.7\"", "isort (>=4.3.0,<5.0)", "mock", "pytest (>=4.6,<5.0) ; python_version == \"2.7\"", "pytest (>=6.2.5,<7.0) ; python_version >= \"3\"", "pytest-cache", "pytest-cov (==2.6.1)", "pytest-pep8 ; python_version == \"2.7\"", "unicode-string-literal (>=1.1,<2.0) ; python_version == \"2.7\""]
+docs = ["jsonschema2rst (>=0.1.7)", "sphinx"]
+tests = ["coverage", "deepdiff", "pytest (>=8.3,<9)", "pytest-cov (>=6,<7)"]
 
 [[package]]
 name = "inspire-utils"
@@ -2348,30 +2346,6 @@ groups = ["main"]
 files = [
     {file = "isbnlib-3.10.14-py2.py3-none-any.whl", hash = "sha256:f885b350fc8e600a919ed46e3b07253062cd604af69885455a25a299217b3fe2"},
     {file = "isbnlib-3.10.14.tar.gz", hash = "sha256:96f90864c77b01f55fa11e5bfca9fd909501d9842f3bc710d4eab85195d90539"},
-]
-
-[[package]]
-name = "isbnlib2"
-version = "3.11.24"
-description = "Extract, clean, transform, hyphenate and metadata for ISBNs (International Standard Book Number)."
-optional = false
-python-versions = ">=3.10"
-groups = ["main"]
-files = [
-    {file = "isbnlib2-3.11.24-py3-none-any.whl", hash = "sha256:bb49dffb55b112de3800cbbdf9a484592e2a1033c0d126a73f52db98ecbd69c9"},
-    {file = "isbnlib2-3.11.24.tar.gz", hash = "sha256:d13dbb147779c975f42bd69c10715111a353d66cb720a858009101b8638f6ee7"},
-]
-
-[[package]]
-name = "isodate"
-version = "0.7.2"
-description = "An ISO 8601 date/time/duration parser and formatter"
-optional = false
-python-versions = ">=3.7"
-groups = ["main"]
-files = [
-    {file = "isodate-0.7.2-py3-none-any.whl", hash = "sha256:28009937d8031054830160fce6d409ed342816b543597cece116d966c6d99e15"},
-    {file = "isodate-0.7.2.tar.gz", hash = "sha256:4cd1aa0f43ca76f4a6c6c0292a85f40b35ec2e43e315b59f06e6d32171a953e6"},
 ]
 
 [[package]]
@@ -4612,4 +4586,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "c01f5fefbc6032e9fc5a743e1838981ba5b0e8af338090e1f2fb3b8f44df37e5"
+content-hash = "8a5f56487645d13a5eaa330fb057d422f1a3196d3b96f16df023d4f8e5443055"
