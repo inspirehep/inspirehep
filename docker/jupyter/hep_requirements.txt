@@ -81,7 +81,7 @@ importlib-metadata==4.13.0; python_version < "3.9" and python_version >= "3.7" a
 importlib-resources==6.0.0; python_version < "3.9" and python_version >= "3.8"
 incremental==17.5.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 infinity==1.4
-inspire-dojson==63.2.31
+inspire-dojson==63.2.37
 inspire-json-merger==11.0.29
 inspire-matcher==9.0.46
 inspire-query-parser==6.0.51
