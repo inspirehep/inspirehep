@@ -39,7 +39,7 @@ function ConferenceSearchPage({
   const renderAggregations = useCallback(
     () => (
       <>
-        <ConferenceStartDateFilterContainer switchTitle="Upcoming conferences" />
+        <ConferenceStartDateFilterContainer collection="conferences" />
         <LoadingOrChildren loading={loadingAggregations}>
           <AggregationFiltersContainer
             namespace={CONFERENCES_NS}
