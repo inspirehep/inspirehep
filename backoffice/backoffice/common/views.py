@@ -2,6 +2,7 @@ import logging
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from django.db import transaction
 from django.shortcuts import get_object_or_404
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from inspire_schemas.utils import get_validation_errors
@@ -70,11 +71,14 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(status__status=status_val)
         return self.queryset
 
+    @transaction.atomic
     def partial_update(self, request, pk=None):
         logger.info(
             "Updating workflow %s with data fields: %s", pk, request.data.keys()
         )
-        workflow_instance = get_object_or_404(self.queryset, pk=pk)
+        # Serializers save the entire instance, so concurrent PATCH requests
+        # must read the latest row before applying their changes.
+        workflow_instance = get_object_or_404(self.queryset.select_for_update(), pk=pk)
         serializer = self.get_serializer(
             workflow_instance, data=request.data, partial=True
         )
