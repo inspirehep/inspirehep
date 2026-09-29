@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -9,7 +9,7 @@ import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 
 function Figures({ figures = List() }) {
   const [isCarouselVisible, setCarouselVisible] = useState(false);
-  const carouselRef = useRef();
+  const [initialIndex, setInitialIndex] = useState(0);
 
   const onCarouselCancel = useCallback(
     () => setCarouselVisible(false),
@@ -22,11 +22,10 @@ function Figures({ figures = List() }) {
         key={figure.get('key')}
         figure={figure}
         onClick={() => {
+          setInitialIndex(index);
           setCarouselVisible(true);
-          // TODO: setTimeout only if needed
-          // wait for the carousel to be in dom
-          setTimeout(() => carouselRef.current.goTo(index, true));
         }}
+        testId={`figure-${index}`}
       />
     ),
     []
@@ -41,9 +40,9 @@ function Figures({ figures = List() }) {
         grid
       />
       <FiguresCarousel
-        ref={carouselRef}
         figures={figures}
         visible={isCarouselVisible}
+        initialIndex={initialIndex}
         onCancel={onCarouselCancel}
       />
     </EmptyOrChildren>

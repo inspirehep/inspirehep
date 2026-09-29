@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
@@ -18,15 +17,7 @@ describe('FiguresCarousel', () => {
         key: 'test_FiguresCarousel_1',
       },
     ]);
-    const mockRef = React.createRef();
-    render(
-      <FiguresCarousel
-        figures={figures}
-        visible
-        onCancel={jest.fn()}
-        ref={mockRef}
-      />
-    );
+    render(<FiguresCarousel figures={figures} visible onCancel={jest.fn()} />);
 
     const modalContent = document.querySelector('.__CarouselModal__');
     expect(modalContent).toBeInTheDocument();
