@@ -2065,20 +2065,20 @@ files = [
 
 [[package]]
 name = "inspire-dictdiffer"
-version = "0.0.3"
+version = "0.0.7"
 description = "Dictdiffer is a library that helps you to diff and patch dictionaries."
 optional = false
-python-versions = "*"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "inspire-dictdiffer-0.0.3.tar.gz", hash = "sha256:2424ae8c7ed9dd72435ebdea36fcf61826c9b8c48669ac7988d4f02a0316f090"},
-    {file = "inspire_dictdiffer-0.0.3-py3-none-any.whl", hash = "sha256:b26cd21771a490e97a8850be86d2f187fefc1479b1492001ed9c2c79dd8b49aa"},
+    {file = "inspire_dictdiffer-0.0.7-py3-none-any.whl", hash = "sha256:2704da4b1682f9e138fdec268ac3708ae0a76c403cb432abe8f9e586780bc8d5"},
+    {file = "inspire_dictdiffer-0.0.7.tar.gz", hash = "sha256:6a65967ca6438317242b3094c67dfdb5f8db25fa256a1292aaba5ba9036e7c92"},
 ]
 
 [package.extras]
-all = ["coverage (>=4.0)", "mock (>=1.3.0)", "numpy (>=1.13.0) ; python_version < \"3.7\"", "numpy (>=1.15.0) ; python_version < \"3.8\"", "numpy (>=1.18.0) ; python_version < \"3.9\"", "numpy (>=1.20.0) ; python_version >= \"3.9\"", "pydocstyle (>=1.0.0)", "pytest (>=4.6,<5.0) ; python_version == \"2.7\"", "pytest (>=6.2.5,<7.0) ; python_version >= \"3\"", "pytest-cache (>=1.0)", "pytest-cov (==2.6.1)", "pytest-pep8 (>=1.0.6)"]
-numpy = ["numpy (>=1.13.0) ; python_version < \"3.7\"", "numpy (>=1.15.0) ; python_version < \"3.8\"", "numpy (>=1.18.0) ; python_version < \"3.9\"", "numpy (>=1.20.0) ; python_version >= \"3.9\""]
-tests = ["coverage (>=4.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.6,<5.0) ; python_version == \"2.7\"", "pytest (>=6.2.5,<7.0) ; python_version >= \"3\"", "pytest-cache (>=1.0)", "pytest-cov (==2.6.1)", "pytest-pep8 (>=1.0.6)"]
+all = ["numpy (>=2.4.6,<3)", "pytest (>=9.1.1,<10)"]
+numpy = ["numpy (>=2.4.6,<3)"]
+tests = ["pytest (>=9.1.1,<10)"]
 
 [[package]]
 name = "inspire-dojson"
@@ -2102,26 +2102,25 @@ pycountry = ">=18.12.8,<27"
 
 [[package]]
 name = "inspire-json-merger"
-version = "11.0.44"
+version = "11.0.46"
 description = "INSPIRE-specific configuration of the JSON Merger."
 optional = false
-python-versions = "*"
+python-versions = "<3.15,>=3.11"
 groups = ["main"]
 files = [
-    {file = "inspire_json_merger-11.0.44-py3-none-any.whl", hash = "sha256:68a2583b1c44d970ae87b8fce07a076ccc350dada62093ff11004ddce5461383"},
-    {file = "inspire_json_merger-11.0.44.tar.gz", hash = "sha256:32ca311415f71bb90eb84d0c23788d28f50290f74b64076697a6f64c29870217"},
+    {file = "inspire_json_merger-11.0.46-py3-none-any.whl", hash = "sha256:d376c0259053cf7a1797b817c25d990d37978c52e86ed9d3aa8df2ec5688866a"},
+    {file = "inspire_json_merger-11.0.46.tar.gz", hash = "sha256:8b901073756bda78b2b064b164f4c424ddfd0cde31adc5a0c65cc7cc55856390"},
 ]
 
 [package.dependencies]
-inspire-utils = ">=3.0.0,<4.0"
-json-merger = {version = ">=0.7.18,<1.0", extras = ["contrib"]}
-munkres = "1.0.12"
-pyrsistent = ">=0.14.0,<1.0"
+inspire-utils = ">=3.0.70,<4.0"
+json-merger = {version = ">=0.7.19,<1.0", extras = ["contrib"]}
+pyrsistent = ">=0.20,<1.0"
 
 [package.extras]
-all = ["decorator (>=4.1.2,<5.0)", "decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "inspire-schemas (==61.5.31)", "mock (>=2.0.0,<3.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0) ; python_version <= \"2.7\"", "pytest (>=4.6.0,<5.0) ; python_version <= \"2.7\"", "pytest (>=8.0.2,<9.0) ; python_version >= \"3.6\"", "pytest (>=8.0.2,<9.0) ; python_version >= \"3.6\"", "pytest-cov (>=2.5.1,<3.0)", "pytest-cov (>=2.5.1,<3.0)"]
-dev = ["pre-commit (==3.5.0)"]
-tests = ["decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0) ; python_version <= \"2.7\"", "pytest (>=8.0.2,<9.0) ; python_version >= \"3.6\"", "pytest-cov (>=2.5.1,<3.0)"]
+all = ["inspire-schemas (>=61.6.35,<62.0.0)", "pre-commit (==4.6.2)", "pytest (>=9.1.1,<10.0)", "pytest-cov (>=7.1.0,<8.0)"]
+dev = ["pre-commit (==4.6.2)"]
+tests = ["inspire-schemas (>=61.6.35,<62.0.0)", "pytest (>=9.1.1,<10.0)", "pytest-cov (>=7.1.0,<8.0)"]
 
 [[package]]
 name = "inspire-matcher"
@@ -3029,27 +3028,25 @@ files = [
 
 [[package]]
 name = "json-merger"
-version = "0.7.18"
+version = "0.7.19"
 description = "Python module that is able to merge json record objects."
 optional = false
-python-versions = "*"
+python-versions = "<4,>=3.11"
 groups = ["main"]
 files = [
-    {file = "json_merger-0.7.18-py2.py3-none-any.whl", hash = "sha256:504268a61652a55b952d7be266788d2ef12e0ff5611b61c601e5e90c0162799d"},
+    {file = "json_merger-0.7.19-py3-none-any.whl", hash = "sha256:8900946e92ac7977d35afe29cbeb7e1e2f68624166c0da39eadf854ea6972e0a"},
+    {file = "json_merger-0.7.19.tar.gz", hash = "sha256:470fc0a97e0b4012f4f838f1e887213d16bc695ad48c132f0d086ca3170c2db1"},
 ]
 
 [package.dependencies]
-editdistance = {version = ">=0.3.1", optional = true, markers = "extra == \"contrib\""}
-inspire-dictdiffer = "*"
-munkres = {version = "<=1.0.12", optional = true, markers = "extra == \"contrib\""}
-pyrsistent = ">=0.11.13"
-six = ">=1.10.0"
-Unidecode = {version = ">=0.4.19", optional = true, markers = "extra == \"contrib\""}
+editdistance = {version = ">=0.8.1", optional = true, markers = "extra == \"contrib\""}
+inspire-dictdiffer = ">=0.0.7"
+munkres = {version = ">=1.1.4", optional = true, markers = "extra == \"contrib\""}
+pyrsistent = ">=0.20.0"
+Unidecode = {version = ">=1.4.0", optional = true, markers = "extra == \"contrib\""}
 
 [package.extras]
-all = ["Unidecode (>=0.4.19)", "coverage (>=4.0)", "editdistance (>=0.3.1)", "flake8 (>=3.9.0)", "isort (>=4.2.2)", "munkres (<=1.0.12)", "pydocstyle (>=1.0.0)", "pytest (>=4.6.11)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)"]
-contrib = ["Unidecode (>=0.4.19)", "editdistance (>=0.3.1)", "munkres (<=1.0.12)"]
-tests = ["Unidecode (>=0.4.19)", "coverage (>=4.0)", "editdistance (>=0.3.1)", "flake8 (>=3.9.0)", "isort (>=4.2.2)", "munkres (<=1.0.12)", "pydocstyle (>=1.0.0)", "pytest (>=4.6.11)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)"]
+contrib = ["Unidecode (>=1.4.0)", "editdistance (>=0.8.1)", "munkres (>=1.1.4)"]
 
 [[package]]
 name = "jsonpatch"
@@ -3833,13 +3830,14 @@ files = [
 
 [[package]]
 name = "munkres"
-version = "1.0.12"
-description = "munkres algorithm for the Assignment Problem"
+version = "1.1.4"
+description = "Munkres (Hungarian) algorithm for the Assignment Problem"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "munkres-1.0.12-py2.py3-none-any.whl", hash = "sha256:a269adeb960c494f5fcd7f92fcc2f48fbdf90fd14b5d45716c61adc10667fed6"},
+    {file = "munkres-1.1.4-py2.py3-none-any.whl", hash = "sha256:6b01867d4a8480d865aea2326e4b8f7c46431e9e55b4a2e32d989307d7bced2a"},
+    {file = "munkres-1.1.4.tar.gz", hash = "sha256:fc44bf3c3979dada4b6b633ddeeb8ffbe8388ee9409e4d4e8310c2da1792db03"},
 ]
 
 [[package]]
@@ -6530,14 +6528,14 @@ files = [
 
 [[package]]
 name = "unidecode"
-version = "1.3.8"
+version = "1.4.0"
 description = "ASCII transliterations of Unicode text"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "Unidecode-1.3.8-py3-none-any.whl", hash = "sha256:d130a61ce6696f8148a3bd8fe779c99adeb4b870584eeb9526584e9aa091fd39"},
-    {file = "Unidecode-1.3.8.tar.gz", hash = "sha256:cfdb349d46ed3873ece4586b96aa75258726e2fa8ec21d6f00a591d98806c2f4"},
+    {file = "Unidecode-1.4.0-py3-none-any.whl", hash = "sha256:c3c7606c27503ad8d501270406e345ddb480a7b5f38827eafe4fa82a137f0021"},
+    {file = "Unidecode-1.4.0.tar.gz", hash = "sha256:ce35985008338b676573023acc382d62c264f307c8f7963733405add37ea2b23"},
 ]
 
 [[package]]
@@ -7139,4 +7137,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "4a0f8719552879607d6c0aa41bf2a75a2a224dd1b2ec1a44865658be2623cb12"
+content-hash = "a53d7a0589bc8c05643cddd877bb88cb04bb1a3b7cc1db91c9c56b62c3b4d7c4"
