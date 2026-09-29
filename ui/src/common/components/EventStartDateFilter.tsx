@@ -10,13 +10,13 @@ import EventTracker from './EventTracker';
 type EventStartDateFilterProps = {
   onChange: (value: string) => void;
   selection?: string;
-  switchTitle: string;
+  collection: 'seminars' | 'conferences';
 };
 
 function EventStartDateFilter({
   onChange,
   selection = '',
-  switchTitle,
+  collection,
 }: EventStartDateFilterProps) {
   const isUpcoming = selection === START_DATE_UPCOMING;
 
@@ -45,19 +45,19 @@ function EventStartDateFilter({
         <Row className="mb3" align="middle" gutter={8}>
           <Col>
             <EventTracker
-              eventId="show upcoming conferences"
-              eventCategory="Conferences search"
+              eventId={`show upcoming ${collection}`}
+              eventCategory={`${collection} search`}
               eventAction="Start date facet"
               eventPropName="onChange"
             >
               <Switch checked={isUpcoming} onChange={onUpcomingSwitchChange} />
             </EventTracker>
           </Col>
-          <Col>{switchTitle}</Col>
+          <Col>Upcoming {collection}</Col>
         </Row>
         <EventTracker
           eventId="date range"
-          eventCategory="Conferences search"
+          eventCategory={`${collection} search`}
           eventAction="Start date facet"
           eventPropName="onChange"
         >

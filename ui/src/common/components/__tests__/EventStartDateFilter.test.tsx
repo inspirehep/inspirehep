@@ -18,7 +18,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection={START_DATE_ALL}
         onChange={vi.fn()}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
     expect(screen.getByRole('switch')).not.toBeChecked();
@@ -31,7 +31,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection={START_DATE_UPCOMING}
         onChange={vi.fn()}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
     expect(screen.getByRole('switch')).toBeChecked();
@@ -46,7 +46,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection={`${startDate}${SEPARATOR}${endDate}`}
         onChange={vi.fn()}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
     expect(screen.getByRole('switch')).not.toBeChecked();
@@ -56,7 +56,7 @@ describe('EventStartDateFilter', () => {
 
   it('renders without selection', () => {
     const screen = render(
-      <EventStartDateFilter onChange={vi.fn()} switchTitle="Upcoming items" />
+      <EventStartDateFilter onChange={vi.fn()} collection="conferences" />
     );
     expect(screen.getByRole('switch')).not.toBeChecked();
     expect(screen.getByTestId('start-date-picker')).toHaveValue('');
@@ -73,7 +73,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection="2019-05-05--"
         onChange={onChange}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
 
@@ -90,7 +90,7 @@ describe('EventStartDateFilter', () => {
     advanceTo(currentDate);
 
     const screen = render(
-      <EventStartDateFilter onChange={onChange} switchTitle="Upcoming items" />
+      <EventStartDateFilter onChange={onChange} collection="conferences" />
     );
 
     await user.click(screen.getByTestId('start-date-picker'));
@@ -105,7 +105,7 @@ describe('EventStartDateFilter', () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     const screen = render(
-      <EventStartDateFilter onChange={onChange} switchTitle="Upcoming items" />
+      <EventStartDateFilter onChange={onChange} collection="conferences" />
     );
 
     await user.click(screen.getByRole('switch'));
@@ -119,7 +119,7 @@ describe('EventStartDateFilter', () => {
     const screen = render(
       <EventStartDateFilter
         onChange={onChange}
-        switchTitle="Upcoming items"
+        collection="conferences"
         selection={START_DATE_UPCOMING}
       />
     );
@@ -138,7 +138,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection={START_DATE_UPCOMING}
         onChange={onChange}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
     expect(screen.getByRole('switch')).toBeChecked();
@@ -157,7 +157,7 @@ describe('EventStartDateFilter', () => {
       <EventStartDateFilter
         selection="2019-05-05--"
         onChange={onChange}
-        switchTitle="Upcoming items"
+        collection="conferences"
       />
     );
 

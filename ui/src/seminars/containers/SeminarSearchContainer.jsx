@@ -38,7 +38,7 @@ function SeminarSearch({
         {enableDateFilter && (
           <SeminarStartDateFilterContainer
             namespace={namespace}
-            switchTitle="Upcoming seminars"
+            collection="seminars"
           />
         )}
         <LoadingOrChildren loading={loadingAggregations}>
