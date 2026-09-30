@@ -64,6 +64,7 @@ sentry-sdk = "^2.60.0"
 django-allauth = {version = "65.0.1", extras = ["headless"]}
 inspire-schemas = "^61.6.35"
 inspire-utils = "^3.0.70"
+ipdb = "^0.13.13"
 
 [tool.poetry.group.dev.dependencies]
 factory-boy = "3.3.3"
