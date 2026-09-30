@@ -44,7 +44,6 @@ function AssignAction({
           eventId="This is my paper"
         >
           <span
-            data-test-id="assign-self"
             data-testid="assign-self"
             key="assign-self"
             onClick={onSelfAssign}
@@ -64,12 +63,7 @@ function AssignAction({
           eventAction="Claim"
           eventId="This is not my paper"
         >
-          <span
-            data-test-id="unassign"
-            data-testid="unassign"
-            key="unassign"
-            onClick={onSelfUnassign}
-          >
+          <span data-testid="unassign" key="unassign" onClick={onSelfUnassign}>
             {numberOfSelected === 1
               ? 'This is not my paper'
               : 'These are not my papers'}
@@ -86,7 +80,6 @@ function AssignAction({
           eventId="Assign to another author"
         >
           <span
-            data-test-id="assign-another"
             data-testid="assign-another"
             key="assign-another"
             onClick={onAssignToAnother}
@@ -112,11 +105,7 @@ function AssignAction({
                   : null
               }
             >
-              <Button
-                data-test-id="btn-claim"
-                data-testid="btn-claim"
-                disabled={disabled}
-              >
+              <Button data-testid="btn-claim" disabled={disabled}>
                 <IconText text="claim" icon={<FileDoneOutlined />} />
               </Button>
             </Tooltip>

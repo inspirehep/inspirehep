@@ -12,7 +12,7 @@ const ClaimingDisabledButton = () => (
       title={
         <span>
           <Tooltip title="Login to claim your papers">
-            <Button disabled data-test-id="btn-claiming-login">
+            <Button disabled data-testid="btn-claiming-login">
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

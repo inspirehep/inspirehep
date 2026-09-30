@@ -6,11 +6,7 @@ class Loading extends Component {
     return (
       <Row className="w-100" type="flex" justify="center" align="middle">
         <Col>
-          <div
-            data-test-id="loading"
-            data-testid="loading-spinner"
-            className="tc pa4"
-          >
+          <div data-testid="loading-spinner" className="tc pa4">
             <Spin description="Loading ...">
               <div className="pa4" />
             </Spin>

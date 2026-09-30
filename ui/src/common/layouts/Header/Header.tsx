@@ -25,7 +25,7 @@ function Header({
 
   return (
     <div className={classNames('__Header__', { backoffice: isBackofficePage })}>
-      <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
+      <div ref={stickyContainerRef} className="sticky" data-testid="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header

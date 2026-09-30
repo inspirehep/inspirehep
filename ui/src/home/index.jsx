@@ -39,7 +39,7 @@ function Home() {
           >
             <>
               <SearchBoxContainer />
-              <div className="tc f5 mt4" data-test-id="scroll-button">
+              <div className="tc f5 mt4" data-testid="scroll-button">
                 <EventTracker
                   eventCategory="Home page"
                   eventAction="Link"
@@ -61,7 +61,7 @@ function Home() {
           <HomePageSection title="News and updates">
             <NewsAndUpdates />
           </HomePageSection>
-          <div ref={refElement} data-test-id="how-to-search">
+          <div ref={refElement} data-testid="how-to-search">
             <HomePageSection
               title="How to Search"
               className="bg-white"

@@ -52,7 +52,7 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1
                 </span>
@@ -91,7 +91,7 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2
                 </span>
@@ -166,7 +166,7 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1 
                   <span
@@ -227,7 +227,7 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2 
                   <span
@@ -288,7 +288,7 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket3"
+                  data-testid="checkbox-aggregation-option-bucket3"
                 >
                   bucket3 
                   <span
@@ -386,7 +386,7 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1
                 </span>
@@ -425,7 +425,7 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2
                 </span>
@@ -501,7 +501,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1
                 </span>
@@ -540,7 +540,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2
                 </span>
@@ -579,7 +579,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket3"
+                  data-testid="checkbox-aggregation-option-bucket3"
                 >
                   bucket3
                 </span>
@@ -618,7 +618,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket4"
+                  data-testid="checkbox-aggregation-option-bucket4"
                 >
                   bucket4
                 </span>
@@ -657,7 +657,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket5"
+                  data-testid="checkbox-aggregation-option-bucket5"
                 >
                   bucket5
                 </span>
@@ -696,7 +696,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket6"
+                  data-testid="checkbox-aggregation-option-bucket6"
                 >
                   bucket6
                 </span>
@@ -735,7 +735,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket7"
+                  data-testid="checkbox-aggregation-option-bucket7"
                 >
                   bucket7
                 </span>
@@ -774,7 +774,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket8"
+                  data-testid="checkbox-aggregation-option-bucket8"
                 >
                   bucket8
                 </span>
@@ -813,7 +813,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket9"
+                  data-testid="checkbox-aggregation-option-bucket9"
                 >
                   bucket9
                 </span>
@@ -852,7 +852,7 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket10"
+                  data-testid="checkbox-aggregation-option-bucket10"
                 >
                   bucket10
                 </span>
@@ -934,7 +934,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1
                 </span>
@@ -973,7 +973,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2
                 </span>
@@ -1012,7 +1012,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket3"
+                  data-testid="checkbox-aggregation-option-bucket3"
                 >
                   bucket3
                 </span>
@@ -1051,7 +1051,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket4"
+                  data-testid="checkbox-aggregation-option-bucket4"
                 >
                   bucket4
                 </span>
@@ -1090,7 +1090,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket5"
+                  data-testid="checkbox-aggregation-option-bucket5"
                 >
                   bucket5
                 </span>
@@ -1129,7 +1129,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket6"
+                  data-testid="checkbox-aggregation-option-bucket6"
                 >
                   bucket6
                 </span>
@@ -1168,7 +1168,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket7"
+                  data-testid="checkbox-aggregation-option-bucket7"
                 >
                   bucket7
                 </span>
@@ -1207,7 +1207,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket8"
+                  data-testid="checkbox-aggregation-option-bucket8"
                 >
                   bucket8
                 </span>
@@ -1246,7 +1246,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket9"
+                  data-testid="checkbox-aggregation-option-bucket9"
                 >
                   bucket9
                 </span>
@@ -1285,7 +1285,7 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket10"
+                  data-testid="checkbox-aggregation-option-bucket10"
                 >
                   bucket10
                 </span>

@@ -3,7 +3,7 @@
 exports[`ReferenceItem > does not render misc if title present 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="reference-item"
+    data-testid="reference-item"
     id="reference-123"
   >
     <li
@@ -37,10 +37,10 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
               >
                 <div
                   class="f5"
-                  data-test-id="reference-title"
+                  data-testid="reference-title"
                 >
                   <span
-                    data-test-id="literature-detail-title"
+                    data-testid="literature-detail-title"
                   >
                     <span
                       class="__Latex__"
@@ -68,7 +68,7 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
         >
           <div
             class="flex items-center justify-center"
-            data-test-id="edit-reference"
+            data-testid="edit-reference"
           >
             <button
               class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -119,7 +119,7 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
 exports[`ReferenceItem > renders misc if present 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="reference-item"
+    data-testid="reference-item"
     id="reference-123"
   >
     <li
@@ -169,7 +169,7 @@ exports[`ReferenceItem > renders misc if present 1`] = `
         >
           <div
             class="flex items-center justify-center"
-            data-test-id="edit-reference"
+            data-testid="edit-reference"
           >
             <button
               class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -220,7 +220,7 @@ exports[`ReferenceItem > renders misc if present 1`] = `
 exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="reference-item"
+    data-testid="reference-item"
     id="reference-123"
   >
     <li
@@ -254,10 +254,10 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
               >
                 <div
                   class="f5"
-                  data-test-id="reference-title"
+                  data-testid="reference-title"
                 >
                   <span
-                    data-test-id="literature-detail-title"
+                    data-testid="literature-detail-title"
                   >
                     <span
                       class="__Latex__"
@@ -411,7 +411,7 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
         >
           <div
             class="flex items-center justify-center"
-            data-test-id="edit-reference"
+            data-testid="edit-reference"
           >
             <button
               class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -462,7 +462,7 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
 exports[`ReferenceItem > renders with full reference 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="reference-item"
+    data-testid="reference-item"
     id="reference-123"
   >
     <li
@@ -499,14 +499,14 @@ exports[`ReferenceItem > renders with full reference 1`] = `
                 class="ant-list-item-meta-title"
               >
                 <div
-                  data-test-id="reference-title"
+                  data-testid="reference-title"
                 >
                   <a
                     class="f5"
                     href="/literature/12345"
                   >
                     <span
-                      data-test-id="literature-detail-title"
+                      data-testid="literature-detail-title"
                     >
                       <span
                         class="__Latex__"
@@ -643,7 +643,7 @@ exports[`ReferenceItem > renders with full reference 1`] = `
         >
           <div
             class="flex items-center justify-center"
-            data-test-id="edit-reference"
+            data-testid="edit-reference"
           >
             <button
               class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -694,7 +694,7 @@ exports[`ReferenceItem > renders with full reference 1`] = `
 exports[`ReferenceItem > renders without edit button if disableEdit 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="reference-item"
+    data-testid="reference-item"
     id="reference-123"
   >
     <li
@@ -728,10 +728,10 @@ exports[`ReferenceItem > renders without edit button if disableEdit 1`] = `
               >
                 <div
                   class="f5"
-                  data-test-id="reference-title"
+                  data-testid="reference-title"
                 >
                   <span
-                    data-test-id="literature-detail-title"
+                    data-testid="literature-detail-title"
                   >
                     <span
                       class="__Latex__"

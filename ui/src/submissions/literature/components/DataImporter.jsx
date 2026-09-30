@@ -77,7 +77,6 @@ class DataImporter extends Component {
           wrapperCol={WRAPPER_COL}
         >
           <Input
-            data-test-id="import-input"
             data-testid="import-input"
             placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
             onChange={this.onImportChange}
@@ -96,7 +95,6 @@ class DataImporter extends Component {
           </Col>
           <Col>
             <Button
-              data-test-id="import-button"
               data-testid="import-button"
               type="primary"
               onClick={this.onImportClick}

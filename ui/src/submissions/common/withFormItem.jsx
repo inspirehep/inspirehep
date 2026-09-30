@@ -37,7 +37,7 @@ export default function withFormItem(FormInputComponent) {
       const errorMessage = getIn(errors, name);
       return (
         errorMessage && (
-          <span data-test-id={`${field.name}-error`}>{errorMessage}</span>
+          <span data-testid={`${field.name}-error`}>{errorMessage}</span>
         )
       );
     }
@@ -68,7 +68,7 @@ export default function withFormItem(FormInputComponent) {
           <Space.Compact block>
             {addonBefore && <Space.Addon>{addonBefore}</Space.Addon>}
             <FormInputComponent
-              data-test-id={field.name}
+              data-testid={field.name}
               {...field}
               {...props}
               form={form}

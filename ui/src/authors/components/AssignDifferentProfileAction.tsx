@@ -26,7 +26,6 @@ function AssignDifferentProfileAction({
       key: '1',
       label: (
         <span
-          data-test-id="assign-self"
           data-testid="assign-self"
           key="assign-self"
           onClick={onSelfAssign}
@@ -50,11 +49,7 @@ function AssignDifferentProfileAction({
                   : null
               }
             >
-              <Button
-                data-test-id="claim-multiple"
-                data-testid="claim-multiple"
-                disabled={disabled}
-              >
+              <Button data-testid="claim-multiple" disabled={disabled}>
                 <IconText text="claim" icon={<FileDoneOutlined />} />
               </Button>
             </Tooltip>

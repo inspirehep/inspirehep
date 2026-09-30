@@ -26,7 +26,7 @@ function AssignNoProfileAction() {
         title={
           <span>
             <Tooltip title={CLAIMING_DISABLED_INFO}>
-              <Button disabled data-test-id="btn-claiming-profile">
+              <Button disabled data-testid="btn-claiming-profile">
                 <IconText text="claim" icon={<FileDoneOutlined />} />
               </Button>
             </Tooltip>

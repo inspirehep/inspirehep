@@ -43,7 +43,6 @@ export const ChangeEmailForm = ({
             name="email"
             type="email"
             placeholder="Email"
-            data-test-id="email"
             data-testid="email"
             component={TextField}
           />
@@ -57,7 +56,6 @@ export const ChangeEmailForm = ({
               disabled={!props.isValid || !props.dirty}
               type="primary"
               htmlType="submit"
-              data-test-id="submit-email"
               data-testid="submit-email"
             >
               Change

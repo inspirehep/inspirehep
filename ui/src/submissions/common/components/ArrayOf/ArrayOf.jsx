@@ -48,7 +48,7 @@ class ArrayOf extends Component {
                     <Row
                       key={extractKey(item, index)}
                       className="item"
-                      data-test-id={`container-${name}.${index}`}
+                      data-testid={`container-${name}.${index}`}
                     >
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
                       {allowItemDelete && items.length > 1 && (
@@ -65,7 +65,7 @@ class ArrayOf extends Component {
               </Form.Item>
               <Form.Item wrapperCol={wrapperCol} className="add-button">
                 <Button
-                  data-test-id={`${name}-add-item`}
+                  data-testid={`${name}-add-item`}
                   type="dashed"
                   onClick={() => push(emptyItem)}
                 >

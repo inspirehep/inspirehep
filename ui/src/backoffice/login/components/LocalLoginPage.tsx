@@ -26,7 +26,6 @@ const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
             name="email"
             type="email"
             placeholder="Email"
-            data-test-id="email"
             data-testid="email"
             component={renderFormInput}
           />
@@ -36,7 +35,6 @@ const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
             name="password"
             type="password"
             placeholder="Password"
-            data-test-id="password"
             data-testid="password"
             component={renderFormInput}
           />
@@ -45,7 +43,6 @@ const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
           className="w-100"
           type="primary"
           htmlType="submit"
-          data-test-id="login"
           data-testid="login"
           disabled={!(formik.isValid && formik.dirty)}
         >

@@ -45,7 +45,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                     </div>
                     <h2>
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -217,7 +217,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                       >
                         <button
                           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-                          data-test-id="btn-claiming-profile"
+                          data-testid="btn-claiming-profile"
                           disabled=""
                           type="button"
                         >
@@ -264,7 +264,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                       class="__UserAction__"
                     >
                       <a
-                        data-test-id="reference-search-button"
+                        data-testid="reference-search-button"
                         href="/literature?q=citedby:recid:1234"
                       >
                         <span
@@ -575,7 +575,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                                     class="ant-list-items ant-list-container css-var-root"
                                   >
                                     <div
-                                      data-test-id="reference-item"
+                                      data-testid="reference-item"
                                       id="0"
                                     >
                                       <li
@@ -622,7 +622,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                                           >
                                             <div
                                               class="flex items-center justify-center"
-                                              data-test-id="edit-reference"
+                                              data-testid="edit-reference"
                                             >
                                               <button
                                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
@@ -667,7 +667,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                                       </li>
                                     </div>
                                     <div
-                                      data-test-id="reference-item"
+                                      data-testid="reference-item"
                                       id="reference-1"
                                     >
                                       <li
@@ -714,7 +714,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                                           >
                                             <div
                                               class="flex items-center justify-center"
-                                              data-test-id="edit-reference"
+                                              data-testid="edit-reference"
                                             >
                                               <button
                                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"

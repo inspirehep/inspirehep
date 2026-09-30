@@ -33,7 +33,7 @@ class ReferenceItem extends Component {
     const title = reference.getIn(['titles', 0]);
     if (recordId && title && !unlinked) {
       return (
-        <div data-test-id="reference-title">
+        <div data-testid="reference-title">
           <Link
             className={classNames('f5', unlinked ? 'unlinked' : '')}
             to={`${LITERATURE}/${recordId}`}
@@ -48,7 +48,7 @@ class ReferenceItem extends Component {
       return (
         <div
           className={classNames('f5', unlinked ? 'unlinked' : '')}
-          data-test-id="reference-title"
+          data-testid="reference-title"
         >
           <LiteratureTitle title={title} unlinked={unlinked} />
         </div>
@@ -89,7 +89,7 @@ class ReferenceItem extends Component {
 
     return (
       <div
-        data-test-id="reference-item"
+        data-testid="reference-item"
         id={reference_index && `reference-${reference_index}`}
       >
         <List.Item>
@@ -146,7 +146,7 @@ class ReferenceItem extends Component {
                 >
                   <div
                     className="flex items-center justify-center"
-                    data-test-id="edit-reference"
+                    data-testid="edit-reference"
                   >
                     <LinkLikeButton
                       onClick={() => {

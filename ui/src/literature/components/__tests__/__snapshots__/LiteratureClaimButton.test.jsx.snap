@@ -11,7 +11,7 @@ exports[`LiteratureClaimButton > renders disabled when user is logged in and has
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claiming-authors"
+        data-testid="btn-claiming-authors"
         disabled=""
         type="button"
       >
@@ -64,7 +64,7 @@ exports[`LiteratureClaimButton > renders disabled when user is logged in but doe
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claiming-profile"
+        data-testid="btn-claiming-profile"
         disabled=""
         type="button"
       >
@@ -117,7 +117,7 @@ exports[`LiteratureClaimButton > renders disabled when user is not logged in 1`]
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claiming-login"
+        data-testid="btn-claiming-login"
         disabled=""
         type="button"
       >
@@ -166,7 +166,6 @@ exports[`LiteratureClaimButton > renders enabled 1`] = `
   >
     <button
       class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
-      data-test-id="btn-claiming-literature"
       data-testid="btn-claiming-literature"
       type="button"
     >

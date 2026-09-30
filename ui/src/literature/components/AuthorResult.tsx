@@ -28,7 +28,6 @@ const AuthorResult = ({
         <Radio
           value={getAuthorRecordIdFromRef()}
           disabled={isRadioButtonDisabled()}
-          data-test-id={`literature-drawer-radio-${getAuthorRecordIdFromRef()}`}
           data-testid={`literature-drawer-radio-${getAuthorRecordIdFromRef()}`}
         />
       </Col>

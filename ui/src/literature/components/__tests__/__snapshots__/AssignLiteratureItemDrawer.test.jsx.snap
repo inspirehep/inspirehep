@@ -107,7 +107,6 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
             </div>
             <div
               class="ant-radio-group ant-radio-group-outline w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-radio-css-var"
-              data-test-id="literature-drawer-radio-group"
               data-testid="literature-drawer-radio-group"
               role="radiogroup"
             >
@@ -140,7 +139,6 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
                             >
                               <input
                                 class="ant-radio-input"
-                                data-test-id="literature-drawer-radio-1016091"
                                 data-testid="literature-drawer-radio-1016091"
                                 name="test-id"
                                 type="radio"
@@ -209,7 +207,6 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
               >
                 <button
                   class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                  data-test-id="assign-literature-item-button"
                   data-testid="assign-literature-item-button"
                   disabled=""
                   type="button"

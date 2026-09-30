@@ -115,7 +115,6 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
             </span>
             <div
               class="ant-radio-group ant-radio-group-outline w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-radio-css-var"
-              data-test-id="conference-radio-group"
               data-testid="conference-radio-group"
               role="radiogroup"
             >
@@ -131,7 +130,6 @@ exports[`AssignConferencesDrawer > renders assign conferences search 1`] = `
               >
                 <button
                   class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                  data-test-id="assign-conference-button"
                   data-testid="assign-conference-button"
                   disabled=""
                   type="button"

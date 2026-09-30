@@ -20,7 +20,6 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
           <input
             aria-invalid="false"
             autocomplete="off"
-            data-test-id="start-date-picker"
             data-testid="start-date-picker"
             placeholder="Select date"
             size="12"
@@ -96,7 +95,6 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
           <input
             aria-invalid="false"
             autocomplete="off"
-            data-test-id="end-date-picker"
             data-testid="end-date-picker"
             placeholder="Select date"
             size="12"
@@ -179,7 +177,6 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
           <input
             aria-invalid="false"
             autocomplete="off"
-            data-test-id="start-date-picker"
             data-testid="start-date-picker"
             placeholder="Select date"
             size="12"
@@ -229,7 +226,6 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
           <input
             aria-invalid="false"
             autocomplete="off"
-            data-test-id="end-date-picker"
             data-testid="end-date-picker"
             placeholder="Select date"
             size="12"

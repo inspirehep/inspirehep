@@ -22,7 +22,6 @@ const LinkLikeButton = ({
   <Button
     disabled={disabled}
     type="text"
-    data-test-id={dataTestId}
     onClick={onClick}
     className={classNames('__LinkLikeButton__', color, { disabled }, className)}
     data-testid={dataTestId}

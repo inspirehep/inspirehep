@@ -11,7 +11,7 @@ describe("Institution Submission", () => {
       identifier: "Amazing New Institution",
     };
     cy.visit("/submissions/institutions");
-    cy.get('[data-test-id="loading"]').should("be.visible");
+    cy.get('[data-testid="loading-spinner"]').should("be.visible");
     cy.waitForLoading();
     cy.testSubmission({
       expectedMetadata: expectedMetadata.identifier,

@@ -28,7 +28,6 @@ exports[`SingUpForm > disable email input and display loading on the button whil
                 >
                   <input
                     class="ant-input ant-input-disabled css-dev-only-do-not-override-oc1rc0"
-                    data-test-id="email"
                     data-testid="email"
                     disabled=""
                     form="[object Object]"
@@ -120,7 +119,6 @@ exports[`SingUpForm > renders the form 1`] = `
                 >
                   <input
                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                    data-test-id="email"
                     data-testid="email"
                     form="[object Object]"
                     name="email"

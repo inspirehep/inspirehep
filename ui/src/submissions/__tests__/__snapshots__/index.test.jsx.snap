@@ -141,7 +141,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="given_name"
+                                            data-testid="given_name"
                                             form="[object Object]"
                                             name="given_name"
                                             placeholder="e.g. Diego"
@@ -192,7 +192,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="family_name"
+                                            data-testid="family_name"
                                             form="[object Object]"
                                             name="family_name"
                                             placeholder="e.g. Martínez Santos"
@@ -243,7 +243,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="display_name"
+                                            data-testid="display_name"
                                             form="[object Object]"
                                             name="display_name"
                                             placeholder="How should the author be addressed throughout the site? e.g. Diego Martínez"
@@ -294,7 +294,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="native_name"
+                                            data-testid="native_name"
                                             form="[object Object]"
                                             name="native_name"
                                             placeholder="For non-Latin names e.g. 麦迪娜 or Эдгар Бугаев"
@@ -345,7 +345,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="alternate_name"
+                                            data-testid="alternate_name"
                                             form="[object Object]"
                                             name="alternate_name"
                                             placeholder="Names that are searchable but not displayed"
@@ -408,7 +408,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-emails.0"
+                                                    data-testid="container-emails.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -443,7 +443,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       >
                                                                         <input
                                                                           class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                          data-test-id="emails.0.value"
+                                                                          data-testid="emails.0.value"
                                                                           form="[object Object]"
                                                                           name="emails.0.value"
                                                                           placeholder="Email"
@@ -498,7 +498,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="emails.0.current"
+                                                                                data-testid="emails.0.current"
                                                                                 form="[object Object]"
                                                                                 name="emails.0.current"
                                                                                 type="checkbox"
@@ -548,7 +548,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="emails.0.hidden"
+                                                                                data-testid="emails.0.hidden"
                                                                                 form="[object Object]"
                                                                                 name="emails.0.hidden"
                                                                                 type="checkbox"
@@ -621,7 +621,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="emails-add-item"
+                                                    data-testid="emails-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -692,9 +692,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                       >
                                         <div
                                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                          data-test-id="status"
                                           data-test-type="single-select"
-                                          data-testid="select-box"
+                                          data-testid="status"
                                           form="[object Object]"
                                           name="status"
                                         >
@@ -702,7 +701,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                             class="ant-select-content ant-select-content-has-value"
                                           >
                                             <span
-                                              data-test-id="status-option-active"
+                                              data-testid="status-option-active"
                                             >
                                               Active
                                             </span>
@@ -815,7 +814,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="orcid"
+                                            data-testid="orcid"
                                             form="[object Object]"
                                             name="orcid"
                                             placeholder="0000-0000-0000-0000"
@@ -932,7 +931,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-websites.0"
+                                                    data-testid="container-websites.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -960,7 +959,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                   >
                                                                     <input
                                                                       class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                      data-test-id="websites.0"
+                                                                      data-testid="websites.0"
                                                                       form="[object Object]"
                                                                       name="websites.0"
                                                                       type="text"
@@ -1000,7 +999,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="websites-add-item"
+                                                    data-testid="websites-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -1074,7 +1073,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="blog"
+                                            data-testid="blog"
                                             form="[object Object]"
                                             name="blog"
                                             type="text"
@@ -1129,7 +1128,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="linkedin"
+                                            data-testid="linkedin"
                                             form="[object Object]"
                                             name="linkedin"
                                             type="text"
@@ -1184,7 +1183,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="bluesky"
+                                            data-testid="bluesky"
                                             form="[object Object]"
                                             name="bluesky"
                                             placeholder="username.bsky.social"
@@ -1235,7 +1234,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="mastodon"
+                                            data-testid="mastodon"
                                             form="[object Object]"
                                             name="mastodon"
                                             placeholder="username@host"
@@ -1308,7 +1307,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="twitter"
+                                            data-testid="twitter"
                                             form="[object Object]"
                                             name="twitter"
                                             type="text"
@@ -1412,9 +1411,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                       >
                                         <div
                                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                          data-test-id="arxiv_categories"
                                           data-test-type="multiple-select"
-                                          data-testid="select-box"
+                                          data-testid="arxiv_categories"
                                           form="[object Object]"
                                           name="arxiv_categories"
                                         >
@@ -1523,7 +1521,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-positions.0"
+                                                    data-testid="container-positions.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -1555,8 +1553,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="positions.0.institution"
                                                                         data-test-type="suggester"
+                                                                        data-testid="positions.0.institution"
                                                                         form="[object Object]"
                                                                         name="positions.0.institution"
                                                                         searchasyoutype="true"
@@ -1629,7 +1627,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="positions.0.current"
+                                                                                data-testid="positions.0.current"
                                                                                 form="[object Object]"
                                                                                 name="positions.0.current"
                                                                                 type="checkbox"
@@ -1682,8 +1680,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="positions.0.start_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="positions.0.start_date"
                                                                             placeholder="Start year"
                                                                             size="12"
                                                                             value=""
@@ -1752,8 +1750,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="positions.0.end_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="positions.0.end_date"
                                                                             placeholder="End year"
                                                                             size="12"
                                                                             value=""
@@ -1814,9 +1812,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                                                        data-test-id="positions.0.rank"
                                                                         data-test-type="single-select"
-                                                                        data-testid="select-box"
+                                                                        data-testid="positions.0.rank"
                                                                         form="[object Object]"
                                                                         name="positions.0.rank"
                                                                       >
@@ -1897,7 +1894,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="positions-add-item"
+                                                    data-testid="positions-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -1983,7 +1980,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-project_membership.0"
+                                                    data-testid="container-project_membership.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -2015,8 +2012,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="project_membership.0.name"
                                                                         data-test-type="suggester"
+                                                                        data-testid="project_membership.0.name"
                                                                         form="[object Object]"
                                                                         name="project_membership.0.name"
                                                                         searchasyoutype="true"
@@ -2089,7 +2086,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="project_membership.0.current"
+                                                                                data-testid="project_membership.0.current"
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.current"
                                                                                 type="checkbox"
@@ -2142,8 +2139,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="project_membership.0.start_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="project_membership.0.start_date"
                                                                             placeholder="Start year"
                                                                             size="12"
                                                                             value=""
@@ -2212,8 +2209,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="project_membership.0.end_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="project_membership.0.end_date"
                                                                             placeholder="End year"
                                                                             size="12"
                                                                             value=""
@@ -2276,7 +2273,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="project_membership-add-item"
+                                                    data-testid="project_membership-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -2362,7 +2359,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-advisors.0"
+                                                    data-testid="container-advisors.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -2394,8 +2391,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="advisors.0.name"
                                                                         data-test-type="suggester"
+                                                                        data-testid="advisors.0.name"
                                                                         form="[object Object]"
                                                                         name="advisors.0.name"
                                                                       >
@@ -2453,9 +2450,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                                                        data-test-id="advisors.0.degree_type"
                                                                         data-test-type="single-select"
-                                                                        data-testid="select-box"
+                                                                        data-testid="advisors.0.degree_type"
                                                                         form="[object Object]"
                                                                         name="advisors.0.degree_type"
                                                                       >
@@ -2536,7 +2532,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="advisors-add-item"
+                                                    data-testid="advisors-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -2664,7 +2660,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         >
                                           <textarea
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="comments"
+                                            data-testid="comments"
                                             form="[object Object]"
                                             name="comments"
                                             placeholder="any comments you might have"
@@ -2694,7 +2690,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -2849,7 +2845,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="given_name"
+                                            data-testid="given_name"
                                             form="[object Object]"
                                             name="given_name"
                                             placeholder="e.g. Diego"
@@ -2900,7 +2896,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="family_name"
+                                            data-testid="family_name"
                                             form="[object Object]"
                                             name="family_name"
                                             placeholder="e.g. Martínez Santos"
@@ -2951,7 +2947,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="display_name"
+                                            data-testid="display_name"
                                             form="[object Object]"
                                             name="display_name"
                                             placeholder="How should the author be addressed throughout the site? e.g. Diego Martínez"
@@ -3002,7 +2998,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="native_name"
+                                            data-testid="native_name"
                                             form="[object Object]"
                                             name="native_name"
                                             placeholder="For non-Latin names e.g. 麦迪娜 or Эдгар Бугаев"
@@ -3053,7 +3049,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="alternate_name"
+                                            data-testid="alternate_name"
                                             form="[object Object]"
                                             name="alternate_name"
                                             placeholder="Names that are searchable but not displayed"
@@ -3116,7 +3112,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-emails.0"
+                                                    data-testid="container-emails.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -3151,7 +3147,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       >
                                                                         <input
                                                                           class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                          data-test-id="emails.0.value"
+                                                                          data-testid="emails.0.value"
                                                                           form="[object Object]"
                                                                           name="emails.0.value"
                                                                           placeholder="Email"
@@ -3206,7 +3202,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="emails.0.current"
+                                                                                data-testid="emails.0.current"
                                                                                 form="[object Object]"
                                                                                 name="emails.0.current"
                                                                                 type="checkbox"
@@ -3256,7 +3252,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="emails.0.hidden"
+                                                                                data-testid="emails.0.hidden"
                                                                                 form="[object Object]"
                                                                                 name="emails.0.hidden"
                                                                                 type="checkbox"
@@ -3329,7 +3325,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="emails-add-item"
+                                                    data-testid="emails-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -3400,9 +3396,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                       >
                                         <div
                                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                          data-test-id="status"
                                           data-test-type="single-select"
-                                          data-testid="select-box"
+                                          data-testid="status"
                                           form="[object Object]"
                                           name="status"
                                         >
@@ -3410,7 +3405,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                             class="ant-select-content ant-select-content-has-value"
                                           >
                                             <span
-                                              data-test-id="status-option-active"
+                                              data-testid="status-option-active"
                                             >
                                               Active
                                             </span>
@@ -3523,7 +3518,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="orcid"
+                                            data-testid="orcid"
                                             form="[object Object]"
                                             name="orcid"
                                             placeholder="0000-0000-0000-0000"
@@ -3640,7 +3635,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-websites.0"
+                                                    data-testid="container-websites.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -3668,7 +3663,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                   >
                                                                     <input
                                                                       class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                      data-test-id="websites.0"
+                                                                      data-testid="websites.0"
                                                                       form="[object Object]"
                                                                       name="websites.0"
                                                                       type="text"
@@ -3708,7 +3703,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="websites-add-item"
+                                                    data-testid="websites-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -3782,7 +3777,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="blog"
+                                            data-testid="blog"
                                             form="[object Object]"
                                             name="blog"
                                             type="text"
@@ -3837,7 +3832,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="linkedin"
+                                            data-testid="linkedin"
                                             form="[object Object]"
                                             name="linkedin"
                                             type="text"
@@ -3892,7 +3887,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="bluesky"
+                                            data-testid="bluesky"
                                             form="[object Object]"
                                             name="bluesky"
                                             placeholder="username.bsky.social"
@@ -3943,7 +3938,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="mastodon"
+                                            data-testid="mastodon"
                                             form="[object Object]"
                                             name="mastodon"
                                             placeholder="username@host"
@@ -4016,7 +4011,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <input
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="twitter"
+                                            data-testid="twitter"
                                             form="[object Object]"
                                             name="twitter"
                                             type="text"
@@ -4120,9 +4115,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                       >
                                         <div
                                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                          data-test-id="arxiv_categories"
                                           data-test-type="multiple-select"
-                                          data-testid="select-box"
+                                          data-testid="arxiv_categories"
                                           form="[object Object]"
                                           name="arxiv_categories"
                                         >
@@ -4231,7 +4225,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-positions.0"
+                                                    data-testid="container-positions.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -4263,8 +4257,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="positions.0.institution"
                                                                         data-test-type="suggester"
+                                                                        data-testid="positions.0.institution"
                                                                         form="[object Object]"
                                                                         name="positions.0.institution"
                                                                         searchasyoutype="true"
@@ -4337,7 +4331,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="positions.0.current"
+                                                                                data-testid="positions.0.current"
                                                                                 form="[object Object]"
                                                                                 name="positions.0.current"
                                                                                 type="checkbox"
@@ -4387,7 +4381,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="positions.0.hidden"
+                                                                                data-testid="positions.0.hidden"
                                                                                 form="[object Object]"
                                                                                 name="positions.0.hidden"
                                                                                 type="checkbox"
@@ -4466,8 +4460,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="positions.0.start_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="positions.0.start_date"
                                                                             placeholder="Start year"
                                                                             size="12"
                                                                             value=""
@@ -4536,8 +4530,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="positions.0.end_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="positions.0.end_date"
                                                                             placeholder="End year"
                                                                             size="12"
                                                                             value=""
@@ -4598,9 +4592,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                                                        data-test-id="positions.0.rank"
                                                                         data-test-type="single-select"
-                                                                        data-testid="select-box"
+                                                                        data-testid="positions.0.rank"
                                                                         form="[object Object]"
                                                                         name="positions.0.rank"
                                                                       >
@@ -4681,7 +4674,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="positions-add-item"
+                                                    data-testid="positions-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -4767,7 +4760,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-project_membership.0"
+                                                    data-testid="container-project_membership.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -4799,8 +4792,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="project_membership.0.name"
                                                                         data-test-type="suggester"
+                                                                        data-testid="project_membership.0.name"
                                                                         form="[object Object]"
                                                                         name="project_membership.0.name"
                                                                         searchasyoutype="true"
@@ -4873,7 +4866,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="project_membership.0.current"
+                                                                                data-testid="project_membership.0.current"
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.current"
                                                                                 type="checkbox"
@@ -4923,7 +4916,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             >
                                                                               <input
                                                                                 class="ant-checkbox-input"
-                                                                                data-test-id="project_membership.0.hidden"
+                                                                                data-testid="project_membership.0.hidden"
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.hidden"
                                                                                 type="checkbox"
@@ -5002,8 +4995,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="project_membership.0.start_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="project_membership.0.start_date"
                                                                             placeholder="Start year"
                                                                             size="12"
                                                                             value=""
@@ -5072,8 +5065,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             aria-invalid="false"
                                                                             autocomplete="off"
                                                                             data-test-format="YYYY"
-                                                                            data-test-id="project_membership.0.end_date"
                                                                             data-test-type="date-picker"
+                                                                            data-testid="project_membership.0.end_date"
                                                                             placeholder="End year"
                                                                             size="12"
                                                                             value=""
@@ -5136,7 +5129,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="project_membership-add-item"
+                                                    data-testid="project_membership-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -5222,7 +5215,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <div
                                                     class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                                    data-test-id="container-advisors.0"
+                                                    data-testid="container-advisors.0"
                                                   >
                                                     <div
                                                       class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -5254,8 +5247,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                        data-test-id="advisors.0.name"
                                                                         data-test-type="suggester"
+                                                                        data-testid="advisors.0.name"
                                                                         form="[object Object]"
                                                                         name="advisors.0.name"
                                                                       >
@@ -5313,9 +5306,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     >
                                                                       <div
                                                                         class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                                                        data-test-id="advisors.0.degree_type"
                                                                         data-test-type="single-select"
-                                                                        data-testid="select-box"
+                                                                        data-testid="advisors.0.degree_type"
                                                                         form="[object Object]"
                                                                         name="advisors.0.degree_type"
                                                                       >
@@ -5400,7 +5392,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                         >
                                                                           <input
                                                                             class="ant-checkbox-input"
-                                                                            data-test-id="advisors.0.hidden"
+                                                                            data-testid="advisors.0.hidden"
                                                                             form="[object Object]"
                                                                             name="advisors.0.hidden"
                                                                             type="checkbox"
@@ -5471,7 +5463,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                 >
                                                   <button
                                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                                    data-test-id="advisors-add-item"
+                                                    data-testid="advisors-add-item"
                                                     type="button"
                                                   >
                                                     <span
@@ -5599,7 +5591,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         >
                                           <textarea
                                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                            data-test-id="comments"
+                                            data-testid="comments"
                                             form="[object Object]"
                                             name="comments"
                                             placeholder="any comments you might have"
@@ -5629,7 +5621,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -5734,7 +5726,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="name"
+                                    data-testid="name"
                                     form="[object Object]"
                                     name="name"
                                     type="text"
@@ -5784,7 +5776,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="subtitle"
+                                    data-testid="subtitle"
                                     form="[object Object]"
                                     name="subtitle"
                                     type="text"
@@ -5846,7 +5838,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-acronyms.0"
+                                            data-testid="container-acronyms.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -5874,7 +5866,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="acronyms.0"
+                                                              data-testid="acronyms.0"
                                                               form="[object Object]"
                                                               name="acronyms.0"
                                                               type="text"
@@ -5914,7 +5906,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="acronyms-add-item"
+                                            data-testid="acronyms-add-item"
                                             type="button"
                                           >
                                             <span
@@ -5985,8 +5977,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="series_name"
                                   data-test-type="suggester"
+                                  data-testid="series_name"
                                   form="[object Object]"
                                   name="series_name"
                                 >
@@ -6056,7 +6048,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                   <input
                                     autocomplete="off"
                                     class="ant-input-number-input"
-                                    data-test-id="series_number"
+                                    data-testid="series_number"
                                     form="[object Object]"
                                     name="series_number"
                                     role="spinbutton"
@@ -6169,9 +6161,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                     <input
                                       aria-invalid="false"
                                       autocomplete="off"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="start"
                                       name="dates"
                                       placeholder="Start date"
@@ -6213,9 +6204,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                     <input
                                       aria-invalid="false"
                                       autocomplete="off"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="end"
                                       name="dates"
                                       placeholder="End date"
@@ -6304,7 +6294,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-addresses.0"
+                                            data-testid="container-addresses.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -6339,7 +6329,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="addresses.0.city"
+                                                                  data-testid="addresses.0.city"
                                                                   form="[object Object]"
                                                                   name="addresses.0.city"
                                                                   placeholder="* City"
@@ -6380,9 +6370,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="addresses.0.country"
                                                                 data-test-type="single-select"
-                                                                data-testid="select-box"
+                                                                data-testid="addresses.0.country"
                                                                 form="[object Object]"
                                                                 name="addresses.0.country"
                                                               >
@@ -6463,7 +6452,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="addresses.0.state"
+                                                                  data-testid="addresses.0.state"
                                                                   form="[object Object]"
                                                                   name="addresses.0.state"
                                                                   placeholder="State"
@@ -6507,7 +6496,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="addresses.0.venue"
+                                                                  data-testid="addresses.0.venue"
                                                                   form="[object Object]"
                                                                   name="addresses.0.venue"
                                                                   placeholder="Venue"
@@ -6550,7 +6539,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="addresses-add-item"
+                                            data-testid="addresses-add-item"
                                             type="button"
                                           >
                                             <span
@@ -6621,9 +6610,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="field_of_interest"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="field_of_interest"
                                   form="[object Object]"
                                   name="field_of_interest"
                                 >
@@ -6732,7 +6720,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-websites.0"
+                                            data-testid="container-websites.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -6760,7 +6748,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="websites.0"
+                                                              data-testid="websites.0"
                                                               form="[object Object]"
                                                               name="websites.0"
                                                               type="text"
@@ -6800,7 +6788,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="websites-add-item"
+                                            data-testid="websites-add-item"
                                             type="button"
                                           >
                                             <span
@@ -6886,7 +6874,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-contacts.0"
+                                            data-testid="container-contacts.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -6918,8 +6906,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="contacts.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="contacts.0.name"
                                                                 form="[object Object]"
                                                                 name="contacts.0.name"
                                                               >
@@ -6980,7 +6968,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="contacts.0.email"
+                                                                  data-testid="contacts.0.email"
                                                                   form="[object Object]"
                                                                   name="contacts.0.email"
                                                                   placeholder="Email"
@@ -7023,7 +7011,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="contacts-add-item"
+                                            data-testid="contacts-add-item"
                                             type="button"
                                           >
                                             <span
@@ -7094,8 +7082,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                               >
                                 <div
                                   class="__RichTextEditor__"
-                                  data-test-id="description"
                                   data-test-type="rich-text"
+                                  data-testid="description"
                                   style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s; width: 100%;"
                                 >
                                   <div
@@ -7424,7 +7412,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="additional_info"
+                                    data-testid="additional_info"
                                     form="[object Object]"
                                     name="additional_info"
                                     type="text"
@@ -7486,7 +7474,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-keywords.0"
+                                            data-testid="container-keywords.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -7514,7 +7502,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="keywords.0"
+                                                              data-testid="keywords.0"
                                                               form="[object Object]"
                                                               name="keywords.0"
                                                               type="text"
@@ -7554,7 +7542,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="keywords-add-item"
+                                            data-testid="keywords-add-item"
                                             type="button"
                                           >
                                             <span
@@ -7600,7 +7588,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -7775,9 +7763,8 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                   >
                                     <div
                                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                      data-test-id="project_type"
                                       data-test-type="multiple-select"
-                                      data-testid="select-box"
+                                      data-testid="project_type"
                                       form="[object Object]"
                                       name="project_type"
                                     >
@@ -7881,8 +7868,8 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                   >
                                     <div
                                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                      data-test-id="legacy_name"
                                       data-test-type="suggester"
+                                      data-testid="legacy_name"
                                       form="[object Object]"
                                       name="legacy_name"
                                       searchasyoutype="true"
@@ -7925,7 +7912,7 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -8033,8 +8020,8 @@ exports[`Submissions > navigates to InstitutuinsSubmissionPageContainer when /su
                                   >
                                     <div
                                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                      data-test-id="identifier"
                                       data-test-type="suggester"
+                                      data-testid="identifier"
                                       form="[object Object]"
                                       name="identifier"
                                       searchasyoutype="true"
@@ -8077,7 +8064,7 @@ exports[`Submissions > navigates to InstitutuinsSubmissionPageContainer when /su
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -8179,9 +8166,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                  data-test-id="status"
                                   data-test-type="single-select"
-                                  data-testid="select-box"
+                                  data-testid="status"
                                   form="[object Object]"
                                   name="status"
                                 >
@@ -8267,7 +8253,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="title"
+                                    data-testid="title"
                                     form="[object Object]"
                                     name="title"
                                     type="text"
@@ -8317,7 +8303,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="external_job_identifier"
+                                    data-testid="external_job_identifier"
                                     form="[object Object]"
                                     name="external_job_identifier"
                                     placeholder="Used to reference this job opening, e.g. 07845"
@@ -8380,7 +8366,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-institutions.0"
+                                            data-testid="container-institutions.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -8405,8 +8391,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                         >
                                                           <div
                                                             class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                            data-test-id="institutions.0.value"
                                                             data-test-type="suggester"
+                                                            data-testid="institutions.0.value"
                                                             form="[object Object]"
                                                             name="institutions.0.value"
                                                             searchasyoutype="true"
@@ -8465,7 +8451,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="institutions-add-item"
+                                            data-testid="institutions-add-item"
                                             type="button"
                                           >
                                             <span
@@ -8536,9 +8522,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="regions"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="regions"
                                   form="[object Object]"
                                   name="regions"
                                 >
@@ -8632,9 +8617,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="field_of_interest"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="field_of_interest"
                                   form="[object Object]"
                                   name="field_of_interest"
                                 >
@@ -8728,9 +8712,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="ranks"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="ranks"
                                   form="[object Object]"
                                   name="ranks"
                                 >
@@ -8839,7 +8822,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-experiments.0"
+                                            data-testid="container-experiments.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -8864,8 +8847,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                         >
                                                           <div
                                                             class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                            data-test-id="experiments.0.legacy_name"
                                                             data-test-type="suggester"
+                                                            data-testid="experiments.0.legacy_name"
                                                             form="[object Object]"
                                                             name="experiments.0.legacy_name"
                                                             searchasyoutype="true"
@@ -8924,7 +8907,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="experiments-add-item"
+                                            data-testid="experiments-add-item"
                                             type="button"
                                           >
                                             <span
@@ -8998,7 +8981,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="url"
+                                    data-testid="url"
                                     form="[object Object]"
                                     name="url"
                                     placeholder="URL for additional information"
@@ -9054,8 +9037,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD"
-                                      data-test-id="deadline_date"
                                       data-test-type="date-picker"
+                                      data-testid="deadline_date"
                                       placeholder="Select date"
                                       size="12"
                                       value=""
@@ -9138,7 +9121,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-contacts.0"
+                                            data-testid="container-contacts.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -9170,8 +9153,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="contacts.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="contacts.0.name"
                                                                 form="[object Object]"
                                                                 name="contacts.0.name"
                                                               >
@@ -9232,7 +9215,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="contacts.0.email"
+                                                                  data-testid="contacts.0.email"
                                                                   form="[object Object]"
                                                                   name="contacts.0.email"
                                                                   placeholder="Email"
@@ -9275,7 +9258,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="contacts-add-item"
+                                            data-testid="contacts-add-item"
                                             type="button"
                                           >
                                             <span
@@ -9361,7 +9344,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-reference_letters.0"
+                                            data-testid="container-reference_letters.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -9389,7 +9372,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="reference_letters.0"
+                                                              data-testid="reference_letters.0"
                                                               form="[object Object]"
                                                               name="reference_letters.0"
                                                               placeholder="URL (http://) or email where reference letters should be sent"
@@ -9430,7 +9413,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="reference_letters-add-item"
+                                            data-testid="reference_letters-add-item"
                                             type="button"
                                           >
                                             <span
@@ -9501,8 +9484,8 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               >
                                 <div
                                   class="__RichTextEditor__"
-                                  data-test-id="description"
                                   data-test-type="rich-text"
+                                  data-testid="description"
                                   style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s; width: 100%;"
                                 >
                                   <div
@@ -9803,7 +9786,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -9897,9 +9880,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                                  data-test-id="status"
                                   data-test-type="single-select"
-                                  data-testid="select-box"
+                                  data-testid="status"
                                   form="[object Object]"
                                   name="status"
                                 >
@@ -9985,7 +9967,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="title"
+                                    data-testid="title"
                                     form="[object Object]"
                                     name="title"
                                     type="text"
@@ -10035,7 +10017,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="external_job_identifier"
+                                    data-testid="external_job_identifier"
                                     form="[object Object]"
                                     name="external_job_identifier"
                                     placeholder="Used to reference this job opening, e.g. 07845"
@@ -10098,7 +10080,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-institutions.0"
+                                            data-testid="container-institutions.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -10123,8 +10105,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                         >
                                                           <div
                                                             class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                            data-test-id="institutions.0.value"
                                                             data-test-type="suggester"
+                                                            data-testid="institutions.0.value"
                                                             form="[object Object]"
                                                             name="institutions.0.value"
                                                             searchasyoutype="true"
@@ -10183,7 +10165,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="institutions-add-item"
+                                            data-testid="institutions-add-item"
                                             type="button"
                                           >
                                             <span
@@ -10254,9 +10236,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="regions"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="regions"
                                   form="[object Object]"
                                   name="regions"
                                 >
@@ -10350,9 +10331,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="field_of_interest"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="field_of_interest"
                                   form="[object Object]"
                                   name="field_of_interest"
                                 >
@@ -10446,9 +10426,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="ranks"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="ranks"
                                   form="[object Object]"
                                   name="ranks"
                                 >
@@ -10557,7 +10536,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-experiments.0"
+                                            data-testid="container-experiments.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -10582,8 +10561,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                         >
                                                           <div
                                                             class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                            data-test-id="experiments.0.legacy_name"
                                                             data-test-type="suggester"
+                                                            data-testid="experiments.0.legacy_name"
                                                             form="[object Object]"
                                                             name="experiments.0.legacy_name"
                                                             searchasyoutype="true"
@@ -10642,7 +10621,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="experiments-add-item"
+                                            data-testid="experiments-add-item"
                                             type="button"
                                           >
                                             <span
@@ -10716,7 +10695,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="url"
+                                    data-testid="url"
                                     form="[object Object]"
                                     name="url"
                                     placeholder="URL for additional information"
@@ -10772,8 +10751,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD"
-                                      data-test-id="deadline_date"
                                       data-test-type="date-picker"
+                                      data-testid="deadline_date"
                                       placeholder="Select date"
                                       size="12"
                                       value=""
@@ -10856,7 +10835,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-contacts.0"
+                                            data-testid="container-contacts.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -10888,8 +10867,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="contacts.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="contacts.0.name"
                                                                 form="[object Object]"
                                                                 name="contacts.0.name"
                                                               >
@@ -10950,7 +10929,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="contacts.0.email"
+                                                                  data-testid="contacts.0.email"
                                                                   form="[object Object]"
                                                                   name="contacts.0.email"
                                                                   placeholder="Email"
@@ -10993,7 +10972,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="contacts-add-item"
+                                            data-testid="contacts-add-item"
                                             type="button"
                                           >
                                             <span
@@ -11079,7 +11058,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-reference_letters.0"
+                                            data-testid="container-reference_letters.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -11107,7 +11086,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="reference_letters.0"
+                                                              data-testid="reference_letters.0"
                                                               form="[object Object]"
                                                               name="reference_letters.0"
                                                               placeholder="URL (http://) or email where reference letters should be sent"
@@ -11148,7 +11127,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="reference_letters-add-item"
+                                            data-testid="reference_letters-add-item"
                                             type="button"
                                           >
                                             <span
@@ -11219,8 +11198,8 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               >
                                 <div
                                   class="__RichTextEditor__"
-                                  data-test-id="description"
                                   data-test-type="rich-text"
+                                  data-testid="description"
                                   style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s; width: 100%;"
                                 >
                                   <div
@@ -11521,7 +11500,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -11699,7 +11678,7 @@ exports[`Submissions > navigates to JournalSubmissionPageContainer when /submiss
                                     >
                                       <input
                                         class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                        data-test-id="short_title"
+                                        data-testid="short_title"
                                         form="[object Object]"
                                         name="short_title"
                                         type="text"
@@ -11749,7 +11728,7 @@ exports[`Submissions > navigates to JournalSubmissionPageContainer when /submiss
                                     >
                                       <input
                                         class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                        data-test-id="journal_title"
+                                        data-testid="journal_title"
                                         form="[object Object]"
                                         name="journal_title"
                                         type="text"
@@ -11772,7 +11751,7 @@ exports[`Submissions > navigates to JournalSubmissionPageContainer when /submiss
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -11891,7 +11870,6 @@ exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /subm
                           >
                             <input
                               class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
-                              data-test-id="import-input"
                               data-testid="import-input"
                               placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                               type="text"
@@ -11911,7 +11889,6 @@ exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /subm
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
-                        data-test-id="skip-import-button"
                         data-testid="skip-import-button"
                         type="button"
                       >
@@ -11925,7 +11902,6 @@ exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /subm
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="import-button"
                         data-testid="import-button"
                         type="button"
                       >
@@ -12031,7 +12007,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="name"
+                                    data-testid="name"
                                     form="[object Object]"
                                     name="name"
                                     type="text"
@@ -12086,9 +12062,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD hh:mm A"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="start"
                                       name="dates"
                                       placeholder="Start date"
@@ -12131,9 +12106,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD hh:mm A"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="end"
                                       name="dates"
                                       placeholder="End date"
@@ -12207,9 +12181,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="timezone"
                                   data-test-type="single-select"
-                                  data-testid="select-box"
+                                  data-testid="timezone"
                                   form="[object Object]"
                                   name="timezone"
                                 >
@@ -12217,7 +12190,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                     class="ant-select-content ant-select-content-has-value"
                                   >
                                     <span
-                                      data-test-id="timezone-option-UTC"
+                                      data-testid="timezone-option-UTC"
                                     >
                                       UTC
                                     </span>
@@ -12309,7 +12282,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-speakers.0"
+                                            data-testid="container-speakers.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -12341,8 +12314,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="speakers.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="speakers.0.name"
                                                                 form="[object Object]"
                                                                 name="speakers.0.name"
                                                               >
@@ -12400,8 +12373,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="speakers.0.affiliation"
                                                                 data-test-type="suggester"
+                                                                data-testid="speakers.0.affiliation"
                                                                 form="[object Object]"
                                                                 name="speakers.0.affiliation"
                                                                 searchasyoutype="true"
@@ -12462,7 +12435,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="speakers-add-item"
+                                            data-testid="speakers-add-item"
                                             type="button"
                                           >
                                             <span
@@ -12533,8 +12506,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="series_name"
                                   data-test-type="suggester"
+                                  data-testid="series_name"
                                   form="[object Object]"
                                   name="series_name"
                                 >
@@ -12604,7 +12577,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                   <input
                                     autocomplete="off"
                                     class="ant-input-number-input"
-                                    data-test-id="series_number"
+                                    data-testid="series_number"
                                     form="[object Object]"
                                     name="series_number"
                                     role="spinbutton"
@@ -12725,7 +12698,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-websites.0"
+                                            data-testid="container-websites.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -12753,7 +12726,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="websites.0"
+                                                              data-testid="websites.0"
                                                               form="[object Object]"
                                                               name="websites.0"
                                                               type="text"
@@ -12793,7 +12766,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="websites-add-item"
+                                            data-testid="websites-add-item"
                                             type="button"
                                           >
                                             <span
@@ -12879,7 +12852,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-material_urls.0"
+                                            data-testid="container-material_urls.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -12914,7 +12887,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="material_urls.0.value"
+                                                                  data-testid="material_urls.0.value"
                                                                   form="[object Object]"
                                                                   name="material_urls.0.value"
                                                                   placeholder="https://drive.google.com/slides"
@@ -12958,7 +12931,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="material_urls.0.description"
+                                                                  data-testid="material_urls.0.description"
                                                                   form="[object Object]"
                                                                   name="material_urls.0.description"
                                                                   placeholder="Description, eg. Slides, PDF"
@@ -13001,7 +12974,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="material_urls-add-item"
+                                            data-testid="material_urls-add-item"
                                             type="button"
                                           >
                                             <span
@@ -13087,7 +13060,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-join_urls.0"
+                                            data-testid="container-join_urls.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -13122,7 +13095,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="join_urls.0.value"
+                                                                  data-testid="join_urls.0.value"
                                                                   form="[object Object]"
                                                                   name="join_urls.0.value"
                                                                   placeholder="https://zoom.us/videoconference"
@@ -13166,7 +13139,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="join_urls.0.description"
+                                                                  data-testid="join_urls.0.description"
                                                                   form="[object Object]"
                                                                   name="join_urls.0.description"
                                                                   placeholder="Description, eg. Zoom"
@@ -13209,7 +13182,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="join_urls-add-item"
+                                            data-testid="join_urls-add-item"
                                             type="button"
                                           >
                                             <span
@@ -13286,7 +13259,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                   >
                                     <input
                                       class="ant-checkbox-input"
-                                      data-test-id="captioned"
+                                      data-testid="captioned"
                                       form="[object Object]"
                                       name="captioned"
                                       type="checkbox"
@@ -13355,7 +13328,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.city"
+                                                  data-testid="address.city"
                                                   form="[object Object]"
                                                   name="address.city"
                                                   placeholder="City"
@@ -13396,9 +13369,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                             >
                                               <div
                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                data-test-id="address.country"
                                                 data-test-type="single-select"
-                                                data-testid="select-box"
+                                                data-testid="address.country"
                                                 form="[object Object]"
                                                 name="address.country"
                                               >
@@ -13479,7 +13451,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.state"
+                                                  data-testid="address.state"
                                                   form="[object Object]"
                                                   name="address.state"
                                                   placeholder="State"
@@ -13523,7 +13495,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.venue"
+                                                  data-testid="address.venue"
                                                   form="[object Object]"
                                                   name="address.venue"
                                                   placeholder="Venue"
@@ -13578,9 +13550,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="field_of_interest"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="field_of_interest"
                                   form="[object Object]"
                                   name="field_of_interest"
                                 >
@@ -13689,7 +13660,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-contacts.0"
+                                            data-testid="container-contacts.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -13721,8 +13692,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="contacts.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="contacts.0.name"
                                                                 form="[object Object]"
                                                                 name="contacts.0.name"
                                                               >
@@ -13783,7 +13754,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="contacts.0.email"
+                                                                  data-testid="contacts.0.email"
                                                                   form="[object Object]"
                                                                   name="contacts.0.email"
                                                                   placeholder="Email"
@@ -13826,7 +13797,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="contacts-add-item"
+                                            data-testid="contacts-add-item"
                                             type="button"
                                           >
                                             <span
@@ -13936,7 +13907,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-literature_records.0"
+                                            data-testid="container-literature_records.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -13969,7 +13940,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="literature_records.0"
+                                                              data-testid="literature_records.0"
                                                               form="[object Object]"
                                                               name="literature_records.0"
                                                               type="text"
@@ -14009,7 +13980,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="literature_records-add-item"
+                                            data-testid="literature_records-add-item"
                                             type="button"
                                           >
                                             <span
@@ -14080,8 +14051,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                               >
                                 <div
                                   class="__RichTextEditor__"
-                                  data-test-id="abstract"
                                   data-test-type="rich-text"
+                                  data-testid="abstract"
                                   style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s; width: 100%;"
                                 >
                                   <div
@@ -14410,7 +14381,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="additional_info"
+                                    data-testid="additional_info"
                                     form="[object Object]"
                                     name="additional_info"
                                     type="text"
@@ -14472,7 +14443,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-keywords.0"
+                                            data-testid="container-keywords.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -14500,7 +14471,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="keywords.0"
+                                                              data-testid="keywords.0"
                                                               form="[object Object]"
                                                               name="keywords.0"
                                                               type="text"
@@ -14540,7 +14511,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="keywords-add-item"
+                                            data-testid="keywords-add-item"
                                             type="button"
                                           >
                                             <span
@@ -14586,7 +14557,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>
@@ -14817,7 +14788,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="name"
+                                    data-testid="name"
                                     form="[object Object]"
                                     name="name"
                                     type="text"
@@ -14872,9 +14843,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD hh:mm A"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="start"
                                       name="dates"
                                       placeholder="Start date"
@@ -14917,9 +14887,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       aria-invalid="false"
                                       autocomplete="off"
                                       data-test-format="YYYY-MM-DD hh:mm A"
-                                      data-test-id="dates"
                                       data-test-type="date-range-picker"
-                                      data-testid="date-range-picker"
+                                      data-testid="dates"
                                       date-range="end"
                                       name="dates"
                                       placeholder="End date"
@@ -14993,9 +14962,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="timezone"
                                   data-test-type="single-select"
-                                  data-testid="select-box"
+                                  data-testid="timezone"
                                   form="[object Object]"
                                   name="timezone"
                                 >
@@ -15003,7 +14971,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                     class="ant-select-content ant-select-content-has-value"
                                   >
                                     <span
-                                      data-test-id="timezone-option-UTC"
+                                      data-testid="timezone-option-UTC"
                                     >
                                       UTC
                                     </span>
@@ -15095,7 +15063,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-speakers.0"
+                                            data-testid="container-speakers.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -15127,8 +15095,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="speakers.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="speakers.0.name"
                                                                 form="[object Object]"
                                                                 name="speakers.0.name"
                                                               >
@@ -15186,8 +15154,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="speakers.0.affiliation"
                                                                 data-test-type="suggester"
+                                                                data-testid="speakers.0.affiliation"
                                                                 form="[object Object]"
                                                                 name="speakers.0.affiliation"
                                                                 searchasyoutype="true"
@@ -15248,7 +15216,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="speakers-add-item"
+                                            data-testid="speakers-add-item"
                                             type="button"
                                           >
                                             <span
@@ -15319,8 +15287,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="series_name"
                                   data-test-type="suggester"
+                                  data-testid="series_name"
                                   form="[object Object]"
                                   name="series_name"
                                 >
@@ -15390,7 +15358,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                   <input
                                     autocomplete="off"
                                     class="ant-input-number-input"
-                                    data-test-id="series_number"
+                                    data-testid="series_number"
                                     form="[object Object]"
                                     name="series_number"
                                     role="spinbutton"
@@ -15511,7 +15479,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-websites.0"
+                                            data-testid="container-websites.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -15539,7 +15507,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="websites.0"
+                                                              data-testid="websites.0"
                                                               form="[object Object]"
                                                               name="websites.0"
                                                               type="text"
@@ -15579,7 +15547,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="websites-add-item"
+                                            data-testid="websites-add-item"
                                             type="button"
                                           >
                                             <span
@@ -15665,7 +15633,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-material_urls.0"
+                                            data-testid="container-material_urls.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -15700,7 +15668,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="material_urls.0.value"
+                                                                  data-testid="material_urls.0.value"
                                                                   form="[object Object]"
                                                                   name="material_urls.0.value"
                                                                   placeholder="https://drive.google.com/slides"
@@ -15744,7 +15712,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="material_urls.0.description"
+                                                                  data-testid="material_urls.0.description"
                                                                   form="[object Object]"
                                                                   name="material_urls.0.description"
                                                                   placeholder="Description, eg. Slides, PDF"
@@ -15787,7 +15755,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="material_urls-add-item"
+                                            data-testid="material_urls-add-item"
                                             type="button"
                                           >
                                             <span
@@ -15873,7 +15841,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-join_urls.0"
+                                            data-testid="container-join_urls.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -15908,7 +15876,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="join_urls.0.value"
+                                                                  data-testid="join_urls.0.value"
                                                                   form="[object Object]"
                                                                   name="join_urls.0.value"
                                                                   placeholder="https://zoom.us/videoconference"
@@ -15952,7 +15920,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="join_urls.0.description"
+                                                                  data-testid="join_urls.0.description"
                                                                   form="[object Object]"
                                                                   name="join_urls.0.description"
                                                                   placeholder="Description, eg. Zoom"
@@ -15995,7 +15963,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="join_urls-add-item"
+                                            data-testid="join_urls-add-item"
                                             type="button"
                                           >
                                             <span
@@ -16072,7 +16040,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                   >
                                     <input
                                       class="ant-checkbox-input"
-                                      data-test-id="captioned"
+                                      data-testid="captioned"
                                       form="[object Object]"
                                       name="captioned"
                                       type="checkbox"
@@ -16141,7 +16109,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.city"
+                                                  data-testid="address.city"
                                                   form="[object Object]"
                                                   name="address.city"
                                                   placeholder="City"
@@ -16182,9 +16150,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                             >
                                               <div
                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                data-test-id="address.country"
                                                 data-test-type="single-select"
-                                                data-testid="select-box"
+                                                data-testid="address.country"
                                                 form="[object Object]"
                                                 name="address.country"
                                               >
@@ -16265,7 +16232,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.state"
+                                                  data-testid="address.state"
                                                   form="[object Object]"
                                                   name="address.state"
                                                   placeholder="State"
@@ -16309,7 +16276,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                               >
                                                 <input
                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                  data-test-id="address.venue"
+                                                  data-testid="address.venue"
                                                   form="[object Object]"
                                                   name="address.venue"
                                                   placeholder="Venue"
@@ -16364,9 +16331,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                               >
                                 <div
                                   class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                                  data-test-id="field_of_interest"
                                   data-test-type="multiple-select"
-                                  data-testid="select-box"
+                                  data-testid="field_of_interest"
                                   form="[object Object]"
                                   name="field_of_interest"
                                 >
@@ -16475,7 +16441,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-contacts.0"
+                                            data-testid="container-contacts.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -16507,8 +16473,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                             >
                                                               <div
                                                                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                                                                data-test-id="contacts.0.name"
                                                                 data-test-type="suggester"
+                                                                data-testid="contacts.0.name"
                                                                 form="[object Object]"
                                                                 name="contacts.0.name"
                                                               >
@@ -16569,7 +16535,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               >
                                                                 <input
                                                                   class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                                  data-test-id="contacts.0.email"
+                                                                  data-testid="contacts.0.email"
                                                                   form="[object Object]"
                                                                   name="contacts.0.email"
                                                                   placeholder="Email"
@@ -16612,7 +16578,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="contacts-add-item"
+                                            data-testid="contacts-add-item"
                                             type="button"
                                           >
                                             <span
@@ -16722,7 +16688,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-literature_records.0"
+                                            data-testid="container-literature_records.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -16755,7 +16721,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="literature_records.0"
+                                                              data-testid="literature_records.0"
                                                               form="[object Object]"
                                                               name="literature_records.0"
                                                               type="text"
@@ -16795,7 +16761,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="literature_records-add-item"
+                                            data-testid="literature_records-add-item"
                                             type="button"
                                           >
                                             <span
@@ -16866,8 +16832,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                               >
                                 <div
                                   class="__RichTextEditor__"
-                                  data-test-id="abstract"
                                   data-test-type="rich-text"
+                                  data-testid="abstract"
                                   style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s; width: 100%;"
                                 >
                                   <div
@@ -17196,7 +17162,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 >
                                   <input
                                     class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                    data-test-id="additional_info"
+                                    data-testid="additional_info"
                                     form="[object Object]"
                                     name="additional_info"
                                     type="text"
@@ -17258,7 +17224,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <div
                                             class="ant-row item css-dev-only-do-not-override-oc1rc0 css-var-root"
-                                            data-test-id="container-keywords.0"
+                                            data-testid="container-keywords.0"
                                           >
                                             <div
                                               class="ant-col ant-col-22 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -17286,7 +17252,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                           >
                                                             <input
                                                               class="ant-input css-dev-only-do-not-override-oc1rc0"
-                                                              data-test-id="keywords.0"
+                                                              data-testid="keywords.0"
                                                               form="[object Object]"
                                                               name="keywords.0"
                                                               type="text"
@@ -17326,7 +17292,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         >
                                           <button
                                             class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                            data-test-id="keywords-add-item"
+                                            data-testid="keywords-add-item"
                                             type="button"
                                           >
                                             <span
@@ -17372,7 +17338,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                     >
                       <button
                         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                        data-test-id="submit-button"
+                        data-testid="submit-button"
                         type="submit"
                       >
                         <span>

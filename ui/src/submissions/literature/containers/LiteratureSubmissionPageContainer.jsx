@@ -88,7 +88,7 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
                 wrapperCol={WRAPPER_COL}
               >
                 <SelectBox
-                  data-test-id="document-type-select"
+                  data-testid="document-type-select"
                   className="w-100"
                   value={docType}
                   options={DOC_TYPE_OPTIONS}

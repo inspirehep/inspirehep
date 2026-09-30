@@ -98,7 +98,6 @@ exports[`Home > renders home page 1`] = `
                 >
                   <div
                     class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-input-search css-var-root ant-input-search-large ant-input-search-with-button ant-select-input css-dev-only-do-not-override-oc1rc0"
-                    data-test-id="search-box-input"
                     data-testid="search-box-input"
                   >
                     <input
@@ -146,7 +145,7 @@ exports[`Home > renders home page 1`] = `
             </div>
             <div
               class="tc f5 mt4"
-              data-test-id="scroll-button"
+              data-testid="scroll-button"
             >
               <button
                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue middle"
@@ -319,7 +318,6 @@ exports[`Home > renders home page 1`] = `
                             >
                               <div
                                 class="tc pa4"
-                                data-test-id="loading"
                                 data-testid="loading-spinner"
                               >
                                 <div
@@ -479,7 +477,7 @@ exports[`Home > renders home page 1`] = `
         </div>
       </div>
       <div
-        data-test-id="how-to-search"
+        data-testid="how-to-search"
       >
         <div
           class="ant-row ant-row-center pv4 ph2 bg-white css-dev-only-do-not-override-oc1rc0 css-var-root"

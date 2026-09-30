@@ -79,7 +79,6 @@ exports[`UserSettingsModal > renders with props 1`] = `
                 <button
                   aria-checked="false"
                   class="ant-switch css-dev-only-do-not-override-oc1rc0 css-var-root"
-                  data-test-id="orcid-switch"
                   data-testid="orcid-switch"
                   role="switch"
                   type="button"

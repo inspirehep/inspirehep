@@ -9,7 +9,7 @@ describe("References", () => {
       cy.visit("/literature/1322719");
       cy.waitForRoute();
 
-      cy.get('[data-test-id="reference-search-button"]').click();
+      cy.get('[data-testid="reference-search-button"]').click();
 
       cy.waitForRoute();
 
@@ -27,7 +27,7 @@ describe("References", () => {
       cy.visit("/literature/1787272");
       cy.waitForRoute();
 
-      cy.get('[data-test-id="reference-search-button"]').click();
+      cy.get('[data-testid="reference-search-button"]').click();
 
       cy.get(".ant-empty").should("be.visible");
     });
@@ -49,9 +49,7 @@ describe("Reference container", () => {
         .find(".ant-list-items")
         .children()
         .as("referenceListItems");
-      cy.get("@paginationList")
-        .find(".ant-select-content")
-        .as("selectionItem");
+      cy.get("@paginationList").find(".ant-select-content").as("selectionItem");
 
       cy.get("@referenceListItems").should("have.length", 25);
       cy.get("@selectionItem").should("be.visible");
@@ -76,7 +74,7 @@ describe("Reference container", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="edit-reference"]')
+      cy.get('[data-testid="edit-reference"]')
         .first()
         .find(".ant-btn")
         .should("be.disabled");
@@ -93,32 +91,32 @@ describe("Reference container", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-item"]').first().as("referenceItem");
+      cy.get('[data-testid="reference-item"]').first().as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"] .ant-btn')
+        .find('[data-testid="edit-reference"] .ant-btn')
         .as("editButton");
 
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
 
-      cy.get('[data-test-id="reference-embedded-search"]')
+      cy.get('[data-testid="reference-embedded-search"]')
         .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-drawer-radio-1787272"]').as(
+      cy.get('[data-testid="reference-drawer-radio-1787272"]').as(
         "radioButton",
       );
 
       cy.get("@radioButton").click();
-      cy.get('[data-test-id="curate-button"').click();
+      cy.get('[data-testid="curate-button"').click();
 
       cy.waitForLoading();
       cy.wait("@selfCurationRequest");
 
       cy.get("@referenceItem")
-        .find('[data-test-id="reference-title"]')
+        .find('[data-testid="reference-title"]')
         .as("referenceTitle");
 
       cy.get(".ant-notification-notice-title").should(
@@ -154,32 +152,32 @@ describe("Reference container", () => {
 
       cy.waitForRoute();
 
-      cy.get('[data-test-id="reference-item"]').eq(12).as("referenceItem");
+      cy.get('[data-testid="reference-item"]').eq(12).as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"] .ant-btn')
+        .find('[data-testid="edit-reference"] .ant-btn')
         .as("editButton");
 
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
 
-      cy.get('[data-test-id="reference-embedded-search')
+      cy.get('[data-testid="reference-embedded-search')
         .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-drawer-radio-1688995"]').as(
+      cy.get('[data-testid="reference-drawer-radio-1688995"]').as(
         "radioButton",
       );
 
       cy.get("@radioButton").click();
-      cy.get('[data-test-id="curate-button"').click();
+      cy.get('[data-testid="curate-button"').click();
 
       cy.waitForLoading();
       cy.wait("@selfCurationRequest");
 
       cy.get("@referenceItem")
-        .find('[data-test-id="reference-title"]')
+        .find('[data-testid="reference-title"]')
         .as("referenceTitle");
 
       cy.get(".ant-notification-notice-title").should(
@@ -207,7 +205,7 @@ describe("Reference container", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="edit-reference"] .ant-btn', { timeout: 10000 })
+      cy.get('[data-testid="edit-reference"] .ant-btn', { timeout: 10000 })
         .first()
         .should("not.be.disabled");
 
@@ -216,42 +214,40 @@ describe("Reference container", () => {
         .find(".ant-list-items")
         .children()
         .as("referenceListItems");
-      cy.get("@paginationList")
-        .find(".ant-select-content")
-        .as("selectionItem");
+      cy.get("@paginationList").find(".ant-select-content").as("selectionItem");
 
       cy.get("@paginationList").find(".ant-select-content").click();
       cy.get("@paginationList").find("div").contains("50 / page").click();
 
-      cy.get('[data-test-id="reference-item"]', { timeout: 30000 }).should(
+      cy.get('[data-testid="reference-item"]', { timeout: 30000 }).should(
         "have.length.at.least",
         39,
       );
-      cy.get('[data-test-id="reference-item"]').eq(38).as("referenceItem");
+      cy.get('[data-testid="reference-item"]').eq(38).as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"] .ant-btn')
+        .find('[data-testid="edit-reference"] .ant-btn')
         .as("editButton");
 
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
-      cy.get('[data-test-id="reference-embedded-search')
+      cy.get('[data-testid="reference-embedded-search')
         .find(".ant-input-search-btn")
         .click();
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-drawer-radio-1597429"]').as(
+      cy.get('[data-testid="reference-drawer-radio-1597429"]').as(
         "radioButton",
       );
 
       cy.get("@radioButton").click();
-      cy.get('[data-test-id="curate-button"').click();
+      cy.get('[data-testid="curate-button"').click();
 
       cy.waitForLoading();
       cy.wait("@selfCurationRequest");
 
       cy.get("@referenceItem")
-        .find('[data-test-id="reference-title"]')
+        .find('[data-testid="reference-title"]')
         .as("referenceTitle");
 
       cy.get(".ant-notification-notice-title").should(
@@ -274,25 +270,25 @@ describe("Reference container", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-item"]').eq(4).as("referenceItem");
+      cy.get('[data-testid="reference-item"]').eq(4).as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"] .ant-btn')
+        .find('[data-testid="edit-reference"] .ant-btn')
         .as("editButton");
       cy.get("@referenceItem")
-        .find('[data-test-id="reference-title"]')
+        .find('[data-testid="reference-title"]')
         .as("referenceTitle");
 
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
-      cy.get('[data-test-id="reference-embedded-search', { timeout: 5000 })
+      cy.get('[data-testid="reference-embedded-search', { timeout: 5000 })
         .find(".ant-input-search-btn")
         .click();
 
       cy.waitForLoading();
 
-      cy.get('[data-test-id="reference-drawer-radio-1787272"]').click();
-      cy.get('[data-test-id="curate-button"').click();
+      cy.get('[data-testid="reference-drawer-radio-1787272"]').click();
+      cy.get('[data-testid="curate-button"').click();
 
       cy.wait("@getCurationError");
 

@@ -10,7 +10,6 @@ exports[`AssignDifferentProfileAction > renders 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="claim-multiple"
         data-testid="claim-multiple"
         type="button"
       >
@@ -63,7 +62,6 @@ exports[`AssignDifferentProfileAction > renders disabled 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="claim-multiple"
         data-testid="claim-multiple"
         disabled=""
         type="button"
@@ -117,7 +115,6 @@ exports[`AssignDifferentProfileAction > renders with claimingUnclaimedPapersDisa
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="claim-multiple"
         data-testid="claim-multiple"
         disabled=""
         type="button"

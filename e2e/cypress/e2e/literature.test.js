@@ -4,7 +4,7 @@ describe("Literature Search", () => {
     cy.visit("/literature?ui-citation-summary=true");
     cy.waitForRoute();
     cy.waitForSearchResults();
-    cy.get('[data-test-id="literature-result-rank"]')
+    cy.get('[data-testid="literature-result-rank"]')
       .first()
       .should("have.text", "#1");
   });

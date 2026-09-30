@@ -63,7 +63,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                     class="ant-list-items ant-list-container css-var-root"
                   >
                     <div
-                      data-test-id="reference-item"
+                      data-testid="reference-item"
                       id="0"
                     >
                       <li
@@ -129,7 +129,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                           >
                             <div
                               class="flex items-center justify-center"
-                              data-test-id="edit-reference"
+                              data-testid="edit-reference"
                             >
                               <button
                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -175,7 +175,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                       </li>
                     </div>
                     <div
-                      data-test-id="reference-item"
+                      data-testid="reference-item"
                       id="reference-1"
                     >
                       <li
@@ -238,7 +238,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                           >
                             <div
                               class="flex items-center justify-center"
-                              data-test-id="edit-reference"
+                              data-testid="edit-reference"
                             >
                               <button
                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -366,7 +366,6 @@ exports[`ReferenceList > renders with error 1`] = `
                     Please try again later or 
                     <button
                       class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue big"
-                      data-test-id="go-back-link"
                       data-testid="go-back-link"
                       type="button"
                     >
@@ -427,7 +426,7 @@ exports[`ReferenceList > renders with references 1`] = `
                     class="ant-list-items ant-list-container css-var-root"
                   >
                     <div
-                      data-test-id="reference-item"
+                      data-testid="reference-item"
                       id="0"
                     >
                       <li
@@ -461,10 +460,10 @@ exports[`ReferenceList > renders with references 1`] = `
                                 >
                                   <div
                                     class="f5"
-                                    data-test-id="reference-title"
+                                    data-testid="reference-title"
                                   >
                                     <span
-                                      data-test-id="literature-detail-title"
+                                      data-testid="literature-detail-title"
                                     >
                                       <span
                                         class="__Latex__"
@@ -492,7 +491,7 @@ exports[`ReferenceList > renders with references 1`] = `
                           >
                             <div
                               class="flex items-center justify-center"
-                              data-test-id="edit-reference"
+                              data-testid="edit-reference"
                             >
                               <button
                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
@@ -538,7 +537,7 @@ exports[`ReferenceList > renders with references 1`] = `
                       </li>
                     </div>
                     <div
-                      data-test-id="reference-item"
+                      data-testid="reference-item"
                       id="reference-1"
                     >
                       <li
@@ -572,10 +571,10 @@ exports[`ReferenceList > renders with references 1`] = `
                                 >
                                   <div
                                     class="f5"
-                                    data-test-id="reference-title"
+                                    data-testid="reference-title"
                                   >
                                     <span
-                                      data-test-id="literature-detail-title"
+                                      data-testid="literature-detail-title"
                                     >
                                       <span
                                         class="__Latex__"
@@ -603,7 +602,7 @@ exports[`ReferenceList > renders with references 1`] = `
                           >
                             <div
                               class="flex items-center justify-center"
-                              data-test-id="edit-reference"
+                              data-testid="edit-reference"
                             >
                               <button
                                 class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"

@@ -43,8 +43,8 @@ exports[`InstitutionForm > renders 1`] = `
                   >
                     <div
                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                      data-test-id="identifier"
                       data-test-type="suggester"
+                      data-testid="identifier"
                       form="[object Object]"
                       name="identifier"
                       searchasyoutype="true"
@@ -87,7 +87,7 @@ exports[`InstitutionForm > renders 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-        data-test-id="submit-button"
+        data-testid="submit-button"
         type="submit"
       >
         <span>

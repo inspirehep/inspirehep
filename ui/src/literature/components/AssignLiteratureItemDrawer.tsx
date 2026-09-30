@@ -93,7 +93,6 @@ function AssignLiteratureItemDrawer({
       <Radio.Group
         className="w-100"
         onChange={onSelectedAuthorChange}
-        data-test-id="literature-drawer-radio-group"
         data-testid="literature-drawer-radio-group"
         value={selectedAuthorId || null}
       >
@@ -114,7 +113,6 @@ function AssignLiteratureItemDrawer({
       <Row className="mt2" justify="end">
         <Col>
           <Button
-            data-test-id="assign-literature-item-button"
             data-testid="assign-literature-item-button"
             disabled={selectedAuthorId == null}
             icon={<SelectOutlined />}

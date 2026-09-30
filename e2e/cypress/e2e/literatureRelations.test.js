@@ -5,7 +5,7 @@ describe("Literature and Authors", () => {
     cy.waitForRoute("*/literature?*");
     cy.waitForSearchResults();
 
-    cy.get('[data-test-id="literature-result-title-link"]')
+    cy.get('[data-testid="literature-result-title-link"]')
       .first()
       .click()
       .text()
@@ -18,7 +18,7 @@ describe("Literature and Authors", () => {
     cy.waitForRoute("**/literature**search_type=hep-author-publication**");
     cy.waitForSearchResults();
 
-    cy.get('[data-test-id="literature-result-title-link"]')
+    cy.get('[data-testid="literature-result-title-link"]')
       .first()
       .then((title$) => {
         cy.get("@literature-title").should("equal", title$.text());
@@ -33,19 +33,19 @@ describe("Literature and Conferences", () => {
     cy.visit("/literature/1787272");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="literature-detail-title"]')
+    cy.get('[data-testid="literature-detail-title"]')
       .invoke("text")
       .as("literature-title");
 
     cy.registerRoute();
 
-    cy.get('[data-test-id="literature-conference-link"]', {
+    cy.get('[data-testid="literature-conference-link"]', {
       timeout: 10000,
     }).click();
 
     cy.waitForRoute();
     cy.waitForSearchResults();
-    cy.get('[data-test-id="literature-result-title-link"]').then((titles$) => {
+    cy.get('[data-testid="literature-result-title-link"]').then((titles$) => {
       const titles = titles$.toArray().map((title) => title.text);
       cy.get("@literature-title").should("be.oneOf", titles);
     });
@@ -84,10 +84,10 @@ describe("Export to CDS", () => {
       .find('[type="checkbox"]')
       .check();
     cy.get('[type="button"]').contains("tools").trigger("mouseover");
-    cy.get('[data-test-id="export-to-CDS"]', { timeout: 5000 }).should(
+    cy.get('[data-testid="export-to-CDS"]', { timeout: 5000 }).should(
       "be.visible",
     );
-    cy.get('[data-test-id="export-to-CDS"]').click();
+    cy.get('[data-testid="export-to-CDS"]').click();
     cy.get(".ant-modal", { timeout: 5000 }).should("be.visible");
     cy.get(".ant-modal").find('[type="button"]').contains("Confirm").click();
     cy.get(".ant-notification-notice", { timeout: 3000 })

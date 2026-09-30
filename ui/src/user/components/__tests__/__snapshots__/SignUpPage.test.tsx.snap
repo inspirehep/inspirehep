@@ -44,7 +44,6 @@ exports[`SignUpPage > renders page 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="email"
                             data-testid="email"
                             form="[object Object]"
                             name="email"
@@ -206,7 +205,6 @@ exports[`SignUpPage > renders page with errors 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="email"
                             data-testid="email"
                             form="[object Object]"
                             name="email"
@@ -294,7 +292,6 @@ exports[`SignUpPage > renders page with loading 1`] = `
                         >
                           <input
                             class="ant-input ant-input-disabled css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="email"
                             data-testid="email"
                             disabled=""
                             form="[object Object]"

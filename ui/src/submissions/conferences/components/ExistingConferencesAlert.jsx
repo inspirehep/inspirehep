@@ -29,10 +29,7 @@ function ExistingConferencesAlert({
         <FieldInfoAlert
           description={
             <span>
-              <strong
-                data-test-id="conferences-exist-alert-number"
-                data-testid="conferences-exist-alert-number"
-              >
+              <strong data-testid="conferences-exist-alert-number">
                 {numberOfConferences}
               </strong>{' '}
               other {pluralizeUnlessSingle('conference', numberOfConferences)}{' '}

@@ -10,7 +10,6 @@ exports[`PublicationsSelectAll > render unchecked if all publications are not pa
     >
       <input
         class="ant-checkbox-input"
-        data-test-id="select-all-publications"
         data-testid="select-all-publications"
         type="checkbox"
         value=""
@@ -31,7 +30,6 @@ exports[`PublicationsSelectAll > renders checked if all publications are part of
       <input
         checked=""
         class="ant-checkbox-input"
-        data-test-id="select-all-publications"
         data-testid="select-all-publications"
         type="checkbox"
         value=""
@@ -51,7 +49,6 @@ exports[`PublicationsSelectAll > renders disabled 1`] = `
     >
       <input
         class="ant-checkbox-input"
-        data-test-id="select-all-publications"
         data-testid="select-all-publications"
         disabled=""
         type="checkbox"

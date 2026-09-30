@@ -3,7 +3,7 @@
 exports[`LiteratureItem > does not arxiv pdf download action if there is no eprint value 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="literature-result-item"
+    data-testid="literature-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -19,7 +19,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
           >
             <div>
               <div
-                data-test-id="literature-result-item-inner"
+                data-testid="literature-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -29,11 +29,11 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="literature-result-title-link"
+                      data-testid="literature-result-title-link"
                       href="/literature/12345"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -115,7 +115,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
                 class="__UserAction__"
               >
                 <a
-                  data-test-id="reference-search-button"
+                  data-testid="reference-search-button"
                   href="/literature?q=citedby:recid:12345"
                 >
                   <span
@@ -207,7 +207,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
 exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="literature-result-item"
+    data-testid="literature-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -223,7 +223,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
           >
             <div>
               <div
-                data-test-id="literature-result-item-inner"
+                data-testid="literature-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -233,11 +233,11 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="literature-result-title-link"
+                      data-testid="literature-result-title-link"
                       href="/literature/12345"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -319,7 +319,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
                 class="__UserAction__"
               >
                 <a
-                  data-test-id="reference-search-button"
+                  data-testid="reference-search-button"
                   href="/literature?q=citedby:recid:12345"
                 >
                   <span
@@ -411,7 +411,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
 exports[`LiteratureItem > renders publication info when book exists but publication title not 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="literature-result-item"
+    data-testid="literature-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -427,7 +427,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
           >
             <div>
               <div
-                data-test-id="literature-result-item-inner"
+                data-testid="literature-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -437,11 +437,11 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="literature-result-title-link"
+                      data-testid="literature-result-title-link"
                       href="/literature/12345"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -543,7 +543,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
                 class="__UserAction__"
               >
                 <a
-                  data-test-id="reference-search-button"
+                  data-testid="reference-search-button"
                   href="/literature?q=citedby:recid:12345"
                 >
                   <span
@@ -635,7 +635,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
 exports[`LiteratureItem > renders with all props set, including sub props 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="literature-result-item"
+    data-testid="literature-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -651,7 +651,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
           >
             <div>
               <div
-                data-test-id="literature-result-item-inner"
+                data-testid="literature-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -661,11 +661,11 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="literature-result-title-link"
+                      data-testid="literature-result-title-link"
                       href="/literature/12345"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -794,7 +794,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                             <li>
                               <span>
                                 <a
-                                  data-test-id="literature-conference-link"
+                                  data-testid="literature-conference-link"
                                   href="/conferences/undefined"
                                 >
                                   <div
@@ -1007,7 +1007,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                 class="__UserAction__"
               >
                 <a
-                  data-test-id="reference-search-button"
+                  data-testid="reference-search-button"
                   href="/literature?q=citedby:recid:12345"
                 >
                   <span
@@ -1099,7 +1099,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
 exports[`LiteratureItem > renders with literature item claiming button on literature search page 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="literature-result-item"
+    data-testid="literature-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -1115,7 +1115,7 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
           >
             <div>
               <div
-                data-test-id="literature-result-item-inner"
+                data-testid="literature-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -1125,11 +1125,11 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="literature-result-title-link"
+                      data-testid="literature-result-title-link"
                       href="/literature/12345"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -1231,7 +1231,7 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
                 class="__UserAction__"
               >
                 <a
-                  data-test-id="reference-search-button"
+                  data-testid="reference-search-button"
                   href="/literature?q=citedby:recid:12345"
                 >
                   <span

@@ -10,7 +10,6 @@ exports[`AssignAction > renders 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claim"
         data-testid="btn-claim"
         type="button"
       >
@@ -63,7 +62,6 @@ exports[`AssignAction > renders disabled 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claim"
         data-testid="btn-claim"
         disabled=""
         type="button"
@@ -116,7 +114,6 @@ exports[`AssignAction > renders plural form if numberOfSelected is more than 1 1
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claim"
         data-testid="btn-claim"
         type="button"
       >
@@ -168,7 +165,6 @@ exports[`AssignAction > renders singular form if numberOfSelected is 1 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-        data-test-id="btn-claim"
         data-testid="btn-claim"
         type="button"
       >

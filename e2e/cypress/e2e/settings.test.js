@@ -12,29 +12,29 @@ describe("settings", () => {
   });
 
   it("enables submit button when email is correct", () => {
-    cy.get("[data-test-id=email]")
+    cy.get("[data-testid=email]")
       .clear()
       .type(email)
-      .get("[data-test-id=submit-email]")
+      .get("[data-testid=submit-email]")
       .should("not.have.attr", "disabled");
   });
 
   it("should display validation error when email is incorrect", () => {
-    cy.get("[data-test-id=email]").clear().type("johnrellis@inspirehep").blur();
+    cy.get("[data-testid=email]").clear().type("johnrellis@inspirehep").blur();
 
-    cy.get("[data-test-id=email-error]").should("be.visible");
+    cy.get("[data-testid=email-error]").should("be.visible");
   });
 
   it("redirects to update author form", () => {
     const recordId = 1010819;
 
-    cy.get('[data-test-id="author-form"]').click();
+    cy.get('[data-testid="author-form"]').click();
 
     cy.url().should("include", `/submissions/authors/${recordId}`);
   });
 
   it("exports to orcid", () => {
-    cy.get('[data-test-id="orcid-switch"]').click();
+    cy.get('[data-testid="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
       .find('button[class~="ant-btn-primary"]')
       .click();
@@ -42,7 +42,7 @@ describe("settings", () => {
     cy.reload();
     cy.waitForRoute();
 
-    cy.get('[data-test-id="orcid-switch"]').should(
+    cy.get('[data-testid="orcid-switch"]').should(
       "have.attr",
       "aria-checked",
       "true",
@@ -50,7 +50,7 @@ describe("settings", () => {
   });
 
   it("unexports from orcid", () => {
-    cy.get('[data-test-id="orcid-switch"]').click();
+    cy.get('[data-testid="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
       .find('button[class~="ant-btn-primary"]')
       .click();
@@ -58,7 +58,7 @@ describe("settings", () => {
     cy.reload();
     cy.waitForRoute();
 
-    cy.get('[data-test-id="orcid-switch"]').should(
+    cy.get('[data-testid="orcid-switch"]').should(
       "have.attr",
       "aria-checked",
       "false",
@@ -71,10 +71,10 @@ describe("settings", () => {
       method: "POST",
     });
 
-    cy.get("[data-test-id=email]")
+    cy.get("[data-testid=email]")
       .clear()
       .type(email)
-      .get("[data-test-id=submit-email]")
+      .get("[data-testid=submit-email]")
       .click();
 
     cy.waitForRoute("/api/accounts/settings/update-email")

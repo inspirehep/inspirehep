@@ -3,7 +3,7 @@
 exports[`DataItem > renders with \`0\` citation count 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="data-result-item"
+    data-testid="data-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -19,7 +19,7 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
           >
             <div>
               <div
-                data-test-id="data-result-item-inner"
+                data-testid="data-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -29,11 +29,11 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="data-result-title-link"
+                      data-testid="data-result-title-link"
                       href="/data/1234"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -242,7 +242,7 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
 exports[`DataItem > renders with all props set 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="data-result-item"
+    data-testid="data-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -258,7 +258,7 @@ exports[`DataItem > renders with all props set 1`] = `
           >
             <div>
               <div
-                data-test-id="data-result-item-inner"
+                data-testid="data-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -268,11 +268,11 @@ exports[`DataItem > renders with all props set 1`] = `
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="data-result-title-link"
+                      data-testid="data-result-title-link"
                       href="/data/1234"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"
@@ -522,7 +522,7 @@ exports[`DataItem > renders with all props set 1`] = `
 exports[`DataItem > renders with only needed props 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="data-result-item"
+    data-testid="data-result-item"
   >
     <div
       class="__ContentBox__ h-100"
@@ -538,7 +538,7 @@ exports[`DataItem > renders with only needed props 1`] = `
           >
             <div>
               <div
-                data-test-id="data-result-item-inner"
+                data-testid="data-result-item-inner"
               >
                 <div
                   class="flex flex-nowrap"
@@ -548,11 +548,11 @@ exports[`DataItem > renders with only needed props 1`] = `
                   >
                     <a
                       class="result-item-title"
-                      data-test-id="data-result-title-link"
+                      data-testid="data-result-title-link"
                       href="/data/1234"
                     >
                       <span
-                        data-test-id="literature-detail-title"
+                        data-testid="literature-detail-title"
                       >
                         <span
                           class="__Latex__"

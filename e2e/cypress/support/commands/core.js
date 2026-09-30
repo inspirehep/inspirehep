@@ -10,8 +10,8 @@ Cypress.Commands.overwrite("visit", (originalVisit, relativeUrl, options) => {
 });
 
 Cypress.Commands.add("selectFromDropdown", (dropdownId, option) => {
-  const dropdownSelector = `[data-test-id="${dropdownId}"]`;
-  const optionSelector = `[data-test-id="${dropdownId}-option-${option}"]`;
+  const dropdownSelector = `[data-testid="${dropdownId}"]`;
+  const optionSelector = `[data-testid="${dropdownId}-option-${option}"]`;
   // TODO: instead `first` workaround for sort-by dropdown
   // give id such as `sort-by-{searchNamespace}` to make them unique
   cy.get(dropdownSelector).first().click();
@@ -19,7 +19,7 @@ Cypress.Commands.add("selectFromDropdown", (dropdownId, option) => {
 });
 
 Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
-  const selectBoxSelector = `[data-test-id="${selectBoxId}"]`;
+  const selectBoxSelector = `[data-testid="${selectBoxId}"]`;
   const selectBoxInputSelector = `${selectBoxSelector} input`;
   cy.get(selectBoxSelector).then(($selectBox) => {
     const hasSearch = $selectBox.hasClass("ant-select-show-search");
@@ -31,11 +31,9 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
     const optionsArray = isMultiSelect ? options : [options];
     for (const option of optionsArray) {
       if (hasSearch) {
-        cy.get(selectBoxInputSelector)
-          .focus()
-          .type(`${option}`);
+        cy.get(selectBoxInputSelector).focus().type(`${option}`);
       }
-      const optionSelector = `[data-test-id="${selectBoxId}-option-${option}"]`;
+      const optionSelector = `[data-testid="${selectBoxId}-option-${option}"]`;
       cy.get(optionSelector).click();
     }
 
@@ -78,5 +76,5 @@ Cypress.Commands.add("waitForSearchResults", () => {
 });
 
 Cypress.Commands.add("waitForLoading", (timeout = 20000) => {
-  cy.get('[data-test-id="loading"]', { timeout }).should("not.exist");
+  cy.get('[data-testid="loading-spinner"]', { timeout }).should("not.exist");
 });

@@ -41,7 +41,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                       >
                         <h2>
                           <span
-                            data-test-id="literature-detail-title"
+                            data-testid="literature-detail-title"
                           >
                             <span
                               class="__Latex__"
