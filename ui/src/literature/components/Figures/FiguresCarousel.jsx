@@ -1,12 +1,15 @@
-import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import Figure from './Figure';
 import CarouselModal from '../../../common/components/CarouselModal';
 
-const FiguresCarousel = forwardRef(({ figures, visible, onCancel }, ref) => (
-  <CarouselModal visible={visible} onCancel={onCancel} ref={ref}>
+const FiguresCarousel = ({ figures, visible, onCancel, initialIndex }) => (
+  <CarouselModal
+    visible={visible}
+    onCancel={onCancel}
+    initialIndex={initialIndex}
+  >
     {figures.map((figure) => (
       <Figure
         key={figure.get('url')}
@@ -15,14 +18,13 @@ const FiguresCarousel = forwardRef(({ figures, visible, onCancel }, ref) => (
       />
     ))}
   </CarouselModal>
-));
+);
 
 FiguresCarousel.propTypes = {
   figures: PropTypes.instanceOf(List),
   visible: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
+  initialIndex: PropTypes.number,
 };
-
-FiguresCarousel.displayName = 'FiguresCarousel';
 
 export default FiguresCarousel;
