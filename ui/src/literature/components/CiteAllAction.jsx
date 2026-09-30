@@ -75,7 +75,7 @@ class CiteAllAction extends Component {
         <DropdownMenu
           disabled={disabled}
           onClick={this.onCiteClick}
-          title={this.renderDropdownTitle(disabled)}
+          title={<span>{this.renderDropdownTitle(disabled)}</span>} // span absorbs the disabled prop antd's Dropdown injects into its direct child, which would otherwise suppress a Tooltip child's own hover
           items={CITE_FORMAT_OPTIONS.map((format) => ({
             key: format.value,
             label: <span key={format.value}>{format.display}</span>,

@@ -10,11 +10,13 @@ const ClaimingDisabledButton = () => (
     <DropdownMenu
       disabled
       title={
-        <Tooltip title="Login to claim your papers">
-          <Button disabled data-test-id="btn-claiming-login">
-            <IconText text="claim" icon={<FileDoneOutlined />} />
-          </Button>
-        </Tooltip>
+        <span>
+          <Tooltip title="Login to claim your papers">
+            <Button disabled data-test-id="btn-claiming-login">
+              <IconText text="claim" icon={<FileDoneOutlined />} />
+            </Button>
+          </Tooltip>
+        </span>
       }
     />
   </UserAction>

@@ -6,8 +6,7 @@ exports[`DisabledEditRecordAction > renders with message 1`] = `
     class="__UserAction__"
   >
     <button
-      aria-describedby="test-id"
-      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
       disabled=""
       type="button"
     >

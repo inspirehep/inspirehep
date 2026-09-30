@@ -9,7 +9,6 @@ exports[`AuthorOrcid > renders with orcid 1`] = `
   >
     <img
       alt="ORCID"
-      aria-describedby="test-id"
       src="/src/common/assets/orcid.svg"
     />
   </a>

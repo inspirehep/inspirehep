@@ -1,5 +1,6 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
+import userEvent from '@testing-library/user-event';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignAllActionContainer from '../AssignAllActionContainer';
@@ -91,23 +92,22 @@ describe('AssignAllActionContainer', () => {
   });
 
   it('dispatches setAssignDrawerVisibility with true on assign to another author', async () => {
+    const user = userEvent.setup();
     const store = getStore({
       authors: fromJS({
         publicationSelection: Set([1, 2]),
       }),
     });
 
-    const { container, getByTestId } = renderWithProviders(
-      <AssignAllActionContainer />,
-      { store }
-    );
+    const { getByRole } = renderWithProviders(<AssignAllActionContainer />, {
+      store,
+    });
 
-    const dropdown = container.getElementsByClassName(
-      'ant-dropdown-trigger'
-    )[0];
+    const dropdown = getByRole('button', { name: 'file-done claim' });
 
-    await waitFor(() => fireEvent.mouseOver(dropdown));
-    await waitFor(() => fireEvent.click(getByTestId('assign-another')));
+    await user.hover(dropdown);
+    const assignAnotherOption = await screen.findByTestId('assign-another');
+    await user.click(assignAnotherOption);
 
     const expectedActions = [setAssignDrawerVisibility(true)];
     expect(store.getActions()).toEqual(expectedActions);

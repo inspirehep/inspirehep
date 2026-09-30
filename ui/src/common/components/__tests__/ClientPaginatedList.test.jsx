@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { fromJS, Range } from 'immutable';
 import { List } from 'antd';
 
@@ -36,7 +36,7 @@ describe('ClientPaginatedList', () => {
 
   it('renders as loading if set', () => {
     const items = Range(1, 100).toList();
-    const { getByText } = render(
+    render(
       <ClientPaginatedList
         loading
         items={items}
@@ -45,7 +45,7 @@ describe('ClientPaginatedList', () => {
       />
     );
 
-    expect(getByText('•••')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'ellipsis' })).toBeInTheDocument();
   });
 
   it('renders in grid mode', () => {

@@ -130,7 +130,7 @@ function CurateReferenceDrawer({
         onDrawerClose();
         setSelectedRecordId(null);
       }}
-      destroyOnClose
+      destroyOnHidden
       open={visible}
       title="Find the correct reference:"
     >

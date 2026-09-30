@@ -50,7 +50,7 @@ export default class DrawerHandle extends Component<
         <Drawer
           title={drawerTitle}
           placement="left"
-          width={width}
+          size={width}
           open={isDrawerVisible}
           onClose={this.onDrawerClose}
         >

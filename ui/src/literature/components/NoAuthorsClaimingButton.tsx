@@ -10,11 +10,13 @@ const NoAuthorsClaimingButton = () => (
     <DropdownMenu
       disabled
       title={
-        <Tooltip title="This paper has no authors.">
-          <Button disabled data-test-id="btn-claiming-authors">
-            <IconText text="claim" icon={<FileDoneOutlined />} />
-          </Button>
-        </Tooltip>
+        <span>
+          <Tooltip title="This paper has no authors.">
+            <Button disabled data-test-id="btn-claiming-authors">
+              <IconText text="claim" icon={<FileDoneOutlined />} />
+            </Button>
+          </Tooltip>
+        </span>
       }
     />
   </UserAction>

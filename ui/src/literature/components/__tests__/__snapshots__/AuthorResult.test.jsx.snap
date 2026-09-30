@@ -3,14 +3,14 @@
 exports[`AuthorResult > renders 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row pb2 css-dev-only-do-not-override-mncuj7"
+    class="ant-row pb2 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col flex items-center pr2 css-dev-only-do-not-override-mncuj7"
+      class="ant-col flex items-center pr2 css-dev-only-do-not-override-oc1rc0 css-var-root"
       style="flex: 0 1 1px;"
     >
       <label
-        class="ant-radio-wrapper css-dev-only-do-not-override-mncuj7"
+        class="ant-radio-wrapper css-dev-only-do-not-override-oc1rc0 css-var-root ant-radio-css-var"
       >
         <span
           class="ant-radio ant-wave-target"
@@ -22,21 +22,18 @@ exports[`AuthorResult > renders 1`] = `
             type="radio"
             value="1016091"
           />
-          <span
-            class="ant-radio-inner"
-          />
         </span>
       </label>
     </div>
     <div
-      class="ant-col css-dev-only-do-not-override-mncuj7"
+      class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       style="flex: 1 1 1px;"
     >
       <div
         class="__ContentBox__ h-100"
       >
         <div
-          class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
             class="ant-card-body"
@@ -58,13 +55,13 @@ exports[`AuthorResult > renders 1`] = `
               </div>
             </div>
             <div
-              class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               />
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               />
             </div>
           </div>

@@ -1,9 +1,11 @@
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import PublicationsSelect from '../PublicationsSelect';
 
 describe('PublicationsSelect', () => {
-  it('sets publication selection on checkbox change', () => {
+  it('sets publication selection on checkbox change', async () => {
+    const user = userEvent.setup();
     const onSelectClaimedPapers = jest.fn();
     const onSelectUnclaimedPapers = jest.fn();
     const onSelectPapers = jest.fn();
@@ -17,7 +19,7 @@ describe('PublicationsSelect', () => {
       />
     );
     expect(asFragment()).toMatchSnapshot();
-    getByRole('checkbox').click();
+    await user.click(getByRole('checkbox'));
     expect(onSelectClaimedPapers).toHaveBeenCalled();
     expect(onSelectPapers).toHaveBeenCalled();
   });

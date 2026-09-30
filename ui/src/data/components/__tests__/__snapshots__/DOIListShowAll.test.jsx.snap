@@ -3,10 +3,10 @@
 exports[`DOIListShowAll > renders correctly with data and other dois 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row css-dev-only-do-not-override-mncuj7"
+    class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col css-dev-only-do-not-override-mncuj7"
+      class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="__InlineList__"
@@ -65,10 +65,10 @@ exports[`DOIListShowAll > renders correctly with data and other dois 1`] = `
 exports[`DOIListShowAll > renders correctly with dataDois only 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row css-dev-only-do-not-override-mncuj7"
+    class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col css-dev-only-do-not-override-mncuj7"
+      class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="__InlineList__"

@@ -3,7 +3,7 @@
 exports[`CollapsableForm.Section > renders the section header and content inside the collapse 1`] = `
 <DocumentFragment>
   <div
-    class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
+    class="ant-collapse ant-collapse-icon-placement-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
       class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -19,7 +19,8 @@ exports[`CollapsableForm.Section > renders the section header and content inside
           class="ant-collapse-expand-icon"
         >
           <span
-            aria-label="expanded"
+            aria-hidden="true"
+            aria-label="right"
             class="anticon anticon-right ant-collapse-arrow"
             role="img"
           >
@@ -40,7 +41,7 @@ exports[`CollapsableForm.Section > renders the section header and content inside
           </span>
         </div>
         <span
-          class="ant-collapse-header-text"
+          class="ant-collapse-title"
         >
           <h3
             class="fw6 mv0"
@@ -50,10 +51,10 @@ exports[`CollapsableForm.Section > renders the section header and content inside
         </span>
       </div>
       <div
-        class="ant-collapse-content ant-collapse-content-active"
+        class="ant-collapse-panel ant-collapse-panel-active"
       >
         <div
-          class="ant-collapse-content-box"
+          class="ant-collapse-body"
         >
           <p>
             content

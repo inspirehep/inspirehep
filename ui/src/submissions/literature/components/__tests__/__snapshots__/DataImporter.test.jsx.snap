@@ -4,21 +4,21 @@ exports[`DataImporter > renders with error with a message 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-info ant-alert-no-icon css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-info ant-alert-outlined ant-alert-no-icon css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           role="alert"
         >
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               Fill in the field to automatically import more data from arXiv or DOI
             </div>
@@ -27,42 +27,46 @@ exports[`DataImporter > renders with error with a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-error css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-error ant-alert-outlined css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           data-testid="data-importer-error"
           role="alert"
         >
           <span
-            aria-label="close-circle"
-            class="anticon anticon-close-circle ant-alert-icon"
-            role="img"
+            class="ant-alert-icon"
           >
-            <svg
-              aria-hidden="true"
-              data-icon="close-circle"
-              fill="currentColor"
-              fill-rule="evenodd"
-              focusable="false"
-              height="1em"
-              viewBox="64 64 896 896"
-              width="1em"
+            <span
+              aria-label="close-circle"
+              class="anticon anticon-close-circle"
+              role="img"
             >
-              <path
-                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
-              />
-            </svg>
+              <svg
+                aria-hidden="true"
+                data-icon="close-circle"
+                fill="currentColor"
+                fill-rule="evenodd"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+                />
+              </svg>
+            </span>
           </span>
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               error
             </div>
@@ -97,27 +101,24 @@ exports[`DataImporter > renders with error with a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <label
             class=""
-            title=""
           >
-            <span
-              aria-describedby="test-id"
-            >
+            <span>
               From arXiv or DOI
             </span>
           </label>
         </div>
         <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
             class="ant-form-item-control-input"
@@ -126,7 +127,7 @@ exports[`DataImporter > renders with error with a message 1`] = `
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
+                class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
                 data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -139,14 +140,14 @@ exports[`DataImporter > renders with error with a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-oc1rc0 css-var-root"
       type="flex"
     >
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
           data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
@@ -157,10 +158,10 @@ exports[`DataImporter > renders with error with a message 1`] = `
         </button>
       </div>
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
           data-test-id="import-button"
           data-testid="import-button"
           type="button"
@@ -179,21 +180,21 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-info ant-alert-no-icon css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-info ant-alert-outlined ant-alert-no-icon css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           role="alert"
         >
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               Fill in the field to automatically import more data from arXiv or DOI
             </div>
@@ -202,42 +203,46 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
       </div>
     </div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-error css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-error ant-alert-outlined css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           data-testid="data-importer-error"
           role="alert"
         >
           <span
-            aria-label="close-circle"
-            class="anticon anticon-close-circle ant-alert-icon"
-            role="img"
+            class="ant-alert-icon"
           >
-            <svg
-              aria-hidden="true"
-              data-icon="close-circle"
-              fill="currentColor"
-              fill-rule="evenodd"
-              focusable="false"
-              height="1em"
-              viewBox="64 64 896 896"
-              width="1em"
+            <span
+              aria-label="close-circle"
+              class="anticon anticon-close-circle"
+              role="img"
             >
-              <path
-                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
-              />
-            </svg>
+              <svg
+                aria-hidden="true"
+                data-icon="close-circle"
+                fill="currentColor"
+                fill-rule="evenodd"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+                />
+              </svg>
+            </span>
           </span>
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               error.  
               <a
@@ -278,27 +283,24 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
       </div>
     </div>
     <div
-      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <label
             class=""
-            title=""
           >
-            <span
-              aria-describedby="test-id"
-            >
+            <span>
               From arXiv or DOI
             </span>
           </label>
         </div>
         <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
             class="ant-form-item-control-input"
@@ -307,7 +309,7 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
+                class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
                 data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -320,14 +322,14 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-oc1rc0 css-var-root"
       type="flex"
     >
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
           data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
@@ -338,10 +340,10 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
         </button>
       </div>
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
           data-test-id="import-button"
           data-testid="import-button"
           type="button"
@@ -360,21 +362,21 @@ exports[`DataImporter > renders with error without a message 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-info ant-alert-no-icon css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-info ant-alert-outlined ant-alert-no-icon css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           role="alert"
         >
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               Fill in the field to automatically import more data from arXiv or DOI
             </div>
@@ -383,42 +385,46 @@ exports[`DataImporter > renders with error without a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-error css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-error ant-alert-outlined css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           data-testid="data-importer-error"
           role="alert"
         >
           <span
-            aria-label="close-circle"
-            class="anticon anticon-close-circle ant-alert-icon"
-            role="img"
+            class="ant-alert-icon"
           >
-            <svg
-              aria-hidden="true"
-              data-icon="close-circle"
-              fill="currentColor"
-              fill-rule="evenodd"
-              focusable="false"
-              height="1em"
-              viewBox="64 64 896 896"
-              width="1em"
+            <span
+              aria-label="close-circle"
+              class="anticon anticon-close-circle"
+              role="img"
             >
-              <path
-                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
-              />
-            </svg>
+              <svg
+                aria-hidden="true"
+                data-icon="close-circle"
+                fill="currentColor"
+                fill-rule="evenodd"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+                />
+              </svg>
+            </span>
           </span>
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               Something went wrong during the import
             </div>
@@ -453,27 +459,24 @@ exports[`DataImporter > renders with error without a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <label
             class=""
-            title=""
           >
-            <span
-              aria-describedby="test-id"
-            >
+            <span>
               From arXiv or DOI
             </span>
           </label>
         </div>
         <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
             class="ant-form-item-control-input"
@@ -482,7 +485,7 @@ exports[`DataImporter > renders with error without a message 1`] = `
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
+                class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
                 data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -495,14 +498,14 @@ exports[`DataImporter > renders with error without a message 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-oc1rc0 css-var-root"
       type="flex"
     >
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
           data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
@@ -513,10 +516,10 @@ exports[`DataImporter > renders with error without a message 1`] = `
         </button>
       </div>
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
           data-test-id="import-button"
           data-testid="import-button"
           type="button"
@@ -535,21 +538,21 @@ exports[`DataImporter > renders without error while importing 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-alert ant-alert-info ant-alert-no-icon css-dev-only-do-not-override-mncuj7"
+          class="ant-alert ant-alert-info ant-alert-outlined ant-alert-no-icon css-var-root css-dev-only-do-not-override-oc1rc0"
           data-show="true"
           role="alert"
         >
           <div
-            class="ant-alert-content"
+            class="ant-alert-section"
           >
             <div
-              class="ant-alert-message"
+              class="ant-alert-title"
             >
               Fill in the field to automatically import more data from arXiv or DOI
             </div>
@@ -558,27 +561,24 @@ exports[`DataImporter > renders without error while importing 1`] = `
       </div>
     </div>
     <div
-      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <label
             class=""
-            title=""
           >
-            <span
-              aria-describedby="test-id"
-            >
+            <span>
               From arXiv or DOI
             </span>
           </label>
         </div>
         <div
-          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
             class="ant-form-item-control-input"
@@ -587,7 +587,7 @@ exports[`DataImporter > renders without error while importing 1`] = `
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
+                class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
                 data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -600,14 +600,14 @@ exports[`DataImporter > renders without error while importing 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-row-space-between ant-row-middle css-dev-only-do-not-override-oc1rc0 css-var-root"
       type="flex"
     >
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
           data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
@@ -618,10 +618,10 @@ exports[`DataImporter > renders without error while importing 1`] = `
         </button>
       </div>
       <div
-        class="ant-col css-dev-only-do-not-override-mncuj7"
+        class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <button
-          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
+          class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
           data-test-id="import-button"
           data-testid="import-button"
           type="button"

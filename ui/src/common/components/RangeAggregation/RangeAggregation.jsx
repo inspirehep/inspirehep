@@ -325,7 +325,7 @@ function RangeAggregation({
         <Slider
           range
           onChange={onSliderChange}
-          onAfterChange={onSliderAfterChange}
+          onChangeComplete={onSliderAfterChange}
           value={sliderEndpoints}
           min={initialMin}
           max={initialFakeMax}

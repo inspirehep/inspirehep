@@ -11,7 +11,7 @@ function JobStatusAlert({ status }) {
       <div className="mb2">
         <Alert
           type={ALERT_TYPES_BY_STATUS[status]}
-          message={<span>This job is {status}!</span>}
+          title={<span>This job is {status}!</span>}
           showIcon={false}
         />
       </div>

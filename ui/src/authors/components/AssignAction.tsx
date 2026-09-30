@@ -104,17 +104,23 @@ function AssignAction({
         disabled={disabled}
         items={menuItems}
         title={
-          <Tooltip
-            title={
-              disabled
-                ? 'Please select the papers you want to claim or remove from the profile.'
-                : null
-            }
-          >
-            <Button data-test-id="btn-claim" data-testid="btn-claim">
-              <IconText text="claim" icon={<FileDoneOutlined />} />
-            </Button>
-          </Tooltip>
+          <span>
+            <Tooltip
+              title={
+                disabled
+                  ? 'Please select the papers you want to claim or remove from the profile.'
+                  : null
+              }
+            >
+              <Button
+                data-test-id="btn-claim"
+                data-testid="btn-claim"
+                disabled={disabled}
+              >
+                <IconText text="claim" icon={<FileDoneOutlined />} />
+              </Button>
+            </Tooltip>
+          </span>
         }
       />
     </UserAction>

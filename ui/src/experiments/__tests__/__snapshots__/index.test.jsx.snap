@@ -6,29 +6,29 @@ exports[`Experiments > renders initial state 1`] = `
     class="w-100"
   >
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
       data-testid="experiments-search-page-container"
     >
       <div
-        class="ant-col ant-col-xs-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-xs-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
-          class="ant-row ant-row-start mt3 css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-start mt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
           style=""
         >
           <div
-            class="ant-col ant-col-xs-0 ant-col-lg-7 css-dev-only-do-not-override-mncuj7"
+            class="ant-col ant-col-xs-0 ant-col-lg-7 css-dev-only-do-not-override-oc1rc0 css-var-root"
             style=""
           />
           <div
-            class="ant-col ant-col-xs-24 ant-col-lg-17 css-dev-only-do-not-override-mncuj7"
+            class="ant-col ant-col-xs-24 ant-col-lg-17 css-dev-only-do-not-override-oc1rc0 css-var-root"
             style=""
           >
             <div
-              class="ant-row css-dev-only-do-not-override-mncuj7"
+              class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col ant-col-xs-24 ant-col-lg-12 css-dev-only-do-not-override-mncuj7"
+                class="ant-col ant-col-xs-24 ant-col-lg-12 css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <span
                   data-testid="number-of-results"
@@ -37,14 +37,14 @@ exports[`Experiments > renders initial state 1`] = `
                 </span>
               </div>
               <div
-                class="ant-col ant-col-xs-12 ant-col-lg-0 css-dev-only-do-not-override-mncuj7"
+                class="ant-col ant-col-xs-12 ant-col-lg-0 css-dev-only-do-not-override-oc1rc0 css-var-root"
               />
             </div>
             <div
-              class="ant-row css-dev-only-do-not-override-mncuj7"
+              class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+                class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <div
                   data-testid="search-results"

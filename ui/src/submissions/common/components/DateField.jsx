@@ -17,7 +17,8 @@ class DateField extends Component {
 
   onChange(date, dateString) {
     const { form, name } = this.props;
-    form.setFieldValue(name, dateString);
+    const newDateString = dateString === null ? '' : dateString;
+    form.setFieldValue(name, newDateString);
   }
 
   render() {

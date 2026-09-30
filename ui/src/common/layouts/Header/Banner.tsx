@@ -48,10 +48,9 @@ function Banner({
       type={type}
       banner
       className={classNames({ tc: center })}
-      closable={closable}
-      afterClose={afterClose}
+      closable={closable ? { afterClose } : false}
       showIcon={false}
-      message={
+      title={
         <span>
           <SanitizedHTML
             className={classNames('di', { mr3: Boolean(action) })}

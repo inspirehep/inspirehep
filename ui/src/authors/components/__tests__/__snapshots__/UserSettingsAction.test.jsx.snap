@@ -6,7 +6,7 @@ exports[`UserSettingsAction > renders 1`] = `
     class="__UserAction__"
   >
     <button
-      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
       data-testid="user-settings-button"
       type="button"
     >

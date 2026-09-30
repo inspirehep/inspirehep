@@ -24,7 +24,7 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
   cy.get(selectBoxSelector).then(($selectBox) => {
     const hasSearch = $selectBox.hasClass("ant-select-show-search");
     const isMultiSelect = Array.isArray(options);
-    cy.wrap($selectBox).find(".ant-select-selector").click();
+    cy.wrap($selectBox).find(".ant-select-content").click();
     cy.get(".ant-select-dropdown")
       .invoke("css", "display", "initial")
       .should("be.visible");
@@ -40,7 +40,7 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
     }
 
     if (isMultiSelect) {
-      cy.wrap($selectBox).find(".ant-select-selector").click();
+      cy.wrap($selectBox).find(".ant-select-content").click();
     }
 
     cy.get(".ant-select-dropdown")

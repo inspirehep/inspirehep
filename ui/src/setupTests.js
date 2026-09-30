@@ -1,7 +1,15 @@
 import { vi } from 'vitest';
 import { configure as configureTestingLibrary } from '@testing-library/react';
+import { warning as rcWarning } from '@rc-component/util';
 import 'jest-localstorage-mock';
 import '@testing-library/jest-dom';
+
+// antd 6.6+ deprecates the `List` component in favor of `Listy`, but Listy's
+// virtualized API isn't a drop-in replacement, so we still use `List`
+// Silence just that deprecation notice, not warnings generally.
+rcWarning.preMessage((message) =>
+  message?.includes('The `List` component is deprecated') ? null : message
+);
 
 vi.mock('recharts', async () => {
   const OriginalRecharts = await vi.importActual('recharts');
@@ -27,6 +35,14 @@ const originalGetComputedStyle = window.getComputedStyle.bind(window);
 window.getComputedStyle = (element) => originalGetComputedStyle(element);
 
 window.scrollTo = vi.fn();
+
+// JSDOM doesn't implement ResizeObserver, which antd 6's
+// @rc-component/resize-observer now uses more broadly (e.g. Menu, Table).
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
 window.matchMedia = (query) => ({
   matches: query.includes('min-width: 1200px') || query === 'all',

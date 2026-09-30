@@ -10,7 +10,6 @@ exports[`AuthorLinkedinAction > renders with linkedin 1`] = `
       target="_blank"
     >
       <span
-        aria-describedby="test-id"
         aria-label="linkedin"
         class="anticon anticon-linkedin"
         role="img"

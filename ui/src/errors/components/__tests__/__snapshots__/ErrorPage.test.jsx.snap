@@ -4,14 +4,14 @@ exports[`ErrorPage > renders with all props 1`] = `
 <DocumentFragment>
   <div
     align="middle"
-    class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     justify="center"
   >
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <h3
           class="f2 sm-f3"
@@ -21,10 +21,10 @@ exports[`ErrorPage > renders with all props 1`] = `
       </div>
     </div>
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <h3
           class="f3 normal sm-f4"
@@ -36,10 +36,10 @@ exports[`ErrorPage > renders with all props 1`] = `
       </div>
     </div>
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <img
           alt="ERROR"
@@ -55,14 +55,14 @@ exports[`ErrorPage > renders with default detail 1`] = `
 <DocumentFragment>
   <div
     align="middle"
-    class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     justify="center"
   >
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <h3
           class="f2 sm-f3"
@@ -72,10 +72,10 @@ exports[`ErrorPage > renders with default detail 1`] = `
       </div>
     </div>
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <img
           alt="ERROR"

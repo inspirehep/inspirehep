@@ -3,27 +3,24 @@
 exports[`withFormItem > passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-with-help ant-form-item-has-feedback ant-form-item-has-error ant-form-item-horizontal"
+    class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-with-help ant-form-item-has-feedback ant-form-item-has-error ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <label
           class=""
-          title=""
         >
-          <span
-            aria-describedby="test-id"
-          >
+          <span>
             Test Label
           </span>
         </label>
       </div>
       <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-form-item-control-input"
@@ -32,7 +29,7 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+              class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
             >
               <input />
               <span
@@ -45,10 +42,9 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
         </div>
         <div
           class="ant-form-item-additional"
-          style="min-height: 24px;"
         >
           <div
-            class="ant-form-item-explain ant-form-item-explain-connected css-dev-only-do-not-override-mncuj7"
+            class="ant-form-item-explain css-var-root ant-form-css-var ant-form-item-explain-connected css-dev-only-do-not-override-oc1rc0"
           >
             <div
               class="ant-form-item-explain-error"
@@ -63,10 +59,6 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
         </div>
       </div>
     </div>
-    <div
-      class="ant-form-item-margin-offset"
-      style="margin-bottom: -24px;"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -74,27 +66,24 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
 exports[`withFormItem > passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+    class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <label
           class=""
-          title=""
         >
-          <span
-            aria-describedby="test-id"
-          >
+          <span>
             Test Label
           </span>
         </label>
       </div>
       <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-form-item-control-input"
@@ -103,7 +92,7 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+              class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
             >
               <input />
               <span
@@ -123,27 +112,24 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
 exports[`withFormItem > passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+    class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-3 ant-col-offset-2 ant-form-item-label css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-3 ant-col-offset-2 ant-form-item-label css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <label
           class=""
-          title=""
         >
-          <span
-            aria-describedby="test-id"
-          >
+          <span>
             Test Label
           </span>
         </label>
       </div>
       <div
-        class="ant-col ant-col-10 ant-form-item-control css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-10 ant-form-item-control css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-form-item-control-input"
@@ -152,7 +138,7 @@ exports[`withFormItem > passes props correctly to Form.Item and wrapped Input co
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+              class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
             >
               <input />
             </div>
@@ -167,13 +153,13 @@ exports[`withFormItem > passes props correctly to Form.Item and wrapped Input co
 exports[`withFormItem > passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item mb2-important css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+    class="ant-form-item mb2-important css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-col ant-col-24 ant-form-item-control css-dev-only-do-not-override-mncuj7"
+        class="ant-col ant-col-24 ant-form-item-control css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-form-item-control-input"
@@ -182,7 +168,7 @@ exports[`withFormItem > passes props correctly to Form.Item and wrapped Input co
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+              class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
             >
               <input />
             </div>

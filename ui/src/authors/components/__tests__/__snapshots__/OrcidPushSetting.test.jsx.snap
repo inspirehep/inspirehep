@@ -12,8 +12,7 @@ exports[`OrcidPushSetting > renders when disabled 1`] = `
     </span>
     <button
       aria-checked="false"
-      aria-describedby="test-id"
-      class="ant-switch css-dev-only-do-not-override-mncuj7"
+      class="ant-switch css-dev-only-do-not-override-oc1rc0 css-var-root"
       data-test-id="orcid-switch"
       data-testid="orcid-switch"
       role="switch"
@@ -58,8 +57,7 @@ exports[`OrcidPushSetting > renders when enabled 1`] = `
     </span>
     <button
       aria-checked="true"
-      aria-describedby="test-id"
-      class="ant-switch css-dev-only-do-not-override-mncuj7 ant-switch-checked"
+      class="ant-switch css-dev-only-do-not-override-oc1rc0 css-var-root ant-switch-checked"
       data-test-id="orcid-switch"
       data-testid="orcid-switch"
       role="switch"

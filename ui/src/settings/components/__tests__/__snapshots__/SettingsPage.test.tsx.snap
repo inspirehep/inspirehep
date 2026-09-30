@@ -3,13 +3,13 @@
 exports[`SettingsPage > renders page 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
+        class="ant-card ant-card-bordered css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-card-body"
@@ -26,13 +26,13 @@ exports[`SettingsPage > renders page 1`] = `
     </div>
   </div>
   <div
-    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
+        class="ant-collapse ant-collapse-icon-placement-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -48,7 +48,8 @@ exports[`SettingsPage > renders page 1`] = `
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -69,7 +70,7 @@ exports[`SettingsPage > renders page 1`] = `
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -79,10 +80,10 @@ exports[`SettingsPage > renders page 1`] = `
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="false test@test.pl"
@@ -94,16 +95,16 @@ exports[`SettingsPage > renders page 1`] = `
                     Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
                   </p>
                   <div
-                    class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
+                    class="ant-row flex-email pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
                   >
                     <div
-                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+                      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
                       >
                         <div
-                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -112,13 +113,13 @@ exports[`SettingsPage > renders page 1`] = `
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                                class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
                               >
                                 <span
-                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
                                 >
                                   <input
-                                    class="ant-input css-dev-only-do-not-override-mncuj7"
+                                    class="ant-input css-dev-only-do-not-override-oc1rc0"
                                     data-test-id="email"
                                     data-testid="email"
                                     form="[object Object]"
@@ -138,7 +139,7 @@ exports[`SettingsPage > renders page 1`] = `
                       </div>
                     </div>
                     <button
-                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                       data-test-id="submit-email"
                       data-testid="submit-email"
                       disabled=""
@@ -163,13 +164,13 @@ exports[`SettingsPage > renders page 1`] = `
 exports[`SettingsPage > renders page with authors profile section when user has author profile 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
+        class="ant-card ant-card-bordered css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-card-body"
@@ -186,13 +187,13 @@ exports[`SettingsPage > renders page with authors profile section when user has 
     </div>
   </div>
   <div
-    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
+        class="ant-collapse ant-collapse-icon-placement-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -208,7 +209,8 @@ exports[`SettingsPage > renders page with authors profile section when user has 
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -229,7 +231,7 @@ exports[`SettingsPage > renders page with authors profile section when user has 
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -239,10 +241,10 @@ exports[`SettingsPage > renders page with authors profile section when user has 
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="false test@test.pl"
@@ -254,16 +256,16 @@ exports[`SettingsPage > renders page with authors profile section when user has 
                     Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
                   </p>
                   <div
-                    class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
+                    class="ant-row flex-email pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
                   >
                     <div
-                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+                      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
                       >
                         <div
-                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -272,13 +274,13 @@ exports[`SettingsPage > renders page with authors profile section when user has 
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                                class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
                               >
                                 <span
-                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
                                 >
                                   <input
-                                    class="ant-input css-dev-only-do-not-override-mncuj7"
+                                    class="ant-input css-dev-only-do-not-override-oc1rc0"
                                     data-test-id="email"
                                     data-testid="email"
                                     form="[object Object]"
@@ -298,7 +300,7 @@ exports[`SettingsPage > renders page with authors profile section when user has 
                       </div>
                     </div>
                     <button
-                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                       data-test-id="submit-email"
                       data-testid="submit-email"
                       disabled=""
@@ -328,7 +330,8 @@ exports[`SettingsPage > renders page with authors profile section when user has 
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -349,7 +352,7 @@ exports[`SettingsPage > renders page with authors profile section when user has 
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -359,10 +362,10 @@ exports[`SettingsPage > renders page with authors profile section when user has 
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="1234567"
@@ -390,41 +393,45 @@ exports[`SettingsPage > renders page with authors profile section when user has 
 exports[`SettingsPage > renders page with error 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-alert ant-alert-error css-dev-only-do-not-override-mncuj7"
+        class="ant-alert ant-alert-error ant-alert-outlined css-var-root css-dev-only-do-not-override-oc1rc0"
         data-show="true"
         role="alert"
       >
         <span
-          aria-label="close-circle"
-          class="anticon anticon-close-circle ant-alert-icon"
-          role="img"
+          class="ant-alert-icon"
         >
-          <svg
-            aria-hidden="true"
-            data-icon="close-circle"
-            fill="currentColor"
-            fill-rule="evenodd"
-            focusable="false"
-            height="1em"
-            viewBox="64 64 896 896"
-            width="1em"
+          <span
+            aria-label="close-circle"
+            class="anticon anticon-close-circle"
+            role="img"
           >
-            <path
-              d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
-            />
-          </svg>
+            <svg
+              aria-hidden="true"
+              data-icon="close-circle"
+              fill="currentColor"
+              fill-rule="evenodd"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+              />
+            </svg>
+          </span>
         </span>
         <div
-          class="ant-alert-content"
+          class="ant-alert-section"
         >
           <div
-            class="ant-alert-message"
+            class="ant-alert-title"
           >
             Error occured
           </div>
@@ -459,13 +466,13 @@ exports[`SettingsPage > renders page with error 1`] = `
     </div>
   </div>
   <div
-    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
+        class="ant-card ant-card-bordered css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-card-body"
@@ -482,13 +489,13 @@ exports[`SettingsPage > renders page with error 1`] = `
     </div>
   </div>
   <div
-    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
+        class="ant-collapse ant-collapse-icon-placement-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -504,7 +511,8 @@ exports[`SettingsPage > renders page with error 1`] = `
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -525,7 +533,7 @@ exports[`SettingsPage > renders page with error 1`] = `
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -535,10 +543,10 @@ exports[`SettingsPage > renders page with error 1`] = `
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="false test@test.pl"
@@ -550,16 +558,16 @@ exports[`SettingsPage > renders page with error 1`] = `
                     Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
                   </p>
                   <div
-                    class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
+                    class="ant-row flex-email pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
                   >
                     <div
-                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+                      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
                       >
                         <div
-                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -568,13 +576,13 @@ exports[`SettingsPage > renders page with error 1`] = `
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                                class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
                               >
                                 <span
-                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
                                 >
                                   <input
-                                    class="ant-input css-dev-only-do-not-override-mncuj7"
+                                    class="ant-input css-dev-only-do-not-override-oc1rc0"
                                     data-test-id="email"
                                     data-testid="email"
                                     form="[object Object]"
@@ -594,7 +602,7 @@ exports[`SettingsPage > renders page with error 1`] = `
                       </div>
                     </div>
                     <button
-                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                       data-test-id="submit-email"
                       data-testid="submit-email"
                       disabled=""
@@ -619,13 +627,13 @@ exports[`SettingsPage > renders page with error 1`] = `
 exports[`SettingsPage > renders page with orcid section when user has orcid profile 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
+        class="ant-card ant-card-bordered css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-card-body"
@@ -642,13 +650,13 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
     </div>
   </div>
   <div
-    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-center ant-row-middle mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
+        class="ant-collapse ant-collapse-icon-placement-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <div
           class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -664,7 +672,8 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -685,7 +694,7 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -695,10 +704,10 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="false test@test.pl"
@@ -710,16 +719,16 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
                     Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
                   </p>
                   <div
-                    class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
+                    class="ant-row flex-email pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
                   >
                     <div
-                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
+                      class="ant-form-item css-var-root ant-form-css-var css-dev-only-do-not-override-oc1rc0 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-oc1rc0 css-var-root"
                       >
                         <div
-                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
+                          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-oc1rc0 css-var-root"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -728,13 +737,13 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                                class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-space-compact-block"
                               >
                                 <span
-                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                                  class="ant-input-affix-wrapper css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
                                 >
                                   <input
-                                    class="ant-input css-dev-only-do-not-override-mncuj7"
+                                    class="ant-input css-dev-only-do-not-override-oc1rc0"
                                     data-test-id="email"
                                     data-testid="email"
                                     form="[object Object]"
@@ -754,7 +763,7 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
                       </div>
                     </div>
                     <button
-                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                      class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                       data-test-id="submit-email"
                       data-testid="submit-email"
                       disabled=""
@@ -784,7 +793,8 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -805,7 +815,7 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -815,10 +825,10 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="1234567"
@@ -852,7 +862,8 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               class="ant-collapse-expand-icon"
             >
               <span
-                aria-label="expanded"
+                aria-hidden="true"
+                aria-label="right"
                 class="anticon anticon-right ant-collapse-arrow"
                 role="img"
               >
@@ -873,7 +884,7 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
               </span>
             </div>
             <span
-              class="ant-collapse-header-text"
+              class="ant-collapse-title"
             >
               <h3
                 class="fw6 mv0"
@@ -883,10 +894,10 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
             </span>
           </div>
           <div
-            class="ant-collapse-content ant-collapse-content-active"
+            class="ant-collapse-panel ant-collapse-panel-active"
           >
             <div
-              class="ant-collapse-content-box"
+              class="ant-collapse-body"
             >
               <div
                 data-testid="1234567"
@@ -901,8 +912,7 @@ exports[`SettingsPage > renders page with orcid section when user has orcid prof
                   </span>
                   <button
                     aria-checked="false"
-                    aria-describedby="test-id"
-                    class="ant-switch css-dev-only-do-not-override-mncuj7"
+                    class="ant-switch css-dev-only-do-not-override-oc1rc0 css-var-root"
                     data-test-id="orcid-switch"
                     data-testid="orcid-switch"
                     role="switch"

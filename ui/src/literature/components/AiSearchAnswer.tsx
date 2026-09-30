@@ -164,7 +164,7 @@ function AiSearchAnswer({ aiSearch }: { aiSearch?: Map<string, any> | null }) {
         <Alert
           type="warning"
           showIcon
-          message="The AI search could not be completed"
+          title="The AI search could not be completed"
           description={error.get('message') || 'Please try again later.'}
         />
       )}

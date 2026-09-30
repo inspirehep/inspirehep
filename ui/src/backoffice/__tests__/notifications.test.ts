@@ -27,7 +27,7 @@ describe('Notification Functions', () => {
 
     expect(errorSpy).toHaveBeenCalledTimes(1);
     expect(errorSpy).toHaveBeenCalledWith({
-      message: 'Login unsuccessful',
+      title: 'Login unsuccessful',
       description: errorMessage,
       duration: 7,
     });
@@ -40,7 +40,7 @@ describe('Notification Functions', () => {
 
     expect(successSpy).toHaveBeenCalledTimes(1);
     expect(successSpy).toHaveBeenCalledWith({
-      message: 'Success',
+      title: 'Success',
       description: 'Delete performed successfully',
     });
   });
@@ -52,7 +52,7 @@ describe('Notification Functions', () => {
 
     expect(errorSpy).toHaveBeenCalledTimes(1);
     expect(errorSpy).toHaveBeenCalledWith({
-      message: 'Unable to perform action',
+      title: 'Unable to perform action',
       description: errorMessage,
     });
   });

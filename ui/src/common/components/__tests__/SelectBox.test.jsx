@@ -1,4 +1,5 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import SelectBox from '../SelectBox';
 
@@ -21,7 +22,8 @@ describe('SelectBox', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onChange when select change', () => {
+  it('calls onChange when select change', async () => {
+    const user = userEvent.setup();
     const options = [
       { value: 'value1', display: 'Value 1' },
       { value: 'value2', display: 'Value 2' },
@@ -37,12 +39,11 @@ describe('SelectBox', () => {
       />
     );
 
-    // https://github.com/ant-design/ant-design/issues/22074#issuecomment-603735566
-    const select = document.querySelector('.ant-select-selector');
+    const select = screen.getByTestId('select-box');
 
-    fireEvent.mouseDown(select);
+    await user.click(select);
 
-    fireEvent.click(screen.getByText('Value 2'));
+    await user.click(screen.getByText('Value 2'));
 
     expect(onChange).toBeCalled();
   });

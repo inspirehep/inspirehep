@@ -23,7 +23,7 @@ const InstitutionSubmission = ({ onSubmit, error = null }) => {
         <Row className="mb3">
           <Col span={24}>
             <Alert
-              message={error.message}
+              title={error.message}
               type="error"
               showIcon
               closable

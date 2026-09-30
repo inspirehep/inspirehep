@@ -21,7 +21,7 @@ const PositionsTimeline = ({ positions }: { positions: List<any> }) => {
 
     return {
       key: `#${displayDate}@${institution}`,
-      children: (
+      content: (
         <>
           <div>{displayDate}</div>
           <div>

@@ -5,7 +5,7 @@ exports[`AggregationFilters > does not render aggregations when numberOfResults 
 exports[`AggregationFilters > does not render aggregations with empty buckets 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   />
 </DocumentFragment>
 `;
@@ -13,20 +13,20 @@ exports[`AggregationFilters > does not render aggregations with empty buckets 1`
 exports[`AggregationFilters > renders aggregations when numberOfResults is 0 and displayWhenNoResults is true 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col mb3 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
+      class="ant-col mb3 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -36,34 +36,32 @@ exports[`AggregationFilters > renders aggregations when numberOfResults is 0 and
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
-              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <label
-                  class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
+                  class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
                 >
                   <span
-                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
+                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0"
                   >
                     <input
                       class="ant-checkbox-input"
                       type="checkbox"
-                    />
-                    <span
-                      class="ant-checkbox-inner"
+                      value=""
                     />
                   </span>
                   <span
@@ -78,10 +76,10 @@ exports[`AggregationFilters > renders aggregations when numberOfResults is 0 and
                 </label>
               </div>
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <span
-                  class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
+                  class="ant-tag ant-tag-filled __UnclickableTag__ css-dev-only-do-not-override-oc1rc0 css-var-root"
                 >
                   0
                 </span>
@@ -98,20 +96,20 @@ exports[`AggregationFilters > renders aggregations when numberOfResults is 0 and
 exports[`AggregationFilters > renders with all props set [inline] 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-space-between bg-white pv3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-space-between bg-white pv3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col md-pb3 ant-col-xs-24 ant-col-lg-5 css-dev-only-do-not-override-mncuj7"
+      class="ant-col md-pb3 ant-col-xs-24 ant-col-lg-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -121,14 +119,14 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
@@ -1239,7 +1237,7 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                 </svg>
               </div>
               <div
-                class="ant-slider css-dev-only-do-not-override-mncuj7 ant-slider-horizontal ant-slider-with-marks"
+                class="ant-slider css-dev-only-do-not-override-oc1rc0 css-var-root ant-slider-horizontal ant-slider-with-marks"
               >
                 <div
                   class="ant-slider-rail"
@@ -1295,17 +1293,17 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
       </div>
     </div>
     <div
-      class="ant-col md-pb3 ant-col-xs-24 ant-col-lg-5 css-dev-only-do-not-override-mncuj7"
+      class="ant-col md-pb3 ant-col-xs-24 ant-col-lg-5 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -1315,34 +1313,32 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
-              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <label
-                  class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
+                  class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
                 >
                   <span
-                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
+                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0"
                   >
                     <input
                       class="ant-checkbox-input"
                       type="checkbox"
-                    />
-                    <span
-                      class="ant-checkbox-inner"
+                      value=""
                     />
                   </span>
                   <span
@@ -1357,10 +1353,10 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                 </label>
               </div>
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <span
-                  class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
+                  class="ant-tag ant-tag-filled __UnclickableTag__ css-dev-only-do-not-override-oc1rc0 css-var-root"
                 >
                   1
                 </span>
@@ -1377,20 +1373,20 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
 exports[`AggregationFilters > renders with all props set 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-mncuj7"
+    class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
   >
     <div
-      class="ant-col mb4 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
+      class="ant-col mb4 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -1400,14 +1396,14 @@ exports[`AggregationFilters > renders with all props set 1`] = `
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
@@ -2518,7 +2514,7 @@ exports[`AggregationFilters > renders with all props set 1`] = `
                 </svg>
               </div>
               <div
-                class="ant-slider css-dev-only-do-not-override-mncuj7 ant-slider-horizontal ant-slider-with-marks"
+                class="ant-slider css-dev-only-do-not-override-oc1rc0 css-var-root ant-slider-horizontal ant-slider-with-marks"
               >
                 <div
                   class="ant-slider-rail"
@@ -2574,17 +2570,17 @@ exports[`AggregationFilters > renders with all props set 1`] = `
       </div>
     </div>
     <div
-      class="ant-col mb4 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
+      class="ant-col mb4 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -2594,34 +2590,32 @@ exports[`AggregationFilters > renders with all props set 1`] = `
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
-              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <label
-                  class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
+                  class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
                 >
                   <span
-                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
+                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0"
                   >
                     <input
                       class="ant-checkbox-input"
                       type="checkbox"
-                    />
-                    <span
-                      class="ant-checkbox-inner"
+                      value=""
                     />
                   </span>
                   <span
@@ -2636,10 +2630,10 @@ exports[`AggregationFilters > renders with all props set 1`] = `
                 </label>
               </div>
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <span
-                  class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
+                  class="ant-tag ant-tag-filled __UnclickableTag__ css-dev-only-do-not-override-oc1rc0 css-var-root"
                 >
                   1
                 </span>
@@ -2650,17 +2644,17 @@ exports[`AggregationFilters > renders with all props set 1`] = `
       </div>
     </div>
     <div
-      class="ant-col mb3 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
+      class="ant-col mb3 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
         class="w-100 br1"
       >
         <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
+          class="ant-row ant-row-space-between css-dev-only-do-not-override-oc1rc0 css-var-root"
           type="flex"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <h3
@@ -2670,34 +2664,32 @@ exports[`AggregationFilters > renders with all props set 1`] = `
             </h3>
           </div>
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
           />
         </div>
         <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
+          class="ant-row w-100 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
+            class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
             style="flex: 1 1 auto;"
           >
             <div
-              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
+              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-oc1rc0 css-var-root"
             >
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <label
-                  class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
+                  class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-oc1rc0"
                 >
                   <span
-                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
+                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-oc1rc0"
                   >
                     <input
                       class="ant-checkbox-input"
                       type="checkbox"
-                    />
-                    <span
-                      class="ant-checkbox-inner"
+                      value=""
                     />
                   </span>
                   <span
@@ -2712,10 +2704,10 @@ exports[`AggregationFilters > renders with all props set 1`] = `
                 </label>
               </div>
               <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
+                class="ant-col css-dev-only-do-not-override-oc1rc0 css-var-root"
               >
                 <span
-                  class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
+                  class="ant-tag ant-tag-filled __UnclickableTag__ css-dev-only-do-not-override-oc1rc0 css-var-root"
                 >
                   1
                 </span>

@@ -13,25 +13,25 @@ export const CURATING_NOTIFICATION_KEY = 'curation-notification';
 export function assigning(key) {
   notification.info({
     key,
-    message: 'Assigning...',
+    title: 'Assigning...',
     description: 'We are processing your request',
-    duration: null,
+    duration: false,
   });
 }
 
 export function curating(key) {
   notification.info({
     key,
-    message: 'We are processing your request',
-    duration: null,
+    title: 'We are processing your request',
+    duration: false,
   });
 }
 
 export function curationSuccess() {
   notification.destroy(CURATING_NOTIFICATION_KEY);
   notification.success({
-    message: 'Reference Successfully Modified!',
-    duration: null,
+    title: 'Reference Successfully Modified!',
+    duration: false,
     description:
       'Your change is in effect but will be reviewed by our staff for final approval.',
   });
@@ -41,7 +41,7 @@ export function curationError(key) {
   notification.destroy(key);
   notification.error({
     className: 'super-zindex',
-    message: 'Error!',
+    title: 'Error!',
     description: 'Something went wrong.',
   });
 }
@@ -49,8 +49,8 @@ export function curationError(key) {
 export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message: 'Assignment Successful!',
-    duration: null,
+    title: 'Assignment Successful!',
+    duration: false,
     description: (
       <span>
         {papers.size} selected {pluralizeUnlessSingle('paper', papers.size)}{' '}
@@ -66,8 +66,8 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
 export function assignLiteratureItemSuccess() {
   notification.destroy(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
   notification.success({
-    message: 'Assignment Successful!',
-    duration: null,
+    title: 'Assignment Successful!',
+    duration: false,
     description: '1 paper added to your profile',
   });
 }
@@ -76,7 +76,7 @@ export function assignLiteratureItemError(key) {
   notification.destroy(key);
   notification.error({
     className: 'super-zindex',
-    message: 'Assignment Error!',
+    title: 'Assignment Error!',
     description: (
       <span>
         This paper cannot be claimed automatically. Please{' '}
@@ -96,15 +96,15 @@ export function assignError(key) {
   notification.destroy(key);
   notification.error({
     className: 'super-zindex',
-    message: 'Assignment Error!',
+    title: 'Assignment Error!',
     description: 'Something went wrong.',
   });
 }
 
 export function exportToCdsSuccess({ papers }) {
   notification.success({
-    message: 'Export successful!',
-    duration: null,
+    title: 'Export successful!',
+    duration: false,
     description: <span>{papers.size} selected papers exported to CDS.</span>,
   });
 }
@@ -113,15 +113,15 @@ export function exportToCdsError() {
   notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.error({
     className: 'super-zindex',
-    message: 'Export to CDS Error!',
+    title: 'Export to CDS Error!',
     description: 'Something went wrong.',
   });
 }
 
 export function exporting() {
   notification.info({
-    message: 'Exporting to CDS...',
+    title: 'Exporting to CDS...',
     description: 'We are processing your request',
-    duration: null,
+    duration: false,
   });
 }

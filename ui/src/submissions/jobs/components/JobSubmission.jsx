@@ -26,7 +26,7 @@ function JobSubmission({
       {error && (
         <Row className="mb3">
           <Col span={24}>
-            <Alert message={error.message} type="error" showIcon closable />
+            <Alert title={error.message} type="error" showIcon closable />
           </Col>
         </Row>
       )}

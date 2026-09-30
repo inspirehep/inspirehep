@@ -4,15 +4,15 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb1 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb1 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       From:
     </div>
     <div
-      class="ant-row mb2 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb2 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-picker ant-picker-outlined css-dev-only-do-not-override-mncuj7 w-100"
+        class="ant-picker ant-picker-outlined w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-picker-css-var"
       >
         <div
           class="ant-picker-input"
@@ -30,6 +30,7 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
             class="ant-picker-suffix"
           >
             <span
+              aria-hidden="true"
               aria-label="calendar"
               class="anticon anticon-calendar"
               role="img"
@@ -49,9 +50,10 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
               </svg>
             </span>
           </span>
-          <span
+          <button
+            aria-label="Clear"
             class="ant-picker-clear"
-            role="button"
+            type="button"
           >
             <span
               aria-label="close-circle"
@@ -73,20 +75,20 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
                 />
               </svg>
             </span>
-          </span>
+          </button>
         </div>
       </div>
     </div>
     <div
-      class="ant-row mb1 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb1 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       To:
     </div>
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-picker ant-picker-outlined css-dev-only-do-not-override-mncuj7 w-100"
+        class="ant-picker ant-picker-outlined w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-picker-css-var"
       >
         <div
           class="ant-picker-input"
@@ -104,6 +106,7 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
             class="ant-picker-suffix"
           >
             <span
+              aria-hidden="true"
               aria-label="calendar"
               class="anticon anticon-calendar"
               role="img"
@@ -123,9 +126,10 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
               </svg>
             </span>
           </span>
-          <span
+          <button
+            aria-label="Clear"
             class="ant-picker-clear"
-            role="button"
+            type="button"
           >
             <span
               aria-label="close-circle"
@@ -147,7 +151,7 @@ exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
                 />
               </svg>
             </span>
-          </span>
+          </button>
         </div>
       </div>
     </div>
@@ -159,15 +163,15 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="ant-row mb1 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb1 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       From:
     </div>
     <div
-      class="ant-row mb2 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb2 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-picker ant-picker-outlined css-dev-only-do-not-override-mncuj7 w-100"
+        class="ant-picker ant-picker-outlined w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-picker-css-var"
       >
         <div
           class="ant-picker-input"
@@ -185,6 +189,7 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
             class="ant-picker-suffix"
           >
             <span
+              aria-hidden="true"
               aria-label="calendar"
               class="anticon anticon-calendar"
               role="img"
@@ -208,15 +213,15 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
       </div>
     </div>
     <div
-      class="ant-row mb1 css-dev-only-do-not-override-mncuj7"
+      class="ant-row mb1 css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       To:
     </div>
     <div
-      class="ant-row css-dev-only-do-not-override-mncuj7"
+      class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
     >
       <div
-        class="ant-picker ant-picker-outlined css-dev-only-do-not-override-mncuj7 w-100"
+        class="ant-picker ant-picker-outlined w-100 css-dev-only-do-not-override-oc1rc0 css-var-root ant-picker-css-var"
       >
         <div
           class="ant-picker-input"
@@ -234,6 +239,7 @@ exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
             class="ant-picker-suffix"
           >
             <span
+              aria-hidden="true"
               aria-label="calendar"
               class="anticon anticon-calendar"
               role="img"

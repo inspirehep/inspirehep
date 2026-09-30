@@ -42,17 +42,23 @@ function AssignDifferentProfileAction({
       <DropdownMenu
         disabled={disabled}
         title={
-          <Tooltip
-            title={
-              disabled
-                ? 'Please select the papers you want to claim or remove from the profile.'
-                : null
-            }
-          >
-            <Button data-test-id="claim-multiple" data-testid="claim-multiple">
-              <IconText text="claim" icon={<FileDoneOutlined />} />
-            </Button>
-          </Tooltip>
+          <span>
+            <Tooltip
+              title={
+                disabled
+                  ? 'Please select the papers you want to claim or remove from the profile.'
+                  : null
+              }
+            >
+              <Button
+                data-test-id="claim-multiple"
+                data-testid="claim-multiple"
+                disabled={disabled}
+              >
+                <IconText text="claim" icon={<FileDoneOutlined />} />
+              </Button>
+            </Tooltip>
+          </span>
         }
         items={menuItems}
       />

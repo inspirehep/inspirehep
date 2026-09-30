@@ -11,7 +11,7 @@ class ErrorAlert extends Component {
       <Alert
         type="warning"
         showIcon
-        message={message}
+        title={message}
         description={
           <span>
             Please try again later or <GoBackLinkContainer />

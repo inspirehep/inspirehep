@@ -26,7 +26,7 @@ const LiteratureBatchOperationsCard = ({
         type="warning"
         showIcon
         style={{ marginBottom: '12px' }}
-        message="Some selected articles belong to fully taken journals."
+        title="Some selected articles belong to fully taken journals."
       />
     )}
     <LiteratureActionButtons
