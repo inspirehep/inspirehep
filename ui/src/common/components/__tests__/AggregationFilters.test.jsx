@@ -296,7 +296,7 @@ describe('AggregationFilters', () => {
     );
 
     const fooCheckbox = container
-      .querySelector('[data-test-id="checkbox-aggregation-option-foo"]')
+      .querySelector('[data-testid="checkbox-aggregation-option-foo"]')
       .closest('label')
       .querySelector('input');
     fireEvent.click(fooCheckbox);
@@ -304,7 +304,7 @@ describe('AggregationFilters', () => {
     expect(onAggregationChange).toHaveBeenCalledWith('agg', ['foo']);
 
     const barCheckbox = container
-      .querySelector('[data-test-id="checkbox-aggregation-option-bar"]')
+      .querySelector('[data-testid="checkbox-aggregation-option-bar"]')
       .closest('label')
       .querySelector('input');
     fireEvent.click(barCheckbox);

@@ -50,7 +50,7 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
               class="ant-form-item-explain-error"
             >
               <span
-                data-test-id="test-error"
+                data-testid="test-error"
               >
                 Error
               </span>

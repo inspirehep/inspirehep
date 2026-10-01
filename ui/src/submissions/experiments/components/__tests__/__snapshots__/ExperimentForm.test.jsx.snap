@@ -43,9 +43,8 @@ exports[`ExperimentForm > renders 1`] = `
                   >
                     <div
                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                      data-test-id="project_type"
                       data-test-type="multiple-select"
-                      data-testid="select-box"
+                      data-testid="project_type"
                       form="[object Object]"
                       name="project_type"
                     >
@@ -149,8 +148,8 @@ exports[`ExperimentForm > renders 1`] = `
                   >
                     <div
                       class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                      data-test-id="legacy_name"
                       data-test-type="suggester"
+                      data-testid="legacy_name"
                       form="[object Object]"
                       name="legacy_name"
                       searchasyoutype="true"
@@ -193,7 +192,7 @@ exports[`ExperimentForm > renders 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-        data-test-id="submit-button"
+        data-testid="submit-button"
         type="submit"
       >
         <span>

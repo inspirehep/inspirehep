@@ -126,7 +126,7 @@ describe("Conference Submission", () => {
       field_of_interest: ["Computing"],
     });
     cy.waitForRoute();
-    cy.get('[data-test-id="conferences-exist-alert-number"]').should(
+    cy.get('[data-testid="conferences-exist-alert-number"]').should(
       "contain.text",
       "1",
     );

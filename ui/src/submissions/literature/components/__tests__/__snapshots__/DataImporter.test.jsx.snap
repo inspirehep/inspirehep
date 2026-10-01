@@ -128,7 +128,6 @@ exports[`DataImporter > renders with error with a message 1`] = `
             >
               <input
                 class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
-                data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                 type="text"
@@ -148,7 +147,6 @@ exports[`DataImporter > renders with error with a message 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
-          data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
         >
@@ -162,7 +160,6 @@ exports[`DataImporter > renders with error with a message 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          data-test-id="import-button"
           data-testid="import-button"
           type="button"
         >
@@ -310,7 +307,6 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
             >
               <input
                 class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
-                data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                 type="text"
@@ -330,7 +326,6 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
-          data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
         >
@@ -344,7 +339,6 @@ exports[`DataImporter > renders with error with message and recid 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          data-test-id="import-button"
           data-testid="import-button"
           type="button"
         >
@@ -486,7 +480,6 @@ exports[`DataImporter > renders with error without a message 1`] = `
             >
               <input
                 class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
-                data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                 type="text"
@@ -506,7 +499,6 @@ exports[`DataImporter > renders with error without a message 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
-          data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
         >
@@ -520,7 +512,6 @@ exports[`DataImporter > renders with error without a message 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          data-test-id="import-button"
           data-testid="import-button"
           type="button"
         >
@@ -588,7 +579,6 @@ exports[`DataImporter > renders without error while importing 1`] = `
             >
               <input
                 class="ant-input css-dev-only-do-not-override-oc1rc0 ant-input-outlined css-var-root ant-input-css-var"
-                data-test-id="import-input"
                 data-testid="import-input"
                 placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                 type="text"
@@ -608,7 +598,6 @@ exports[`DataImporter > renders without error while importing 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue"
-          data-test-id="skip-import-button"
           data-testid="skip-import-button"
           type="button"
         >
@@ -622,7 +611,6 @@ exports[`DataImporter > renders without error while importing 1`] = `
       >
         <button
           class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
-          data-test-id="import-button"
           data-testid="import-button"
           type="button"
         >

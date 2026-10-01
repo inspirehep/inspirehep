@@ -53,7 +53,7 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket1"
+                  data-testid="checkbox-aggregation-option-bucket1"
                 >
                   bucket1
                 </span>
@@ -92,7 +92,7 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
                 class="ant-checkbox-label"
               >
                 <span
-                  data-test-id="checkbox-aggregation-option-bucket2"
+                  data-testid="checkbox-aggregation-option-bucket2"
                 >
                   bucket2
                 </span>

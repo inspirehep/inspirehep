@@ -33,7 +33,6 @@ exports[`ErrorNetwork > renders ErrorNetwork 1`] = `
             Please check your internet connection and 
             <button
               class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue big"
-              data-test-id="go-back-link"
               data-testid="go-back-link"
               type="button"
             >

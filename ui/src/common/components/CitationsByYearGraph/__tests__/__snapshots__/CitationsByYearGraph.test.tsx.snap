@@ -3,7 +3,7 @@
 exports[`CitationsByYearGraph > renders citations for less than 3 years with dummy data for previous 1-2 years 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -456,7 +456,7 @@ exports[`CitationsByYearGraph > renders citations for less than 3 years with dum
 exports[`CitationsByYearGraph > renders citations for less than 5 different citation counts with tickValues for the YAxis 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -963,7 +963,7 @@ exports[`CitationsByYearGraph > renders citations for less than 5 different cita
 exports[`CitationsByYearGraph > renders citations for more than 3 less than 8 years with tickValues for the XAxis and without dummy data 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -1556,7 +1556,7 @@ exports[`CitationsByYearGraph > renders citations for more than 3 less than 8 ye
 exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -2324,7 +2324,7 @@ exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
 exports[`CitationsByYearGraph > renders more than 5 different citation counts without explicit tickValues for the YAxis 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -2993,7 +2993,7 @@ exports[`CitationsByYearGraph > renders more than 5 different citation counts wi
 exports[`CitationsByYearGraph > renders more than 8 years without explicit tickValues for the xAxis 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -3815,7 +3815,7 @@ exports[`CitationsByYearGraph > renders more than 8 years without explicit tickV
 exports[`CitationsByYearGraph > renders two citations graphs when current year citations are included 1`] = `
 <DocumentFragment>
   <div
-    data-test-id="citations-by-year-graph"
+    data-testid="citations-by-year-graph"
   >
     <div
       class="recharts-wrapper"
@@ -4470,7 +4470,6 @@ exports[`CitationsByYearGraph > renders without citations 1`] = `
     >
       <div
         class="tc pa4"
-        data-test-id="loading"
         data-testid="loading-spinner"
       >
         <div

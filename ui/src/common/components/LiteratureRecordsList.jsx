@@ -12,7 +12,7 @@ function renderLiteratureRecord(literatureRecord) {
   const title = literatureRecord.getIn(['titles', 0]);
   return (
     <Link
-      data-test-id="author-link"
+      data-testid="author-link"
       to={`${LITERATURE}/${literatureRecord.get('control_number')}`}
     >
       <LiteratureTitle title={title} />

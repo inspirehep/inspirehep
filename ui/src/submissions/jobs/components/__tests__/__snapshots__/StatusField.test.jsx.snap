@@ -22,9 +22,8 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
             >
               <div
                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                data-test-id="[object Object]"
                 data-test-type="single-select"
-                data-testid="select-box"
+                data-testid="[object Object]"
                 form="[object Object]"
                 name="[object Object]"
               >
@@ -102,9 +101,8 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
             >
               <div
                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                data-test-id="[object Object]"
                 data-test-type="single-select"
-                data-testid="select-box"
+                data-testid="[object Object]"
                 form="[object Object]"
                 name="[object Object]"
               >
@@ -182,9 +180,8 @@ exports[`StatusField > renders if can not modify and not cataloger logged in 1`]
             >
               <div
                 class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-disabled"
-                data-test-id="[object Object]"
                 data-test-type="single-select"
-                data-testid="select-box"
+                data-testid="[object Object]"
                 form="[object Object]"
                 name="[object Object]"
               >

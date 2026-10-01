@@ -12,7 +12,7 @@ const NoAuthorsClaimingButton = () => (
       title={
         <span>
           <Tooltip title="This paper has no authors.">
-            <Button disabled data-test-id="btn-claiming-authors">
+            <Button disabled data-testid="btn-claiming-authors">
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

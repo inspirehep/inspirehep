@@ -7,8 +7,8 @@ describe("Home Page", () => {
     cy.visit("/");
     cy.waitForRoute();
 
-    cy.get('[data-test-id="scroll-button"]').click();
-    cy.get('[data-test-id="how-to-search"]').should("be.visible");
+    cy.get('[data-testid="scroll-button"]').click();
+    cy.get('[data-testid="how-to-search"]').should("be.visible");
   });
 });
 
@@ -23,7 +23,7 @@ describe("News and Updates", () => {
       cy.waitForRoute();
       cy.waitForLoading(80000);
 
-      cy.get('[data-test-id="news-post"]').as("newsAndUpdates");
+      cy.get('[data-testid="news-post"]').as("newsAndUpdates");
       cy.get("@newsAndUpdates").should("have.length", 3);
     });
   }

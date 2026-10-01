@@ -7,7 +7,6 @@ exports[`AssignDifferentProfileAction > renders 1`] = `
   >
     <button
       class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
-      data-test-id="btn-claim"
       data-testid="btn-claim"
       type="button"
     >
@@ -55,7 +54,6 @@ exports[`AssignDifferentProfileAction > renders disabled 1`] = `
   >
     <button
       class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
-      data-test-id="btn-claim"
       data-testid="btn-claim"
       type="button"
     >

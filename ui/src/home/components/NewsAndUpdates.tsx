@@ -68,7 +68,7 @@ const NewsAndUpdates = () => {
               <Loading />
             ) : data ? (
               data.map((post: Post) => (
-                <div data-test-id="news-post" key={post.id}>
+                <div data-testid="news-post" key={post.id}>
                   {renderBlogPost(post)}
                 </div>
               ))

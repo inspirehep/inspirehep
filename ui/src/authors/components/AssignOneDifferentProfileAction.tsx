@@ -30,7 +30,6 @@ function AssignOneDifferentProfileAction({
           eventId="Move to my profile"
         >
           <span
-            data-test-id="assign-self"
             data-testid="assign-self"
             key="assign-self"
             onClick={onSelfAssign}
@@ -46,7 +45,7 @@ function AssignOneDifferentProfileAction({
     <UserAction>
       <DropdownMenu
         title={
-          <Button data-test-id="btn-claim" data-testid="btn-claim">
+          <Button data-testid="btn-claim">
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
         }

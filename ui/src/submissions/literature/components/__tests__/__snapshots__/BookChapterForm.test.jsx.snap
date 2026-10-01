@@ -120,7 +120,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="pdf_link"
+                            data-testid="pdf_link"
                             form="[object Object]"
                             name="pdf_link"
                             placeholder="https://example.com/document.pdf"
@@ -198,7 +198,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="additional_link"
+                            data-testid="additional_link"
                             form="[object Object]"
                             name="additional_link"
                             placeholder="https://example.com/page.html"
@@ -303,7 +303,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="title"
+                            data-testid="title"
                             form="[object Object]"
                             name="title"
                             type="text"
@@ -350,9 +350,8 @@ exports[`BookChapterForm > renders all props 1`] = `
                       >
                         <div
                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow"
-                          data-test-id="language"
                           data-test-type="single-select"
-                          data-testid="select-box"
+                          data-testid="language"
                           form="[object Object]"
                           name="language"
                         >
@@ -436,9 +435,8 @@ exports[`BookChapterForm > renders all props 1`] = `
                       >
                         <div
                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-multiple ant-select-show-arrow ant-select-show-search"
-                          data-test-id="subjects"
                           data-test-type="multiple-select"
-                          data-testid="select-box"
+                          data-testid="subjects"
                           form="[object Object]"
                           name="subjects"
                         >
@@ -566,7 +564,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                                 >
                                   <button
                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                    data-test-id="authors-add-item"
+                                    data-testid="authors-add-item"
                                     type="button"
                                   >
                                     <span
@@ -637,8 +635,8 @@ exports[`BookChapterForm > renders all props 1`] = `
                       >
                         <div
                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                          data-test-id="experiment"
                           data-test-type="suggester"
+                          data-testid="experiment"
                           form="[object Object]"
                           name="experiment"
                           searchasyoutype="true"
@@ -707,7 +705,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <textarea
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="abstract"
+                            data-testid="abstract"
                             form="[object Object]"
                             name="abstract"
                             rows="4"
@@ -791,7 +789,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                                 >
                                   <button
                                     class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
-                                    data-test-id="report_numbers-add-item"
+                                    data-testid="report_numbers-add-item"
                                     type="button"
                                   >
                                     <span
@@ -865,7 +863,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="doi"
+                            data-testid="doi"
                             form="[object Object]"
                             name="doi"
                             placeholder="e.g. 10.1086/305772 or doi:10.1086/305772"
@@ -967,8 +965,8 @@ exports[`BookChapterForm > renders all props 1`] = `
                       >
                         <div
                           class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-var-root ant-select-css-var css-dev-only-do-not-override-oc1rc0 ant-select-single ant-select-show-arrow ant-select-show-search"
-                          data-test-id="book_title"
                           data-test-type="suggester"
+                          data-testid="book_title"
                           form="[object Object]"
                           name="book_title"
                         >
@@ -1034,7 +1032,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="start_page"
+                            data-testid="start_page"
                             form="[object Object]"
                             name="start_page"
                             type="text"
@@ -1084,7 +1082,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                         >
                           <input
                             class="ant-input css-dev-only-do-not-override-oc1rc0"
-                            data-test-id="end_page"
+                            data-testid="end_page"
                             form="[object Object]"
                             name="end_page"
                             type="text"
@@ -1200,7 +1198,7 @@ exports[`BookChapterForm > renders all props 1`] = `
     >
       <button
         class="ant-btn css-dev-only-do-not-override-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-        data-test-id="submit-button"
+        data-testid="submit-button"
         type="submit"
       >
         <span>

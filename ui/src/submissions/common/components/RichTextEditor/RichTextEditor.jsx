@@ -65,7 +65,7 @@ function useAntInputStyle() {
 function RichTextEditor(props) {
   const {
     'data-test-type': dataTestType,
-    'data-test-id': dataTestId,
+    'data-testid': dataTestId,
     ...quillProps
   } = props;
   const style = useAntInputStyle();
@@ -74,7 +74,7 @@ function RichTextEditor(props) {
     <div
       className="__RichTextEditor__"
       data-test-type={dataTestType}
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
       style={style}
     >
       <div id="toolbar">

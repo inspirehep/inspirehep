@@ -15,7 +15,7 @@ exports[`ConferenceInfoList > renders conference link 1`] = `
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/111111"
           >
             Test Conferece 2
@@ -26,7 +26,7 @@ exports[`ConferenceInfoList > renders conference link 1`] = `
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/222222"
           >
             Test Conferece 2
@@ -53,7 +53,7 @@ exports[`ConferenceInfoList > renders contribution label if document type is oth
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/111111"
           >
             Test Conferece 2
@@ -64,7 +64,7 @@ exports[`ConferenceInfoList > renders contribution label if document type is oth
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/222222"
           >
             Test Conferece 2
@@ -91,7 +91,7 @@ exports[`ConferenceInfoList > renders proceedings label if document type is proc
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/111111"
           >
             Test Conferece 2
@@ -102,7 +102,7 @@ exports[`ConferenceInfoList > renders proceedings label if document type is proc
       <li>
         <span>
           <a
-            data-test-id="literature-conference-link"
+            data-testid="literature-conference-link"
             href="/conferences/222222"
           >
             Test Conferece 2

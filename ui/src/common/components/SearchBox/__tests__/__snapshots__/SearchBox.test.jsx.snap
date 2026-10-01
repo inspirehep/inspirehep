@@ -75,7 +75,6 @@ exports[`SearchBox > render initial state with all props set 1`] = `
       >
         <div
           class="ant-space-compact css-dev-only-do-not-override-oc1rc0 ant-input-search css-var-root ant-input-search-large ant-input-search-with-button ant-select-input css-dev-only-do-not-override-oc1rc0"
-          data-test-id="search-box-input"
           data-testid="search-box-input"
         >
           <input

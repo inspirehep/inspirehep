@@ -29,7 +29,7 @@ class ConferenceInfo extends Component {
     return (
       <span>
         <Link
-          data-test-id="literature-conference-link"
+          data-testid="literature-conference-link"
           to={`/conferences/${controlNumber}`}
         >
           {acronyms.size > 0 ? this.renderAcronyms() : title}

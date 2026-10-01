@@ -104,7 +104,7 @@ function LiteratureItem({
     : null;
 
   return (
-    <div data-test-id="literature-result-item">
+    <div data-testid="literature-result-item">
       <ResultItem
         leftActions={
           <Fragment>
@@ -190,11 +190,11 @@ function LiteratureItem({
           </Fragment>
         }
       >
-        <div data-test-id="literature-result-item-inner">
+        <div data-testid="literature-result-item-inner">
           <div className="flex flex-nowrap">
             <div className="flex-grow-1">
               <Link
-                data-test-id="literature-result-title-link"
+                data-testid="literature-result-title-link"
                 className="result-item-title"
                 to={`${LITERATURE}/${recordId}`}
               >
@@ -211,7 +211,7 @@ function LiteratureItem({
               min="sm"
               render={() => (
                 <div
-                  data-test-id="literature-result-rank"
+                  data-testid="literature-result-rank"
                   className="light-silver pl2"
                 >
                   #{searchRank}

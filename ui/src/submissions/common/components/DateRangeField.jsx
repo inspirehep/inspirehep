@@ -35,11 +35,11 @@ function DateRangeField({ value = [], ...props }) {
 
   return (
     <DatePicker.RangePicker
+      data-testid="date-range-picker"
       {...props}
       // set BOTH_TRUE for e2e, it is validate via schema any case.
       allowEmpty={BOTH_TRUE}
       data-test-type="date-range-picker"
-      data-testid="date-range-picker"
       data-test-format={format}
       value={valueAsDayjs}
       onBlur={onBlur}

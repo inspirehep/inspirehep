@@ -21,7 +21,7 @@ const ReferenceSearchLinkAction = ({
     >
       <Link
         to={`${LITERATURE}?q=citedby:recid:${recordId}`}
-        data-test-id="reference-search-button"
+        data-testid="reference-search-button"
       >
         <IconText text="reference search" icon={<FileSearchOutlined />} />
       </Link>

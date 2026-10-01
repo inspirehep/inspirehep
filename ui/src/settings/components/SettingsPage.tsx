@@ -96,7 +96,7 @@ const SettingsPage = ({
                   <Link
                     to={`/submissions/authors/${profileControlNumber}`}
                     className="db pb3"
-                    data-test-id="author-form"
+                    data-testid="author-form"
                   >
                     Update author information
                   </Link>
@@ -109,7 +109,7 @@ const SettingsPage = ({
             <CollapsableForm.Section
               header="Orcid settings"
               key="orcid"
-              data-test-id="orcid"
+              data-testid="orcid"
             >
               <div data-testid={userOrcid}>
                 <OrcidPushSettingContainer />

@@ -27,19 +27,19 @@ export function renderReferenceItem(result: Map<string, any>) {
   const collaborationsWithSuffix = metadata?.get('collaborations_with_suffix');
 
   return (
-    <div data-test-id={`reference-drawer-item-${controlNumber}`}>
+    <div data-testid={`reference-drawer-item-${controlNumber}`}>
       <Row>
         <Col span={1}>
           <Radio
             value={controlNumber}
-            data-test-id={`reference-drawer-radio-${controlNumber}`}
+            data-testid={`reference-drawer-radio-${controlNumber}`}
           />
         </Col>
         <Col span={23}>
           <Card className="reference-result-item">
             <div>
               <Link
-                data-test-id="result-item-title"
+                data-testid="result-item-title"
                 className="result-item-title"
                 to={`${LITERATURE}/${controlNumber}`}
               >
@@ -134,7 +134,7 @@ function CurateReferenceDrawer({
       open={visible}
       title="Find the correct reference:"
     >
-      <div data-test-id="reference-embedded-search">
+      <div data-testid="reference-embedded-search">
         <EmbeddedSearchBoxContainer namespace={CURATE_REFERENCE_NS} />
       </div>
       <LoadingOrChildren loading={loading}>
@@ -142,7 +142,7 @@ function CurateReferenceDrawer({
           <NumberOfResultsContainer namespace={CURATE_REFERENCE_NS} />
         </div>
         <Radio.Group
-          data-test-id="reference-radio-group"
+          data-testid="reference-radio-group"
           className="w-100"
           onChange={onSelectedRecordChange}
           value={selectedRecordId}
@@ -157,7 +157,7 @@ function CurateReferenceDrawer({
         <Row className="mt2" justify="end">
           <Col>
             <Button
-              data-test-id="curate-button"
+              data-testid="curate-button"
               disabled={selectedRecordId == null}
               icon={<SelectOutlined />}
               type="primary"

@@ -3,12 +3,12 @@ import moment from "moment";
 export const REDIRECT_TO_EDITOR = ["experiments", "institutions", "journals"];
 
 Cypress.Commands.add("selectLiteratureDocType", (docType) => {
-  cy.get("[data-test-id=skip-import-button]")
+  cy.get("[data-testid=skip-import-button]")
     .click()
-    .get("[data-test-id=document-type-select]")
+    .get("[data-testid=document-type-select]")
     .click()
     .get(
-      `.ant-select-dropdown [data-test-id=document-type-select-option-${docType}]`,
+      `.ant-select-dropdown [data-testid=document-type-select-option-${docType}]`,
     )
     .click()
     .should("be.hidden"); // wait for dropdown menu to be closed before proceeding further.
@@ -104,13 +104,13 @@ Cypress.Commands.add(
 
 Cypress.Commands.add("submitForm", (data) => {
   cy.fillForm(data);
-  cy.get('[data-test-id="submit-button"]').click();
+  cy.get('[data-testid="submit-button"]').click();
 });
 
 Cypress.Commands.add("fillForm", (data) => {
   // disable sticky elements, such as header which sometimes cover form fields
   // and prevents them from being filled
-  cy.get('[data-test-id="sticky"]').invoke("css", "position", "absolute");
+  cy.get('[data-testid="sticky"]').invoke("css", "position", "absolute");
   cy.fillObjectField(null, data);
 });
 
@@ -160,9 +160,9 @@ Cypress.Commands.add("fillArrayField", (path, array) => {
     const itemPath = joinPaths(path, i);
     if (i !== 0) {
       // click (+) to add an empty item first
-      cy.get(`[data-test-id="${path}-add-item"]`)
+      cy.get(`[data-testid="${path}-add-item"]`)
         .click()
-        .get(`[data-test-id="container-${itemPath}"]`)
+        .get(`[data-testid="container-${itemPath}"]`)
         .should("be.visible");
     }
     cy.fillField(itemPath, item);
@@ -175,25 +175,16 @@ Cypress.Commands.add("fillDateRangeField", (path, [startDate, endDate]) => {
       $dateRangeInputs.attr("data-test-format") || "YYYY-MM-DD";
     const startDateValue = moment(startDate).format(dateFormat);
     const endDateValue = moment(endDate).format(dateFormat);
-    cy.wrap($dateRangeInputs)
-      .first()
-      .click()
-      .type(`${startDateValue}{enter}`);
-    cy.wrap($dateRangeInputs)
-      .last()
-      .click()
-      .type(`${endDateValue}{enter}`);
-  }); 
+    cy.wrap($dateRangeInputs).first().click().type(`${startDateValue}{enter}`);
+    cy.wrap($dateRangeInputs).last().click().type(`${endDateValue}{enter}`);
+  });
 });
 
 Cypress.Commands.add("fillDateField", (path, value) => {
   cy.getField(path).then(($dateSelect) => {
     const dateFormat = $dateSelect.attr("data-test-format") || "YYYY-MM-DD";
     const dateValue = moment(value).format(dateFormat);
-    cy.wrap($dateSelect)
-      .click()
-      .clear()
-      .type(dateValue);
+    cy.wrap($dateSelect).click().clear().type(dateValue);
     cy.get(".ant-picker-dropdown")
       .filter(":visible")
       .find(`.ant-picker-cell[title="${dateValue}"]`)
@@ -232,12 +223,12 @@ Cypress.Commands.add("fillBooleanField", (path, value) => {
 });
 
 Cypress.Commands.add("getField", (fieldPath) => {
-  return cy.get(`[data-test-id="${fieldPath}"]`);
+  return cy.get(`[data-testid="${fieldPath}"]`);
 });
 
 Cypress.Commands.add("getFieldType", (fieldPath, value) => {
   return cy.get("body").then(($body) => {
-    const $field = $body.find(`[data-test-id="${fieldPath}"]`);
+    const $field = $body.find(`[data-testid="${fieldPath}"]`);
     let fieldType = $field.attr("data-test-type");
     if (!fieldType) {
       // fallback to value type
@@ -248,6 +239,6 @@ Cypress.Commands.add("getFieldType", (fieldPath, value) => {
 });
 
 Cypress.Commands.add("getFieldError", (fieldPath) => {
-  const errorSelector = `[data-test-id="${fieldPath}-error"]`;
+  const errorSelector = `[data-testid="${fieldPath}-error"]`;
   return cy.get(errorSelector);
 });

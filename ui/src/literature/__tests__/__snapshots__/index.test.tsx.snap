@@ -15,7 +15,6 @@ exports[`Literature > navigates to DetailPageContainer when /literature/:id 1`] 
       >
         <div
           class="tc pa4"
-          data-test-id="loading"
           data-testid="loading-spinner"
         >
           <div

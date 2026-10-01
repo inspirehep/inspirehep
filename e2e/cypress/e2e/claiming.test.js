@@ -3,7 +3,7 @@ describe("Author collection", () => {
     cy.visit("/authors/1274753");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-login"]').should("be.visible");
+    cy.get('[data-testid="btn-claiming-login"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when user doesn't have author profile", () => {
@@ -11,7 +11,7 @@ describe("Author collection", () => {
     cy.visit("/authors/1274753");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-profile"]').should("be.visible");
+    cy.get('[data-testid="btn-claiming-profile"]').should("be.visible");
   });
 
   context("Author view", () => {
@@ -31,11 +31,11 @@ describe("Author collection", () => {
         cy.visit("/authors/1010819");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="literature-result-item"]')
+        cy.get('[data-testid="literature-result-item"]')
           .first()
-          .find('[data-test-id="btn-claim"]')
+          .find('[data-testid="btn-claim"]')
           .trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignSuccess");
 
@@ -56,11 +56,11 @@ describe("Author collection", () => {
         cy.visit("/authors/1010819");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="literature-result-item"]')
+        cy.get('[data-testid="literature-result-item"]')
           .first()
-          .find('[data-test-id="btn-claim"]')
+          .find('[data-testid="btn-claim"]')
           .trigger("mouseover");
-        cy.get('[data-test-id="unassign"]').click();
+        cy.get('[data-testid="unassign"]').click();
 
         cy.wait("@getUnassignSuccess");
 
@@ -78,11 +78,11 @@ describe("Author collection", () => {
         cy.visit("/authors/1010819");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="literature-result-item"]')
+        cy.get('[data-testid="literature-result-item"]')
           .first()
-          .find('[data-test-id="btn-claim"]')
+          .find('[data-testid="btn-claim"]')
           .trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignFailure");
 
@@ -113,11 +113,11 @@ describe("Author collection", () => {
         cy.visit("/authors/1274753");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="literature-result-item"]')
+        cy.get('[data-testid="literature-result-item"]')
           .first()
-          .find('[data-test-id="btn-claim"]')
+          .find('[data-testid="btn-claim"]')
           .trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignSuccess");
 
@@ -137,11 +137,11 @@ describe("Author collection", () => {
         cy.visit("/authors/1274753");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="literature-result-item"]')
+        cy.get('[data-testid="literature-result-item"]')
           .first()
-          .find('[data-test-id="btn-claim"]')
+          .find('[data-testid="btn-claim"]')
           .trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignFailure");
 
@@ -170,9 +170,9 @@ describe("Author collection", () => {
         cy.visit("/authors/1274753");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="select-all-publications"]').check();
-        cy.get('[data-test-id="claim-multiple"]').trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="select-all-publications"]').check();
+        cy.get('[data-testid="claim-multiple"]').trigger("mouseover");
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignSuccess");
 
@@ -194,9 +194,9 @@ describe("Author collection", () => {
         cy.visit("/authors/1274753");
         cy.waitForLoading();
 
-        cy.get('[data-test-id="select-all-publications"]').check();
-        cy.get('[data-test-id="claim-multiple"]').trigger("mouseover");
-        cy.get('[data-test-id="assign-self"]').click();
+        cy.get('[data-testid="select-all-publications"]').check();
+        cy.get('[data-testid="claim-multiple"]').trigger("mouseover");
+        cy.get('[data-testid="assign-self"]').click();
 
         cy.wait("@getAssignFailure");
 
@@ -228,11 +228,11 @@ describe("Author collection", () => {
       cy.visit("/authors/1274753");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="literature-result-item"]')
+      cy.get('[data-testid="literature-result-item"]')
         .first()
-        .find('[data-test-id="btn-claim"]')
+        .find('[data-testid="btn-claim"]')
         .trigger("mouseover");
-      cy.get('[data-test-id="assign-self"]').click();
+      cy.get('[data-testid="assign-self"]').click();
 
       cy.wait("@getAssignSuccess");
 
@@ -255,11 +255,11 @@ describe("Author collection", () => {
       cy.visit("/authors/1274753");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="literature-result-item"]')
+      cy.get('[data-testid="literature-result-item"]')
         .first()
-        .find('[data-test-id="btn-claim"]')
+        .find('[data-testid="btn-claim"]')
         .trigger("mouseover");
-      cy.get('[data-test-id="unassign"]').click();
+      cy.get('[data-testid="unassign"]').click();
 
       cy.wait("@getUnassignSuccess");
 
@@ -267,7 +267,7 @@ describe("Author collection", () => {
         "have.text",
         "Processing request...",
       );
-      cy.get('[data-test-id="claim-notification-description"').should(
+      cy.get('[data-testid="claim-notification-description"').should(
         (description) => {
           expect(description.text()).to.contain("will be moved from 1274753");
         },
@@ -282,11 +282,11 @@ describe("Author collection", () => {
       cy.visit("/authors/1274753");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="literature-result-item"]')
+      cy.get('[data-testid="literature-result-item"]')
         .first()
-        .find('[data-test-id="btn-claim"]')
+        .find('[data-testid="btn-claim"]')
         .trigger("mouseover");
-      cy.get('[data-test-id="assign-another"]').click();
+      cy.get('[data-testid="assign-another"]').click();
 
       cy.get(".search-drawer input.ant-input").type("Hotzel");
       cy.get(".search-drawer button.ant-input-search-btn").click();
@@ -300,7 +300,7 @@ describe("Author collection", () => {
         "have.text",
         "Processing request...",
       );
-      cy.get('[data-test-id="claim-notification-description"').should(
+      cy.get('[data-testid="claim-notification-description"').should(
         (description) => {
           expect(description.text()).to.contain("will be moved from 1274753");
         },
@@ -315,11 +315,11 @@ describe("Author collection", () => {
       cy.visit("/authors/1274753");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="literature-result-item"]')
+      cy.get('[data-testid="literature-result-item"]')
         .first()
-        .find('[data-test-id="btn-claim"]')
+        .find('[data-testid="btn-claim"]')
         .trigger("mouseover");
-      cy.get('[data-test-id="assign-another"]').click();
+      cy.get('[data-testid="assign-another"]').click();
 
       cy.get('input[value="new"]').click();
       cy.get('[data-testid="assign-button"').click();
@@ -330,7 +330,7 @@ describe("Author collection", () => {
         "have.text",
         "Processing request...",
       );
-      cy.get('[data-test-id="claim-notification-description"').should(
+      cy.get('[data-testid="claim-notification-description"').should(
         (description) => {
           expect(description.text()).to.contain("will be moved from 1274753");
         },
@@ -345,11 +345,11 @@ describe("Author collection", () => {
       cy.visit("/authors/1274753");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="literature-result-item"]')
+      cy.get('[data-testid="literature-result-item"]')
         .first()
-        .find('[data-test-id="btn-claim"]')
+        .find('[data-testid="btn-claim"]')
         .trigger("mouseover");
-      cy.get('[data-test-id="assign-self"]').click();
+      cy.get('[data-testid="assign-self"]').click();
 
       cy.wait("@getAssignFailure");
 
@@ -370,7 +370,7 @@ describe("Literature collection", () => {
     cy.visit("/literature/1688995");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-login"]').should("be.visible");
+    cy.get('[data-testid="btn-claiming-login"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when user doesn't have author profile", () => {
@@ -378,7 +378,7 @@ describe("Literature collection", () => {
     cy.visit("/literature/1688995");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-profile"]').should("be.visible");
+    cy.get('[data-testid="btn-claiming-profile"]').should("be.visible");
   });
 
   it("displays disabled claim button with appropriate tooltip when paper doesn't have authors", () => {
@@ -386,7 +386,7 @@ describe("Literature collection", () => {
     cy.visit("/literature/44707");
     cy.waitForLoading();
 
-    cy.get('[data-test-id="btn-claiming-authors"]').should("be.visible");
+    cy.get('[data-testid="btn-claiming-authors"]').should("be.visible");
   });
 
   context("Claiming enabled", () => {
@@ -416,8 +416,8 @@ describe("Literature collection", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
 
       cy.wait("@getCheckNameSuccess");
       cy.wait("@getAssignSuccess");
@@ -454,10 +454,10 @@ describe("Literature collection", () => {
       cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
-      cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
-      cy.get('[data-test-id="assign-literature-item-button"').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
+      cy.get('[data-testid="literature-drawer-radio-1274753"').click();
+      cy.get('[data-testid="assign-literature-item-button"').click();
 
       cy.wait("@getAssignSuccess");
 
@@ -483,10 +483,10 @@ describe("Literature collection", () => {
       cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
-      cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
-      cy.get('[data-test-id="assign-literature-item-button"').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
+      cy.get('[data-testid="literature-drawer-radio-1274753"').click();
+      cy.get('[data-testid="assign-literature-item-button"').click();
 
       cy.wait("@getAssignSuccess");
 
@@ -504,8 +504,8 @@ describe("Literature collection", () => {
       cy.visit("/literature/1688995");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
 
       cy.wait("@getAssignError");
 
@@ -527,8 +527,8 @@ describe("Literature collection", () => {
       cy.visit("/literature/1331798");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
 
       cy.wait("@getAuthorsError");
 
@@ -543,10 +543,10 @@ describe("Literature collection", () => {
       cy.visit("/literature/1787272");
       cy.waitForLoading();
 
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger("mouseover");
-      cy.get('[data-test-id="assign-literature-item"]').click();
-      cy.get('[data-test-id="literature-drawer-radio-996285"').click();
-      cy.get('[data-test-id="assign-literature-item-button"').click();
+      cy.get('[data-testid="btn-claiming-literature"]').trigger("mouseover");
+      cy.get('[data-testid="assign-literature-item"]').click();
+      cy.get('[data-testid="literature-drawer-radio-996285"').click();
+      cy.get('[data-testid="assign-literature-item-button"').click();
 
       cy.wait("@getAssignError");
 

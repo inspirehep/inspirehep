@@ -55,7 +55,7 @@ export function assignSuccess({
     title: 'Processing request...',
     duration: false,
     description: (
-      <span data-test-id="claim-notification-description">
+      <span data-testid="claim-notification-description">
         Selected papers ({literatureIds.join(', ')}) will be moved from{' '}
         <LinkWithTargetBlank href={`${AUTHORS}/${from}`}>
           {from}

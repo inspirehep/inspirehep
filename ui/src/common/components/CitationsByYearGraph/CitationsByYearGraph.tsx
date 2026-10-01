@@ -139,7 +139,7 @@ function CitationsByYearGraph({
     <LoadingOrChildren loading={loading}>
       <ErrorAlertOrChildren error={error}>
         <EmptyOrChildren data={citationsByYear} title="0 Citations">
-          <div data-test-id="citations-by-year-graph">
+          <div data-testid="citations-by-year-graph">
             <ResponsiveContainer height={GRAPH_HEIGHT}>
               <LineChart
                 data={data}

@@ -30,7 +30,7 @@ const LocalLoginPage = ({
             name="email"
             type="email"
             placeholder="Email"
-            data-test-id="email"
+            data-testid="email"
             component={renderFormInput}
           />
         </Row>
@@ -39,7 +39,7 @@ const LocalLoginPage = ({
             name="password"
             type="password"
             placeholder="Password"
-            data-test-id="password"
+            data-testid="password"
             component={renderFormInput}
           />
         </Row>
@@ -47,7 +47,7 @@ const LocalLoginPage = ({
           className="w-100"
           type="primary"
           htmlType="submit"
-          data-test-id="login"
+          data-testid="login"
         >
           Login
         </Button>

@@ -17,7 +17,6 @@ exports[`AuthorResult > renders 1`] = `
         >
           <input
             class="ant-radio-input"
-            data-test-id="literature-drawer-radio-1016091"
             data-testid="literature-drawer-radio-1016091"
             type="radio"
             value="1016091"

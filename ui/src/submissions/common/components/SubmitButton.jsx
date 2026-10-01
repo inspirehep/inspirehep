@@ -19,7 +19,7 @@ function SubmitButton() {
     <Button
       type="primary"
       htmlType="submit"
-      data-test-id="submit-button"
+      data-testid="submit-button"
       loading={isSubmitting || isValidating}
     >
       Submit

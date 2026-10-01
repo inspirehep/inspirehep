@@ -44,7 +44,6 @@ exports[`ExistingConferencesAlert > renders alert and drawer 1`] = `
           >
             <span>
               <strong
-                data-test-id="conferences-exist-alert-number"
                 data-testid="conferences-exist-alert-number"
               >
                 5
