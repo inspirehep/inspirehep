@@ -51,7 +51,7 @@ describe('AssignDifferentProfileActionContainer', () => {
         disabled: false,
         currentUserId: 8,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -76,7 +76,7 @@ describe('AssignDifferentProfileActionContainer', () => {
         disabled: true,
         currentUserId: 8,
       }),
-      expect.anything()
+      undefined
     );
   });
 

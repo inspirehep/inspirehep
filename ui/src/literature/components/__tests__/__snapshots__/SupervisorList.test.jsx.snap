@@ -19,6 +19,7 @@ exports[`SupervisorList > renders with multiple supervisors 1`] = `
           <span>
             John Doe
           </span>
+          <span />
         </div>
         , 
       </li>
@@ -29,6 +30,7 @@ exports[`SupervisorList > renders with multiple supervisors 1`] = `
           <span>
             Jane Doe
           </span>
+          <span />
         </div>
       </li>
     </ul>
@@ -55,6 +57,7 @@ exports[`SupervisorList > renders with one supervisor 1`] = `
           <span>
             John Doe
           </span>
+          <span />
         </div>
       </li>
     </ul>

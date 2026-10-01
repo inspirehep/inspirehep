@@ -67,25 +67,27 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
                           class="di"
                         >
                           <span />
-                          <span
-                            class="pl1 secondary-color"
-                          >
-                            (
-                            <div
-                              class="__InlineList__ di"
-                              data-testid="inline-data-list"
+                          <span>
+                            <span
+                              class="pl1 secondary-color"
                             >
-                              <ul>
-                                <li>
-                                  <a
-                                    href="/institutions/12346"
-                                  >
-                                    ut
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                            )
+                              (
+                              <div
+                                class="__InlineList__ di"
+                                data-testid="inline-data-list"
+                              >
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="/institutions/12346"
+                                    >
+                                      ut
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              )
+                            </span>
                           </span>
                         </div>
                       </li>
@@ -306,25 +308,27 @@ exports[`DataItem > renders with all props set 1`] = `
                           class="di"
                         >
                           <span />
-                          <span
-                            class="pl1 secondary-color"
-                          >
-                            (
-                            <div
-                              class="__InlineList__ di"
-                              data-testid="inline-data-list"
+                          <span>
+                            <span
+                              class="pl1 secondary-color"
                             >
-                              <ul>
-                                <li>
-                                  <a
-                                    href="/institutions/12346"
-                                  >
-                                    ut
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                            )
+                              (
+                              <div
+                                class="__InlineList__ di"
+                                data-testid="inline-data-list"
+                              >
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="/institutions/12346"
+                                    >
+                                      ut
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              )
+                            </span>
                           </span>
                         </div>
                       </li>

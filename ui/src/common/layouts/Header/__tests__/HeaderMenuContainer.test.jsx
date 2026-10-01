@@ -25,7 +25,7 @@ describe('HeaderMenuContainer', () => {
         loggedIn: true,
         profileControlNumber: '1010819',
       }),
-      {}
+      undefined
     );
   });
 });

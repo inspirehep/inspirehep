@@ -29,7 +29,7 @@ type Query = {
   [key: string]: string | string[];
 };
 
-type SearchParams = {
+export type SearchParams = {
   baseQuery: Query;
   baseAggregationsQuery?: Query;
 };

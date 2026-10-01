@@ -46,7 +46,6 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -85,7 +84,6 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -306,7 +304,7 @@ exports[`AggregationFilter > renders RangeAggregation if aggregation type is ran
               >
                 <g
                   class="recharts-layer recharts-bar pointer highlight-bar-on-hover"
-                  id="recharts-bar-:r0:"
+                  id="recharts-bar-_r_0_"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"
@@ -815,7 +813,7 @@ exports[`AggregationFilter > renders RangeAggregation if aggregation type is ran
                 </g>
                 <g
                   class="recharts-layer recharts-bar pointer"
-                  id="recharts-bar-:r1:"
+                  id="recharts-bar-_r_1_"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"

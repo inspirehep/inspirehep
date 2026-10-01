@@ -42,7 +42,7 @@ describe('AuthorPublicationsContainer with LiteratureSearchContainer mocked', ()
         },
         numberOfSelected: 0,
       }),
-      {}
+      undefined
     );
   });
 });

@@ -5,18 +5,18 @@ function PublicationsSelect({
   onSelectClaimedPapers,
   onSelectUnclaimedPapers,
   onSelectPapers,
-  claimed,
-  disabled,
+  claimed = false,
+  disabled = false,
   checked,
-  isOwnProfile,
+  isOwnProfile = false,
 }: {
   onSelectClaimedPapers: Function;
   onSelectUnclaimedPapers: Function;
   onSelectPapers: Function;
-  claimed: boolean;
-  disabled: boolean;
+  claimed?: boolean;
+  disabled?: boolean;
   checked: boolean;
-  isOwnProfile: boolean;
+  isOwnProfile?: boolean;
 }) {
   const onChange = (event: CheckboxChangeEvent) => {
     onSelectPapers(event);

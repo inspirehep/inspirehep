@@ -67,6 +67,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Test, Guy 1
                               </span>
+                              <span />
                             </div>
                             , 
                           </li>
@@ -77,6 +78,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Test, Guy 2
                               </span>
+                              <span />
                             </div>
                             , 
                           </li>
@@ -87,6 +89,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Test, Guy 3
                               </span>
+                              <span />
                             </div>
                             , 
                           </li>
@@ -97,6 +100,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Test, Guy 4
                               </span>
+                              <span />
                             </div>
                             , 
                           </li>
@@ -107,6 +111,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Test, Guy 5
                               </span>
+                              <span />
                             </div>
                           </li>
                         </ul>
@@ -143,6 +148,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 John Doe
                               </span>
+                              <span />
                             </div>
                             , 
                           </li>
@@ -153,6 +159,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                               <span>
                                 Jane Doe
                               </span>
+                              <span />
                             </div>
                           </li>
                         </ul>

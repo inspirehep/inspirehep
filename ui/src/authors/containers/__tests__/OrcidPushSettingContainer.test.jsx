@@ -44,7 +44,7 @@ describe('OrcidPushSettingContainer', () => {
         isUpdating: false,
         enabled: true,
       }),
-      expect.anything()
+      undefined
     );
   });
 

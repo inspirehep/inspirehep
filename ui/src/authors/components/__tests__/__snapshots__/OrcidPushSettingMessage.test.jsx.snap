@@ -20,6 +20,7 @@ exports[`OrcidPushSettingMessage > renders when enabled 1`] = `
     <p>
       This profile is already connected to the following ORCID: 
       <a
+        class=""
         href="//orcid.org/0000-0001-8058-0014"
         target="_blank"
       >

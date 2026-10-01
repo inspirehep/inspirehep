@@ -321,6 +321,7 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
                         <span>
                           Author
                         </span>
+                        <span />
                       </div>
                     </li>
                   </ul>
@@ -571,6 +572,7 @@ exports[`ReferenceItem > renders with full reference 1`] = `
                         <span>
                           Author
                         </span>
+                        <span />
                       </div>
                     </li>
                   </ul>

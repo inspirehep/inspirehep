@@ -57,7 +57,7 @@ const Author = ({
         eventId="Author profile"
         eventPropName="onClick"
       >
-        <>{renderAffiliationsList()}</>
+        <span>{renderAffiliationsList()}</span>
       </EventTracker>
       {renderRoleSuffix()}
     </div>

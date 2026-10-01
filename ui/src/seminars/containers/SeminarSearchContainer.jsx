@@ -27,7 +27,7 @@ function SeminarSearch({
   loadingAggregations,
   selectedTimezone,
   namespace,
-  enableDateFilter,
+  enableDateFilter = false,
   embedded,
   isSuperUserLoggedIn,
   results,

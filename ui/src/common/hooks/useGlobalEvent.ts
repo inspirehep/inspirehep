@@ -4,7 +4,7 @@ export function useGlobalEvent(
   eventName: string,
   callback: (event: KeyboardEvent) => void
 ) {
-  const callbackRef = useRef();
+  const callbackRef = useRef(undefined);
 
   (callbackRef.current as unknown) = callback;
 
