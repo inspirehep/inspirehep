@@ -38,6 +38,12 @@ function removeUiParam(param, value) {
   return param.startsWith('ui-') ? undefined : value;
 }
 
+function areInitialAggregationsEmpty(namespace, state) {
+  return state.search
+    .getIn(['namespaces', namespace, 'initialAggregations'])
+    .isEmpty();
+}
+
 function isLocationSyncedWithSearchQuery(namespace, state) {
   const {
     search,
@@ -117,6 +123,15 @@ export default function ({ dispatch, getState }) {
 
           const { query } = nextLocation;
           dispatch(searchQueryUpdate(nextNamespace, query, true));
+        } else if (
+          RESET_QUERY_AND_AGGS_NAMESPACES.includes(nextNamespace) &&
+          areInitialAggregationsEmpty(nextNamespace, getState())
+        ) {
+          // when `back` is clicked from a record page (ex: `/authors/123`) the query is
+          // already in sync with the location, so no search is triggered, but `newSearch`
+          // has cleared the initial aggregations when leaving the search page,
+          // so they have to be fetched again
+          dispatch(fetchAggregationsAndSearchQueryReset(nextNamespace, false));
         }
       }
 
