@@ -2,7 +2,7 @@ import uuid
 import pytest
 from copy import deepcopy
 from unittest.mock import Mock, patch
-from requests.exceptions import RequestException
+from requests.exceptions import HTTPError, RequestException
 from django.db import transaction
 from django.urls import reverse
 from backoffice.common.constants import WORKFLOW_DAGS
@@ -248,9 +248,10 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             json_response["id"], data["workflow_type"]
         )
 
+    @patch("backoffice.hep.api.views.airflow_utils.delete_workflow_dag_runs")
     @patch("backoffice.common.signals.delete_from_registry_after_commit")
     def test_delete_hep_calls_on_commit_signal_processor(
-        self, mock_delete_from_registry_after_commit
+        self, mock_delete_from_registry_after_commit, mock_delete_workflow_dag_runs
     ):
         self.api_client.force_authenticate(user=self.curator)
         workflow_id = self.workflow.id
@@ -268,6 +269,9 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertIsInstance(deleted_instance, HepWorkflow)
         self.assertEqual(deleted_instance.pk, workflow_id)
         self.assertEqual(deleted_instance.workflow_type, workflow_type)
+        mock_delete_workflow_dag_runs.assert_called_once_with(
+            workflow_id, workflow_type
+        )
 
     @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
     def test_create_hep_publisher_update_workflow(
@@ -649,6 +653,40 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.decisions.first().action, HepResolutions.discard)
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @patch("backoffice.hep.api.views.airflow_utils.delete_workflow_dag")
+    def test_purge_adds_decision_and_deletes_dag_run(self, mock_delete_dag_run):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse("api:hep-purge", kwargs={"pk": self.workflow.id})
+
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 204)
+        self.assertTrue(
+            HepDecision.objects.filter(
+                workflow=self.workflow, action=HepResolutions.purged
+            ).exists()
+        )
+        mock_delete_dag_run.assert_called_once_with(
+            WORKFLOW_DAGS[self.workflow.workflow_type].initialize,
+            str(self.workflow.id),
+        )
+
+    @patch("backoffice.hep.api.views.airflow_utils.delete_workflow_dag")
+    def test_purge_continues_when_dag_run_is_not_found(self, mock_delete_dag_run):
+        error = HTTPError("DAG run not found", response=Mock(status_code=404))
+        mock_delete_dag_run.side_effect = error
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse("api:hep-purge", kwargs={"pk": self.workflow.id})
+
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 204)
+        self.assertTrue(
+            HepDecision.objects.filter(
+                workflow=self.workflow, action=HepResolutions.purged
+            ).exists()
+        )
 
     @pytest.mark.vcr
     def test_block(self):
