@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 @dag(
     start_date=datetime.datetime(2024, 11, 28),
-    schedule="0 2 * * *",
+    schedule="0 4 * * *",
     catchup=False,
     tags=["literature", "arxiv", "harvest"],
     params={
