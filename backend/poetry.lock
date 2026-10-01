@@ -4828,23 +4828,25 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pypdf"
-version = "5.9.0"
+version = "6.19.0"
 description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming PDF files"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pypdf-5.9.0-py3-none-any.whl", hash = "sha256:be10a4c54202f46d9daceaa8788be07aa8cd5ea8c25c529c50dd509206382c35"},
-    {file = "pypdf-5.9.0.tar.gz", hash = "sha256:30f67a614d558e495e1fbb157ba58c1de91ffc1718f5e0dfeb82a029233890a1"},
+    {file = "pypdf-6.19.0-py3-none-any.whl", hash = "sha256:7e5d6e730e7dae87d560a2cee218b852f6498c8be61966f3cd02ead971e48d14"},
+    {file = "pypdf-6.19.0.tar.gz", hash = "sha256:bbc43aca292369ccc6cbc8a921991ecf2538a3587ab5a116eff06c321d647155"},
 ]
 
 [package.extras]
-crypto = ["cryptography"]
+crypto = ["cryptography (>3.0)"]
 cryptodome = ["PyCryptodome"]
-dev = ["black", "flit", "pip-tools", "pre-commit", "pytest-cov", "pytest-socket", "pytest-timeout", "pytest-xdist", "wheel"]
+dev = ["flit", "pip-tools", "pre-commit", "pytest-cov", "pytest-socket", "pytest-timeout", "pytest-xdist", "wheel"]
 docs = ["myst_parser", "sphinx", "sphinx_rtd_theme"]
-full = ["Pillow (>=8.0.0)", "cryptography"]
+fonts = ["fonttools"]
+full = ["Pillow (>=8.0.0)", "arabic-reshaper", "cryptography (>3.0)", "fonttools", "python-bidi"]
 image = ["Pillow (>=8.0.0)"]
+rtl-text = ["arabic-reshaper", "python-bidi"]
 
 [[package]]
 name = "pypdf2"
@@ -5381,22 +5383,22 @@ typing-extensions = {version = ">=4.4.0", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "refextract"
-version = "1.1.6"
+version = "1.1.7"
 description = "Small library for extracting references used in scholarly communication."
 optional = false
-python-versions = "<4,>=3.11"
+python-versions = "<3.15,>=3.11"
 groups = ["main"]
 files = [
-    {file = "refextract-1.1.6-py3-none-any.whl", hash = "sha256:8fab1374a91e264dc23fac81f3b7ab31fcd4bd970756b9d4417974640fa03e77"},
-    {file = "refextract-1.1.6.tar.gz", hash = "sha256:d1cfd235286f1e77af9992c493a3fab83bd3c6d69e91962f0c8c97dae45dc226"},
+    {file = "refextract-1.1.7-py3-none-any.whl", hash = "sha256:5585df2d270a31878a07c26fdbc0ba532335e4ce7303b212a329649f249a4aba"},
+    {file = "refextract-1.1.7.tar.gz", hash = "sha256:dc3fa23ed22ad2f45e708d75011212d3c6bc83fca940cd34beb355a2e2ab299f"},
 ]
 
 [package.dependencies]
-inspire-utils = ">=3.0.61,<4.0.0"
-pypdf = ">=5.4.0,<6.0.0"
+inspire-utils = ">=3.0.70,<4.0.0"
+pypdf = ">=6.19.0,<7.0.0"
 python-magic = ">=0.4.27,<0.5.0"
 requests = ">=2.32.3,<3.0.0"
-unidecode = ">=1.0.22,<2.0"
+unidecode = ">=1.4.0,<2.0.0"
 
 [[package]]
 name = "regex"
@@ -7137,4 +7139,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "a53d7a0589bc8c05643cddd877bb88cb04bb1a3b7cc1db91c9c56b62c3b4d7c4"
+content-hash = "fa54adc7bd805ef141d44d02e4aae12473eaef4a3e0f35c407261c1ae0aacad8"

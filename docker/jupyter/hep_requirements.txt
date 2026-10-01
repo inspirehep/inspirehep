@@ -188,7 +188,7 @@ pyyaml==5.3; python_version >= "2.7" and python_full_version < "3.0.0" or python
 queuelib==1.5.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 raven==6.10.0
 redis==3.3.11; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.7"
-refextract==1.1.4
+refextract==1.1.7
 regex==2021.9.30
 requests-oauthlib==1.1.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 requests==2.22.0; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4" and python_version >= "3.7"
