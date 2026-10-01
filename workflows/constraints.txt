@@ -147,7 +147,7 @@ apache-airflow-providers-grpc==3.9.5
 apache-airflow-providers-hashicorp==4.8.0
 apache-airflow-providers-http==6.0.5
 apache-airflow-providers-imap==3.12.1
-apache-airflow-providers-influxdb==2.11.0
+apache-airflow-providers-influxdb==2.11.1
 apache-airflow-providers-informatica==0.2.0
 apache-airflow-providers-jdbc==5.5.0
 apache-airflow-providers-jenkins==4.2.6
