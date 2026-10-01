@@ -317,7 +317,7 @@ future==1.0.0
 gcloud-aio-auth==5.5.0
 gcloud-aio-bigquery==7.1.0
 gcloud-aio-storage==9.6.4
-gcsfs==2026.7.0
+gcsfs==2026.8.1
 genai-prices==0.1.1
 geomet==1.1.0
 gevent==26.7.0
