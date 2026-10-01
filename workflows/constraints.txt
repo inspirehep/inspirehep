@@ -606,7 +606,7 @@ pyvespa==1.2.4
 pywinrm==0.5.0
 pyzmq==27.1.0
 qdrant-client==1.19.0
-ray==2.56.1
+ray==2.58.0
 reactivex==5.1.0
 redis==6.4.0
 redshift_connector==2.1.16
