@@ -76,6 +76,39 @@ class TestUtilsOpenSearch:
         } in query_filter
 
     @patch("include.utils.opensearch.CustomOpenSearchHook.search")
+    def test_find_completed_workflows_past_retention_without_search_window(
+        self, mock_search
+    ):
+        mock_search.return_value = {"hits": {"hits": []}}
+
+        opensearch.find_completed_workflows_past_retention(
+            retention_days=14, search_window_days=-1
+        )
+
+        _, call_kwargs = mock_search.call_args
+        query_filter = call_kwargs["query"]["query"]["bool"]["filter"]
+        assert {"range": {"_updated_at": {"lte": "now-14d"}}} in query_filter
+
+    @patch("include.utils.opensearch.CustomOpenSearchHook.search")
+    def test_find_completed_unpurged_workflows_past_retention(self, mock_search):
+        mock_search.return_value = {"hits": {"hits": []}}
+
+        opensearch.find_completed_unpurged_workflows_past_retention(
+            retention_days=14, search_window_days=-1
+        )
+
+        _, call_kwargs = mock_search.call_args
+        query = call_kwargs["query"]
+        assert query["query"]["bool"]["must_not"] == [
+            {
+                "nested": {
+                    "path": "decisions",
+                    "query": {"term": {"decisions.action": "purged"}},
+                }
+            }
+        ]
+
+    @patch("include.utils.opensearch.CustomOpenSearchHook.search")
     def test_find_completed_workflows_past_retention_paginates(self, mock_search):
         first_page = {
             "hits": {
