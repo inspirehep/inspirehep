@@ -83,8 +83,8 @@ incremental==17.5.0; python_version >= "2.7" and python_full_version < "3.0.0" o
 infinity==1.4
 inspire-dojson==63.2.37
 inspire-json-merger==11.0.46
-inspire-matcher==9.0.46
-inspire-query-parser==6.0.51
+inspire-matcher==9.0.48
+inspire-query-parser==6.0.63
 inspire-schemas==61.6.35
 inspire-service-orcid @ git+https://github.com/inspirehep/inspire-service-orcid.git@1a0e762e58bc9cac65f7665b9831993c017fd8bb
 inspire-utils==3.0.66
