@@ -235,6 +235,11 @@ def hep_create_dag():
 
         matches = opensearch.find_matching_workflows(workflow_data, RUNNING_STATUSES)
 
+        if is_submission(workflow_data) and len(matches) > 0:
+            for match in matches:
+                workflow_management_hook.restart_workflow(workflow_id=match["id"])
+            return True
+
         if len(matches) > 0:
             matched_ids = [match["id"] for match in matches]
             logger.info("Blocking workflows found: %s", matched_ids)

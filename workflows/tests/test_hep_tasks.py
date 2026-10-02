@@ -391,6 +391,28 @@ class Test_HEPCreateDAG:
         )
         assert not task_test(self.dag, "check_for_blocking_workflows", self.context)
 
+    @patch(
+        "include.utils.opensearch.find_matching_workflows",
+        return_value=[{"id": "to_restart"}],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.restart_workflow"
+    )
+    def test_check_for_blocking_workflows_restarts_matches_for_submission(
+        self, mock_restart_workflow, mock_find_matching_workflows
+    ):
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"acquisition_source": {"method": "submitter"}},
+            },
+        )
+
+        result = task_test(self.dag, "check_for_blocking_workflows", self.context)
+
+        assert result
+        mock_restart_workflow.assert_called_once_with(workflow_id="to_restart")
+
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_continue(self):
         self.s3_store.write_workflow(
