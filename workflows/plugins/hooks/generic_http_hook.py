@@ -17,7 +17,12 @@ class GenericHttpHook(HttpHook):
     def __init__(self, http_conn_id, method="GET", headers=None):
         self._headers = headers
         self._method = method
+        self.last_response = None
         super().__init__(method=method, http_conn_id=http_conn_id)
+
+    def check_response(self, response: Response) -> None:
+        self.last_response = response
+        super().check_response(response)
 
     @property
     def tenacity_retry_kwargs(self) -> dict:
