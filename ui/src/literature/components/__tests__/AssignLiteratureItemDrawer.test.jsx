@@ -31,7 +31,6 @@ describe('AssignLiteratureItemDrawer', () => {
         onAssign={onAssign}
         currentUserRecordId={12345676}
         itemLiteratureId={122334}
-        page="Page"
       />
     );
     expect(baseElement).toMatchSnapshot();
@@ -58,7 +57,6 @@ describe('AssignLiteratureItemDrawer', () => {
         currentUserRecordId={12345676}
         authors={authors}
         itemLiteratureId={122334}
-        page="Page"
       />
     );
 

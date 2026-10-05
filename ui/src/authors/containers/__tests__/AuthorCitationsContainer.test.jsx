@@ -31,7 +31,7 @@ describe('AuthorCitationsContainer', () => {
         namespace: AUTHOR_CITATIONS_NS,
         baseQuery: { q: 'refersto a T.Dude.1' },
       }),
-      {}
+      undefined
     );
   });
 });

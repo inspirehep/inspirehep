@@ -53,7 +53,7 @@ describe('AssignAllActionContainer', () => {
       expect.objectContaining({
         disabled: false,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -70,7 +70,7 @@ describe('AssignAllActionContainer', () => {
       expect.objectContaining({
         disabled: true,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -87,7 +87,7 @@ describe('AssignAllActionContainer', () => {
       expect.objectContaining({
         numberOfSelected: 2,
       }),
-      expect.anything()
+      undefined
     );
   });
 

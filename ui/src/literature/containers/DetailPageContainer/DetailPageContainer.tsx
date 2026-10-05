@@ -174,10 +174,7 @@ function DetailPage({
   return (
     <>
       {authors && (
-        <AssignLiteratureItemDrawerContainer
-          itemLiteratureId={controlNumber}
-          page="Literature detail"
-        />
+        <AssignLiteratureItemDrawerContainer itemLiteratureId={controlNumber} />
       )}
       <CurateReferenceDrawerContainer
         recordId={controlNumber.toString()}
@@ -288,16 +285,12 @@ function DetailPage({
                     enableAuthorsShowAll
                     collaborations={collaborations}
                     collaborationsWithSuffix={collaborationsWithSuffix}
-                    page="Literature detail"
                   />
                 </div>
                 <LiteratureDate date={date} />
                 <div className="mt3">
                   <NumberOfPages numberOfPages={numberOfPages} />
-                  <SupervisorList
-                    supervisors={supervisors}
-                    page="Literature detail"
-                  />
+                  <SupervisorList supervisors={supervisors} />
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBooks && (
                     <ParentRecordInfo parentRecord={linkedBooks} />

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
 
-function EmbeddedSearchBox({ onSearch, placeholder }) {
+function EmbeddedSearchBox({ onSearch, placeholder = undefined }) {
   return (
     <Input.Search enterButton onSearch={onSearch} placeholder={placeholder} />
   );

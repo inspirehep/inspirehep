@@ -52,7 +52,6 @@ export function renderReferenceItem(result: Map<string, any>) {
                 authors={authors}
                 collaborations={collaborations}
                 collaborationsWithSuffix={collaborationsWithSuffix}
-                page="Literature detail"
               />
             </div>
             <div>

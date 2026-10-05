@@ -12,7 +12,6 @@ exports[`PublicationsSelect > renders checked when selected 1`] = `
         checked=""
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>
@@ -30,7 +29,6 @@ exports[`PublicationsSelect > renders unchecked when not selected 1`] = `
       <input
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>
@@ -48,7 +46,6 @@ exports[`PublicationsSelect > sets publication selection on checkbox change 1`] 
       <input
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>

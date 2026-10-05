@@ -126,7 +126,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             </Row>
             <Row>
               <Col>
-                <AuthorList authors={speakers} page="Seminar detail" />
+                <AuthorList authors={speakers} />
               </Col>
             </Row>
             <Row>

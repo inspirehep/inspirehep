@@ -11,7 +11,6 @@ exports[`LiteratureSelectAll > render unchecked if all publications are not part
       <input
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>
@@ -30,7 +29,6 @@ exports[`LiteratureSelectAll > renders checked if all publications are part of t
         checked=""
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>

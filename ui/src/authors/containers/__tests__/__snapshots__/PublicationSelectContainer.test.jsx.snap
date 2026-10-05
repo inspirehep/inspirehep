@@ -12,7 +12,6 @@ exports[`PublicationSelectContainer > renders checkbox checked when select all i
         checked=""
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
     </span>
   </label>

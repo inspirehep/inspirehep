@@ -21,7 +21,7 @@ export default function useResponsiveCheck({
   max,
 }: {
   min?: keyof typeof SIZE_TO_MIN_WIDTH;
-  max: keyof typeof SIZE_TO_MAX_WIDTH;
+  max?: keyof typeof SIZE_TO_MAX_WIDTH;
 }) {
   const query: { minWidth?: number; maxWidth?: number } = {};
 

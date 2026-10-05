@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export default function usePrevious(value: HTMLElement) {
-  const ref = useRef<HTMLElement | null>();
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     ref.current = value;

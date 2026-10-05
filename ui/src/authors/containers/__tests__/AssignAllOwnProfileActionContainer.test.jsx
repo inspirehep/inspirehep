@@ -46,7 +46,7 @@ describe('AssignOwnProfileActionContainer', () => {
         disabled: false,
         disabledAssignAction: false,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -65,7 +65,7 @@ describe('AssignOwnProfileActionContainer', () => {
         disabled: false,
         disabledAssignAction: true,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -84,7 +84,7 @@ describe('AssignOwnProfileActionContainer', () => {
         disabled: true,
         disabledAssignAction: false,
       }),
-      expect.anything()
+      undefined
     );
   });
 
@@ -102,7 +102,7 @@ describe('AssignOwnProfileActionContainer', () => {
       expect.objectContaining({
         numberOfSelected: 2,
       }),
-      expect.anything()
+      undefined
     );
   });
 

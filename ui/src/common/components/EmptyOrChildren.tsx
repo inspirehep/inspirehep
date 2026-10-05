@@ -17,7 +17,7 @@ const EmptyOrChildren = ({
   data: any;
   children: JSX.Element;
   title: string | JSX.Element;
-  description?: string;
+  description?: React.ReactNode;
 }) =>
   isEmptyCollection(data) ? (
     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={title}>
