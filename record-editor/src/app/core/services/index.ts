@@ -1,6 +1,5 @@
 import { CommonApiService } from './common-api.service';
 import { RecordApiService } from './record-api.service';
-import { HoldingpenApiService } from './holdingpen-api.service';
 import { AppConfigService } from './app-config.service';
 import { RecordCleanupService } from './record-cleanup.service';
 import { DomUtilsService } from './dom-utils.service';
@@ -14,7 +13,6 @@ import { BackofficeApiService } from './backoffice-api.service';
 
 export {
   CommonApiService,
-  HoldingpenApiService,
   BackofficeApiService,
   RecordApiService,
   AppConfigService,
@@ -30,7 +28,6 @@ export {
 
 export const CORE_SERVICES = [
   CommonApiService,
-  HoldingpenApiService,
   BackofficeApiService,
   RecordApiService,
   AppConfigService,

@@ -25,16 +25,20 @@ import { NgModule } from '@angular/core';
 import { BackofficeEditorRouter } from './backoffice.router';
 
 import { BackofficeEditorComponent } from './backoffice-editor.component';
+import { BackofficeToolbarComponent } from './backoffice-toolbar';
+import { BackofficeSaveButtonComponent } from './backoffice-save-button';
 
 import { SharedModule } from '../shared';
-import { HoldingpenEditorModule } from '../holdingpen-editor/holdingpen-editor.module';
 
 @NgModule({
   imports: [
     SharedModule,
-    BackofficeEditorRouter,
-    HoldingpenEditorModule
+    BackofficeEditorRouter
   ],
-  declarations: [BackofficeEditorComponent],
+  declarations: [
+    BackofficeEditorComponent,
+    BackofficeToolbarComponent,
+    BackofficeSaveButtonComponent,
+  ],
 })
 export class BackofficeEditorModule {}

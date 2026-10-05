@@ -3,11 +3,6 @@ import { NgModule } from '@angular/core';
 
 const appRoutes: Routes = [
   {
-    path: 'holdingpen',
-    loadChildren:
-      './holdingpen-editor/holdingpen-editor.module#HoldingpenEditorModule',
-  },
-  {
     path: 'backoffice',
     loadChildren:
       './backoffice-editor/backoffice-editor.module#BackofficeEditorModule',

@@ -23,7 +23,6 @@
 import {
   Component,
   OnInit,
-  Input,
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
@@ -34,15 +33,14 @@ import { Observable } from 'rxjs/Observable';
 import { GlobalAppStateService } from '../../core/services';
 
 @Component({
-  selector: 're-holdingpen-toolbar',
-  templateUrl: './holdingpen-toolbar.component.html',
+  selector: 're-backoffice-toolbar',
+  templateUrl: './backoffice-toolbar.component.html',
   styleUrls: [
     '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HoldingpenToolbarComponent implements OnInit {
-  @Input() backoffice: boolean;
+export class BackofficeToolbarComponent implements OnInit {
   @Output() revisionChange = new EventEmitter<object>();
 
   displayingRevision = false;

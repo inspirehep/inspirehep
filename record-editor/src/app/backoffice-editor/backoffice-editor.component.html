@@ -29,7 +29,7 @@
   <re-file-upload-button></re-file-upload-button>
 </ng-template>
 
-<re-holdingpen-toolbar [backoffice]="true"></re-holdingpen-toolbar>
+<re-backoffice-toolbar></re-backoffice-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="workflowObject && schema" [record]="workflowObject.metadata" (recordChange)="onWorkflowMetadataChange($event)"
     [(jsonPatches)]="workflowExtraData.conflicts" [schema]="schema" [config]="config" [problemMap]="workflowProblems"
