@@ -394,7 +394,7 @@ def hep_create_dag():
         ]
 
         reply_template_context = workflows.get_reply_curation_context(
-            workflow_data["data"], inspire_http_hook
+            workflow_data, inspire_http_hook
         )
 
         tickets.close_ticket(
@@ -1743,7 +1743,7 @@ def hep_create_dag():
         ]
 
         reply_template_context = workflows.get_reply_curation_context(
-            workflow_data["data"], inspire_http_hook
+            workflow_data, inspire_http_hook
         )
 
         tickets.close_ticket(

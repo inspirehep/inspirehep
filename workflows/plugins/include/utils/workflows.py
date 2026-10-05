@@ -19,6 +19,7 @@ from idutils import is_arxiv_post_2007
 from include.utils import opensearch
 from include.utils.constants import (
     DECISION_AUTO_REJECT,
+    DECISION_FUZZY_MATCH,
     DECISION_HEP_REJECT,
     LITERATURE_PID_TYPE,
     STATUS_COMPLETED,
@@ -355,9 +356,23 @@ def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
     return False
 
 
-def get_record_url(metadata, inspire_http_hook):
-    base_url = inspire_http_hook.get_url()
+def get_record_control_number(workflow_data):
+    metadata = workflow_data.get("data")
+    exact_matches = (workflow_data.get("matches") or {}).get("exact") or []
+    fuzzy_match_decision = get_decision(
+        workflow_data.get("decisions"), DECISION_FUZZY_MATCH
+    )
     recid = metadata.get("control_number")
+    if not recid and exact_matches:
+        recid = exact_matches[0]
+    if not recid and fuzzy_match_decision:
+        recid = fuzzy_match_decision.get("value")
+    return recid
+
+
+def get_record_url(workflow_data, inspire_http_hook):
+    base_url = inspire_http_hook.get_url()
+    recid = get_record_control_number(workflow_data)
     return os.path.join(base_url, "record", str(recid))
 
 
@@ -568,14 +583,15 @@ def get_curation_ticket_subject(data):
 
 
 def get_reply_curation_context(
-    metadata,
+    workflow_data,
     inspire_http_hook,
 ):
+    metadata = workflow_data["data"]
     email = metadata["acquisition_source"].get("email", "")
     return {
         "user_name": email,
         "title": LiteratureReader(metadata).title,
-        "record_url": get_record_url(metadata, inspire_http_hook),
+        "record_url": get_record_url(workflow_data, inspire_http_hook),
     }
 
 

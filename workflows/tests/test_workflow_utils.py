@@ -537,13 +537,89 @@ class TestWorkflowUtils:
         )
 
     def test_get_reply_curation_context(self):
-        metadata = {
-            "acquisition_source": {"email": "user.test@cern.ch"},
-            "control_number": 123456,
-            "titles": [{"title": "This article has a reply", "source": "submitter"}],
+        workflow_data = {
+            "data": {
+                "acquisition_source": {"email": "user.test@cern.ch"},
+                "control_number": 123456,
+                "titles": [
+                    {"title": "This article has a reply", "source": "submitter"}
+                ],
+            },
+            "decisions": [],
         }
 
-        workflows.get_reply_curation_context(metadata, InspireHttpHook())
+        context = workflows.get_reply_curation_context(workflow_data, InspireHttpHook())
+
+        assert context["record_url"].endswith(
+            f"/record/{workflow_data['data']['control_number']}"
+        )
+
+    def test_get_record_control_number_uses_metadata_control_number(self):
+        metadata_control_number = 123456
+        exact_match_control_number = 234567
+        fuzzy_match_control_number = 345678
+        workflow_data = {
+            "data": {"control_number": metadata_control_number},
+            "matches": {"exact": [exact_match_control_number]},
+            "decisions": [
+                {"action": "fuzzy_match", "value": fuzzy_match_control_number}
+            ],
+        }
+
+        assert (
+            workflows.get_record_control_number(workflow_data)
+            == metadata_control_number
+        )
+
+    def test_get_record_control_number_falls_back_to_exact_match(self):
+        exact_match_control_number = 234567
+        fuzzy_match_control_number = 345678
+        workflow_data = {
+            "data": {},
+            "matches": {"exact": [exact_match_control_number]},
+            "decisions": [
+                {"action": "fuzzy_match", "value": fuzzy_match_control_number}
+            ],
+        }
+
+        assert (
+            workflows.get_record_control_number(workflow_data)
+            == exact_match_control_number
+        )
+
+    def test_get_record_control_number_falls_back_to_fuzzy_match_decision(self):
+        fuzzy_match_control_number = 345678
+        workflow_data = {
+            "data": {},
+            "decisions": [
+                {"action": "fuzzy_match", "value": fuzzy_match_control_number}
+            ],
+        }
+
+        assert (
+            workflows.get_record_control_number(workflow_data)
+            == fuzzy_match_control_number
+        )
+
+    def test_get_reply_curation_context_without_control_number(self):
+        fuzzy_match_control_number = 654321
+        fuzzy_match_decision = {
+            "action": "fuzzy_match",
+            "value": fuzzy_match_control_number,
+        }
+        workflow_data = {
+            "data": {
+                "acquisition_source": {"email": "user.test@cern.ch"},
+                "titles": [
+                    {"title": "This article has a reply", "source": "submitter"}
+                ],
+            },
+            "decisions": [fuzzy_match_decision],
+        }
+
+        context = workflows.get_reply_curation_context(workflow_data, InspireHttpHook())
+
+        assert context["record_url"].endswith(f"/record/{fuzzy_match_control_number}")
 
     def test_check_if_cern_candidate(self):
         workflow = {
