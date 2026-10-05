@@ -7,6 +7,7 @@ import {
   INITIAL_FORM_DATA_SUCCESS,
   INITIAL_FORM_DATA_ERROR,
   SUBMIT_REQUEST,
+  CLEAR_STATE,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -20,6 +21,14 @@ export const initialState = fromJS({
 
 const submissionsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_STATE:
+      // keep successData, success pages read it after the redirect
+      return state
+        .set('submitError', initialState.get('submitError'))
+        .set('loadingInitialData', initialState.get('loadingInitialData'))
+        .set('initialData', initialState.get('initialData'))
+        .set('initialMeta', initialState.get('initialMeta'))
+        .set('initialDataError', initialState.get('initialDataError'));
     case SUBMIT_REQUEST:
       return state
         .set('submitError', initialState.get('submitError'))
