@@ -8,6 +8,7 @@ import {
   INITIAL_FORM_DATA_SUCCESS,
   INITIAL_FORM_DATA_ERROR,
   SUBMIT_REQUEST,
+  CLEAR_STATE,
 } from '../../actions/actionTypes';
 
 describe('submissions reducer', () => {
@@ -95,5 +96,19 @@ describe('submissions reducer', () => {
     expect(state.get('initialDataError')).toEqual(fromJS(error));
     expect(state.get('loadingInitialData')).toBe(false);
     expect(state.get('initialData')).toEqual(initialState.get('initialData'));
+  });
+
+  it('CLEAR_STATE', () => {
+    const successData = { pid_value: 123 };
+    const stateWithData = fromJS({
+      successData,
+      submitError: { message: 'Error' },
+      loadingInitialData: false,
+      initialData: { arxiv_categories: ['hep-th'] },
+      initialMeta: { can_modify_status: true },
+      initialDataError: { message: 'Error' },
+    });
+    const state = reducer(stateWithData, { type: CLEAR_STATE });
+    expect(state).toEqual(initialState.set('successData', fromJS(successData)));
   });
 });
