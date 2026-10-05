@@ -15,19 +15,25 @@ export const initialState = fromJS({
   author: {},
   author_revisions: [],
   saveError: null,
+  fetchAuthorError: null,
   currentRecordETag: null,
 });
 
 const RecordEditorReducer = (state = initialState, action) => {
   switch (action.type) {
     case EDITOR_AUTHOR_REQUEST:
-      return state.set('author', initialState.get('author'));
+      return state
+        .set('fetchAuthorError', null)
+        .set('author', initialState.get('author'));
     case EDITOR_AUTHOR_ERROR:
-      return state.set('author', initialState.get('author'));
+      return state
+        .set('author', initialState.get('author'))
+        .set('fetchAuthorError', action.payload.error.status);
     case EDITOR_AUTHOR_SUCCESS:
       return state
         .set('author', fromJS(action.payload.data))
-        .set('currentRecordETag', fromJS(action.payload.eTag));
+        .set('currentRecordETag', fromJS(action.payload.eTag))
+        .set('fetchAuthorError', null);
     case EDITOR_AUTHOR_REVISIONS_REQUEST:
       return state;
     case EDITOR_AUTHOR_REVISIONS_ERROR:

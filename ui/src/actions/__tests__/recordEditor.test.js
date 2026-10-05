@@ -14,6 +14,11 @@ import {
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SAVE_ERROR,
 } from '../actionTypes';
+import {
+  notifyEditionError,
+  notifyEditionInProgress,
+  notifyEditionSuccess,
+} from '../../recordEditor/author/notifications';
 import { fetchAuthor, fetchAuthorRevisions, saveAuthor } from '../recordEditor';
 
 const mockHttp = new MockAdapter(http.httpClient);
@@ -105,6 +110,11 @@ describe('recordEditor - async action creators', () => {
   });
 
   describe('saveAuthor', () => {
+    vi.mock('../../recordEditor/author/notifications', () => ({
+      notifyEditionInProgress: vi.fn(),
+      notifyEditionSuccess: vi.fn(),
+      notifyEditionError: vi.fn(),
+    }));
     afterEach(() => {
       mockHttp.reset();
     });
@@ -129,6 +139,8 @@ describe('recordEditor - async action creators', () => {
         saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
       );
       expect(store.getActions()).toEqual(expectedActions);
+      expect(notifyEditionInProgress).toHaveBeenCalledWith('123');
+      expect(notifyEditionSuccess).toHaveBeenCalledWith('123');
     });
 
     it('creates EDITOR_AUTHOR_SAVE_ERROR', async () => {
@@ -149,6 +161,8 @@ describe('recordEditor - async action creators', () => {
         saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
       );
       expect(store.getActions()).toEqual(expectedActions);
+      expect(notifyEditionInProgress).toHaveBeenCalledWith('123');
+      expect(notifyEditionError).toHaveBeenCalledWith('Error');
     });
   });
 });

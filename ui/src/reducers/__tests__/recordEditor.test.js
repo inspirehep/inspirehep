@@ -21,7 +21,7 @@ describe('recordEditor reducer', () => {
 
   it('EDITOR_AUTHOR_REQUEST', () => {
     const state = reducer(Map(), { type: EDITOR_AUTHOR_REQUEST });
-    const expected = Map({ author: {} });
+    const expected = fromJS({ fetchAuthorError: null, author: {} });
     expect(state).toEqual(expected);
   });
 
@@ -44,6 +44,7 @@ describe('recordEditor reducer', () => {
     });
     const expected = fromJS({
       author: payload.data,
+      fetchAuthorError: null,
       currentRecordETag: eTag,
     });
     expect(state).toEqual(expected);
@@ -53,9 +54,13 @@ describe('recordEditor reducer', () => {
     const currentState = fromJS({
       author: { metadata: { control_number: 123 } },
     });
-    const state = reducer(currentState, { type: EDITOR_AUTHOR_ERROR });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_ERROR,
+      payload: { error: { status: 500 } },
+    });
     const expected = fromJS({
       author: initialState.get('author'),
+      fetchAuthorError: 500,
     });
     expect(state).toEqual(expected);
   });

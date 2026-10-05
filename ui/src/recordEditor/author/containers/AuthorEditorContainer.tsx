@@ -31,29 +31,41 @@ import validator from '../utils/validator';
 import './AuthorEditorContainer.less';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
+import FetchingRecordError from '../components/FetchingRecordError';
 
 interface AuthorEditorProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   revisions: List<Map<string, any>>;
+  error: number | null;
 }
 
-const AuthorEditor = ({ dispatch, author, revisions }: AuthorEditorProps) => {
+const AuthorEditor = ({
+  dispatch,
+  author,
+  revisions,
+  error,
+}: AuthorEditorProps) => {
   const { id } = useParams();
-  const authorData = author.get('record').get('metadata');
-  const schema = prepareAuthorSchema(author.get('schema').toJS());
+  const authorData = author.get('record')?.get('metadata');
   const lastRevision = revisions.get(0);
 
-  const [formData, setFormData] = useState(() => authorData.toJS());
+  const [formData, setFormData] = useState(() => authorData?.toJS());
   const formRef = useRef<FormType>(null);
 
   useEffect(() => {
-    setFormData(authorData.toJS());
+    setFormData(authorData?.toJS());
   }, [authorData]);
 
   if (!id) {
     return null;
   }
+
+  if (error !== null) {
+    return <FetchingRecordError controlNumber={id} errorStatus={error} />;
+  }
+
+  const schema = prepareAuthorSchema(author.get('schema').toJS());
 
   const onSave = () => {
     const prunedFormData = pruneEmptyObjects(formData);
@@ -116,6 +128,7 @@ const AuthorEditor = ({ dispatch, author, revisions }: AuthorEditorProps) => {
 const stateToProps = (state: RootState) => ({
   author: state.recordEditor.get('author'),
   revisions: state.recordEditor.get('author_revisions'),
+  error: state.recordEditor.get('fetchAuthorError'),
 });
 
 const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);
@@ -124,5 +137,6 @@ export default withRouteActionsDispatcher(AuthorEditorContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [fetchAuthor(id!), fetchAuthorRevisions(id!)],
   loadingStateSelector: (state: RootState) =>
-    !state.recordEditor.hasIn(['author', 'record']),
+    !state.recordEditor.hasIn(['author', 'record']) &&
+    !state.recordEditor.get('fetchAuthorError'),
 });

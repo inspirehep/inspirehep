@@ -16,6 +16,11 @@ import {
 import { HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import { RootState } from '../types';
+import {
+  notifyEditionError,
+  notifyEditionInProgress,
+  notifyEditionSuccess,
+} from '../recordEditor/author/notifications';
 
 // AUTHOR ACTIONS
 function fetchingAuthor() {
@@ -132,15 +137,22 @@ export function saveAuthor(
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(savingAuthor());
+    notifyEditionInProgress(id);
     try {
       const ifMatchHeader = getState().recordEditor.get('currentRecordETag');
       await http.put(`/authors/${id}`, record, {
         headers: new AxiosHeaders({ 'If-Match': ifMatchHeader }),
       });
       dispatch(saveAuthorSuccess());
+      notifyEditionSuccess(id);
       dispatch(push(`/authors/${id}`));
     } catch (err) {
       const error = httpErrorToActionPayload(err);
+      notifyEditionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.message) || 'An error occurred'
+      );
       dispatch(saveAuthorError(error));
     }
   };
