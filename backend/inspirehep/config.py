@@ -133,11 +133,6 @@ SECURITY_EMAIL_SUBJECT_REGISTER = "Welcome to inspirehep!"
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
-# Sessions
-# ========
-#: Pickle session protocol. This is needed because inspire-next uses python 2.
-SESSION_PICKLE_PROTOCOL = 2
-
 # Celery configuration
 # ====================
 BROKER_URL = "amqp://guest:guest@localhost:5672/"
