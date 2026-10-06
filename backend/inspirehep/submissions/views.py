@@ -245,7 +245,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
 
         :param object record: dict with workflow model variables set
         :param str workflow_type: distinguish between UPDATE and CREATE
-        :return object: inspire next response
+        :return object: inspire backoffice response
         """
         record["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": record, "workflow_type": workflow_type}

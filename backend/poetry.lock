@@ -1429,14 +1429,15 @@ files = [
 Flask = ">=0.9"
 
 [[package]]
-name = "Flask-KVSession"
-version = "0.6.3.dev1"
+name = "flask-kvsession"
+version = "0.6.2"
 description = "Transparent server-side session support for flask"
 optional = false
 python-versions = "*"
 groups = ["main"]
-files = []
-develop = false
+files = [
+    {file = "Flask-KVSession-0.6.2.tar.gz", hash = "sha256:9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c"},
+]
 
 [package.dependencies]
 Flask = ">=0.8"
@@ -1444,12 +1445,6 @@ itsdangerous = ">=0.20"
 simplekv = ">=0.9.2"
 six = "*"
 werkzeug = "*"
-
-[package.source]
-type = "git"
-url = "https://github.com/inspirehep/flask-kvsession.git"
-reference = "HEAD"
-resolved_reference = "84c2633a4af55092650cb6972b126039500b39f9"
 
 [[package]]
 name = "flask-limiter"
@@ -7131,4 +7126,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "2ec054714591e5906ccf317a0185a73dbbc3a1825490237420ca02c6656dbb76"
+content-hash = "5c93401501b9e932d3c162b7ad81edf0666e06058070687f2ae350d0022aedb1"
