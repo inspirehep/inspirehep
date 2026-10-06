@@ -7,7 +7,7 @@ import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
-import { BACKOFFICE } from '../common/routes';
+import { BACKOFFICE, NEW_EDITOR } from '../common/routes';
 
 vi.mock('../tracker');
 vi.mock('../actions/user');
@@ -216,5 +216,43 @@ describe('App', () => {
     const journals = await within(app).findByTestId('journals');
 
     expect(journals).toBeInTheDocument();
+  });
+
+  it('navigates to RecordEditor when /new-editor if superuser logged in', async () => {
+    const store = getStore({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
+        },
+      }),
+    });
+    renderWithProviders(<App />, {
+      store,
+      route: NEW_EDITOR,
+    });
+    const app = await screen.findByTestId('app');
+    const recordEditor = await within(app).findByTestId('record-editor');
+
+    expect(recordEditor).toBeInTheDocument();
+  });
+
+  it('does not navigate to RecordEditor when /new-editor if not logged in', async () => {
+    const store = getStore({
+      user: fromJS({
+        loggedIn: false,
+        data: {
+          roles: [],
+        },
+      }),
+    });
+    renderWithProviders(<App />, {
+      store,
+      route: NEW_EDITOR,
+    });
+    const app = await screen.findByTestId('app');
+    const recordEditor = within(app).queryByTestId('record-editor');
+
+    expect(recordEditor).not.toBeInTheDocument();
   });
 });

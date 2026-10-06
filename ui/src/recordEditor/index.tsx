@@ -10,7 +10,7 @@ const TITLE = 'Record editor';
 const RecordEditor = () => (
   <>
     <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-    <div className="w-100 __RecordEditor__">
+    <div className="w-100 __RecordEditor__" data-testid="record-editor">
       <Routes>
         <Route
           path="/record/authors/:id"

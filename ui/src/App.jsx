@@ -50,10 +50,10 @@ import Experiments from './experiments';
 import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
-import RecordEditor from './recordEditor';
 
 const LazyBackoffice = React.lazy(() => import('./backoffice'));
 const LazySubmissions = React.lazy(() => import('./submissions'));
+const LazyRecordEditor = React.lazy(() => import('./recordEditor'));
 
 function App({
   userRoles,
@@ -121,7 +121,14 @@ function App({
                 path={`${BIBLIOGRAPHY_GENERATOR}/*`}
                 element={<BibliographyGeneratorPageContainer />}
               />
-              <Route path={`${NEW_EDITOR}/*`} element={<RecordEditor />} />
+              <Route
+                path={`${NEW_EDITOR}/*`}
+                element={
+                  <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                    <LazyRecordEditor />
+                  </RequireAuth>
+                }
+              />
               <Route path={`${ERRORS}/*`} element={<Errors />} />
             </RoutesWithFallback>
           </Suspense>
