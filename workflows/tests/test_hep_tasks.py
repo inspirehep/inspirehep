@@ -2564,6 +2564,9 @@ class Test_HEPCreateDAG:
             },
         }
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False}, self.workflow_id
+        )
 
         task_test(self.dag, "preprocessing.guess_coreness", self.context)
 
@@ -2583,9 +2586,114 @@ class Test_HEPCreateDAG:
     def test_guess_coreness_fail(self, mock_predict_coreness):
         workflow_data = {"id": self.workflow_id, "data": {}}
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False}, self.workflow_id
+        )
 
         with pytest.raises(Exception, match="Classifier failure"):
             task_test(self.dag, "preprocessing.guess_coreness", self.context)
+
+    @pytest.mark.parametrize(
+        "flags",
+        [
+            {"is-update": False, "auto-approved": True},
+            {"is-update": True, "auto-approved": False},
+        ],
+    )
+    @patch("inspire_classifier.Classifier.predict_coreness")
+    def test_guess_coreness_skipped_for_auto_approved_or_update(
+        self, mock_predict_coreness, flags
+    ):
+        workflow_data = {"id": self.workflow_id, "data": {}}
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(flags, self.workflow_id)
+
+        task_test(self.dag, "preprocessing.guess_coreness", self.context)
+
+        mock_predict_coreness.assert_not_called()
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+        assert "relevance_prediction" not in workflow_result
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_check_guess_coreness_rejection_rejected(self, mock_add_decision):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {"acquisition_source": {"source": "arXiv"}},
+            "relevance_prediction": {"decision": "Rejected"},
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        result = task_test(
+            self.dag, "preprocessing.check_guess_coreness_rejection", self.context
+        )
+
+        assert result == "preprocessing.save_workflow"
+        mock_add_decision.assert_not_called()
+
+    @pytest.mark.parametrize(
+        "workflow_data",
+        [
+            {
+                "data": {"acquisition_source": {"method": "submitter"}},
+                "relevance_prediction": {"decision": "Rejected"},
+            },
+            {
+                "data": {"acquisition_source": {"source": "arXiv"}},
+                "journal_coverage": "full",
+                "relevance_prediction": {"decision": "Rejected"},
+            },
+            {
+                "data": {"acquisition_source": {"source": "arXiv"}},
+                "relevance_prediction": {"decision": "CORE"},
+            },
+            {
+                "data": {"acquisition_source": {"source": "arXiv"}},
+                "relevance_prediction": {"decision": "Non-CORE"},
+            },
+            {"data": {"acquisition_source": {"source": "arXiv"}}},
+        ],
+        ids=[
+            "rejected_submission",
+            "rejected_full_journal_coverage",
+            "core",
+            "non_core",
+            "no_prediction",
+        ],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_check_guess_coreness_rejection_continues(
+        self, mock_add_decision, workflow_data
+    ):
+        self.s3_store.write_workflow({"id": self.workflow_id, **workflow_data})
+
+        result = task_test(
+            self.dag, "preprocessing.check_guess_coreness_rejection", self.context
+        )
+
+        assert result == "preprocessing.check_is_arxiv_paper"
+        mock_add_decision.assert_not_called()
+
+    def test_preprocessing_relevance_check_runs_before_arxiv_processing(self):
+        branch = self.dag.get_task("preprocessing.check_guess_coreness_rejection")
+        save_workflow = self.dag.get_task("preprocessing.save_workflow")
+
+        assert branch.downstream_task_ids == {
+            "preprocessing.check_is_arxiv_paper",
+            "preprocessing.save_workflow",
+        }
+        assert self.dag.get_task(
+            "preprocessing.normalize_journal_titles"
+        ).downstream_task_ids == {"preprocessing.populate_journal_coverage"}
+        assert save_workflow.trigger_rule == "none_failed_min_one_success"
+        assert not [
+            task_id
+            for task_id in self.dag.task_ids
+            if task_id.startswith("preprocessing.populate_journal_coverage__")
+        ]
 
     @pytest.mark.vcr
     @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
@@ -3772,11 +3880,16 @@ class Test_HEPCreateDAG:
         workflow = self.wf_hook.get_workflow(self.workflow_id)
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
-    def test_is_record_relevant_rejected_with_core_keywords(self):
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_is_record_relevant_rejected_without_classifier_results(
+        self, mock_add_decision
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
-                "titles": [{"title": "test rejected with keywords"}],
+                "titles": [{"title": "test rejected early"}],
                 "acquisition_source": {
                     "method": "hepcrawl",
                 },
@@ -3784,12 +3897,6 @@ class Test_HEPCreateDAG:
             "journal_coverage": "partial",
             "relevance_prediction": {
                 "decision": "Rejected",
-            },
-            "classifier_results": {
-                "fulltext_used": True,
-                "complete_output": {
-                    "core_keywords": [{"keyword": "Higgs particle"}],
-                },
             },
         }
         self.s3_store.write_workflow(workflow_data)
@@ -3803,7 +3910,11 @@ class Test_HEPCreateDAG:
 
         assert (
             result == "halt_for_approval_if_new_or_reject_if_not_relevant."
-            "save_workflow_before_approval"
+            "should_replace_collection_to_hidden"
+        )
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_AUTO_REJECT},
         )
 
     def test_is_record_relevant_missing_classification_results(self):
