@@ -1106,11 +1106,9 @@ def hep_create_dag():
                 logger.info("Processing plots. Number of plots: %s", len(plots))
                 plot_keys = []
                 for index, plot in enumerate(plots):
-                    plot_name = os.path.basename(plot.get("url"))
+                    plot_name = f"{index}_{os.path.basename(plot.get('url'))}"
 
-                    key = (
-                        f"{context['params']['workflow_id']}/plots/{index}_{plot_name}"
-                    )
+                    key = f"{context['params']['workflow_id']}/plots/{plot_name}"
                     s3_store.hook.load_file(
                         plot.get("url"),
                         key,
