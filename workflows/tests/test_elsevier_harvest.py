@@ -208,3 +208,27 @@ class TestElsevierHarvest:
                     "data"
                 ]["documents"][0]["url"]
             )
+
+    @pytest.mark.parametrize("error_source", ["parser", "identifier"])
+    @patch("include.utils.elsevier.ElsevierParser")
+    def test_process_article_reports_parser_errors(self, parser_class, error_source):
+        failing_call = (
+            parser_class
+            if error_source == "parser"
+            else parser_class.return_value.get_identifier
+        )
+        failing_call.side_effect = ValueError("invalid article")
+
+        failed_record = process_article(
+            file_name="S0042207X26001600.xml",
+            xml_text="<article />",
+            submission_number="42",
+            s3_store=Mock(),
+            workflow_management_hook=Mock(),
+        )
+
+        assert failed_record == {
+            "doi": None,
+            "file": "S0042207X26001600.xml",
+            "error": "invalid article",
+        }
