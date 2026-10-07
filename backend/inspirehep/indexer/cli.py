@@ -205,7 +205,12 @@ def reindex_records(
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
-        record.index()
+        try:
+            record.index(delay=False)
+        except Exception as error:
+            raise click.ClickException(
+                f"Failed to reindex record {pid}: {error}"
+            ) from error
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
