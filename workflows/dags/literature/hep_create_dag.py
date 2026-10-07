@@ -31,6 +31,7 @@ from include.inspire.hidden_collections import (
     affiliations_for_hidden_collections,
     is_fermilab_report,
     reports_for_hidden_collections,
+    should_hide_record,
 )
 from include.inspire.is_record_relevant import (
     is_auto_approved,
@@ -1190,9 +1191,17 @@ def hep_create_dag():
 
         @task(pool="high-memory", queue="high-memory")
         def guess_coreness(**context):
+            workflow_id = context["params"]["workflow_id"]
+
+            if is_auto_approved(workflow_id, s3_store) or s3_store.get_flag(
+                "is-update", workflow_id
+            ):
+                return
+
+            workflow_data = s3_store.read_workflow(workflow_id)
+
             from inspire_classifier import Classifier
 
-            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
             title = get_value(workflow_data, "data.titles.title[0]", "")
             abstract = get_value(workflow_data, "data.abstracts.value[0]", "")
 
@@ -1200,6 +1209,20 @@ def hep_create_dag():
             results = clf.predict_coreness(title, abstract)
             workflow_data["relevance_prediction"] = calculate_coreness(results)
             s3_store.write_workflow(workflow_data)
+
+        @task.branch
+        def check_guess_coreness_rejection(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3_store.read_workflow(workflow_id)
+
+            if (
+                is_auto_rejected(workflow_data)
+                and not is_submission(workflow_data)
+                and not is_journal_coverage_full(workflow_data)
+                and not should_hide_record(workflow_data)
+            ):
+                return "preprocessing.save_workflow"
+            return "preprocessing.refextract"
 
         @task(multiple_outputs=True)
         def normalize_collaborations(**context):
@@ -1221,6 +1244,10 @@ def hep_create_dag():
         arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
         normalize_journal_titles_task = normalize_journal_titles()
         extract_authors_from_pdf_task = extract_authors_from_pdf()
+        refextract_task = refextract()
+        save_workflow_task = save_workflow.override(
+            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+        )()
 
         check_is_arxiv_paper_task >> [
             populate_submission_document_task,
@@ -1245,16 +1272,20 @@ def hep_create_dag():
         (
             extract_authors_from_pdf_task
             >> normalize_journal_titles_task
-            >> refextract()
+            >> populate_journal_coverage()
+            >> guess_coreness()
+            >> check_guess_coreness_rejection()
+            >> [refextract_task, save_workflow_task]
+        )
+        (
+            refextract_task
             >> count_reference_coreness()
             >> extract_journal_info()
-            >> populate_journal_coverage()
             >> classify_paper(
                 only_core_tags=False, spires=True, with_author_keywords=False
             )
-            >> guess_coreness()
             >> normalize_collaborations()
-            >> save_workflow()
+            >> save_workflow_task
         )
 
     @task
@@ -1435,17 +1466,13 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
-            if (
+            should_skip_rejection = (
                 is_submission(workflow_data)
                 or is_journal_coverage_full(workflow_data)
                 or is_auto_approved(workflow_id, s3_store)
-            ):
-                return (
-                    "halt_for_approval_if_new_or_reject_if_not_relevant."
-                    "save_workflow_before_approval"
-                )
+            )
 
-            if is_auto_rejected(workflow_data):
+            if not should_skip_rejection and is_auto_rejected(workflow_data):
                 workflow_management_hook.add_decision(
                     workflow_id=workflow_id,
                     decision_data={"action": DECISION_AUTO_REJECT},
@@ -1465,15 +1492,9 @@ def hep_create_dag():
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(s3_workflow_id)
 
-            report_numbers = get_value(workflow_data, "data.report_numbers", [])
-            affiliations = flatten_list(
-                get_value(workflow_data, "data.authors.raw_affiliations.value", [])
-            )
-            should_hide = bool(
-                affiliations_for_hidden_collections(affiliations)
-            ) or bool(reports_for_hidden_collections(report_numbers))
-
-            if should_hide and not s3_store.get_flag("approved", s3_workflow_id):
+            if should_hide_record(workflow_data) and not s3_store.get_flag(
+                "approved", s3_workflow_id
+            ):
                 s3_store.set_flag("approved", True, s3_workflow_id)
                 s3_store.write_workflow(workflow_data)
                 return (

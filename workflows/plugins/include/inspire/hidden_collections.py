@@ -3,6 +3,8 @@ import re
 from include.utils.constants import (
     AFFILIATIONS_TO_HIDDEN_COLLECTIONS_MAPPING,
 )
+from inspire_utils.helpers import flatten_list
+from inspire_utils.record import get_value
 
 
 def is_fermilab_report(report_numbers):
@@ -46,3 +48,15 @@ def affiliations_for_hidden_collections(affiliations):
         AFFILIATIONS_TO_HIDDEN_COLLECTIONS_MAPPING[affiliation]
         for affiliation in affiliations_set
     ]
+
+
+def should_hide_record(workflow_data):
+    """Check if the record belongs to a hidden collection based on its
+    report numbers or author affiliations."""
+    report_numbers = get_value(workflow_data, "data.report_numbers", [])
+    affiliations = flatten_list(
+        get_value(workflow_data, "data.authors.raw_affiliations.value", [])
+    )
+    return bool(affiliations_for_hidden_collections(affiliations)) or bool(
+        reports_for_hidden_collections(report_numbers)
+    )
