@@ -1,4 +1,4 @@
-from unittest.mock import Mock, call, patch
+from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
@@ -37,6 +37,12 @@ class TestHEPManualMergeDAG:
     }
 
     workflow_id = context["params"]["workflow_id"]
+
+    def test_sources_are_saved_by_the_record_transaction(self):
+        assert "save_roots" not in self.dag.task_ids
+        assert self.dag.get_task("store_record").upstream_task_ids == {
+            "validate_record"
+        }
 
     @pytest.mark.vcr
     def test_get_records(self):
@@ -119,85 +125,6 @@ class TestHEPManualMergeDAG:
 
         assert task_test(self.dag, "await_merge_conflicts_resolved", self.context)
         assert self.s3_store.read_workflow(self.workflow_id) == workflow_data
-
-    @patch("literature.hep_manual_merge.workflows.delete_wf_record_source")
-    @patch("literature.hep_manual_merge.workflows.add_wf_record_source")
-    @patch("literature.hep_manual_merge.workflows.get_all_wf_record_sources")
-    def test_save_roots(
-        self,
-        mock_get_all_wf_record_sources,
-        mock_add_wf_record_source,
-        mock_delete_wf_record_source,
-    ):
-        self.s3_store.write_workflow(
-            {
-                "id": self.workflow_id,
-                "merge_details": {
-                    "head_uuid": "head-uuid",
-                    "update_uuid": "update-uuid",
-                },
-            }
-        )
-
-        mock_get_all_wf_record_sources.side_effect = [
-            [
-                {
-                    "source": "legacy",
-                    "updated": "2024-01-01T00:00:00",
-                    "json": {"version": "head"},
-                },
-                {
-                    "source": "keep-newer-head",
-                    "updated": "2024-03-01T00:00:00",
-                    "json": {"version": "head-newer"},
-                },
-            ],
-            [
-                {
-                    "source": "legacy",
-                    "updated": "2024-02-01T00:00:00",
-                    "json": {"version": "update-newer"},
-                },
-                {
-                    "source": "new-source",
-                    "updated": "2024-02-15T00:00:00",
-                    "json": {"version": "new"},
-                },
-                {
-                    "source": "keep-newer-head",
-                    "updated": "2024-02-01T00:00:00",
-                    "json": {"version": "update-older"},
-                },
-            ],
-        ]
-
-        task_test(self.dag, "save_roots", self.context)
-
-        mock_add_wf_record_source.assert_has_calls(
-            [
-                call(
-                    record_uuid="head-uuid",
-                    source="legacy",
-                    json={"version": "update-newer"},
-                ),
-                call(
-                    record_uuid="head-uuid",
-                    source="new-source",
-                    json={"version": "new"},
-                ),
-            ],
-            any_order=True,
-        )
-        assert mock_add_wf_record_source.call_count == 2
-        mock_delete_wf_record_source.assert_has_calls(
-            [
-                call(record_uuid="update-uuid", source="legacy"),
-                call(record_uuid="update-uuid", source="new-source"),
-                call(record_uuid="update-uuid", source="keep-newer-head"),
-            ],
-            any_order=True,
-        )
-        assert mock_delete_wf_record_source.call_count == 3
 
     @patch("literature.hep_manual_merge.workflows.store_record_inspirehep_api")
     def test_store_record(self, mock_store_record_inspirehep_api):

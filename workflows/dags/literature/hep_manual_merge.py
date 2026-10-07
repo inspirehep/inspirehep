@@ -4,7 +4,6 @@ from copy import deepcopy
 
 from airflow.sdk import Param, dag, task
 from airflow.sdk.exceptions import AirflowException
-from dateutil import parser
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -156,32 +155,6 @@ def hep_manual_merge_dag():
         return True
 
     @task
-    def save_roots(**context):
-        workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3_store.read_workflow(workflow_id)
-        merge_details = workflow_data.get("merge_details") or {}
-        head_uuid = merge_details.get("head_uuid")
-        update_uuid = merge_details.get("update_uuid")
-
-        head_roots = workflows.get_all_wf_record_sources(head_uuid)
-        update_roots = workflows.get_all_wf_record_sources(update_uuid)
-
-        head_sources = {h["source"]: h for h in head_roots}
-        for update_root in update_roots:
-            if update_root["source"] not in head_sources or parser.parse(
-                head_sources[update_root["source"]]["updated"]
-            ) < parser.parse(update_root["updated"]):
-                workflows.add_wf_record_source(
-                    record_uuid=head_uuid,
-                    source=update_root["source"],
-                    json=update_root["json"],
-                )
-            workflows.delete_wf_record_source(
-                record_uuid=update_uuid,
-                source=update_root["source"],
-            )
-
-    @task
     def store_record(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
@@ -201,7 +174,6 @@ def hep_manual_merge_dag():
         >> merge_records()
         >> await_merge_conflicts_resolved()
         >> validate_record()
-        >> save_roots()
         >> store_record()
         >> save_and_complete_workflow()
     )
