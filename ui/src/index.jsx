@@ -1,3 +1,4 @@
+import 'resize-observer-polyfill/dist/ResizeObserver.global';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
