@@ -578,7 +578,7 @@ pyexasol==1.3.0
 pygtrie==2.5.0
 pyiceberg==0.11.1
 pykerberos==1.2.4
-pymongo==4.17.0
+pymongo==4.18.2
 pymssql==2.3.13
 pyodbc==5.3.0
 pyodps==0.13.0
