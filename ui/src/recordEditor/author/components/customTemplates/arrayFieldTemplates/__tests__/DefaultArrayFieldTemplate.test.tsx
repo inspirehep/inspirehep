@@ -26,6 +26,25 @@ function getColumnHeaderTexts() {
 }
 
 describe('<DefaultArrayFieldTemplate />', () => {
+  it('displays items and error', () => {
+    const props = buildArrayFieldTemplateProps({
+      items: [
+        <tr key="1">
+          <td>item1</td>
+        </tr>,
+        <tr key="2">
+          <td>item2</td>
+        </tr>,
+      ],
+      rawErrors: ['Some error'],
+    });
+
+    renderWithFieldOnChangeContext(props);
+
+    expect(screen.getByText('item1')).toBeVisible();
+    expect(screen.getByText('item2')).toBeVisible();
+    expect(screen.getByText('Some error')).toBeVisible();
+  });
   it('uses properties keys as columns when uiSchema.items has no ui:order', () => {
     const props = buildArrayFieldTemplateProps({
       schema: {

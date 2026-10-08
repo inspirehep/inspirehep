@@ -17,10 +17,11 @@ function renderWithFieldOnChangeContext(
   return { onFieldChange };
 }
 describe('<DisplayAsListArrayFieldTemplate />', () => {
-  it('should display items and title', () => {
+  it('should display items and title and error', () => {
     const props = buildArrayFieldTemplateProps({
       items: [<div key="1">item1</div>, <div key="2">item2</div>],
       title: 'Nice items',
+      rawErrors: ['Some error'],
     });
 
     renderWithFieldOnChangeContext(props);
@@ -28,6 +29,7 @@ describe('<DisplayAsListArrayFieldTemplate />', () => {
     expect(screen.getByText('Nice items')).toBeVisible();
     expect(screen.getByText('item1')).toBeVisible();
     expect(screen.getByText('item2')).toBeVisible();
+    expect(screen.getByText('Some error')).toBeVisible();
   });
   it('should display ui:title instead of prop title if defined in uiSchema', () => {
     const props = buildArrayFieldTemplateProps({

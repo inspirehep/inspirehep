@@ -66,7 +66,17 @@ describe('<TableObjectFieldTemplate />', () => {
     const props = buildObjectFieldTemplateProps({
       title: 'Authors',
       uiSchema: { 'ui:options': { showHeader: false } },
-      properties: [{ name: 'Name', content: <span>Test</span>, hidden: false }],
+      properties: [
+        {
+          name: 'Name',
+          content: (
+            <tr>
+              <td>Test</td>
+            </tr>
+          ),
+          hidden: false,
+        },
+      ],
     });
 
     render(

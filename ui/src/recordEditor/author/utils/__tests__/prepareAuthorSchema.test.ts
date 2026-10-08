@@ -32,13 +32,16 @@ const flattenedIdsItems = {
   },
   allOf: [
     {
-      if: { properties: { schema: { const: 'INSPIRE ID' } } },
+      if: {
+        properties: { schema: { const: 'INSPIRE ID' } },
+        required: ['schema'],
+      },
       then: {
         properties: { value: { pattern: '^INSPIRE-\\d{8}$', minLength: 1 } },
       },
     },
     {
-      if: { properties: { schema: { const: 'ORCID' } } },
+      if: { properties: { schema: { const: 'ORCID' } }, required: ['schema'] },
       then: {
         properties: {
           value: {

@@ -224,7 +224,7 @@ const authorUiSchema: UiSchema = {
   },
   email_addresses: {
     'ui:options': { clearable: false },
-    'ui:title': 'email adresses',
+    'ui:title': 'email addresses',
     items: {
       'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
       current: {
@@ -330,7 +330,7 @@ const authorUiSchema: UiSchema = {
     method: {
       'ui:FieldTemplate': ObjectPropertyFieldTemplate,
       'ui:title': 'method',
-      'ui:placeholder': 'How the medata was obtained',
+      'ui:placeholder': 'How the metadata was obtained',
     },
     orcid: {
       'ui:FieldTemplate': ObjectPropertyFieldTemplate,

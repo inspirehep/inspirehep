@@ -10,6 +10,7 @@ function NestedArrayFieldTemplate({
   items,
   onAddClick,
   uiSchema,
+  rawErrors,
 }: ArrayFieldTemplateProps) {
   const onFieldChange = useFieldOnChange();
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
@@ -60,6 +61,11 @@ function NestedArrayFieldTemplate({
   return (
     <NestedArrayRowLabelContext.Provider value={labelCell}>
       {items}
+      <tr>
+        <td>
+          <div className="field-errors">{rawErrors}</div>
+        </td>
+      </tr>
     </NestedArrayRowLabelContext.Provider>
   );
 }

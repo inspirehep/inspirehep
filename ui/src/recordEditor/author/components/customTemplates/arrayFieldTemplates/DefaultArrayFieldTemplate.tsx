@@ -11,6 +11,7 @@ function DefaultArrayFieldTemplate({
   onAddClick,
   schema,
   uiSchema,
+  rawErrors,
 }: ArrayFieldTemplateProps) {
   const displayTitle = uiSchema?.['ui:title'] ?? title;
   const itemProperties =
@@ -77,6 +78,7 @@ function DefaultArrayFieldTemplate({
         )}
         <tbody>{items}</tbody>
       </table>
+      <div className="field-errors">{rawErrors}</div>
     </div>
   );
 }

@@ -58,13 +58,13 @@ describe('EnumMultiSelectWidget', () => {
   });
 
   it('is disabled when disabled is true', () => {
-    const screen = renderWidget({ disabled: true });
+    const screen = renderWidget({ value: [], disabled: true });
 
     expect(screen.getByRole('combobox')).toBeDisabled();
   });
 
   it('is disabled when readonly is true', () => {
-    const screen = renderWidget({ readonly: true });
+    const screen = renderWidget({ value: [], readonly: true });
 
     expect(screen.getByRole('combobox')).toBeDisabled();
   });
