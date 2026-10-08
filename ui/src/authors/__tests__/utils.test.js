@@ -119,5 +119,10 @@ describe('utils', () => {
       const inspireId = getInspireId(ids);
       expect(inspireId).toEqual(undefined);
     });
+
+    it('returns empty if no ids', () => {
+      const inspireId = getInspireId(undefined);
+      expect(inspireId).toEqual(undefined);
+    });
   });
 });
