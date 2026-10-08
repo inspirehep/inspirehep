@@ -40,7 +40,10 @@ function flattenAnyOfItems(items: RJSFSchema): RJSFSchema {
     ...(valueConstraintsBySchema.length > 0 && {
       allOf: valueConstraintsBySchema.map(
         ({ schemaName, valueConstraints }) => ({
-          if: { properties: { schema: { const: schemaName } } },
+          if: {
+            properties: { schema: { const: schemaName } },
+            required: ['schema'],
+          },
           then: { properties: { value: valueConstraints } },
         })
       ),

@@ -8,6 +8,7 @@ function DisplayAsListArrayFieldTemplate({
   items,
   onAddClick,
   uiSchema,
+  rawErrors,
 }: ArrayFieldTemplateProps) {
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
   const onFieldChange = useFieldOnChange();
@@ -41,6 +42,7 @@ function DisplayAsListArrayFieldTemplate({
         </Dropdown>
       </div>
       <div>{items}</div>
+      <div className="field-errors">{rawErrors}</div>
     </div>
   );
 }

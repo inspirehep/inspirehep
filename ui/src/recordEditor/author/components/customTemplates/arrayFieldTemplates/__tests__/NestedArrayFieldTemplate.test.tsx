@@ -33,7 +33,7 @@ describe('<NestedArrayFieldTemplate />', () => {
 
     expect(screen.getByText('Name')).toBeVisible();
   });
-  it('should display items and no title when items', () => {
+  it('should display items, error and no title when items', () => {
     const props = buildArrayFieldTemplateProps({
       title: 'Name',
       items: [
@@ -44,6 +44,7 @@ describe('<NestedArrayFieldTemplate />', () => {
           <td>item2</td>
         </tr>,
       ],
+      rawErrors: ['Some error'],
     });
 
     renderWithFieldOnChangeContext(props);
@@ -51,6 +52,7 @@ describe('<NestedArrayFieldTemplate />', () => {
     expect(screen.queryByText('Name')).not.toBeInTheDocument();
     expect(screen.getByText('item1')).toBeVisible();
     expect(screen.getByText('item2')).toBeVisible();
+    expect(screen.getByText('Some error')).toBeVisible();
   });
   it('should display ui:title instead of prop title if defined in uiSchema', () => {
     const props = buildArrayFieldTemplateProps({

@@ -22,7 +22,7 @@ function renderWithFieldOnChangeContext(
 }
 
 describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
-  it('should display title, header and items when items', () => {
+  it('should display title, header, error and items when items', () => {
     const props = buildArrayFieldTemplateProps({
       title: 'Name',
       schema: {
@@ -37,6 +37,7 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
           <td>Paul Dupont</td>
         </tr>,
       ],
+      rawErrors: ['Some error'],
     });
 
     renderWithFieldOnChangeContext(props);
@@ -46,6 +47,7 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
     expect(screen.getByText('firstName')).toBeVisible();
     expect(screen.getByText('Jean Dupond')).toBeVisible();
     expect(screen.getByText('Paul Dupont')).toBeVisible();
+    expect(screen.getByText('Some error')).toBeVisible();
   });
   it('should display title and no header when no items', () => {
     const props = buildArrayFieldTemplateProps({

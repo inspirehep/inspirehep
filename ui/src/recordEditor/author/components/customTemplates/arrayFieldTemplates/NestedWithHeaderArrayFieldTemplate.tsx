@@ -10,6 +10,7 @@ function NestedWithHeaderArrayFieldTemplate({
   onAddClick,
   schema,
   uiSchema,
+  rawErrors,
 }: ArrayFieldTemplateProps) {
   const onFieldChange = useFieldOnChange();
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
@@ -77,6 +78,7 @@ function NestedWithHeaderArrayFieldTemplate({
             )}
           </tbody>
         </table>
+        <div className="field-errors">{rawErrors}</div>
       </td>
       <td className="record-editor-array__actions-col" />
     </tr>
