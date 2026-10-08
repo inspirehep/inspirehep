@@ -486,7 +486,7 @@ msgspec==0.21.1
 msrest==0.7.1
 msrestazure==0.6.4.post1
 multi_key_dict==2.0.3
-multidict==6.7.1
+multidict==6.9.1
 mypy_extensions==1.1.0
 mysql-connector-python==26.7.0
 mysqlclient==2.2.8
