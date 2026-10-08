@@ -32,6 +32,7 @@ import './AuthorEditorContainer.less';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 import FetchingRecordError from '../components/FetchingRecordError';
+import ToggleWidget from '../components/customWidgets/ToggleWidget';
 
 interface AuthorEditorProps {
   dispatch: ActionCreator<Action>;
@@ -113,6 +114,7 @@ const AuthorEditor = ({
             projectNameAutocomplete: ProjectNameAutocompleteWidget,
             viewRecordWidget: ViewRecordWidget,
             enumMultiSelect: EnumMultiSelectWidget,
+            toggle: ToggleWidget,
           }}
           className="editor-form"
           experimental_defaultFormStateBehavior={{
