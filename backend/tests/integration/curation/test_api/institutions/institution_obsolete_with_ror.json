@@ -1,0 +1,17 @@
+{
+  "ICN": ["Test Obsolete Inst.", "obsolete"],
+  "core": true,
+  "self": {
+    "$ref": "https://inspirehep.net/api/institutions/1300002"
+  },
+  "$schema": "https://inspirehep.net/schemas/records/institutions.json",
+  "legacy_ICN": "Test Obsolete Inst.",
+  "_collections": ["Institutions"],
+  "control_number": 1300002,
+  "external_system_identifiers": [
+    {
+      "value": "https://ror.org/0testxx99",
+      "schema": "ROR"
+    }
+  ]
+}
