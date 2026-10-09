@@ -76,18 +76,6 @@ def test_is_s3_url(url, expected, config_mock_fixture):
 @pytest.mark.parametrize(
     ("url", "expected"),
     [
-        ("https://inspire/test-editor-prefix/hash123456", False),
-        ("https://s3.cern.ch/test-prefix-h/hash1234546", True),
-    ],
-)
-def test_is_s3_url_with_bucket_prefix(url, expected, config_mock_fixture):
-    s3 = S3(None, None)
-    assert expected == s3.is_s3_url_with_bucket_prefix(url)
-
-
-@pytest.mark.parametrize(
-    ("url", "expected"),
-    [
         ("https://inspire/test-airflow-bucket/hash123456", False),
         ("https://s3.cern.ch/test-prefix-h/hash1234546", False),
         ("https://s3.cern.ch/test-airflow-bucket/hash1234546", True),
