@@ -41,7 +41,7 @@ def literature_s3_cleanup():
         s3_store = S3JsonStore()
         for workflow_id in workflow_ids:
             prefixes = [f"{workflow_id}/{prefix}" for prefix in prefixes_to_cleanup]
-            s3_store.cleanup_prefix(prefixes)
+            s3_store.cleanup_prefixes(prefixes)
 
     find_wfs_and_cleanup_s3()
 

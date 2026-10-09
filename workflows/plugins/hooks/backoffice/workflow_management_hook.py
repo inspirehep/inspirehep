@@ -86,6 +86,10 @@ class WorkflowManagementHook(BackofficeHook):
         endpoint = f"{self.endpoint}/{workflow_id}/discard/"
         return self.call_api(method="POST", json={"note": note}, endpoint=endpoint)
 
+    def purge_workflow(self, workflow_id: str) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/purge/"
+        return self.call_api(method="POST", endpoint=endpoint)
+
     def restart_workflow(self, workflow_id: str) -> Response:
         endpoint = f"{self.endpoint}/{workflow_id}/restart/"
         return self.call_api(
