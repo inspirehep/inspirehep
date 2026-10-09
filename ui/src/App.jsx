@@ -29,6 +29,7 @@ import {
   EXPERIMENTS,
   BIBLIOGRAPHY_GENERATOR,
   JOURNALS,
+  NEW_EDITOR,
 } from './common/routes';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
 import { fetchLoggedInUser } from './actions/user';
@@ -52,8 +53,14 @@ import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
 const LazyBackoffice = React.lazy(() => import('./backoffice'));
 const LazySubmissions = React.lazy(() => import('./submissions'));
+const LazyRecordEditor = React.lazy(() => import('./recordEditor'));
 
-function App({ userRoles, dispatch, guideModalVisibility }) {
+function App({
+  userRoles,
+  dispatch,
+  guideModalVisibility,
+  isRecordEditorPage,
+}) {
   useEffect(() => {
     dispatch(fetchLoggedInUser());
   }, [dispatch]);
@@ -79,7 +86,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
   return (
     <ConfigProvider theme={antdTheme}>
       <Layout className="__App__" data-testid="app">
-        <Header />
+        {!isRecordEditorPage && <Header />}
         <Layout.Content className="content">
           <Suspense fallback={<Loading />}>
             <RoutesWithFallback>
@@ -114,12 +121,20 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
                 path={`${BIBLIOGRAPHY_GENERATOR}/*`}
                 element={<BibliographyGeneratorPageContainer />}
               />
+              <Route
+                path={`${NEW_EDITOR}/*`}
+                element={
+                  <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                    <LazyRecordEditor />
+                  </RequireAuth>
+                }
+              />
               <Route path={`${ERRORS}/*`} element={<Errors />} />
             </RoutesWithFallback>
           </Suspense>
           <GuideModalContainer />
         </Layout.Content>
-        <Footer />
+        {!isRecordEditorPage && <Footer />}
       </Layout>
     </ConfigProvider>
   );
@@ -134,6 +149,9 @@ App.propTypes = {
 const stateToProps = (state) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
+  isRecordEditorPage: String(state.router.location.pathname).startsWith(
+    NEW_EDITOR
+  ),
 });
 
 const dispatchToProps = (dispatch) => ({
