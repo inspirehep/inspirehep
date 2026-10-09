@@ -1,6 +1,10 @@
+import gzip
+from io import BytesIO
 from unittest.mock import MagicMock, patch
 
-from include.utils.download_documents import load_document_to_s3
+import requests
+from include.utils.download_documents import _download_from_url, load_document_to_s3
+from urllib3 import HTTPResponse
 
 
 @patch("include.utils.download_documents._get_upload_object")
@@ -27,3 +31,22 @@ def test_load_document_to_s3_returns_url_when_document_already_exists(
     s3_store.hook.check_for_key.assert_called_once_with(s3_key)
     mock_get_upload_object.assert_not_called()
     s3_store.hook.load_file_obj.assert_not_called()
+
+
+@patch("include.utils.download_documents.Variable.get", return_value=300)
+@patch("include.utils.download_documents.requests.get")
+def test_download_from_url_returns_decoded_content(mock_get, mock_variable_get):
+    pdf_bytes = b"%PDF-1.4 fake pdf content"
+    response = requests.Response()
+    response.status_code = 200
+    response.raw = HTTPResponse(
+        body=BytesIO(gzip.compress(pdf_bytes)),
+        headers={"Content-Encoding": "gzip"},
+        preload_content=False,
+        decode_content=False,
+    )
+    mock_get.return_value = response
+
+    result = _download_from_url("https://example.org/document.pdf")
+
+    assert result.read() == pdf_bytes
