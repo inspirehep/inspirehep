@@ -57,12 +57,14 @@ export const RestartActionButtons = ({
         Restart current step
       </Button>
 
-      <Button className="mb2 w-75" type="primary">
-        <a href={`/editor/backoffice/${pidType}/${id}`}>
-          <EditOutlined />
-          {'  '}
-          Open in Editor
-        </a>
+      <Button
+        className="mb2 w-75"
+        type="primary"
+        href={`/editor/backoffice/${pidType}/${id}`}
+      >
+        <EditOutlined />
+        {'  '}
+        Open in Editor
       </Button>
     </div>
   );
