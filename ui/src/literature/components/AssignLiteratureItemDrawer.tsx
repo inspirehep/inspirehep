@@ -73,7 +73,7 @@ function AssignLiteratureItemDrawer({
 
   return (
     <Drawer
-      className="search-drawer"
+      rootClassName="search-drawer"
       placement="right"
       onClose={() => {
         onDrawerClose();

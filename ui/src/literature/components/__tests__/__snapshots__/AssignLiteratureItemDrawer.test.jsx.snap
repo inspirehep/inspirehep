@@ -8,7 +8,7 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
   <div />
   <div>
     <div
-      class="ant-drawer ant-drawer-right css-dev-only-do-not-override-oc1rc0 css-var-root ant-drawer-open"
+      class="ant-drawer ant-drawer-right search-drawer css-dev-only-do-not-override-oc1rc0 css-var-root ant-drawer-open"
       tabindex="-1"
     >
       <div
@@ -21,7 +21,7 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
         <div
           aria-labelledby="test-id"
           aria-modal="true"
-          class="ant-drawer-section search-drawer"
+          class="ant-drawer-section"
           role="dialog"
         >
           <div
