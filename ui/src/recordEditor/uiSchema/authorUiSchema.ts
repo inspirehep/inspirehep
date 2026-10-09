@@ -357,9 +357,9 @@ const authorUiSchema: UiSchema = {
     'ui:widget': 'text',
   },
   deleted: {
-    'ui:FieldTemplate': StandaloneFieldTemplate,
     'ui:title': 'deleted',
     'ui:options': { label: false },
+    'ui:widget': 'toggle',
   },
   _collections: {
     'ui:FieldTemplate': StandaloneFieldTemplate,
