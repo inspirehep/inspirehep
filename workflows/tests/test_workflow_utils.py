@@ -1,5 +1,8 @@
+from unittest.mock import Mock
+
 import pytest
 from airflow.models import DagBag
+from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
@@ -10,10 +13,13 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 )
 from include.utils import workflows
 from include.utils.constants import (
+    DECISION_WITHDRAWN,
     HEP_CREATE,
     LITERATURE_PID_TYPE,
 )
 from inspire_schemas.api import load_schema, validate
+from requests import Response
+from tenacity import Future, RetryError
 
 from tests.test_utils import task_test
 
@@ -24,6 +30,25 @@ dagbag = DagBag()
 class TestWorkflowUtils:
     workflow_id = "bf92a2c3-610c-4d9e-bb8f-5a20d519accc"
     dag = dagbag.get_dag("hep_create_dag")
+
+    def test_handle_withdrawn_arxiv_error(self):
+        response = Response()
+        response.status_code = 404
+        response._content = b"The article has been withdrawn and is unavailable"
+        hook = Mock(last_response=response)
+        workflow_management_hook = Mock()
+        last_attempt = Future(attempt_number=1)
+        last_attempt.set_exception(AirflowException("404:Not Found"))
+
+        error = RetryError(last_attempt=last_attempt)
+
+        assert workflows.handle_withdrawn_arxiv_error(
+            error, hook, workflow_management_hook, self.workflow_id
+        )
+        workflow_management_hook.add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
 
     @pytest.mark.vcr
     def test_read_wf_record_source_not_found(self):
