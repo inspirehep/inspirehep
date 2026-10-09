@@ -47,6 +47,7 @@ def _download_from_url(url):
         timeout=int(Variable.get("DOWNLOAD_FILE_TO_WORKFLOW_TIMEOUT", 300)),
     )
     response.raise_for_status()
+    response.raw.decode_content = True
     return response.raw
 
 
