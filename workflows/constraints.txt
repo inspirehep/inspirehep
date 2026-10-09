@@ -566,7 +566,7 @@ pybreaker==1.4.1
 pycountry==26.2.16
 pycparser==3.0
 pycryptodome==3.23.0
-pydantic-ai-slim==2.27.0
+pydantic-ai-slim==2.53.0
 pydantic-extra-types==2.11.1
 pydantic-graph==2.27.0
 pydantic-settings==2.15.0
