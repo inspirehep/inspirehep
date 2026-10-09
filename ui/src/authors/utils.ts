@@ -70,7 +70,7 @@ export function getAuthorMetaDescription(author: {
 
 export function getInspireId(ids: List<Map<string, string>>) {
   return ids
-    .filter((item) => item.get('schema') === 'INSPIRE ID')
+    ?.filter((item) => item.get('schema') === 'INSPIRE ID')
     ?.first()
     ?.get('value');
 }
