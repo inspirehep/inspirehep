@@ -124,6 +124,7 @@ function CurateReferenceDrawer({
   return (
     <Drawer
       className="search-drawer"
+      rootClassName="curate-reference-drawer"
       placement="right"
       onClose={() => {
         onDrawerClose();
