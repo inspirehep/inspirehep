@@ -3,6 +3,7 @@ import { List, Map } from 'immutable';
 import { Form } from '@rjsf/antd';
 import FormType from '@rjsf/core';
 import { useEffect, useRef, useState } from 'react';
+import { isEqual } from 'lodash';
 import { flushSync } from 'react-dom';
 import { ConfigProvider } from 'antd';
 import { Action, ActionCreator } from 'redux';
@@ -33,6 +34,9 @@ import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 import FetchingRecordError from '../components/FetchingRecordError';
 
+const isTextEntryElement = (element: Element | null) =>
+  element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
+
 interface AuthorEditorProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
@@ -52,9 +56,13 @@ const AuthorEditor = ({
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
   const formRef = useRef<FormType>(null);
+  const historyRef = useRef<any[]>([]);
+  const isTypingGroupOpenRef = useRef(false);
 
   useEffect(() => {
     setFormData(authorData?.toJS());
+    historyRef.current = [];
+    isTypingGroupOpenRef.current = false;
   }, [authorData]);
 
   if (!id) {
@@ -66,6 +74,31 @@ const AuthorEditor = ({
   }
 
   const schema = prepareAuthorSchema(author.get('schema').toJS());
+
+  const saveInHistoryIfNotFocusedOnATypingField = () => {
+    const focusedField = document.activeElement;
+    const isTyping = isTextEntryElement(focusedField);
+    if (!isTyping || !isTypingGroupOpenRef.current) {
+      historyRef.current.push({ formData, id: focusedField?.id });
+    }
+    isTypingGroupOpenRef.current = isTyping;
+  };
+
+  const onFormChange = (nextFormData: any) => {
+    if (!isEqual(nextFormData, formData)) {
+      saveInHistoryIfNotFocusedOnATypingField();
+    }
+    setFormData(nextFormData);
+  };
+
+  const onUndo = () => {
+    isTypingGroupOpenRef.current = false;
+    const previousInHistory = historyRef.current.pop();
+    if (previousInHistory !== undefined) {
+      setFormData(previousInHistory.formData);
+      document.getElementById(previousInHistory.id)?.focus();
+    }
+  };
 
   const onSave = () => {
     const prunedFormData = pruneEmptyObjects(formData);
@@ -82,7 +115,12 @@ const AuthorEditor = ({
   };
 
   return (
-    <div className="__AuthorEditorContainer__">
+    <div
+      className="__AuthorEditorContainer__"
+      onBlur={() => {
+        isTypingGroupOpenRef.current = false;
+      }}
+    >
       <Header
         lastRevision={
           lastRevision && {
@@ -91,6 +129,8 @@ const AuthorEditor = ({
           }
         }
         onSave={() => onSave()}
+        onUndo={onUndo}
+        canUndo={historyRef.current.length > 0}
       />
 
       <ConfigProvider componentSize="small">
@@ -99,7 +139,7 @@ const AuthorEditor = ({
           schema={schema}
           validator={validator}
           formData={formData}
-          onChange={({ formData: nextFormData }) => setFormData(nextFormData)}
+          onChange={({ formData: nextFormData }) => onFormChange(nextFormData)}
           uiSchema={authorUiSchema}
           templates={{
             ObjectFieldTemplate: DefaultObjectFieldTemplate,

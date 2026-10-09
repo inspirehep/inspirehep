@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import './Header.less';
 import {
-  MergeOutlined,
   QuestionCircleFilled,
   SaveOutlined,
   UndoOutlined,
@@ -11,9 +10,11 @@ import dayjs from 'dayjs';
 interface HeaderProps {
   lastRevision?: { date: string; userEmail: string };
   onSave: () => void;
+  onUndo: () => void;
+  canUndo: boolean;
 }
 
-const Header = ({ lastRevision, onSave }: HeaderProps) => {
+const Header = ({ lastRevision, onSave, onUndo, canUndo }: HeaderProps) => {
   const lastRevisionDate = lastRevision
     ? dayjs(lastRevision.date).format('MMM D, YYYY, h:mm:ss A')
     : '';
@@ -31,11 +32,17 @@ const Header = ({ lastRevision, onSave }: HeaderProps) => {
         </Button>
         <Button
           type="text"
-          icon={<UndoOutlined style={{ fontSize: '20px', color: 'white' }} />}
-        />
-        <Button
-          type="text"
-          icon={<MergeOutlined style={{ fontSize: '20px', color: 'white' }} />}
+          onClick={onUndo}
+          disabled={!canUndo}
+          icon={
+            <UndoOutlined
+              style={{
+                fontSize: '20px',
+                color: 'white',
+                opacity: canUndo ? 1 : 0.3,
+              }}
+            />
+          }
         />
         <Button
           type="text"
