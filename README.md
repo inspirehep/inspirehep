@@ -7,7 +7,7 @@ This repository is the engine room behind inspirehep.net, housing the core servi
 As a monorepo, it currently contains three main services (besides helper services):
 
 - **Inspirehep** - The main inspire service. It serves the website inspirehep.net / inspirebeta.net and calls to the required services.
-- **Backoffice** - A Django app with the goal of fully replacing [inspire-next](https://github.com/inspirehep/inspire-next/) one day with the help of the workflows service
+- **Backoffice** - A Django app where curators can take actions in the active workflows.
 - **Workflows** - An airflow service responsible for running the workflows.
 
 Okay, so now the question is: **how do we develop on it?**

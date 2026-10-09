@@ -149,8 +149,6 @@ def init_superuser_permissions():
 
 def init_cataloger_permissions():
     cataloger = Role.query.filter_by(name=Roles.cataloger.value).one()
-    db.session.add(ActionRoles(action="workflows-ui-admin-access", role=cataloger))
-    db.session.add(ActionRoles(action="admin-holdingpen-authors", role=cataloger))
     db.session.add(ActionRoles(action="update-collection", role=cataloger))
     db.session.add(ActionRoles(action="editor-use-api", role=cataloger))
 
@@ -177,7 +175,6 @@ def init_hermes_permissions():
 
 def init_jlab_permissions():
     jlab_curator = Role.query.filter_by(name=Roles.jlabcurator.value).one()
-    db.session.add(ActionRoles(action="workflows-ui-read-access", role=jlab_curator))
     db.session.add(ActionRoles(action="update-collection", role=jlab_curator))
 
 
