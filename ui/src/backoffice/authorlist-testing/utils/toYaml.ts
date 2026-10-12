@@ -4,7 +4,7 @@ const isContainer = (value: unknown): value is object =>
 const isEmpty = (value: object): boolean =>
   Array.isArray(value) ? value.length === 0 : Object.keys(value).length === 0;
 
-const PLAIN_STRING = /^[A-Za-z][\w .,@/()'-]*$/;
+const PLAIN_STRING = /^\p{L}[\p{L}\p{N}_ .,@/()'-]*$/u;
 const RESERVED = /^(true|false|null|yes|no)$/i;
 
 function inline(value: unknown): string {
