@@ -20,6 +20,22 @@ vi.mock('../../actions/recordEditor', async () => {
 
 mockActionCreator(saveAuthor);
 
+const renderEditor = () => {
+  const store = getStore({
+    recordEditor: fromJS({
+      author: authorWithSchema,
+      author_revisions: {},
+      fetchAuthorError: null,
+    }),
+  });
+  renderWithProviders(<AuthorEditorContainer />, { store });
+};
+
+const getNameValueInput = () =>
+  within(screen.getByRole('row', { name: /value caret-down / })).getByRole(
+    'textbox'
+  );
+
 describe('<AuthorEditorContainer/>', () => {
   it('should render specific error when not loggedIn', () => {
     const store = getStore({
@@ -57,15 +73,8 @@ describe('<AuthorEditorContainer/>', () => {
 
   it('should submit valid modifications on Save click', async () => {
     const user = userEvent.setup();
-    const store = getStore({
-      recordEditor: fromJS({
-        author: authorWithSchema,
-        author_revisions: {},
-        fetchAuthorError: null,
-      }),
-    });
 
-    renderWithProviders(<AuthorEditorContainer />, { store });
+    renderEditor();
 
     await user.click(screen.getByText(/name variants/));
     await user.click(screen.getByRole('button', { name: 'Add new' }));
@@ -87,19 +96,10 @@ describe('<AuthorEditorContainer/>', () => {
   });
   it('should display validation error on invalid modifications on Save click', async () => {
     const user = userEvent.setup();
-    const store = getStore({
-      recordEditor: fromJS({
-        author: authorWithSchema,
-        author_revisions: {},
-        fetchAuthorError: null,
-      }),
-    });
 
-    renderWithProviders(<AuthorEditorContainer />, { store });
+    renderEditor();
 
-    const nameValueInput = within(
-      screen.getByRole('row', { name: /value caret-down / })
-    ).getByRole('textbox');
+    const nameValueInput = getNameValueInput();
     await user.clear(nameValueInput);
 
     await user.click(screen.getByRole('button', { name: /save/ }));
@@ -109,5 +109,55 @@ describe('<AuthorEditorContainer/>', () => {
       screen.getByText("must have required property 'value'")
     ).toBeVisible();
     expect(saveAuthor).not.toHaveBeenCalled();
+  });
+
+  it('should undo all keystrokes in the same field at once on click undo', async () => {
+    const user = userEvent.setup();
+    renderEditor();
+    const input = getNameValueInput();
+    const initialValue = (input as HTMLInputElement).value;
+
+    await user.type(input, 'abc');
+    expect(input).toHaveValue(`${initialValue}abc`);
+
+    await user.click(screen.getByRole('button', { name: /undo/i }));
+
+    expect(input).toHaveValue(initialValue);
+    expect(screen.getByRole('button', { name: /undo/i })).toBeDisabled();
+  });
+
+  it('should undo one step per field once the field loses focus on click undo', async () => {
+    const user = userEvent.setup();
+    renderEditor();
+    const input = getNameValueInput();
+    const initialValue = (input as HTMLInputElement).value;
+
+    await user.type(input, 'abc');
+    await user.tab();
+    await user.type(input, 'def');
+    expect(input).toHaveValue(`${initialValue}abcdef`);
+
+    await user.click(screen.getByRole('button', { name: /undo/i }));
+    expect(input).toHaveValue(`${initialValue}abc`);
+
+    await user.click(screen.getByRole('button', { name: /undo/i }));
+    expect(input).toHaveValue(initialValue);
+  });
+
+  it('should focus last updated field on undo', async () => {
+    const user = userEvent.setup();
+    renderEditor();
+    const input = getNameValueInput();
+    const initialValue = (input as HTMLInputElement).value;
+
+    await user.type(input, 'abc');
+    await user.tab();
+
+    expect(input).not.toHaveFocus();
+    expect(input).toHaveValue(`${initialValue}abc`);
+
+    await user.click(screen.getByRole('button', { name: /undo/i }));
+    expect(input).toHaveFocus();
+    expect(input).toHaveValue(initialValue);
   });
 });
