@@ -145,4 +145,18 @@ describe('InstitutionAutocompleteWidget', () => {
       curated_relation: true,
     });
   });
+
+  it('is disabled when readonly', () => {
+    render(
+      <ControlledWidget
+        widgetProps={{ readonly: true }}
+        contextValue={{
+          formData: { institution: '' },
+          onChange: vi.fn(),
+        }}
+      />
+    );
+
+    expect(screen.getByRole('combobox')).toBeDisabled();
+  });
 });

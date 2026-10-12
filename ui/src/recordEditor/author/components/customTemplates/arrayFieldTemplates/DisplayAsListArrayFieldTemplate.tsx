@@ -9,6 +9,7 @@ function DisplayAsListArrayFieldTemplate({
   onAddClick,
   uiSchema,
   rawErrors,
+  readonly,
 }: ArrayFieldTemplateProps) {
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
   const onFieldChange = useFieldOnChange();
@@ -34,7 +35,11 @@ function DisplayAsListArrayFieldTemplate({
   return (
     <div className="record-editor-field">
       <div className="record-editor-field__label">
-        <Dropdown menu={{ items: actions }} trigger={['click']}>
+        <Dropdown
+          menu={{ items: actions }}
+          trigger={['click']}
+          disabled={readonly}
+        >
           <Space>
             {displayTitle}
             <CaretDownOutlined />

@@ -12,6 +12,7 @@ function TableObjectFieldTemplate({
   title,
   properties,
   uiSchema,
+  readonly,
 }: ObjectFieldTemplateProps) {
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
   const onFieldChange = useFieldOnChange();
@@ -35,7 +36,11 @@ function TableObjectFieldTemplate({
     <div className="record-editor-array">
       {showHeader && (
         <div className="record-editor-array__header">
-          <Dropdown menu={{ items: actions }} trigger={['click']}>
+          <Dropdown
+            menu={{ items: actions }}
+            trigger={['click']}
+            disabled={readonly}
+          >
             <Space>
               {displayTitle}
               <CaretDownOutlined />

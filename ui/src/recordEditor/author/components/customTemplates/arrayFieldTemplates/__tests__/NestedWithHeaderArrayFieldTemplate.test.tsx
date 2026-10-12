@@ -94,4 +94,23 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
 
     expect(onFieldChange).toHaveBeenCalledTimes(1);
   });
+  it('disables the menu when readonly', async () => {
+    const user = userEvent.setup();
+    const props = buildArrayFieldTemplateProps({
+      title: 'Authors',
+      canAdd: true,
+      readonly: true,
+    });
+
+    renderWithFieldOnChangeContext(props);
+
+    await user.click(screen.getByText('Authors'));
+
+    expect(
+      screen.queryByRole('button', { name: 'Add new' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Delete' })
+    ).not.toBeInTheDocument();
+  });
 });

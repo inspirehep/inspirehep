@@ -1,23 +1,80 @@
 import { Button } from 'antd';
+import { Action, ActionCreator } from 'redux';
+import { useEffect, useState } from 'react';
+
 import './Header.less';
 import {
   QuestionCircleFilled,
   SaveOutlined,
   UndoOutlined,
 } from '@ant-design/icons';
-import dayjs from 'dayjs';
+import { Revision } from '../../types';
+import Revisions from './Revisions';
+import {
+  fetchAuthorRevisionData,
+  revertToRevision,
+} from '../../../actions/recordEditor';
 
-interface HeaderProps {
-  lastRevision?: { date: string; userEmail: string };
-  onSave: () => void;
+export interface HeaderProps {
+  controlNumber: string;
   onUndo: () => void;
   canUndo: boolean;
+  revisions: Revision[];
+  revisionError: string | null;
+  onSave: () => void;
+  resetToLastUpdate: () => void;
+  isViewingRevision: boolean;
+  dispatch: ActionCreator<Action>;
 }
 
-const Header = ({ lastRevision, onSave, onUndo, canUndo }: HeaderProps) => {
-  const lastRevisionDate = lastRevision
-    ? dayjs(lastRevision.date).format('MMM D, YYYY, h:mm:ss A')
-    : '';
+const Header = ({
+  controlNumber,
+  onUndo,
+  canUndo,
+  revisions,
+  revisionError,
+  onSave,
+  resetToLastUpdate,
+  isViewingRevision,
+  dispatch,
+}: HeaderProps) => {
+  const [selectedRevision, setSelectedRevision] = useState<Revision | null>(
+    null
+  );
+
+  const [isReverting, setIsReverting] = useState(false);
+
+  useEffect(() => {
+    if (isReverting && !isViewingRevision) {
+      setSelectedRevision(null);
+      setIsReverting(false);
+    }
+  }, [isReverting, isViewingRevision]);
+
+  useEffect(() => {
+    if (revisionError) {
+      setSelectedRevision(null);
+    }
+  }, [revisionError]);
+
+  const selectRevision = (revision: Revision) => {
+    dispatch(fetchAuthorRevisionData(revision.recUuid, revision.transactionId));
+    setSelectedRevision(revision);
+  };
+
+  const isUndoDisabled = !canUndo || !!selectedRevision;
+
+  const onGoBackToCurrentFromRevision = () => {
+    resetToLastUpdate();
+    setSelectedRevision(null);
+  };
+
+  const onRevertToSelectedRevision = () => {
+    if (selectedRevision) {
+      dispatch(revertToRevision(controlNumber, selectedRevision.revisionId));
+      setIsReverting(true);
+    }
+  };
 
   return (
     <div className="__EditorHeader__">
@@ -27,19 +84,20 @@ const Header = ({ lastRevision, onSave, onUndo, canUndo }: HeaderProps) => {
           icon={<SaveOutlined />}
           className="bg-save"
           onClick={onSave}
+          disabled={!!selectedRevision}
         >
           Save
         </Button>
         <Button
           type="text"
           onClick={onUndo}
-          disabled={!canUndo}
+          disabled={isUndoDisabled}
           icon={
             <UndoOutlined
               style={{
                 fontSize: '20px',
                 color: 'white',
-                opacity: canUndo ? 1 : 0.3,
+                opacity: isUndoDisabled ? 0.3 : 1,
               }}
             />
           }
@@ -58,11 +116,14 @@ const Header = ({ lastRevision, onSave, onUndo, canUndo }: HeaderProps) => {
         <Button type="primary" className="bg-ticket">
           New Ticket
         </Button>
-        {lastRevision && (
-          <span style={{ color: 'white' }}>
-            Last edit on {lastRevisionDate} by {lastRevision.userEmail}
-          </span>
-        )}
+        <Revisions
+          revisions={revisions}
+          revisionError={revisionError}
+          selectedRevision={selectedRevision}
+          selectRevision={selectRevision}
+          onGoBackToCurrentFromRevision={onGoBackToCurrentFromRevision}
+          onRevertToSelectedRevision={onRevertToSelectedRevision}
+        />
       </div>
     </div>
   );

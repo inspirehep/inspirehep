@@ -49,4 +49,14 @@ describe('ToggleWidget', () => {
     await user.click(screen.getByRole('switch'));
     expect(onChange).toHaveBeenCalledWith(false);
   });
+  it('should be disabled when readonly', () => {
+    const props = buildWidgetProps({
+      value: true,
+      name: 'deleted',
+      readonly: true,
+    });
+    render(<ToggleWidget {...props} />);
+
+    expect(screen.getByRole('switch')).toBeDisabled();
+  });
 });

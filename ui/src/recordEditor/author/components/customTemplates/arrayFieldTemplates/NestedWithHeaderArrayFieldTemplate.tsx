@@ -11,6 +11,7 @@ function NestedWithHeaderArrayFieldTemplate({
   schema,
   uiSchema,
   rawErrors,
+  readonly,
 }: ArrayFieldTemplateProps) {
   const onFieldChange = useFieldOnChange();
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
@@ -46,7 +47,11 @@ function NestedWithHeaderArrayFieldTemplate({
   return (
     <tr>
       <td className="record-editor-array__row-label">
-        <Dropdown menu={{ items: actions }} trigger={['click']}>
+        <Dropdown
+          menu={{ items: actions }}
+          trigger={['click']}
+          disabled={readonly}
+        >
           <Space>
             {displayTitle}
             <CaretDownOutlined />

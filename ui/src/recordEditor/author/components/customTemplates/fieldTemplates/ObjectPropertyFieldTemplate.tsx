@@ -8,6 +8,7 @@ function ObjectPropertyFieldTemplate({
   errors,
   onChange,
   fieldPathId,
+  readonly,
 }: FieldTemplateProps) {
   const actions = [
     {
@@ -27,7 +28,11 @@ function ObjectPropertyFieldTemplate({
   return (
     <tr>
       <td className="record-editor-array__row-label">
-        <Dropdown menu={{ items: actions }} trigger={['click']}>
+        <Dropdown
+          menu={{ items: actions }}
+          trigger={['click']}
+          disabled={readonly}
+        >
           <Space>
             {label}
             <CaretDownOutlined />

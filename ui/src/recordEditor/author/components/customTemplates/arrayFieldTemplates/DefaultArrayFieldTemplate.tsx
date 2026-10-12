@@ -12,6 +12,7 @@ function DefaultArrayFieldTemplate({
   schema,
   uiSchema,
   rawErrors,
+  readonly,
 }: ArrayFieldTemplateProps) {
   const displayTitle = uiSchema?.['ui:title'] ?? title;
   const itemProperties =
@@ -58,6 +59,7 @@ function DefaultArrayFieldTemplate({
         <Dropdown
           menu={{ items: actions.filter((action) => action !== undefined) }}
           trigger={['click']}
+          disabled={readonly}
         >
           <Space>
             {displayTitle}

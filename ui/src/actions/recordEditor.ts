@@ -5,6 +5,12 @@ import { AxiosHeaders } from 'axios';
 import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
+  EDITOR_AUTHOR_REVISION_DATA_ERROR,
+  EDITOR_AUTHOR_REVISION_DATA_REQUEST,
+  EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
   EDITOR_AUTHOR_REVISIONS_SUCCESS,
@@ -12,6 +18,7 @@ import {
   EDITOR_AUTHOR_SAVE_REQUEST,
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
+  EDITOR_AUTHOR_REVISION_DATA_RESET,
 } from './actionTypes';
 import { HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -20,6 +27,7 @@ import {
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
+  notifyRevertToRevisionError,
 } from '../recordEditor/author/notifications';
 
 // AUTHOR ACTIONS
@@ -105,6 +113,102 @@ export function fetchAuthorRevisions(
       const error = httpErrorToActionPayload(err);
       dispatch(fetchAuthorRevisionsError(error));
     }
+  };
+}
+
+function fetchingAuthorRevisionData() {
+  return {
+    type: EDITOR_AUTHOR_REVISION_DATA_REQUEST,
+  };
+}
+
+function fetchAuthorRevisionDataSuccess(data: any) {
+  return {
+    type: EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
+    payload: { data },
+  };
+}
+
+function fetchAuthorRevisionDataError(errorPayload: { error: Error }) {
+  return {
+    type: EDITOR_AUTHOR_REVISION_DATA_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function fetchAuthorRevisionData(
+  recUUID: string,
+  transactionId: number
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootState,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, _getState, http) => {
+    dispatch(fetchingAuthorRevisionData());
+    const resolveQuery = `/editor/revisions/${recUUID}/${transactionId}`;
+
+    try {
+      const response = await http.get(`${resolveQuery}`);
+      dispatch(fetchAuthorRevisionDataSuccess(response?.data));
+    } catch (err) {
+      const error = httpErrorToActionPayload(err);
+      dispatch(fetchAuthorRevisionDataError(error));
+    }
+  };
+}
+
+export function resetAuthorRevisionData() {
+  return {
+    type: EDITOR_AUTHOR_REVISION_DATA_RESET,
+  };
+}
+
+function revertingToRevision() {
+  return {
+    type: EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
+  };
+}
+
+function revertToRevisionSuccess() {
+  return {
+    type: EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
+  };
+}
+
+function revertToRevisionError(errorPayload: { error: Error }) {
+  return {
+    type: EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function revertToRevision(
+  id: string,
+  revisionId: number
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootState,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, _getState, http) => {
+    dispatch(revertingToRevision());
+    try {
+      await http.put(`editor/authors/${id}/revisions/revert`, {
+        revision_id: revisionId,
+      });
+      dispatch(revertToRevisionSuccess());
+    } catch (err) {
+      const error = httpErrorToActionPayload(err);
+      notifyRevertToRevisionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.message) || 'An error occurred'
+      );
+      dispatch(revertToRevisionError(error));
+    }
+    dispatch(fetchAuthor(id));
+    dispatch(fetchAuthorRevisions(id));
   };
 }
 
