@@ -9,6 +9,7 @@ export const SUPERUSER_OR_BETAUSER_OR_CATALOGER = List([
 ]);
 export const SUPERUSER_OR_CATALOGER = List(['superuser', 'cataloger']);
 export const SUPERUSER = List(['superuser']);
+export const CATALOGER_ONLY = List(['cataloger']);
 const SUPERUSER_OR_BETAUSER = List(['superuser', 'betauser']);
 
 export function isAuthorized(

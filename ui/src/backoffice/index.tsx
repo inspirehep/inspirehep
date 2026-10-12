@@ -2,7 +2,10 @@ import { Route } from 'react-router-dom';
 
 import RoutesWithFallback from '../common/components/RoutesWithFallback';
 import DocumentHead from '../common/components/DocumentHead';
-import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
+import {
+  CATALOGER_ONLY,
+  SUPERUSER_OR_CATALOGER,
+} from '../common/authorization';
 import AuthorsSearchPageContainer from './authors/search/containers/SearchPageContainer';
 import LiteratureSearchPageContainer from './literature/search/containers/SearchPageContainer';
 import DashboardPageContainer from './dashboard/containers/DashboardPageContainer';
@@ -10,6 +13,7 @@ import LoginPage from './login/components/LoginPage';
 import LocalLoginPageContainer from './login/containers/LocalLoginPageContainer';
 import AuthorDetailPageContainer from './authors/containers/AuthorDetailPageContainer';
 import LiteratureDetailPageContainer from './literature/containers/LiteratureDetailPageContainer';
+import AuthorListTestingPageContainer from './authorlist-testing/containers/AuthorListTestingPageContainer';
 import RequireAuth from '../common/RequireAuth';
 
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
@@ -57,6 +61,14 @@ const Backoffice = () => (
           element={
             <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
               <LiteratureSearchPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="authorlist-testing"
+          element={
+            <RequireAuth authorizedRoles={CATALOGER_ONLY} backoffice>
+              <AuthorListTestingPageContainer />
             </RequireAuth>
           }
         />

@@ -32,6 +32,7 @@ export const BACKOFFICE_LOGIN = `${BACKOFFICE}/login`;
 export const BACKOFFICE_LOCAL_LOGIN = `${BACKOFFICE_LOGIN}/local`;
 export const BACKOFFICE_AUTHORS_SEARCH = `${BACKOFFICE}${AUTHORS}/search`;
 export const BACKOFFICE_LITERATURE_SEARCH = `${BACKOFFICE}${LITERATURE}/search`;
+export const BACKOFFICE_AUTHORLIST_TESTING = `${BACKOFFICE}/authorlist-testing`;
 export const BACKOFFICE_BACKEND = getConfigFor('BACKOFFICE_URL');
 export const BACKOFFICE_API = `${BACKOFFICE_BACKEND}/api`;
 export const BACKOFFICE_LOGIN_ORCID = `${BACKOFFICE_BACKEND}/accounts/orcid/login/`;
