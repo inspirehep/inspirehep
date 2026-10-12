@@ -15,8 +15,12 @@ import { LITERATURE } from '../../../common/routes';
 import LiteratureDate from '../../../common/components/LiteratureDate';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import PaginationContainer from '../../../common/containers/PaginationContainer';
+import useResponsiveCheck from '../../../common/hooks/useResponsiveCheck';
 
-export function renderReferenceItem(result: Map<string, any>) {
+export function renderReferenceItem(
+  result: Map<string, any>,
+  isMobile: boolean
+) {
   const metadata = result?.get('metadata');
   const controlNumber = metadata?.get('control_number');
   const title = metadata?.getIn(['titles', 0]);
@@ -28,14 +32,14 @@ export function renderReferenceItem(result: Map<string, any>) {
 
   return (
     <div data-testid={`reference-drawer-item-${controlNumber}`}>
-      <Row>
+      <Row className="flex justify-between w100">
         <Col span={1}>
           <Radio
             value={controlNumber}
             data-testid={`reference-drawer-radio-${controlNumber}`}
           />
         </Col>
-        <Col span={23}>
+        <Col span={isMobile ? 22 : 23}>
           <Card className="reference-result-item">
             <div>
               <Link
@@ -96,6 +100,7 @@ function CurateReferenceDrawer({
   visible,
 }: CurateReferenceDrawerProps) {
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
+  const isMobile = useResponsiveCheck({ max: 'md' });
 
   const onSelectedRecordChange = useCallback((event: RadioChangeEvent) => {
     setSelectedRecordId(event.target.value);
@@ -123,7 +128,7 @@ function CurateReferenceDrawer({
 
   return (
     <Drawer
-      className="search-drawer"
+      rootClassName="search-drawer curate-reference-drawer"
       placement="right"
       onClose={() => {
         onDrawerClose();
@@ -148,7 +153,9 @@ function CurateReferenceDrawer({
         >
           <ResultsContainer
             namespace={CURATE_REFERENCE_NS}
-            renderItem={renderReferenceItem}
+            renderItem={(result: Map<string, any>) =>
+              renderReferenceItem(result, isMobile)
+            }
           />
           <PaginationContainer namespace={CURATE_REFERENCE_NS} hideSizeChange />
         </Radio.Group>

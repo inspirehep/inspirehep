@@ -34,7 +34,7 @@ describe('CurateReferenceDrawer', () => {
       }),
     });
 
-    renderWithProviders(renderReferenceItem(result));
+    renderWithProviders(renderReferenceItem(result, false));
     expect(screen.getByText('Title')).toBeInTheDocument();
     expect(screen.getByText('Urhan, Harun')).toBeInTheDocument();
     expect(screen.getByText('2022-05-12')).toBeInTheDocument();

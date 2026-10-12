@@ -19,7 +19,7 @@ function ExistingConferencesDrawer({
 }) {
   return (
     <Drawer
-      className="search-drawer"
+      rootClassName="search-drawer"
       placement="right"
       closable={false}
       onClose={onDrawerClose}

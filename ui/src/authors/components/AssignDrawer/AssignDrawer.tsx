@@ -58,7 +58,7 @@ function AssignDrawer({
   }, [currentAuthorId, selectedAuthorId, onAssign]);
   return (
     <Drawer
-      className="search-drawer"
+      rootClassName="search-drawer"
       placement="right"
       onClose={onDrawerClose}
       open={visible}
