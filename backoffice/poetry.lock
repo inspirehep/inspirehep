@@ -2333,14 +2333,14 @@ files = [
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.35"
+version = "61.6.36"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "<3.15,>=3.11"
 groups = ["main"]
 files = [
-    {file = "inspire_schemas-61.6.35-py3-none-any.whl", hash = "sha256:01c63506044c782d7e0fddb32c42b1afd72697bd64d80a63be937dbe95aaef81"},
-    {file = "inspire_schemas-61.6.35.tar.gz", hash = "sha256:b2159abac407395b90afde9addabe8062b706fb24a05cc8f5bff4c459db9194e"},
+    {file = "inspire_schemas-61.6.36-py3-none-any.whl", hash = "sha256:e77cdf3605ff6ddb2e4228b18f9e4d108ec61e43f35abbe4d6789706616104b0"},
+    {file = "inspire_schemas-61.6.36.tar.gz", hash = "sha256:38d9999edd01579026156573cc4e8b676a8cc14398cb97a29782ac906f680831"},
 ]
 
 [package.dependencies]
@@ -4862,4 +4862,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "d72bda4db0aca0889520236fa876396f7e632a44d7538901e07811fc0fe7ae9f"
+content-hash = "98b03485219d3177989c5769cbb91678d39cf345f9d154ecea7d1716276e6ecb"
