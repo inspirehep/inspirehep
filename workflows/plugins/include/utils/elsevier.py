@@ -55,8 +55,9 @@ def process_article(
     workflow_management_hook,
     push_to_s3=True,
 ):
-    parser = ElsevierParser(xml_text)
+    doi = None
     try:
+        parser = ElsevierParser(xml_text)
         doi = parser.get_identifier()
         if not parser.should_record_be_harvested():
             logger.info(
