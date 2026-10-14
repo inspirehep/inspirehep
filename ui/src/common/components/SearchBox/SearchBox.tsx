@@ -49,13 +49,22 @@ const SearchBox = ({
         newValue &&
         HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE]
       ) {
-        const options: { value: any; label: JSX.Element }[] = namespaceHistory
-          .filter((searchQuery: string) => searchQuery.includes(newValue))
-          .map((searchQuery: string) => ({
-            value: searchQuery,
-            label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
-          }));
-        setAutoCompleteOptions(options);
+        const options: { value: any; label: JSX.Element }[] = [
+          ...new Set<string>(
+            namespaceHistory.filter(
+              (searchQuery: string) =>
+                searchQuery !== newValue && searchQuery.includes(newValue)
+            )
+          ),
+        ].map((searchQuery: string) => ({
+          value: searchQuery,
+          label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
+        }));
+        setAutoCompleteOptions(
+          options.length
+            ? [{ value: newValue, label: <span>{newValue}</span> }, ...options]
+            : []
+        );
       } else {
         setAutoCompleteOptions([]);
       }
