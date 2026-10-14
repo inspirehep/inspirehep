@@ -2,9 +2,6 @@ import { fromJS } from 'immutable';
 import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
-  EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
-  EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
-  EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
   EDITOR_AUTHOR_REVISIONS_ERROR,
@@ -16,6 +13,15 @@ import {
   EDITOR_AUTHOR_REVISION_DATA_ERROR,
   EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
   EDITOR_AUTHOR_REVISION_DATA_RESET,
+  EDITOR_QUEUES_REQUEST,
+  EDITOR_QUEUES_ERROR,
+  EDITOR_QUEUES_SUCCESS,
+  EDITOR_TICKETS_ERROR,
+  EDITOR_TICKETS_REQUEST,
+  EDITOR_TICKETS_SUCCESS,
+  EDITOR_USERS_ERROR,
+  EDITOR_USERS_REQUEST,
+  EDITOR_USERS_SUCCESS,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -26,6 +32,12 @@ export const initialState = fromJS({
   saveError: null,
   fetchAuthorError: null,
   currentRecordETag: null,
+  queues: [],
+  users: [],
+  queuesError: null,
+  usersError: null,
+  tickets: [],
+  ticketsError: null,
 });
 
 const RecordEditorReducer = (state = initialState, action) => {
@@ -83,12 +95,40 @@ const RecordEditorReducer = (state = initialState, action) => {
       return state;
     case EDITOR_AUTHOR_SAVE_ERROR:
       return state.set('saveError', fromJS(action.payload.error));
-    case EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST:
-      return state;
-    case EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS:
-      return state;
-    case EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR:
-      return state;
+    case EDITOR_QUEUES_REQUEST:
+      return state
+        .set('queues', initialState.get('queues'))
+        .set('queuesError', null);
+    case EDITOR_QUEUES_ERROR:
+      return state
+        .set('queues', initialState.get('queues'))
+        .set('queuesError', 'Error while fetching queues');
+    case EDITOR_QUEUES_SUCCESS:
+      return state
+        .set('queues', fromJS(action.payload.data))
+        .set('queuesError', null);
+    case EDITOR_USERS_REQUEST:
+      return state
+        .set('users', initialState.get('users'))
+        .set('usersError', null);
+    case EDITOR_USERS_ERROR:
+      return state
+        .set('users', initialState.get('users'))
+        .set('usersError', 'Error while fetching users');
+    case EDITOR_USERS_SUCCESS:
+      return state
+        .set('users', fromJS(action.payload.data))
+        .set('usersError', null);
+    case EDITOR_TICKETS_REQUEST:
+      return state.set('ticketsError', null);
+    case EDITOR_TICKETS_ERROR:
+      return state
+        .set('tickets', initialState.get('tickets'))
+        .set('ticketsError', 'Error while fetching tickets');
+    case EDITOR_TICKETS_SUCCESS:
+      return state
+        .set('tickets', fromJS(action.payload.data))
+        .set('ticketsError', null);
     default:
       return state;
   }

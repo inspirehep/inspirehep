@@ -87,6 +87,7 @@ describe('<NestedArrayFieldItemTemplate />', () => {
   it('disables "Remove item" button when readonly', () => {
     const props = buildArrayFieldItemTemplateProps({
       readonly: true,
+      children: <span>field content</span>,
       buttonsProps: {
         hasRemove: true,
         onRemoveItem: vi.fn(),

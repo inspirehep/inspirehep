@@ -61,6 +61,12 @@ const baseRecordEditorState = fromJS({
   fetchAuthorError: null,
   current_author_revision: null,
   revisionError: null,
+  queues: [],
+  queuesError: null,
+  users: [],
+  usersError: null,
+  tickets: [],
+  ticketsError: null,
 }) as Map<string, any>;
 
 const renderEditor = () => {
@@ -277,6 +283,12 @@ describe('<AuthorEditorContainer/>', () => {
             status: 'active',
           },
           revisionError: null,
+          queues: [],
+          queuesError: null,
+          users: [],
+          usersError: null,
+          tickets: [],
+          ticketsError: null,
         }),
       });
       renderWithProviders(<AuthorEditorContainer />, { store });

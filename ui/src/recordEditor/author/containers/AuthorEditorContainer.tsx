@@ -12,6 +12,9 @@ import { useParams } from 'react-router-dom';
 import {
   fetchAuthor,
   fetchAuthorRevisions,
+  fetchQueues,
+  fetchTickets,
+  fetchUsers,
   resetAuthorRevisionData,
   saveAuthor,
 } from '../../../actions/recordEditor';
@@ -221,7 +224,13 @@ const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);
 
 export default withRouteActionsDispatcher(AuthorEditorContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchAuthor(id!), fetchAuthorRevisions(id!)],
+  routeActions: (id) => [
+    fetchAuthor(id!),
+    fetchAuthorRevisions(id!),
+    fetchQueues(),
+    fetchUsers(),
+    fetchTickets(id!),
+  ],
   loadingStateSelector: (state: RootState) =>
     !state.recordEditor.hasIn(['author', 'record']) &&
     !state.recordEditor.get('fetchAuthorError'),

@@ -18,6 +18,21 @@ import {
   EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
   EDITOR_AUTHOR_REVISION_DATA_ERROR,
   EDITOR_AUTHOR_REVISION_DATA_RESET,
+  EDITOR_QUEUES_REQUEST,
+  EDITOR_QUEUES_ERROR,
+  EDITOR_QUEUES_SUCCESS,
+  EDITOR_USERS_REQUEST,
+  EDITOR_USERS_ERROR,
+  EDITOR_USERS_SUCCESS,
+  EDITOR_TICKET_CREATION_REQUEST,
+  EDITOR_TICKET_CREATION_SUCCESS,
+  EDITOR_TICKET_CREATION_ERROR,
+  EDITOR_TICKETS_REQUEST,
+  EDITOR_TICKETS_SUCCESS,
+  EDITOR_TICKETS_ERROR,
+  EDITOR_RESOLVE_TICKET_REQUEST,
+  EDITOR_RESOLVE_TICKET_SUCCESS,
+  EDITOR_RESOLVE_TICKET_ERROR,
 } from '../../actions/actionTypes';
 
 describe('recordEditor reducer', () => {
@@ -209,5 +224,135 @@ describe('recordEditor reducer', () => {
       payload: { error: errorMessage },
     });
     expect(state).toEqual(initialState);
+  });
+
+  it('EDITOR_QUEUES_REQUEST', () => {
+    const state = reducer(
+      fromJS({ queues: [{ id: '1' }], queuesError: 'old error' }),
+      { type: EDITOR_QUEUES_REQUEST }
+    );
+    const expected = fromJS({ queues: [], queuesError: null });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_QUEUES_SUCCESS', () => {
+    const data = [{ id: '1', name: 'one' }];
+    const state = reducer(fromJS({ queuesError: 'old error' }), {
+      type: EDITOR_QUEUES_SUCCESS,
+      payload: { data },
+    });
+    const expected = fromJS({ queues: data, queuesError: null });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_QUEUES_ERROR', () => {
+    const state = reducer(
+      fromJS({ queues: [{ id: '1' }], queuesError: null }),
+      { type: EDITOR_QUEUES_ERROR, payload: { error: { status: 500 } } }
+    );
+    const expected = fromJS({
+      queues: [],
+      queuesError: 'Error while fetching queues',
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_USERS_REQUEST', () => {
+    const state = reducer(
+      fromJS({ users: [{ id: '1' }], usersError: 'old error' }),
+      { type: EDITOR_USERS_REQUEST }
+    );
+    const expected = fromJS({
+      users: [],
+      usersError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_USERS_SUCCESS', () => {
+    const data = [{ id: '1', name: 'one' }];
+    const state = reducer(fromJS({ usersError: 'old error' }), {
+      type: EDITOR_USERS_SUCCESS,
+      payload: { data },
+    });
+    const expected = fromJS({
+      users: data,
+      usersError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_USERS_ERROR', () => {
+    const state = reducer(fromJS({ users: [{ id: '1' }], usersError: null }), {
+      type: EDITOR_USERS_ERROR,
+      payload: { error: { status: 500 } },
+    });
+    const expected = fromJS({
+      users: [],
+      usersError: 'Error while fetching users',
+    });
+    expect(state).toEqual(expected);
+  });
+
+  [
+    [EDITOR_TICKET_CREATION_REQUEST, undefined],
+    [EDITOR_TICKET_CREATION_SUCCESS, { data: { id: '1' } }],
+    [EDITOR_TICKET_CREATION_ERROR, { error: { status: 500 } }],
+  ].forEach(([type, payload]) => {
+    it(type, () => {
+      const initial = fromJS({ tickets: [{ id: '1' }], ticketsError: null });
+      expect(reducer(initial, { type, payload })).toEqual(initial);
+    });
+  });
+
+  it('EDITOR_TICKETS_REQUEST', () => {
+    const state = reducer(
+      fromJS({ tickets: [{ id: '1' }], ticketsError: 'old error' }),
+      { type: EDITOR_TICKETS_REQUEST }
+    );
+    const expected = fromJS({
+      tickets: [{ id: '1' }],
+      ticketsError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_TICKETS_SUCCESS', () => {
+    const data = [{ id: '1', subject: 'a ticket' }];
+    const state = reducer(fromJS({ ticketsError: 'old error' }), {
+      type: EDITOR_TICKETS_SUCCESS,
+      payload: { data },
+    });
+    const expected = fromJS({
+      tickets: data,
+      ticketsError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_TICKETS_ERROR', () => {
+    const state = reducer(
+      fromJS({ tickets: [{ id: '1' }], ticketsError: null }),
+      {
+        type: EDITOR_TICKETS_ERROR,
+        payload: { error: { status: 500 } },
+      }
+    );
+    const expected = fromJS({
+      tickets: [],
+      ticketsError: 'Error while fetching tickets',
+    });
+    expect(state).toEqual(expected);
+  });
+
+  [
+    [EDITOR_RESOLVE_TICKET_REQUEST, undefined],
+    [EDITOR_RESOLVE_TICKET_SUCCESS, { data: { id: '1' } }],
+    [EDITOR_RESOLVE_TICKET_ERROR, { error: { status: 500 } }],
+  ].forEach(([type, payload]) => {
+    it(type, () => {
+      const initial = fromJS({ tickets: [{ id: '1' }], ticketsError: null });
+      expect(reducer(initial, { type, payload })).toEqual(initial);
+    });
   });
 });
