@@ -210,6 +210,8 @@ class Test_HEPCreateDAG:
         result = task_test(self.dag, "discard_older_wfs_w_same_source", self.context)
 
         assert result == "check_for_blocking_workflows"
+        matching_statuses = mock_find_matching_workflows.call_args.args[1]
+        assert STATUS_APPROVAL_CORE_SELECTION not in matching_statuses
 
     @patch(
         "include.utils.opensearch.find_matching_workflows",
@@ -5102,3 +5104,5 @@ class Test_HEPCreateDAG:
             "to_block", "Blocked by workflow to_restart"
         )
         restart_workflow_mock.assert_called_once_with("to_restart")
+        matching_statuses = find_matching_workflows_mock.call_args.args[1]
+        assert STATUS_APPROVAL_CORE_SELECTION not in matching_statuses

@@ -65,6 +65,7 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
+    DISCARDABLE_STATUSES,
     FERMILAB_COLLECTION_NAME,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
@@ -184,8 +185,7 @@ def hep_create_dag():
         workflow_data = s3_store.read_workflow(workflow_id)
 
         matches = opensearch.find_matching_workflows(
-            workflow_data,
-            statuses=RUNNING_STATUSES + [STATUS_BLOCKED],
+            workflow_data, DISCARDABLE_STATUSES
         )
 
         submission_matches = [match for match in matches if is_submission(match)]
@@ -2003,9 +2003,7 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow = s3_store.read_workflow(workflow_id)
 
-        matches = opensearch.find_matching_workflows(
-            workflow, RUNNING_STATUSES + [STATUS_BLOCKED]
-        )
+        matches = opensearch.find_matching_workflows(workflow, DISCARDABLE_STATUSES)
 
         older_workflow = None
 
