@@ -11,7 +11,11 @@ import { useParams } from 'react-router-dom';
 
 import {
   fetchAuthor,
+  resetEditor,
   fetchAuthorRevisions,
+  fetchQueues,
+  fetchTickets,
+  fetchUsers,
   resetAuthorRevisionData,
   saveAuthor,
 } from '../../../actions/recordEditor';
@@ -210,19 +214,29 @@ const AuthorEditor = ({
 };
 
 const stateToProps = (state: RootState) => ({
-  author: state.recordEditor.get('author'),
-  authorRevisions: state.recordEditor.get('author_revisions'),
-  error: state.recordEditor.get('fetchAuthorError'),
-  currentRevision: state.recordEditor.get('current_author_revision'),
-  revisionError: state.recordEditor.get('revisionError'),
+  author: state.recordEditor.getIn(['recordData', 'author']),
+  authorRevisions: state.recordEditor.getIn(['recordData', 'author_revisions']),
+  error: state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
+  currentRevision: state.recordEditor.getIn([
+    'recordData',
+    'current_author_revision',
+  ]),
+  revisionError: state.recordEditor.getIn(['recordData', 'revisionError']),
 });
 
 const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);
 
 export default withRouteActionsDispatcher(AuthorEditorContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchAuthor(id!), fetchAuthorRevisions(id!)],
+  routeActions: (id) => [
+    resetEditor(),
+    fetchAuthor(id!),
+    fetchAuthorRevisions(id!),
+    fetchQueues(),
+    fetchUsers(),
+    fetchTickets(id!),
+  ],
   loadingStateSelector: (state: RootState) =>
-    !state.recordEditor.hasIn(['author', 'record']) &&
-    !state.recordEditor.get('fetchAuthorError'),
+    !state.recordEditor.hasIn(['recordData', 'author', 'record']) &&
+    !state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
 });

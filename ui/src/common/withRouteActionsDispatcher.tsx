@@ -25,7 +25,7 @@ export default function withRouteActionsDispatcher<T>(
           getState: () => RootState,
           http: HttpClientWrapper
         ) => Promise<void>)
-      | { type: string; payload: unknown }
+      | { type: string; payload?: unknown }
     )[];
     loadingStateSelector: (state: RootState) => boolean;
   }
