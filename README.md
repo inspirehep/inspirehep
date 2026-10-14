@@ -10,6 +10,8 @@ As a monorepo, it currently contains three main services (besides helper service
 - **Backoffice** - A Django app where curators can take actions in the active workflows.
 - **Workflows** - An airflow service responsible for running the workflows.
 
+Want to contribute? Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or a pull request.
+
 Okay, so now the question is: **how do we develop on it?**
 
 ## Table of Contents
