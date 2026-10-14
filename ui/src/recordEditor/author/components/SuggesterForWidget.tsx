@@ -8,6 +8,7 @@ type SuggesterForWidgetProps = WidgetProps & {
   suggesterName: string;
   extractUniqueItemValue: (suggestion: any) => string;
   extractItemCompletionValue: (suggestion: any) => string;
+  readonly?: boolean;
 };
 
 function SuggesterForWidget({
@@ -20,6 +21,7 @@ function SuggesterForWidget({
   suggesterName,
   extractUniqueItemValue,
   extractItemCompletionValue,
+  readonly,
 }: SuggesterForWidgetProps) {
   return (
     <Suggester
@@ -35,6 +37,7 @@ function SuggesterForWidget({
       onChange={onChange}
       onSelect={onSelectSuggestion}
       onBlur={() => onBlur(id, value)}
+      disabled={readonly}
     />
   );
 }

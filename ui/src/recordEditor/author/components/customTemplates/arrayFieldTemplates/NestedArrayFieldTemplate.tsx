@@ -11,6 +11,7 @@ function NestedArrayFieldTemplate({
   onAddClick,
   uiSchema,
   rawErrors,
+  readonly,
 }: ArrayFieldTemplateProps) {
   const onFieldChange = useFieldOnChange();
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
@@ -39,7 +40,11 @@ function NestedArrayFieldTemplate({
       className="record-editor-array__row-label"
       rowSpan={items.length > 0 ? items.length : 1}
     >
-      <Dropdown menu={{ items: actions }} trigger={['click']}>
+      <Dropdown
+        menu={{ items: actions }}
+        trigger={['click']}
+        disabled={readonly}
+      >
         <Space>
           {displayTitle}
           <CaretDownOutlined />

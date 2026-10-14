@@ -60,4 +60,18 @@ describe('<DefaultArrayFieldItemTemplate />', () => {
 
     expect(onRemoveItem).toHaveBeenCalledTimes(1);
   });
+
+  it('disables "Remove item" button when readonly', () => {
+    const props = buildArrayFieldItemTemplateProps({
+      readonly: true,
+      buttonsProps: {
+        hasRemove: true,
+        onRemoveItem: vi.fn(),
+      } as unknown as ArrayFieldItemButtonsTemplateProps,
+    });
+
+    renderInTable(props);
+
+    expect(screen.getByRole('button', { name: 'Remove item' })).toBeDisabled();
+  });
 });

@@ -20,3 +20,10 @@ export function notifyEditionError(error: string) {
     description: error,
   });
 }
+
+export function notifyRevertToRevisionError(error: string) {
+  notification.error({
+    title: 'Unable to revert to revision',
+    description: error,
+  });
+}

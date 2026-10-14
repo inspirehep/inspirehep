@@ -9,6 +9,7 @@ function NestedArrayFieldItemTemplate({
   children,
   buttonsProps,
   index,
+  readonly,
 }: ArrayFieldItemTemplateProps) {
   const rowLabelCell = useContext(NestedArrayRowLabelContext);
 
@@ -23,6 +24,7 @@ function NestedArrayFieldItemTemplate({
             aria-label="Remove item"
             icon={<CloseOutlined />}
             onClick={buttonsProps.onRemoveItem}
+            disabled={readonly}
           />
         )}
       </td>

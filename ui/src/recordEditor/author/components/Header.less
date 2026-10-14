@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: @zindex-header;
+  z-index: 1000;
   top: 0px;
 
   .leftContainer {
@@ -19,6 +19,15 @@
         border: 1px solid #16a085;
       }
     }
+
+    .ant-btn:disabled {
+      &.bg-save {
+        background-color: #16a085;
+        border: 1px solid #16a085;
+        opacity: 0.3;
+      }
+    }
+
     .ant-btn:hover {
       &.bg-save {
         background-color: #19b698;

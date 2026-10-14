@@ -2,7 +2,7 @@ import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
 import { Form } from '@rjsf/antd';
 import FormType from '@rjsf/core';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { flushSync } from 'react-dom';
 import { ConfigProvider } from 'antd';
@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import {
   fetchAuthor,
   fetchAuthorRevisions,
+  resetAuthorRevisionData,
   saveAuthor,
 } from '../../../actions/recordEditor';
 import { RootState } from '../../../types';
@@ -34,6 +35,7 @@ import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 import FetchingRecordError from '../components/FetchingRecordError';
 import ToggleWidget from '../components/customWidgets/ToggleWidget';
+import { RevisionFromApi } from '../../types';
 
 const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
@@ -41,30 +43,69 @@ const isTextEntryElement = (element: Element | null) =>
 interface AuthorEditorProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
-  revisions: List<Map<string, any>>;
+  authorRevisions: List<Map<string, any>>;
   error: number | null;
+  currentRevision: Map<string, any>;
+  revisionError: string | null;
 }
 
 const AuthorEditor = ({
   dispatch,
   author,
-  revisions,
+  authorRevisions,
   error,
+  currentRevision,
+  revisionError,
 }: AuthorEditorProps) => {
   const { id } = useParams();
   const authorData = author.get('record')?.get('metadata');
-  const lastRevision = revisions.get(0);
+  const initialRevisions = authorRevisions.toJS() as RevisionFromApi[];
+  const revisions = initialRevisions.map((revision) => ({
+    updated: revision.updated,
+    userEmail: revision.user_email,
+    revisionId: revision.revision_id,
+    recUuid: revision.rec_uuid,
+    transactionId: revision.transaction_id,
+  }));
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
+
   const formRef = useRef<FormType>(null);
   const historyRef = useRef<any[]>([]);
   const isTypingGroupOpenRef = useRef(false);
+  const preRevisionFormDataRef = useRef<any>(null);
+  const isViewingRevision = !!currentRevision;
+
+  const formDataRef = useRef(formData);
+  formDataRef.current = formData;
+
+  const saveInHistoryIfNotFocusedOnATypingField = useCallback(() => {
+    const focusedField = document.activeElement;
+    const isTyping = isTextEntryElement(focusedField);
+    if (!isTyping || !isTypingGroupOpenRef.current) {
+      historyRef.current.push({
+        formData: formDataRef.current,
+        id: focusedField?.id,
+      });
+    }
+    isTypingGroupOpenRef.current = isTyping;
+  }, []);
 
   useEffect(() => {
     setFormData(authorData?.toJS());
     historyRef.current = [];
     isTypingGroupOpenRef.current = false;
+    preRevisionFormDataRef.current = null;
   }, [authorData]);
+
+  useEffect(() => {
+    if (currentRevision) {
+      if (preRevisionFormDataRef.current === null) {
+        preRevisionFormDataRef.current = formDataRef.current;
+      }
+      setFormData(currentRevision.toJS());
+    }
+  }, [currentRevision]);
 
   if (!id) {
     return null;
@@ -76,16 +117,10 @@ const AuthorEditor = ({
 
   const schema = prepareAuthorSchema(author.get('schema').toJS());
 
-  const saveInHistoryIfNotFocusedOnATypingField = () => {
-    const focusedField = document.activeElement;
-    const isTyping = isTextEntryElement(focusedField);
-    if (!isTyping || !isTypingGroupOpenRef.current) {
-      historyRef.current.push({ formData, id: focusedField?.id });
-    }
-    isTypingGroupOpenRef.current = isTyping;
-  };
-
   const onFormChange = (nextFormData: any) => {
+    if (isViewingRevision) {
+      return;
+    }
     if (!isEqual(nextFormData, formData)) {
       saveInHistoryIfNotFocusedOnATypingField();
     }
@@ -115,6 +150,12 @@ const AuthorEditor = ({
     dispatch(saveAuthor(id, prunedFormData));
   };
 
+  const resetToLastUpdate = () => {
+    setFormData(preRevisionFormDataRef.current ?? authorData?.toJS());
+    preRevisionFormDataRef.current = null;
+    dispatch(resetAuthorRevisionData());
+  };
+
   return (
     <div
       className="__AuthorEditorContainer__"
@@ -123,15 +164,15 @@ const AuthorEditor = ({
       }}
     >
       <Header
-        lastRevision={
-          lastRevision && {
-            date: lastRevision.get('updated'),
-            userEmail: lastRevision.get('user_email'),
-          }
-        }
+        controlNumber={id}
+        revisions={revisions}
+        revisionError={revisionError}
         onSave={() => onSave()}
         onUndo={onUndo}
         canUndo={historyRef.current.length > 0}
+        dispatch={dispatch}
+        resetToLastUpdate={resetToLastUpdate}
+        isViewingRevision={isViewingRevision}
       />
 
       <ConfigProvider componentSize="small">
@@ -140,6 +181,7 @@ const AuthorEditor = ({
           schema={schema}
           validator={validator}
           formData={formData}
+          readonly={isViewingRevision}
           onChange={({ formData: nextFormData }) => onFormChange(nextFormData)}
           uiSchema={authorUiSchema}
           templates={{
@@ -169,8 +211,10 @@ const AuthorEditor = ({
 
 const stateToProps = (state: RootState) => ({
   author: state.recordEditor.get('author'),
-  revisions: state.recordEditor.get('author_revisions'),
+  authorRevisions: state.recordEditor.get('author_revisions'),
   error: state.recordEditor.get('fetchAuthorError'),
+  currentRevision: state.recordEditor.get('current_author_revision'),
+  revisionError: state.recordEditor.get('revisionError'),
 });
 
 const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);

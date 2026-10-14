@@ -1,7 +1,7 @@
 import { WidgetProps } from '@rjsf/utils';
 import { Switch, SwitchProps } from 'antd';
 
-function ToggleWidget({ value, name, onChange, id }: WidgetProps) {
+function ToggleWidget({ value, name, onChange, id, readonly }: WidgetProps) {
   const stylesObject: SwitchProps['styles'] = {
     root: {
       backgroundColor: value ? '#ff4d4f' : '#d1cfcf',
@@ -17,6 +17,7 @@ function ToggleWidget({ value, name, onChange, id }: WidgetProps) {
         unCheckedChildren={name}
         size="medium"
         styles={stylesObject}
+        disabled={readonly}
       />
     </div>
   );

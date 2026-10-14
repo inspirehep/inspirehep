@@ -6,6 +6,9 @@ import http from '../../common/http';
 import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
@@ -13,22 +16,39 @@ import {
   EDITOR_AUTHOR_SAVE_REQUEST,
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_AUTHOR_REVISION_DATA_REQUEST,
+  EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
+  EDITOR_AUTHOR_REVISION_DATA_ERROR,
 } from '../actionTypes';
 import {
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
+  notifyRevertToRevisionError,
 } from '../../recordEditor/author/notifications';
-import { fetchAuthor, fetchAuthorRevisions, saveAuthor } from '../recordEditor';
+import {
+  fetchAuthor,
+  fetchAuthorRevisionData,
+  fetchAuthorRevisions,
+  saveAuthor,
+  revertToRevision,
+} from '../recordEditor';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+vi.mock('../../recordEditor/author/notifications', () => ({
+  notifyEditionInProgress: vi.fn(),
+  notifyEditionSuccess: vi.fn(),
+  notifyEditionError: vi.fn(),
+  notifyRevertToRevisionError: vi.fn(),
+}));
+
+afterEach(() => {
+  mockHttp.reset();
+});
+
 describe('recordEditor - async action creators', () => {
   describe('fetchAuthor', () => {
-    afterEach(() => {
-      mockHttp.reset();
-    });
-
     it('creates EDITOR_AUTHOR_SUCCESS', async () => {
       const responseData = { metadata: { control_number: 123 } };
       mockHttp.onGet('/editor/authors/123').replyOnce(200, responseData);
@@ -65,10 +85,6 @@ describe('recordEditor - async action creators', () => {
   });
 
   describe('fetchAuthorRevisions', () => {
-    afterEach(() => {
-      mockHttp.reset();
-    });
-
     it('creates EDITOR_AUTHOR_REVISIONS_SUCCESS', async () => {
       const responseData = [{ rev_id: 1 }, { rev_id: 2 }];
       mockHttp
@@ -109,16 +125,46 @@ describe('recordEditor - async action creators', () => {
     });
   });
 
-  describe('saveAuthor', () => {
-    vi.mock('../../recordEditor/author/notifications', () => ({
-      notifyEditionInProgress: vi.fn(),
-      notifyEditionSuccess: vi.fn(),
-      notifyEditionError: vi.fn(),
-    }));
-    afterEach(() => {
-      mockHttp.reset();
+  describe('fetchAuthorRevisionData', () => {
+    it('creates EDITOR_AUTHOR_REVISION_DATA_SUCCESS', async () => {
+      const responseData = { control_number: '100' };
+      mockHttp.onGet('/editor/revisions/123/456').replyOnce(200, responseData);
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_REVISION_DATA_REQUEST },
+        {
+          type: EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
+          payload: { data: responseData },
+        },
+      ];
+
+      const store = getStore();
+      await store.dispatch(fetchAuthorRevisionData('123', 456));
+      expect(store.getActions()).toEqual(expectedActions);
     });
 
+    it('creates EDITOR_AUTHOR_REVISION_DATA_ERROR', async () => {
+      mockHttp
+        .onGet('/editor/revisions/123/456')
+        .replyOnce(500, { message: 'Error' });
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_REVISION_DATA_REQUEST },
+        {
+          type: EDITOR_AUTHOR_REVISION_DATA_ERROR,
+          payload: {
+            error: { status: 500, message: 'Error' },
+          },
+        },
+      ];
+
+      const store = getStore();
+      await store.dispatch(fetchAuthorRevisionData('123', 456));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('saveAuthor', () => {
     it('creates EDITOR_AUTHOR_SAVE_SUCCESS', async () => {
       mockHttp.onPut('/authors/123').replyOnce(200);
 
@@ -163,6 +209,46 @@ describe('recordEditor - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
       expect(notifyEditionInProgress).toHaveBeenCalledWith('123');
       expect(notifyEditionError).toHaveBeenCalledWith('Error');
+    });
+  });
+
+  describe('revertToRevision', () => {
+    it('creates EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS', async () => {
+      mockHttp.onPut('editor/authors/123/revisions/revert').replyOnce(200);
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST },
+        { type: EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS },
+        { type: EDITOR_AUTHOR_REQUEST },
+        { type: EDITOR_AUTHOR_REVISIONS_REQUEST },
+      ];
+
+      const store = getStore();
+      await store.dispatch(revertToRevision('123', 100));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('creates EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR', async () => {
+      mockHttp
+        .onPut('editor/authors/123/revisions/revert')
+        .replyOnce(500, { message: 'Error' });
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST },
+        {
+          type: EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+          payload: {
+            error: { status: 500, message: 'Error' },
+          },
+        },
+        { type: EDITOR_AUTHOR_REQUEST },
+        { type: EDITOR_AUTHOR_REVISIONS_REQUEST },
+      ];
+
+      const store = getStore();
+      await store.dispatch(revertToRevision('123', 100));
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(notifyRevertToRevisionError).toHaveBeenCalledWith('Error');
     });
   });
 });

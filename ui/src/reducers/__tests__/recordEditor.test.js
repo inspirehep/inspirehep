@@ -4,6 +4,9 @@ import reducer, { initialState } from '../recordEditor';
 import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
+  EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
@@ -11,6 +14,10 @@ import {
   EDITOR_AUTHOR_SAVE_REQUEST,
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_AUTHOR_REVISION_DATA_REQUEST,
+  EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
+  EDITOR_AUTHOR_REVISION_DATA_ERROR,
+  EDITOR_AUTHOR_REVISION_DATA_RESET,
 } from '../../actions/actionTypes';
 
 describe('recordEditor reducer', () => {
@@ -21,8 +28,7 @@ describe('recordEditor reducer', () => {
 
   it('EDITOR_AUTHOR_REQUEST', () => {
     const state = reducer(Map(), { type: EDITOR_AUTHOR_REQUEST });
-    const expected = fromJS({ fetchAuthorError: null, author: {} });
-    expect(state).toEqual(expected);
+    expect(state).toEqual(initialState);
   });
 
   it('EDITOR_AUTHOR_SUCCESS', () => {
@@ -61,6 +67,7 @@ describe('recordEditor reducer', () => {
     const expected = fromJS({
       author: initialState.get('author'),
       fetchAuthorError: 500,
+      current_author_revision: null,
     });
     expect(state).toEqual(expected);
   });
@@ -68,6 +75,7 @@ describe('recordEditor reducer', () => {
   it('EDITOR_AUTHOR_REVISIONS_REQUEST', () => {
     const state = reducer(initialState, {
       type: EDITOR_AUTHOR_REVISIONS_REQUEST,
+      revisionError: null,
     });
     expect(state).toEqual(initialState);
   });
@@ -83,6 +91,7 @@ describe('recordEditor reducer', () => {
     });
     const expected = fromJS({
       author_revisions: payload.data,
+      revisionError: null,
     });
     expect(state).toEqual(expected);
   });
@@ -96,6 +105,59 @@ describe('recordEditor reducer', () => {
     });
     const expected = fromJS({
       author_revisions: initialState.get('author_revisions'),
+      revisionError: 'Error while fetching revisions',
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISION_DATA_REQUEST', () => {
+    const state = reducer(Map(), {
+      type: EDITOR_AUTHOR_REVISION_DATA_REQUEST,
+    });
+    const expected = fromJS({
+      current_author_revision: null,
+      revisionError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISION_DATA_SUCCESS', () => {
+    const payload = {
+      data: { control_number: '100' },
+    };
+    const currentState = fromJS({ current_author_revision: null });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_REVISION_DATA_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      current_author_revision: payload.data,
+      revisionError: null,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISION_DATA_RESET', () => {
+    const currentState = fromJS({
+      current_author_revision: { control_number: '100' },
+      revisionError: null,
+    });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_REVISION_DATA_RESET,
+    });
+    expect(state.get('current_author_revision')).toBeNull();
+  });
+
+  it('EDITOR_AUTHOR_REVISION_DATA_ERROR', () => {
+    const currentState = fromJS({
+      current_author_revision: { control_number: '100' },
+    });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_REVISION_DATA_ERROR,
+    });
+    const expected = fromJS({
+      current_author_revision: initialState.get('current_author_revision'),
+      revisionError: 'Error while fetching data from revision',
     });
     expect(state).toEqual(expected);
   });
@@ -124,5 +186,28 @@ describe('recordEditor reducer', () => {
       saveError: errorMessage,
     });
     expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST', () => {
+    const state = reducer(initialState, {
+      type: EDITOR_AUTHOR_REVERT_TO_REVISION_REQUEST,
+    });
+    expect(state).toEqual(initialState);
+  });
+
+  it('EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS', () => {
+    const state = reducer(initialState, {
+      type: EDITOR_AUTHOR_REVERT_TO_REVISION_SUCCESS,
+    });
+    expect(state).toEqual(initialState);
+  });
+
+  it('EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR', () => {
+    const errorMessage = 'not working';
+    const state = reducer(initialState, {
+      type: EDITOR_AUTHOR_REVERT_TO_REVISION_ERROR,
+      payload: { error: errorMessage },
+    });
+    expect(state).toEqual(initialState);
   });
 });

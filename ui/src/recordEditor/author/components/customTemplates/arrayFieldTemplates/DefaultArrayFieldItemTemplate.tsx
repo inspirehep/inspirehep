@@ -5,6 +5,7 @@ import { CloseOutlined } from '@ant-design/icons';
 function DefaultArrayFieldItemTemplate({
   children,
   buttonsProps,
+  readonly,
 }: ArrayFieldItemTemplateProps) {
   return (
     <tr>
@@ -16,6 +17,7 @@ function DefaultArrayFieldItemTemplate({
             aria-label="Remove item"
             icon={<CloseOutlined />}
             onClick={buttonsProps.onRemoveItem}
+            disabled={readonly}
           />
         )}
       </td>

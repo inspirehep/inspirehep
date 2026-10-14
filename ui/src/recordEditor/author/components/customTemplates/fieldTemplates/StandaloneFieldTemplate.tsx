@@ -8,6 +8,7 @@ function StandaloneFieldTemplate({
   errors,
   onChange,
   fieldPathId,
+  readonly,
 }: FieldTemplateProps) {
   const actions = [
     {
@@ -27,7 +28,11 @@ function StandaloneFieldTemplate({
   return (
     <div className="record-editor-field">
       <div className="record-editor-field__label">
-        <Dropdown menu={{ items: actions }} trigger={['click']}>
+        <Dropdown
+          menu={{ items: actions }}
+          trigger={['click']}
+          disabled={readonly}
+        >
           <Space>
             {label}
             <CaretDownOutlined />
