@@ -37,12 +37,18 @@ class TestCDSRDMHarvest:
 
         assert res is None
         idx = next(
-            i for i, req in enumerate(vcr_cassette.requests) if req.method == "PUT"
+            i for i, req in enumerate(vcr_cassette.requests) if req.method == "PATCH"
         )
+        assert vcr_cassette.play_counts[idx] == 1
         hep_request = vcr_cassette.requests[idx]
         result = json.loads(hep_request.body)
-        assert result["external_system_identifiers"][0]["schema"] == "CDSRDM"
-        assert result["external_system_identifiers"][0]["value"] == "1849g-prn51"
+        assert result == [
+            {
+                "op": "add",
+                "path": "/external_system_identifiers",
+                "value": [{"schema": "CDSRDM", "value": "1849g-prn51"}],
+            }
+        ]
 
     @pytest.mark.vcr
     def test_skip_when_cds_id_already_present(self):
