@@ -63,13 +63,6 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
 
     schema_name = None
 
-    def get_queryset(self):
-        qp = self.request.query_params
-        status_val = qp.get("status")
-        if status_val:
-            return self.queryset.filter(status__status=status_val)
-        return self.queryset
-
     def partial_update(self, request, pk=None):
         logger.info(
             "Updating workflow %s with data fields: %s", pk, request.data.keys()
