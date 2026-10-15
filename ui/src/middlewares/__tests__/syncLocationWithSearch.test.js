@@ -190,6 +190,7 @@ describe('syncLocationWithSearch middleware', () => {
         namespaces: {
           [namespace]: {
             query: { size: 10, q: 'dude' },
+            initialAggregations: {},
           },
         },
       });
@@ -268,7 +269,7 @@ describe('syncLocationWithSearch middleware', () => {
       expect(mockDispatch).not.toHaveBeenCalled();
     });
 
-    it('does not dispatch SEARCH_QUERY_UPDATE if pathame is search page but location query is sync with search namespace query', () => {
+    it('does not dispatch SEARCH_QUERY_UPDATE if pathame is search page but location query is sync with search namespace query and initialAggregations is empty', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
@@ -280,6 +281,59 @@ describe('syncLocationWithSearch middleware', () => {
         namespaces: {
           [namespace]: {
             query: { size: 10, q: 'guy', 'ui-param': 'also-ignored' },
+            initialAggregations: {},
+          },
+        },
+      });
+      const getState = () => ({ search, router });
+      const mockNextFuncThatMirrors = (action) => action;
+      const mockDispatch = jest.fn();
+      const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
+        mockNextFuncThatMirrors
+      );
+
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: { location },
+      };
+      const resultAction = testMiddleware(action);
+
+      expect(resultAction).toEqual(action);
+      expect(mockDispatch).not.toHaveBeenCalledWith(
+        searchQueryUpdate(namespace, location.query, true)
+      );
+      expect(mockDispatch).toHaveBeenCalledWith(
+        fetchAggregationsAndSearchQueryReset(namespace, false)
+      );
+    });
+
+    it('does not dispatch anything if pathame is search page but location query is sync with search namespace query and initialAggregations is not empty', () => {
+      const namespace = LITERATURE_NS;
+      const location = {
+        pathname: LITERATURE,
+        search: '?size=10&q=guy&ui-param=ignored',
+        query: { size: 10, q: 'guy', 'ui-param': 'ignored' },
+      };
+      const router = { location };
+      const search = fromJS({
+        namespaces: {
+          [namespace]: {
+            query: { size: 10, q: 'guy', 'ui-param': 'also-ignored' },
+            initialAggregations: fromJS({
+              agg1: {
+                buckets: [
+                  {
+                    key: 'foo',
+                    doc_count: 1,
+                  },
+                ],
+                meta: {
+                  title: '[Range] Aggregation 1',
+                  order: 1,
+                  type: 'range',
+                },
+              },
+            }),
           },
         },
       });
