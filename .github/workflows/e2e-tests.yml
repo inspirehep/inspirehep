@@ -65,11 +65,11 @@ jobs:
           - 5672:5672
 
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/opensearch:3.4.0
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch:3.9.0
         env:
           DISABLE_SECURITY_PLUGIN: true
           bootstrap.memory_lock: true
-          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          OPENSEARCH_JAVA_OPTS: -Xms1024m -Xmx1024m
           discovery.type: single-node
         ports:
           - 9200:9200

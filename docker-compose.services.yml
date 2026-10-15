@@ -63,7 +63,6 @@ services:
       - DISABLE_SECURITY_PLUGIN=true
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
-      - discovery.seed_hosts=opensearch-node1
       - bootstrap.memory_lock=false
       - cluster.routing.allocation.disk.threshold_enabled=false
       - discovery.type=single-node
@@ -85,12 +84,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-  kibana:
-    image: kibana:7.10.1
-    environment:
-      - 'ELASTICSEARCH_URL=http://es:9200'
-      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
-    ports: ['5601:5601']
   flower:
     image: mher/flower:0.9.5
     command: --broker=amqp://guest:guest@mq/ --broker_api=http://guest:guest@mq/api/
