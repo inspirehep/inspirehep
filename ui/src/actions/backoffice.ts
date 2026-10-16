@@ -192,7 +192,7 @@ function fetchAuthorsDashboardInfo(): (
     dispatch({ type: BACKOFFICE_AUTHORS_DASHBOARD_REQUEST });
     try {
       const response = await httpClient.get(
-        `${BACKOFFICE_API}/workflows/authors/search`
+        `${BACKOFFICE_API}/workflows/authors/search/`
       );
       dispatch({
         type: BACKOFFICE_AUTHORS_DASHBOARD_SUCCESS,
@@ -212,7 +212,7 @@ function fetchLiteratureDashboardInfo(): (
     dispatch({ type: BACKOFFICE_LITERATURE_DASHBOARD_REQUEST });
     try {
       const response = await httpClient.get(
-        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/search`
+        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/search/`
       );
       dispatch({
         type: BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS,
@@ -334,7 +334,7 @@ export function fetchAuthor(
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(fetchingAuthor());
-    const resolveQuery = `${BACKOFFICE_API}/workflows/authors/${id}`;
+    const resolveQuery = `${BACKOFFICE_API}/workflows/authors/${id}/`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);
@@ -372,7 +372,7 @@ export function fetchLiteratureRecord(
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(fetchingLiteratureRecord());
-    const resolveQuery = `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/${id}`;
+    const resolveQuery = `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/${id}/`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);

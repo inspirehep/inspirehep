@@ -128,4 +128,18 @@ describe('Header', () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText(errorMessage)).toBeVisible();
   });
+
+  it('should display help modal on button click', async () => {
+    const user = userEvent.setup();
+    renderHeaderWithProps();
+
+    await user.click(screen.getByRole('button', { name: 'question-circle' }));
+
+    expect(
+      screen.getByRole('link', { name: 'inspire-schemas docs' })
+    ).toHaveAttribute(
+      'href',
+      'https://inspire-schemas.readthedocs.io/en/latest/schemas/index.html'
+    );
+  });
 });
