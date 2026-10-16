@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-24.04
     services:
       opensearch:
-        image: registry.cern.ch/cern-sis/inspirehep/opensearch:3.4.0
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch:3.9.0
         env:
           bootstrap.memory_lock: true
-          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          OPENSEARCH_JAVA_OPTS: -Xms1024m -Xmx1024m
           discovery.type: single-node
           DISABLE_SECURITY_PLUGIN: true
         ports:
