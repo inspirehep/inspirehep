@@ -13,7 +13,6 @@ import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher'
 import AuthorList from '../../common/components/AuthorList';
 import Address from '../../common/components/Address';
 import InspireCategoryList from '../../conferences/components/InspireCategoryList';
-import Abstract from '../../literature/components/Abstract';
 import EventSeries from '../../common/components/EventSeries';
 import ContactList from '../../common/components/ContactList';
 import PublicNotesList from '../../common/components/PublicNotesList';
@@ -30,6 +29,7 @@ import UrlsAction from '../../literature/components/UrlsAction';
 import LiteratureRecordsList from '../../common/components/LiteratureRecordsList';
 import { isSuperUser } from '../../common/authorization';
 import { APIButton } from '../../common/components/APIButton';
+import RichDescription from '../../common/components/RichDescription';
 
 function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
@@ -172,7 +172,8 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             {abstract && (
               <Row className="mt2">
                 <Col>
-                  <Abstract abstract={abstract} />
+                  <strong>Abstract:</strong>
+                  <RichDescription>{abstract.get('value')}</RichDescription>
                 </Col>
               </Row>
             )}
