@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Header, { HeaderProps } from '../author/components/Header';
+import { renderWithProviders } from '../../fixtures/render';
 
 const renderHeaderWithProps = (overrides: Partial<HeaderProps> = {}) => {
-  render(
+  renderWithProviders(
     <Header
       controlNumber="123"
       revisions={[]}

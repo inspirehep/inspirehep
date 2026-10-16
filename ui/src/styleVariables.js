@@ -40,4 +40,5 @@ export default {
   '@layout-header-background': '#001529',
   '@modal-mask-bg': 'rgba(0, 0, 0, 0.45)',
   '@disabled-color': 'rgba(0, 0, 0, 0.25)',
+  '@error-color': '#ff4d4f',
 };

@@ -27,3 +27,17 @@ export function notifyRevertToRevisionError(error: string) {
     description: error,
   });
 }
+
+export function notifyCreateTicketError(error: string) {
+  notification.error({
+    title: 'Unable to create ticket',
+    description: error,
+  });
+}
+
+export function notifyResolveTicketError(error: string) {
+  notification.error({
+    title: 'Unable to resolve ticket',
+    description: error,
+  });
+}
