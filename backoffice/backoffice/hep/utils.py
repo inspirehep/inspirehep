@@ -12,7 +12,6 @@ from backoffice.hep.constants import (
     HepStatusChoices,
     HepWorkflowType,
 )
-from backoffice.hep.models import HepDecision
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
 from inspire_utils.record import get_value
@@ -43,30 +42,7 @@ def get_restored_hep_workflow_type(workflow):
     return HepWorkflowType.HEP_CREATE
 
 
-def add_hep_decision_batch(workflow_id, user, action, value=None):
-    data = {"workflow": workflow_id, "user": user, "action": action}
-
-    if value is not None:
-        data["value"] = value
-
-    serializer = HepDecisionSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return serializer.data
-
-
 def add_hep_decision(workflow_id, user, action, value=None):
-    existing = HepDecision.objects.filter(
-        workflow_id=workflow_id, action=action
-    ).first()
-    if existing:
-        logger.info(
-            "Decision already exists for workflow %s with action %s, skipping",
-            workflow_id,
-            action,
-        )
-        return HepDecisionSerializer(existing).data
-
     data = {"workflow": workflow_id, "user": user, "action": action}
 
     if value is not None:

@@ -474,7 +474,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
 
     @patch("backoffice.common.airflow_utils.requests.post")
-    def test_resolve_is_idempotent(self, mock_post):
+    def test_resolve_rejects_duplicate_decision(self, mock_post):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:hep-resolve",
@@ -485,9 +485,11 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         }
         response1 = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response1.status_code, 200)
+        airflow_calls = mock_post.call_count
 
         response2 = self.api_client.post(url, format="json", data=data)
-        self.assertEqual(response2.status_code, 200)
+        self.assertEqual(response2.status_code, 400)
+        self.assertEqual(mock_post.call_count, airflow_calls)
 
         self.assertEqual(
             self.workflow.decisions.filter(action=HepResolutions.hep_accept).count(),
