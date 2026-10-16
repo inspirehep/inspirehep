@@ -3,17 +3,14 @@ import { Action, ActionCreator } from 'redux';
 import { useEffect, useState } from 'react';
 
 import './Header.less';
-import {
-  QuestionCircleFilled,
-  SaveOutlined,
-  UndoOutlined,
-} from '@ant-design/icons';
+import { SaveOutlined, UndoOutlined } from '@ant-design/icons';
 import { Revision } from '../../types';
 import Revisions from './Revisions';
 import {
   fetchAuthorRevisionData,
   revertToRevision,
 } from '../../../actions/recordEditor';
+import Help from './Help';
 
 export interface HeaderProps {
   controlNumber: string;
@@ -102,14 +99,7 @@ const Header = ({
             />
           }
         />
-        <Button
-          type="text"
-          icon={
-            <QuestionCircleFilled
-              style={{ fontSize: '20px', color: 'white' }}
-            />
-          }
-        />
+        <Help />
       </div>
 
       <div className="rightContainer">
