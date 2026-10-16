@@ -3,7 +3,9 @@
 exports[`RichDescription > renders with description 1`] = `
 <DocumentFragment>
   <div>
-    description
+    <div>
+      description
+    </div>
   </div>
 </DocumentFragment>
 `;
