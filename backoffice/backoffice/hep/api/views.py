@@ -38,7 +38,7 @@ from drf_spectacular.utils import (
     extend_schema,
     extend_schema_view,
 )
-from requests.exceptions import RequestException
+from requests.exceptions import HTTPError, RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
@@ -128,6 +128,10 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     resolution_serializer = HepResolutionSerializer
     status_choices = HepStatusChoices
     schema_name = "hep"
+
+    def perform_destroy(self, instance):
+        airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
+        super().perform_destroy(instance)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -252,6 +256,20 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         add_hep_decision(pk, request.user, HepResolutions.discard)
         workflow.save()
         return Response(status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
+    def purge(self, request, pk=None):
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+        add_hep_decision(pk, request.user, HepResolutions.purged)
+        try:
+            airflow_utils.delete_workflow_dag(
+                WORKFLOW_DAGS[workflow.workflow_type].initialize, str(workflow.id)
+            )
+        except HTTPError as exc:
+            if exc.response.status_code != status.HTTP_404_NOT_FOUND:
+                raise
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=True, methods=["post"])
     def block(self, request, pk=None):

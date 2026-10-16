@@ -46,7 +46,7 @@ class TestS3Hook:
         expected_url = f"{url}/{bucket_name}/{key}"
         assert self.s3_store.key_to_s3_url(key) == expected_url
 
-    def test_cleanup_prefix(self):
+    def test_cleanup_prefixes_with_single_prefix(self):
         prefix = f"cleanup-test-{uuid.uuid4()}/"
         keys = [f"{prefix}file{i}.json" for i in range(3)]
         for key in keys:
@@ -57,7 +57,7 @@ class TestS3Hook:
         )
         assert len(existing_keys) == len(keys)
 
-        self.s3_store.cleanup_prefix([prefix])
+        self.s3_store.cleanup_prefixes(prefix)
 
         remaining_keys = self.s3_store.hook.list_keys(
             bucket_name=self.s3_store.bucket_name, prefix=prefix

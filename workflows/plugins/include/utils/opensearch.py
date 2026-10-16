@@ -59,27 +59,35 @@ def find_matching_workflows(workflow, statuses):
     return matches
 
 
-def find_completed_workflows_past_retention(retention_days, search_window_days=14):
+def find_completed_workflows_past_retention(
+    retention_days, search_window_days=14, excluded_decision_action=None
+):
+    filters = [{"terms": {"status": COMPLETED_STATUSES}}]
+    updated_at_range = {"lte": f"now-{retention_days}d"}
+    if search_window_days != -1:
+        updated_at_range["gt"] = f"now-{retention_days + search_window_days}d"
+    filters.append({"range": {"_updated_at": updated_at_range}})
+
     query = {
         "size": RETENTION_SEARCH_PAGE_SIZE,
         "_source": ["id"],
         "sort": [{"_doc": "asc"}],
         "query": {
             "bool": {
-                "filter": [
-                    {"terms": {"status": COMPLETED_STATUSES}},
-                    {
-                        "range": {
-                            "_updated_at": {
-                                "lte": f"now-{retention_days}d",
-                                "gt": f"now-{retention_days + search_window_days}d",
-                            }
-                        }
-                    },
-                ],
+                "filter": filters,
             }
         },
     }
+    if excluded_decision_action:
+        query["query"]["bool"]["must_not"] = [
+            {
+                "nested": {
+                    "path": "decisions",
+                    "query": {"term": {"decisions.action": excluded_decision_action}},
+                }
+            }
+        ]
+
     index_name = Variable.get("hepworkflow_open_search_index")
 
     opensearch_hook = CustomOpenSearchHook(
@@ -107,3 +115,13 @@ def find_completed_workflows_past_retention(retention_days, search_window_days=1
 
     logger.info("Found %s completed workflows past S3 retention", len(workflow_ids))
     return workflow_ids
+
+
+def find_completed_unpurged_workflows_past_retention(
+    retention_days, search_window_days=14
+):
+    return find_completed_workflows_past_retention(
+        retention_days,
+        search_window_days,
+        excluded_decision_action="purged",
+    )
