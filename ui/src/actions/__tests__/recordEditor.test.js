@@ -40,6 +40,7 @@ import {
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
+  notifyParallelEdition,
   notifyResolveTicketError,
   notifyRevertToRevisionError,
 } from '../../recordEditor/author/notifications';
@@ -65,6 +66,7 @@ vi.mock('../../recordEditor/author/notifications', () => ({
   notifyRevertToRevisionError: vi.fn(),
   notifyCreateTicketError: vi.fn(),
   notifyResolveTicketError: vi.fn(),
+  notifyParallelEdition: vi.fn(),
 }));
 
 afterEach(() => {
@@ -73,6 +75,10 @@ afterEach(() => {
 
 describe('recordEditor - async action creators', () => {
   describe('fetchAuthor', () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
     it('creates EDITOR_AUTHOR_SUCCESS', async () => {
       const responseData = { metadata: { control_number: 123 } };
       mockHttp.onGet('/editor/authors/123').replyOnce(200, responseData);
@@ -85,6 +91,26 @@ describe('recordEditor - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchAuthor('123'));
       expect(store.getActions()).toEqual(expectedActions);
+      expect(notifyParallelEdition).not.toHaveBeenCalled();
+    });
+
+    it('notifies parallel edition when response has user_locks', async () => {
+      const userLocks = 'Someone else is editing this record';
+      const responseData = {
+        metadata: { control_number: 123 },
+        user_locks: userLocks,
+      };
+      mockHttp.onGet('/editor/authors/123').replyOnce(200, responseData);
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_REQUEST },
+        { type: EDITOR_AUTHOR_SUCCESS, payload: { data: responseData } },
+      ];
+
+      const store = getStore();
+      await store.dispatch(fetchAuthor('123'));
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(notifyParallelEdition).toHaveBeenCalledWith(userLocks);
     });
 
     it('creates EDITOR_AUTHOR_ERROR', async () => {

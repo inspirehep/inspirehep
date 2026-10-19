@@ -44,6 +44,7 @@ import {
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
+  notifyParallelEdition,
   notifyResolveTicketError,
   notifyRevertToRevisionError,
 } from '../recordEditor/author/notifications';
@@ -91,6 +92,10 @@ export function fetchAuthor(
       const eTag = (response?.headers as AxiosHeaders)?.get('ETag') as
         | string
         | undefined;
+      const userLocks = response.data.user_locks;
+      if (userLocks) {
+        notifyParallelEdition(userLocks);
+      }
       dispatch(fetchAuthorSuccess(response?.data, eTag));
     } catch (err) {
       const error = httpErrorToActionPayload(err);
