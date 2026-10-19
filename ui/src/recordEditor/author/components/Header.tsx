@@ -1,16 +1,20 @@
 import { Button } from 'antd';
-import { Action, ActionCreator } from 'redux';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { useEffect, useState } from 'react';
 
 import './Header.less';
 import { SaveOutlined, UndoOutlined } from '@ant-design/icons';
 import { Revision } from '../../types';
+import { RootState } from '../../../types';
+import { HttpClientWrapper } from '../../../common/http';
 import Revisions from './Revisions';
 import {
   fetchAuthorRevisionData,
   revertToRevision,
 } from '../../../actions/recordEditor';
 import Help from './Help';
+import TicketsContainer from './Tickets';
 
 export interface HeaderProps {
   controlNumber: string;
@@ -21,7 +25,7 @@ export interface HeaderProps {
   onSave: () => void;
   resetToLastUpdate: () => void;
   isViewingRevision: boolean;
-  dispatch: ActionCreator<Action>;
+  dispatch: ThunkDispatch<RootState, HttpClientWrapper, Action>;
 }
 
 const Header = ({
@@ -103,9 +107,10 @@ const Header = ({
       </div>
 
       <div className="rightContainer">
-        <Button type="primary" className="bg-ticket">
-          New Ticket
-        </Button>
+        <TicketsContainer
+          controlNumber={controlNumber}
+          dispatchAction={dispatch}
+        />
         <Revisions
           revisions={revisions}
           revisionError={revisionError}

@@ -56,11 +56,21 @@ const otherRevision2 = {
 };
 
 const baseRecordEditorState = fromJS({
-  author: authorWithSchema,
-  author_revisions: [lastRevision, otherRevision1, otherRevision2],
-  fetchAuthorError: null,
-  current_author_revision: null,
-  revisionError: null,
+  recordData: {
+    author: authorWithSchema,
+    author_revisions: [lastRevision, otherRevision1, otherRevision2],
+    fetchAuthorError: null,
+    current_author_revision: null,
+    revisionError: null,
+  },
+  tickets: {
+    queues: [],
+    queuesError: null,
+    users: [],
+    usersError: null,
+    items: [],
+    ticketsError: null,
+  },
 }) as Map<string, any>;
 
 const renderEditor = () => {
@@ -77,8 +87,8 @@ const selectOtherRevision1 = async (
 ) => {
   const stateWithRevision = {
     ...store.getState(),
-    recordEditor: baseRecordEditorState.set(
-      'current_author_revision',
+    recordEditor: baseRecordEditorState.setIn(
+      ['recordData', 'current_author_revision'],
       fromJS({
         ...authorWithSchema.record.metadata,
         name: {
@@ -111,9 +121,11 @@ describe('<AuthorEditorContainer/>', () => {
   it('should render specific error when not loggedIn', () => {
     const store = getStore({
       recordEditor: fromJS({
-        author: {},
-        author_revisions: [],
-        fetchAuthorError: 401,
+        recordData: {
+          author: {},
+          author_revisions: [],
+          fetchAuthorError: 401,
+        },
       }),
     });
 
@@ -129,9 +141,11 @@ describe('<AuthorEditorContainer/>', () => {
   it('should render generic error when fetching author failed', () => {
     const store = getStore({
       recordEditor: fromJS({
-        author: {},
-        author_revisions: [],
-        fetchAuthorError: 500,
+        recordData: {
+          author: {},
+          author_revisions: [],
+          fetchAuthorError: 500,
+        },
       }),
     });
 
@@ -260,23 +274,33 @@ describe('<AuthorEditorContainer/>', () => {
     it('should display currentRevision if exists', async () => {
       const store = getStore({
         recordEditor: fromJS({
-          author: authorWithSchema,
-          author_revisions: [lastRevision, otherRevision1, otherRevision2],
-          fetchAuthorError: null,
-          current_author_revision: {
-            ids: [
-              {
-                schema: 'ORCID',
-                value: '0000-0003-1866-1950',
+          recordData: {
+            author: authorWithSchema,
+            author_revisions: [lastRevision, otherRevision1, otherRevision2],
+            fetchAuthorError: null,
+            current_author_revision: {
+              ids: [
+                {
+                  schema: 'ORCID',
+                  value: '0000-0003-1866-1950',
+                },
+              ],
+              name: {
+                preferred_name: 'David in another version',
+                value: 'Burke, David Lyle',
               },
-            ],
-            name: {
-              preferred_name: 'David in another version',
-              value: 'Burke, David Lyle',
+              status: 'active',
             },
-            status: 'active',
+            revisionError: null,
           },
-          revisionError: null,
+          tickets: {
+            queues: [],
+            queuesError: null,
+            users: [],
+            usersError: null,
+            items: [],
+            ticketsError: null,
+          },
         }),
       });
       renderWithProviders(<AuthorEditorContainer />, { store });

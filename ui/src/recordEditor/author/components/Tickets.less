@@ -1,0 +1,43 @@
+.ticket-modal {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-auto-rows: auto;
+  row-gap: 12px;
+  align-items: start;
+  padding: 15px;
+  .label {
+    grid-column: 1;
+  }
+  .input {
+    grid-column: 2;
+  }
+}
+
+.ticket-error {
+  color: @error-color;
+}
+
+.ticket-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0px;
+
+  .ticket-link {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .resolve-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    &:hover {
+      scale: 1.1;
+    }
+  }
+}
