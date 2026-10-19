@@ -3,7 +3,7 @@ import logging
 import os
 import shutil
 
-from airflow.sdk import Param, dag, task
+from airflow.sdk import Param, Variable, dag, task
 from include.utils.alerts import FailedDagNotifier
 
 logger = logging.getLogger(__name__)
@@ -14,8 +14,11 @@ logger = logging.getLogger(__name__)
     catchup=False,
     tags=["service", "log_cleanup"],
     params={
-        "retention_hours": Param(
-            72, type="integer", description="Log retention period in hours"
+        "retention_days": Param(
+            None,
+            type=["null", "integer"],
+            description="Log retention period in days. "
+            "Defaults to LOG_RETENTION_DAYS variable, or 14 if unset.",
         ),
     },
     on_failure_callback=FailedDagNotifier(),
@@ -25,12 +28,12 @@ def cleanup_logs():
     def find_and_cleanup_logs(**context):
         airflow_home = os.getenv("AIRFLOW_HOME", "/opt/airflow")
         logs_dir = os.path.join(airflow_home, "logs")
-        retention_hours = context["params"].get("retention_hours")
-        logger.info(
-            f"Cleaning up logs older than {retention_hours} hours in {logs_dir}"
-        )
+        retention_days = context["params"].get("retention_days")
+        if retention_days is None:
+            retention_days = int(Variable.get("LOG_RETENTION_DAYS", default=14))
+        logger.info(f"Cleaning up logs older than {retention_days} days in {logs_dir}")
         cutoff_time = datetime.datetime.now(datetime.UTC) - datetime.timedelta(
-            hours=retention_hours
+            days=retention_days
         )
 
         if not os.path.exists(logs_dir):
