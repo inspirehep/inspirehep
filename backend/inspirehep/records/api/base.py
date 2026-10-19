@@ -29,7 +29,7 @@ from inspirehep.utils import chunker
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
-from invenio_records.api import Record
+from invenio_records.api import Record, apply_patch
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
@@ -408,6 +408,12 @@ class InspireRecord(Record):
 
         """
         return self.get_linked_records_from_dict_field(self, path)
+
+    def patch(self, patch):
+        """Apply a JSON Patch through the domain-aware update path."""
+        data = apply_patch(dict(self), patch)
+        self.update(data)
+        return self
 
     def commit(self, *args, **kwargs):
         """Stub commit function for compatibility with invenio records API.

@@ -102,8 +102,15 @@ def update_record(inspire_http_record_management_hook, payload):
     logger.info(
         f"Updating record {control_number} " f"and with revision ID {revision_id}"
     )
-    response = inspire_http_record_management_hook.update_record(
-        data=updated_record,
+    patch_data = [
+        {
+            "op": "add",
+            "path": "/external_system_identifiers",
+            "value": updated_record["external_system_identifiers"],
+        }
+    ]
+    response = inspire_http_record_management_hook.patch_record(
+        data=patch_data,
         pid_type=LITERATURE_PID_TYPE,
         control_number=control_number,
         revision_id=revision_id + 1,
