@@ -1,4 +1,7 @@
-import { ArrayFieldItemTemplateProps } from '@rjsf/utils';
+import {
+  ArrayFieldItemButtonsTemplateProps,
+  ArrayFieldItemTemplateProps,
+} from '@rjsf/utils';
 
 export function buildArrayFieldItemTemplateProps(
   overrides: Partial<ArrayFieldItemTemplateProps> = {}
@@ -12,3 +15,16 @@ export function buildArrayFieldItemTemplateProps(
     ...overrides,
   } as unknown as ArrayFieldItemTemplateProps;
 }
+
+export const reorderProps = (buttonsOverrides = {}) =>
+  buildArrayFieldItemTemplateProps({
+    buttonsProps: {
+      hasRemove: true,
+      hasMoveUp: true,
+      hasMoveDown: true,
+      onRemoveItem: vi.fn(),
+      onMoveUpItem: vi.fn(),
+      onMoveDownItem: vi.fn(),
+      ...buttonsOverrides,
+    } as unknown as ArrayFieldItemButtonsTemplateProps,
+  });

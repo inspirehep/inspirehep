@@ -58,6 +58,7 @@ function NestedArrayFieldTemplate({
       <tr>
         {labelCell}
         <td className="record-editor-array__cell" />
+        <td className="record-editor-array__reorder-col" />
         <td className="record-editor-array__actions-col" />
       </tr>
     );

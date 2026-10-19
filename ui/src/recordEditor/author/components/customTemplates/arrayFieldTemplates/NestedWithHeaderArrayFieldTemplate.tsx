@@ -66,6 +66,7 @@ function NestedWithHeaderArrayFieldTemplate({
                 {columns.map((column) => (
                   <th key={column}>{column}</th>
                 ))}
+                <th className="record-editor-array__reorder-col" />
                 <th className="record-editor-array__actions-col" />
               </tr>
             </thead>
@@ -76,6 +77,7 @@ function NestedWithHeaderArrayFieldTemplate({
                 {columns.map((column) => (
                   <td key={column} className="record-editor-array__cell" />
                 ))}
+                <td className="record-editor-array__reorder-col" />
                 <td className="record-editor-array__actions-col" />
               </tr>
             ) : (
@@ -85,6 +87,7 @@ function NestedWithHeaderArrayFieldTemplate({
         </table>
         <div className="field-errors">{rawErrors}</div>
       </td>
+      <td className="record-editor-array__reorder-col" />
       <td className="record-editor-array__actions-col" />
     </tr>
   );
