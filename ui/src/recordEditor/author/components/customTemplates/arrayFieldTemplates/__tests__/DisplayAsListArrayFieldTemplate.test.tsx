@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import DisplayAsListArrayFieldTemplate from '../DisplayAsListArrayFieldTemplate';
 import { buildArrayFieldTemplateProps } from './buildArrayFieldTemplateProps';
+import { useArrayAddItem } from '../../../../ArrayAddItemContext';
 import { FieldOnChangeContext } from '../../../../FieldOnChangeContext';
 
 function renderWithFieldOnChangeContext(
@@ -16,6 +17,15 @@ function renderWithFieldOnChangeContext(
   );
   return { onFieldChange };
 }
+function AddAtButton({ index }: { index: number }) {
+  const arrayAddItem = useArrayAddItem();
+  return (
+    <button type="button" onClick={() => arrayAddItem?.addAt(index)}>
+      Insert at {index}
+    </button>
+  );
+}
+
 describe('<DisplayAsListArrayFieldTemplate />', () => {
   it('should display items and title and error', () => {
     const props = buildArrayFieldTemplateProps({
@@ -87,5 +97,27 @@ describe('<DisplayAsListArrayFieldTemplate />', () => {
     expect(
       screen.queryByRole('button', { name: 'Delete' })
     ).not.toBeInTheDocument();
+  });
+
+  describe('addAt context', () => {
+    it.each([0, 1])(
+      'delegates insertion at index %i to RJSF onAddClick',
+      async (index) => {
+        const user = userEvent.setup();
+        const onAddClick = vi.fn();
+        const props = buildArrayFieldTemplateProps({
+          onAddClick,
+          items: [<AddAtButton key="k" index={index} />],
+        });
+
+        renderWithFieldOnChangeContext(props);
+
+        await user.click(
+          screen.getByRole('button', { name: `Insert at ${index}` })
+        );
+
+        expect(onAddClick).toHaveBeenCalledWith(undefined, index);
+      }
+    );
   });
 });

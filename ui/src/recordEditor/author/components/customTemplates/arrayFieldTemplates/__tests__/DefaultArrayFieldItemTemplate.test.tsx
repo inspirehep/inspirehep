@@ -6,7 +6,10 @@ import {
 } from '@rjsf/utils';
 
 import DefaultArrayFieldItemTemplate from '../DefaultArrayFieldItemTemplate';
-import { buildArrayFieldItemTemplateProps } from './buildArrayFieldItemTemplateProps';
+import {
+  buildArrayFieldItemTemplateProps,
+  reorderProps,
+} from './buildArrayFieldItemTemplateProps';
 
 function renderInTable(props: ArrayFieldItemTemplateProps) {
   return render(
@@ -59,6 +62,49 @@ describe('<DefaultArrayFieldItemTemplate />', () => {
     await user.click(screen.getByRole('button', { name: 'Remove item' }));
 
     expect(onRemoveItem).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onMoveUpItem and onMoveDownItem when clicking the arrows', async () => {
+    const user = userEvent.setup();
+    const onMoveUpItem = vi.fn();
+    const onMoveDownItem = vi.fn();
+    renderInTable(reorderProps({ onMoveUpItem, onMoveDownItem }));
+
+    await user.click(screen.getByRole('button', { name: 'Move up' }));
+    expect(onMoveUpItem).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByRole('button', { name: 'Move down' }));
+    expect(onMoveDownItem).toHaveBeenCalledTimes(1);
+  });
+
+  it('disables "Move up" for the first item', () => {
+    renderInTable(reorderProps({ hasMoveUp: false }));
+
+    expect(screen.getByRole('button', { name: 'Move up' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Move down' })).toBeEnabled();
+  });
+
+  it('disables "Move down" for the last item', () => {
+    renderInTable(reorderProps({ hasMoveDown: false }));
+
+    expect(screen.getByRole('button', { name: 'Move up' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Move down' })).toBeDisabled();
+  });
+
+  it('does not render arrows when the item cannot move', () => {
+    renderInTable(reorderProps({ hasMoveUp: false, hasMoveDown: false }));
+
+    expect(
+      screen.queryByRole('button', { name: 'Move up' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('disables arrows when readonly', () => {
+    const props = reorderProps();
+    renderInTable({ ...props, readonly: true });
+
+    expect(screen.getByRole('button', { name: 'Move up' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Move down' })).toBeDisabled();
   });
 
   it('disables "Remove item" button when readonly', () => {

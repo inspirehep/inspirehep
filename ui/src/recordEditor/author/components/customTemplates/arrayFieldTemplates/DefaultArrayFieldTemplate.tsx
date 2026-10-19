@@ -74,6 +74,7 @@ function DefaultArrayFieldTemplate({
               {columns.map((column) => (
                 <th key={column}>{column}</th>
               ))}
+              <th className="record-editor-array__reorder-col" />
               <th className="record-editor-array__actions-col" />
             </tr>
           </thead>

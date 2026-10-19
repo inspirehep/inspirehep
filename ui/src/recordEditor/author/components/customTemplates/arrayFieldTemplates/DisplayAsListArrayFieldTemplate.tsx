@@ -2,6 +2,7 @@ import { CaretDownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Space } from 'antd';
 import { ArrayFieldTemplateProps } from '@rjsf/utils';
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
+import { ArrayAddItemContext } from '../../../ArrayAddItemContext';
 
 function DisplayAsListArrayFieldTemplate({
   title,
@@ -13,6 +14,9 @@ function DisplayAsListArrayFieldTemplate({
 }: ArrayFieldTemplateProps) {
   const displayTitle = (uiSchema?.['ui:title'] as string | undefined) ?? title;
   const onFieldChange = useFieldOnChange();
+  const addAt = (index: number) =>
+    (onAddClick as (event: undefined, index: number) => void)(undefined, index);
+
   const actions = [
     {
       key: 'add',
@@ -46,7 +50,9 @@ function DisplayAsListArrayFieldTemplate({
           </Space>
         </Dropdown>
       </div>
-      <div>{items}</div>
+      <ArrayAddItemContext.Provider value={{ addAt }}>
+        <div>{items}</div>
+      </ArrayAddItemContext.Provider>
       <div className="field-errors">{rawErrors}</div>
     </div>
   );
