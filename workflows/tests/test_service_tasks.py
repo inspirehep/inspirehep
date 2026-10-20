@@ -1,6 +1,7 @@
 import datetime
 import os
 import tempfile
+import uuid
 from unittest.mock import patch
 
 import pytest
@@ -153,3 +154,44 @@ class TestCleanupLogs:
         assert os.path.exists(new_dag1), "dag1 12h log should be preserved"
         assert not os.path.exists(old_dag2), "dag2 60h log should be deleted"
         assert os.path.exists(new_dag2), "dag2 36h log should be preserved"
+
+
+@pytest.mark.usefixtures("hep_env")
+@patch("include.utils.opensearch.CustomOpenSearchHook.search")
+class TestLiteratureS3Cleanup:
+    dag = dagbag.get_dag("literature_s3_cleanup")
+
+    def run_task(self, task_id, mock_search, workflow_id):
+        mock_search.return_value = {
+            "hits": {"hits": [{"_source": {"id": workflow_id}, "sort": [0]}]}
+        }
+        task_test(
+            self.dag,
+            task_id,
+            params=self.dag.get_task(task_id).op_kwargs,
+            context_params=self.dag.params.dump(),
+        )
+
+    def write_workflow_files(self, workflow_id):
+        for key in [f"{workflow_id}/plots/plot.json", f"{workflow_id}/workflow.json"]:
+            self.s3_store.write_object({"test": "data"}, key=key)
+
+    def test_soft_cleanup_deletes_prefixes(self, mock_search):
+        workflow_id = str(uuid.uuid4())
+        self.write_workflow_files(workflow_id)
+
+        self.run_task("find_wfs_and_soft_cleanup_s3", mock_search, workflow_id)
+
+        assert self.s3_store.hook.list_keys(
+            self.s3_store.bucket_name, f"{workflow_id}/"
+        ) == [f"{workflow_id}/workflow.json"]
+
+    def test_hard_cleanup_deletes_whole_workflow_folder(self, mock_search):
+        workflow_id = str(uuid.uuid4())
+        self.write_workflow_files(workflow_id)
+
+        self.run_task("find_wfs_and_hard_cleanup_s3", mock_search, workflow_id)
+
+        assert not self.s3_store.hook.list_keys(
+            self.s3_store.bucket_name, f"{workflow_id}/"
+        )
