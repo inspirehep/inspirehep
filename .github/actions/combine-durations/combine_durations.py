@@ -6,6 +6,7 @@ from pathlib import Path
 artifacts_path = Path(sys.argv[1])
 durations_path = Path(sys.argv[2])
 
+
 current_path = Path(".").resolve()
 print(
     f"Combining durations with artifacts-path={artifacts_path} and"
