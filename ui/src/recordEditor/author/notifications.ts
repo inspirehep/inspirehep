@@ -41,3 +41,11 @@ export function notifyResolveTicketError(error: string) {
     description: error,
   });
 }
+
+export function notifyParallelEdition(message: string) {
+  notification.warning({
+    description: message,
+    duration: false,
+    placement: 'bottomRight',
+  });
+}
