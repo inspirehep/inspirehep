@@ -205,6 +205,31 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             response.json()["id"], data["workflow_type"]
         )
 
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
+    def test_create_hep_removes_null_characters(self, mock_trigger_workflow):
+        self.api_client.force_authenticate(user=self.curator)
+        hep_data = hep_data_valid()
+        hep_data["titles"] = [
+            {"source": "submitter", "title": "Atom\x00 interferometry"}
+        ]
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data,
+            "form_data": {"references": "[1] First\x00 line\n[2] Second line"},
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 201)
+        workflow = HepWorkflow.objects.get(id=response.json()["id"])
+        expected_titles = [{"source": "submitter", "title": "Atom interferometry"}]
+        self.assertEqual(workflow.data["titles"], expected_titles)
+        self.assertEqual(workflow.source_data["titles"], expected_titles)
+        self.assertEqual(
+            workflow.form_data["references"], "[1] First line\n[2] Second line"
+        )
+
     @patch("backoffice.common.signals.update_registry_after_commit")
     def test_create_hep_calls_on_commit_signal_processor(
         self, mock_update_registry_after_commit

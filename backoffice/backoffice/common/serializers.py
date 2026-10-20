@@ -1,7 +1,10 @@
 import os
 from rest_framework import serializers
 from inspire_schemas.utils import get_validation_errors
-from backoffice.common.utils import render_validation_error_response
+from backoffice.common.utils import (
+    remove_null_characters,
+    render_validation_error_response,
+)
 
 
 class BaseWorkflowTicketSerializer(serializers.ModelSerializer):
@@ -20,6 +23,7 @@ class BaseWorkflowSerializer(serializers.ModelSerializer):
     data = serializers.JSONField(required=True)
 
     def validate_data(self, value):
+        value = remove_null_characters(value)
         validation_errors = list(get_validation_errors(value, schema=self.schema_name))
         if validation_errors:
             validation_errors_msg = render_validation_error_response(validation_errors)
