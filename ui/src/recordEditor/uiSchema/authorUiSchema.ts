@@ -267,6 +267,7 @@ const authorUiSchema: UiSchema = {
     },
   },
   inspire_categories: {
+    'ui:title': 'inspire categories',
     items: {
       'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
     },
@@ -291,11 +292,13 @@ const authorUiSchema: UiSchema = {
     'ui:widget': 'hidden',
   },
   public_notes: {
+    'ui:title': 'public notes',
     items: {
       'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
     },
   },
   deleted_records: {
+    'ui:title': 'deleted records',
     'ui:options': { showHeader: false },
     items: {
       'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
@@ -349,10 +352,12 @@ const authorUiSchema: UiSchema = {
     'ui:options': { label: false, readonly: true },
   },
   birth_date: {
+    'ui:title': 'birth date',
     'ui:FieldTemplate': StandaloneFieldTemplate,
     'ui:widget': 'text',
   },
   death_date: {
+    'ui:title': 'death date',
     'ui:FieldTemplate': StandaloneFieldTemplate,
     'ui:widget': 'text',
   },
