@@ -1,7 +1,9 @@
 import uuid
+from unittest.mock import patch
 
 import pytest
 from airflow.sdk import Variable
+from botocore.exceptions import ClientError
 from include.utils.s3 import S3JsonStore
 
 
@@ -34,10 +36,66 @@ class TestS3Hook:
         flag_name = "test-flag"
         flag_value = True
 
+        existing_flags = {"is-update": True, "auto-approved": False}
+        self.s3_store.set_flags(existing_flags, workflow_id)
         self.s3_store.set_flag(flag_name, flag_value, workflow_id)
         retrieved_flag_value = self.s3_store.get_flag(flag_name, workflow_id)
 
         assert retrieved_flag_value == flag_value
+        assert self.s3_store.read_object(f"{workflow_id}/flags.json") == {
+            **existing_flags,
+            flag_name: flag_value,
+        }
+
+    @pytest.mark.parametrize(
+        ("operation", "error_code"),
+        [("HeadObject", "404"), ("GetObject", "NoSuchKey")],
+    )
+    def test_set_flag_initializes_missing_flags(self, operation, error_code):
+        workflow_id = str(uuid.uuid4())
+        key = f"{workflow_id}/flags.json"
+        read_error = ClientError(
+            {
+                "Error": {"Code": error_code},
+                "ResponseMetadata": {"HTTPStatusCode": 404},
+            },
+            operation,
+        )
+        with patch.object(self.s3_store, "read_object", side_effect=read_error):
+            self.s3_store.set_flag("approved", True, workflow_id)
+
+        assert self.s3_store.read_object(key) == {"approved": True}
+
+    @pytest.mark.parametrize(
+        ("operation", "error_code", "status"),
+        [
+            ("HeadObject", "403", 403),
+            ("HeadObject", "503", 503),
+            ("GetObject", "AccessDenied", 403),
+            ("GetObject", "SlowDown", 503),
+            ("GetObject", "NoSuchBucket", 404),
+        ],
+    )
+    def test_set_flag_preserves_flags_on_s3_read_error(
+        self, operation, error_code, status
+    ):
+        workflow_id = str(uuid.uuid4())
+        key = f"{workflow_id}/flags.json"
+        flags = {"is-update": True, "auto-approved": False}
+        self.s3_store.set_flags(flags, workflow_id)
+        read_error = ClientError(
+            {
+                "Error": {"Code": error_code},
+                "ResponseMetadata": {"HTTPStatusCode": status},
+            },
+            operation,
+        )
+        with patch.object(self.s3_store, "read_object", side_effect=read_error):
+            with pytest.raises(ClientError) as error:
+                self.s3_store.set_flag("approved", True, workflow_id)
+            assert error.value is read_error
+
+        assert self.s3_store.read_object(key) == flags
 
     def test_key_to_s3_url(self):
         bucket_name = self.s3_store.get_default_bucket_name()
