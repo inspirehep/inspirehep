@@ -79,6 +79,28 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertIn("id", response.json())
 
     @pytest.mark.vcr
+    def test_create_author_removes_null_characters(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {
+            "workflow_type": AuthorWorkflowType.AUTHOR_CREATE,
+            "status": "running",
+            "data": {
+                "name": {
+                    "value": "John\x00, Snow",
+                },
+                "_collections": ["Authors"],
+                "$schema": "https://inspirehep.net/schemas/records/authors.json",
+            },
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 201)
+        workflow = AuthorWorkflow.objects.get(id=response.json()["id"])
+        self.assertEqual(workflow.data["name"], {"value": "John, Snow"})
+
+    @pytest.mark.vcr
     @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
     def test_create_returns_503_if_airflow_fails(self, mock_trigger_airflow_dag):
         self.api_client.force_authenticate(user=self.curator)

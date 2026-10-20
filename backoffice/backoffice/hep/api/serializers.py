@@ -9,6 +9,7 @@ from backoffice.common.serializers import (
     BaseBackofficeSearchUISerializer,
     BaseWorkflowSerializer,
 )
+from backoffice.common.utils import remove_null_characters
 from backoffice.hep.constants import (
     HepWorkflowType,
     HepStatusChoices,
@@ -96,7 +97,10 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         """
         Disable BaseWorkflowSerializer schema validation for HepWorkflow.
         """
-        return value
+        return remove_null_characters(value)
+
+    def validate_form_data(self, value):
+        return remove_null_characters(value)
 
     def create(self, validated_data):
         validated_data["source_data"] = deepcopy(validated_data["data"])

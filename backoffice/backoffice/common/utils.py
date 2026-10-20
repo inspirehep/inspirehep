@@ -19,6 +19,20 @@ def render_validation_error_response(validation_errors):
     return validation_errors_messages
 
 
+def remove_null_characters(value):
+    """PostgreSQL ``jsonb`` can't store NUL characters, so strip them."""
+    if isinstance(value, str):
+        return value.replace("\x00", "")
+    if isinstance(value, dict):
+        return {
+            remove_null_characters(key): remove_null_characters(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [remove_null_characters(item) for item in value]
+    return value
+
+
 def handle_request_exception(error_text, exception, *args, response_text=None):
     """
     Handle exceptions raised during request processing and log the error.
