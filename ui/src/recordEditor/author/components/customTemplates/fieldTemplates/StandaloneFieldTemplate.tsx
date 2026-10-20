@@ -18,6 +18,7 @@ function StandaloneFieldTemplate({
           type="link"
           danger
           onClick={() => onChange(undefined, fieldPathId.path)}
+          style={{ width: '100%' }}
         >
           Delete
         </Button>
@@ -32,8 +33,12 @@ function StandaloneFieldTemplate({
           menu={{ items: actions }}
           trigger={['click']}
           disabled={readonly}
+          styles={{
+            root: { width: '100px', minWidth: '100px' },
+            item: { padding: 0 },
+          }}
         >
-          <Space>
+          <Space styles={{ root: { width: '100%' } }}>
             {label}
             <CaretDownOutlined />
           </Space>

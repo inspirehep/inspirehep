@@ -21,7 +21,7 @@ function DisplayAsListArrayFieldTemplate({
     {
       key: 'add',
       label: (
-        <Button type="link" onClick={onAddClick}>
+        <Button type="link" onClick={onAddClick} style={{ width: '100%' }}>
           Add new
         </Button>
       ),
@@ -29,7 +29,12 @@ function DisplayAsListArrayFieldTemplate({
     {
       key: 'delete',
       label: (
-        <Button type="link" danger onClick={() => onFieldChange(undefined)}>
+        <Button
+          type="link"
+          danger
+          onClick={() => onFieldChange(undefined)}
+          style={{ width: '100%' }}
+        >
           Delete
         </Button>
       ),
@@ -43,8 +48,12 @@ function DisplayAsListArrayFieldTemplate({
           menu={{ items: actions }}
           trigger={['click']}
           disabled={readonly}
+          styles={{
+            root: { width: '100px', minWidth: '100px' },
+            item: { padding: 0 },
+          }}
         >
-          <Space>
+          <Space styles={{ root: { width: '100%' } }}>
             {displayTitle}
             <CaretDownOutlined />
           </Space>

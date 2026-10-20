@@ -26,7 +26,12 @@ function TableObjectFieldTemplate({
     {
       key: 'delete',
       label: (
-        <Button type="link" danger onClick={handleDelete}>
+        <Button
+          type="link"
+          danger
+          onClick={handleDelete}
+          style={{ width: '100%' }}
+        >
           Delete
         </Button>
       ),
@@ -40,8 +45,12 @@ function TableObjectFieldTemplate({
             menu={{ items: actions }}
             trigger={['click']}
             disabled={readonly}
+            styles={{
+              root: { width: '100px', minWidth: '100px' },
+              item: { padding: 0 },
+            }}
           >
-            <Space>
+            <Space styles={{ root: { width: '100%' } }}>
               {displayTitle}
               <CaretDownOutlined />
             </Space>
