@@ -21,6 +21,8 @@ import requests
 import structlog
 from flask import current_app
 
+from inspirehep.search import ai_tracing
+
 LOGGER = structlog.getLogger()
 
 ANTHROPIC_MESSAGES_API_URL = "https://api.anthropic.com/v1/messages"
@@ -31,6 +33,7 @@ MCP_SERVER_NAME = "inspirehep"
 MAX_RECORD_IDS = 25
 LINKED_RECORD_REGEXP = re.compile(r"\[[^\[\]]+\]\((\d+)\)")
 SSE_DATA_PREFIX = "data: "
+TOOL_RESULT_CHAR_LIMIT = 5000
 
 SYSTEM_PROMPT = """You are the INSPIRE literature search assistant, embedded in the search page of inspirehep.net.
 Answer the user's question about High Energy Physics literature by searching INSPIRE with the InspireHEP tools that are available to you.
@@ -56,12 +59,14 @@ def _get_api_key(env_variable):
     return api_key
 
 
-def _read_settings():
+def _read_settings(query):
     """Snapshot the config the chain needs.
 
     Read eagerly by ``stream_ai_search`` so that the generator it returns can be
-    consumed outside the request context, as a streaming response is.
+    consumed outside the request context, as a streaming response is. The prompt
+    lookup and the trace both read ``current_app``, so they belong here too.
     """
+    system_prompt, prompt_metadata = ai_tracing.system_prompt(SYSTEM_PROMPT)
     return {
         "api_key": _get_api_key("ANTHROPIC_API_KEY"),
         "model": current_app.config["AI_SEARCH_ANTHROPIC_MODEL"],
@@ -70,6 +75,9 @@ def _read_settings():
         "max_turns": current_app.config["AI_SEARCH_MAX_TURNS"],
         "request_timeout": current_app.config["AI_SEARCH_REQUEST_TIMEOUT"],
         "total_timeout": current_app.config["AI_SEARCH_TOTAL_TIMEOUT"],
+        "system_prompt": system_prompt,
+        "prompt_metadata": prompt_metadata,
+        "trace": ai_tracing.start(query, prompt_metadata),
     }
 
 
@@ -86,7 +94,7 @@ def stream_ai_search(query):
 
     Raises ``AiSearchError``, possibly after some events have been yielded.
     """
-    settings = _read_settings()
+    settings = _read_settings(query)
     return _stream_anthropic(query, settings)
 
 
@@ -114,7 +122,7 @@ def _stream_anthropic(query, settings):
     payload = {
         "model": settings["model"],
         "max_tokens": settings["max_tokens"],
-        "system": SYSTEM_PROMPT,
+        "system": settings["system_prompt"],
         "mcp_servers": [
             {
                 "type": "url",
@@ -127,35 +135,48 @@ def _stream_anthropic(query, settings):
         "stream": True,
     }
 
+    trace = settings["trace"]
     answer = ""
-    for _ in range(settings["max_turns"]):
-        blocks, stop_reason = yield from _stream_turn(
-            payload, headers, settings, deadline
-        )
-        answer = "".join(
-            block.get("text", "") for block in blocks if block.get("type") == "text"
-        )
+    try:
+        for turn_number in range(1, settings["max_turns"] + 1):
+            turn = trace.turn(turn_number, payload["messages"], settings["model"])
+            blocks, stop_reason = yield from _stream_turn(
+                payload, headers, settings, deadline, turn
+            )
+            answer = "".join(
+                block.get("text", "") for block in blocks if block.get("type") == "text"
+            )
 
-        if stop_reason == "refusal":
-            raise AiSearchError("The AI assistant declined to answer this query.")
-        if stop_reason == "max_tokens":
-            raise AiSearchError("The AI assistant ran out of room before answering.")
-        if stop_reason != "pause_turn":
-            break
+            if stop_reason == "refusal":
+                raise AiSearchError("The AI assistant declined to answer this query.")
+            if stop_reason == "max_tokens":
+                raise AiSearchError(
+                    "The AI assistant ran out of room before answering."
+                )
+            if stop_reason != "pause_turn":
+                break
 
-        if answer.strip():
-            yield {"type": "answer_reset"}
+            if answer.strip():
+                yield {"type": "answer_reset"}
 
-        payload["messages"] = payload["messages"] + [
-            {"role": "assistant", "content": blocks}
-        ]
-    else:
-        raise AiSearchError("AI provider did not finish within the allowed turns.")
+            payload["messages"] = payload["messages"] + [
+                {"role": "assistant", "content": blocks}
+            ]
+        else:
+            raise AiSearchError("AI provider did not finish within the allowed turns.")
 
-    yield _build_done_event(answer)
+        done = _build_done_event(answer)
+    except Exception as error:
+        trace.failed(error)
+        trace.send()
+        raise
+
+    trace.end(done["response"], done["record_ids"])
+    yield done
+    trace.send()
 
 
-def _stream_turn(payload, headers, settings, deadline):
+def _stream_turn(payload, headers, settings, deadline, turn):
     """Consume one streamed message, yielding UI events as they arrive.
 
     Returns ``(content_blocks, stop_reason)``, the blocks rebuilt from the
@@ -164,13 +185,16 @@ def _stream_turn(payload, headers, settings, deadline):
     blocks = {}
     tool_input_json = {}
     tool_names_by_id = {}
+    tool_inputs_by_id = {}
     stop_reason = None
+    usage = {}
 
     for event in _iter_sse_events(payload, headers, settings, deadline):
         event_type = event.get("type")
         index = event.get("index")
 
         if event_type == "message_start":
+            usage.update((event.get("message") or {}).get("usage") or {})
             yield {"type": "status", "stage": "searching"}
 
         elif event_type == "content_block_start":
@@ -180,6 +204,14 @@ def _stream_turn(payload, headers, settings, deadline):
                 tool_input_json[index] = ""
                 tool_names_by_id[block.get("id")] = block.get("name")
             elif block.get("type") == "mcp_tool_result":
+                tool_use_id = block.get("tool_use_id")
+                turn.record_tool(
+                    tool_use_id,
+                    tool_names_by_id.get(tool_use_id),
+                    tool_inputs_by_id.get(tool_use_id, {}),
+                    _tool_result_output(block),
+                    is_error=bool(block.get("is_error")),
+                )
                 yield _build_tool_result_event(block, tool_names_by_id)
 
         elif event_type == "content_block_delta":
@@ -198,6 +230,8 @@ def _stream_turn(payload, headers, settings, deadline):
             block = blocks.get(index) or {}
             if block.get("type") == "mcp_tool_use":
                 block["input"] = _load_tool_input(tool_input_json.get(index))
+                tool_inputs_by_id[block.get("id")] = block["input"]
+                turn.tool_requested(block.get("id"))
                 yield {
                     "type": "tool",
                     "name": block.get("name"),
@@ -206,6 +240,7 @@ def _stream_turn(payload, headers, settings, deadline):
 
         elif event_type == "message_delta":
             stop_reason = (event.get("delta") or {}).get("stop_reason") or stop_reason
+            usage.update(event.get("usage") or {})
 
         elif event_type == "error":
             error = event.get("error") or {}
@@ -214,7 +249,9 @@ def _stream_turn(payload, headers, settings, deadline):
                 f"AI provider streamed an error: {error.get('message', 'unknown')}"
             )
 
-    return [blocks[index] for index in sorted(blocks)], stop_reason
+    ordered_blocks = [blocks[index] for index in sorted(blocks)]
+    turn.end(ordered_blocks, usage, stop_reason)
+    return ordered_blocks, stop_reason
 
 
 def _iter_sse_events(payload, headers, settings, deadline):
@@ -272,6 +309,28 @@ def _load_tool_input(partial_json):
         LOGGER.warning("Could not parse streamed tool input", input=partial_json[:200])
         return {}
     return parsed if isinstance(parsed, dict) else {}
+
+
+def _tool_result_output(block):
+    """The tool's payload, in the shape the trace records it.
+
+    Results arrive as a list of content parts; the useful one is the JSON the MCP
+    server returned. Anything unparsable is kept as truncated text so a malformed
+    result is still visible when reading the trace back.
+    """
+    results = []
+    for part in block.get("content") or []:
+        if part.get("type") != "text":
+            continue
+        text = part.get("text", "")
+        try:
+            results.append(json.loads(text))
+        except ValueError:
+            results.append(text[:TOOL_RESULT_CHAR_LIMIT])
+
+    if not results:
+        return {"result": None}
+    return {"result": results[0] if len(results) == 1 else results}
 
 
 def _build_tool_result_event(block, tool_names_by_id):
