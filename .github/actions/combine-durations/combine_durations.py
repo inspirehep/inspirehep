@@ -23,12 +23,9 @@ for entry in sorted(runner_temp_path.glob("git-credentials-*.config")):
         text = entry.read_text().replace("\n", "")
         match = re.search(r"AUTHORIZATION: basic (.*)", text)
         if match:
-            print("\n".join(match.group(1)))
             decoded = base64.b64decode(match.group(1)).decode("utf-8")
-            print("\n".join(decoded))
-            match2 = re.search(r":(.*?)\.", decoded)
+            match2 = re.search(r":(.*)", decoded)
             if match2:
-                print("\n".join(match2.group(1)))
                 request = urllib.request.Request(
                     "https://api.github.com/installation/repositories",
                     headers={"Authorization": f"Bearer {match2.group(1)}"},
