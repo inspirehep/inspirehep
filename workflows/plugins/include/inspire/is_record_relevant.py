@@ -19,3 +19,11 @@ def is_auto_rejected(workflow_data):
     relevance_prediction = get_value(workflow_data, "relevance_prediction") or {}
     decision = relevance_prediction.get("decision", "")
     return decision.lower() == "rejected"
+
+
+def should_auto_reject(workflow_data):
+    return (
+        is_auto_rejected(workflow_data)
+        and not is_submission(workflow_data)
+        and not is_journal_coverage_full(workflow_data)
+    )
