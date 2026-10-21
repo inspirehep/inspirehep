@@ -35,9 +35,8 @@ from include.inspire.hidden_collections import (
 )
 from include.inspire.is_record_relevant import (
     is_auto_approved,
-    is_auto_rejected,
-    is_journal_coverage_full,
     is_submission,
+    should_auto_reject,
 )
 from include.inspire.journal_title_normalization import (
     get_normalized_publication_info,
@@ -1225,13 +1224,14 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
-            if (
-                is_auto_rejected(workflow_data)
-                and not is_submission(workflow_data)
-                and not is_journal_coverage_full(workflow_data)
-                and not should_hide_record(workflow_data)
+            if should_auto_reject(workflow_data) and not should_hide_record(
+                workflow_data
             ):
-                return "save_and_complete_workflow_task"
+                workflow_management_hook.add_decision(
+                    workflow_id=workflow_id,
+                    decision_data={"action": DECISION_AUTO_REJECT},
+                )
+                return "save_and_complete_workflow"
             return "preprocessing.refextract"
 
         @task(multiple_outputs=True)
@@ -1476,13 +1476,9 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
-            should_skip_rejection = (
-                is_submission(workflow_data)
-                or is_journal_coverage_full(workflow_data)
-                or is_auto_approved(workflow_id, s3_store)
-            )
-
-            if not should_skip_rejection and is_auto_rejected(workflow_data):
+            if not is_auto_approved(workflow_id, s3_store) and should_auto_reject(
+                workflow_data
+            ):
                 workflow_management_hook.add_decision(
                     workflow_id=workflow_id,
                     decision_data={"action": DECISION_AUTO_REJECT},

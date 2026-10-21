@@ -2631,8 +2631,11 @@ class Test_HEPCreateDAG:
             self.dag, "preprocessing.check_guess_coreness_rejection", self.context
         )
 
-        assert result == "preprocessing.save_workflow"
-        mock_add_decision.assert_not_called()
+        assert result == "save_and_complete_workflow"
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_AUTO_REJECT},
+        )
 
     @pytest.mark.parametrize(
         "workflow_data",
