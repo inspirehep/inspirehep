@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 
 function CollaborationLogo({
@@ -17,11 +15,5 @@ function CollaborationLogo({
     </LinkWithTargetBlank>
   );
 }
-
-CollaborationLogo.propTypes = {
-  name: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-};
 
 export default CollaborationLogo;

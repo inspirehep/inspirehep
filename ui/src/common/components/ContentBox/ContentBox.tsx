@@ -15,10 +15,10 @@ const ContentBox = ({
   smallPadding = true,
 }: {
   title?: string;
-  leftActions?: JSX.Element | JSX.Element[] | null;
-  rightActions?: JSX.Element | JSX.Element[] | null;
+  leftActions?: React.JSX.Element | React.JSX.Element[] | null;
+  rightActions?: React.JSX.Element | React.JSX.Element[] | null;
   loading?: boolean;
-  children?: JSX.Element | JSX.Element[] | any;
+  children?: React.JSX.Element | React.JSX.Element[] | any;
   subTitle?: string;
   className?: string;
   fullHeight?: boolean;

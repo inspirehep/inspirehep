@@ -7,7 +7,7 @@ function HomePageSection({
   className,
   title,
 }: {
-  children: JSX.Element;
+  children: React.JSX.Element;
   title?: string;
   description?: string;
   className?: string;

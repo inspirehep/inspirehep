@@ -12,7 +12,7 @@ function SubmissionCard({
   formLink,
 }: {
   title: string;
-  children: JSX.Element | JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
   formLink: string;
 }) {
   const actions = useMemo(

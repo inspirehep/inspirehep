@@ -9,7 +9,7 @@ interface ParentRecordInfoProps {
   parentRecord: Map<string, any>;
 }
 
-const renderBook = (data: Map<string, any>): JSX.Element[] =>
+const renderBook = (data: Map<string, any>): React.JSX.Element[] =>
   data
     .entrySeq()
     .map(([_key, item]: [string, Map<string, any>], index: number) => (

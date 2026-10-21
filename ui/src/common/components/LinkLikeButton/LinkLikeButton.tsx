@@ -12,7 +12,7 @@ const LinkLikeButton = ({
   disabled = false,
   className,
 }: {
-  children: JSX.Element | string;
+  children: React.JSX.Element | string;
   onClick: MouseEventHandler<HTMLElement>;
   dataTestId?: string;
   color?: string;

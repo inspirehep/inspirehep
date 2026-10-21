@@ -24,7 +24,7 @@ const META_DESCRIPTION =
 
 const TITLE = 'Bibliography Generator';
 
-const Cite = ({ children }: { children: JSX.Element | string }) => (
+const Cite = ({ children }: { children: React.JSX.Element | string }) => (
   <code>\cite{`{${children}}`}</code>
 );
 

@@ -232,7 +232,11 @@ export const isLiteratureUpdateWorkflow = (workflowType?: string | null) =>
 
 export const getWorkflowStatusInfo = (status: string) => {
   const statuses: {
-    [key: string]: { icon: JSX.Element; text: string; description: string };
+    [key: string]: {
+      icon: React.JSX.Element;
+      text: string;
+      description: string;
+    };
   } = {
     completed: {
       icon: <CheckOutlined className="mr2" />,
