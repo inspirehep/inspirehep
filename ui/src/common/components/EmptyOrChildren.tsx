@@ -15,8 +15,8 @@ const EmptyOrChildren = ({
   description,
 }: {
   data: any;
-  children: JSX.Element;
-  title: string | JSX.Element;
+  children: React.JSX.Element;
+  title: string | React.JSX.Element;
   description?: React.ReactNode;
 }) =>
   isEmptyCollection(data) ? (

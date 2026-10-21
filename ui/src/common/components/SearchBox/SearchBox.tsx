@@ -28,7 +28,7 @@ const SearchBox = ({
 }) => {
   const [inputValue, setInputValue] = useState(value);
   const [autoCompleteOptions, setAutoCompleteOptions] = useState<
-    { value: any; label: JSX.Element }[]
+    { value: any; label: React.JSX.Element }[]
   >([]);
   const [shouldSearch, setShouldSearch] = useState(false);
 
@@ -49,7 +49,7 @@ const SearchBox = ({
         newValue &&
         HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE]
       ) {
-        const options: { value: any; label: JSX.Element }[] = [
+        const options: { value: any; label: React.JSX.Element }[] = [
           ...new Set<string>(
             namespaceHistory.filter(
               (searchQuery: string) =>

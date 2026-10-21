@@ -7,7 +7,7 @@ const IconText = ({
   text,
   className,
 }: {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   text: string;
   className?: string;
 }) => (

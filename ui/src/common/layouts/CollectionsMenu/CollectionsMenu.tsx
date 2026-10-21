@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'antd';
-import PropTypes from 'prop-types';
 
 import './CollectionsMenu.less';
 import {
@@ -130,9 +129,5 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
     </Row>
   );
 }
-
-CollectionsMenu.propTypes = {
-  currentPathname: PropTypes.string.isRequired,
-};
 
 export default CollectionsMenu;

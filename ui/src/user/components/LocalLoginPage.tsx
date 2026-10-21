@@ -18,7 +18,7 @@ const LocalLoginPage = ({
     ...rest
   }: {
     _form: any;
-    field: JSX.Element;
+    field: React.JSX.Element;
     rest: any;
   }) => <Input {...field} {...rest} />;
 
