@@ -156,6 +156,16 @@ def hep_create_dag():
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
     s3_store = s3.S3JsonStore(aws_conn_id="s3_conn")
 
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def save_and_complete_workflow(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3_store.read_workflow(workflow_id)
+        workflow_data["status"] = STATUS_COMPLETED
+
+        workflow_management_hook.update_workflow(workflow_id, workflow_data)
+
+    save_and_complete_workflow_task = save_and_complete_workflow()
+
     @task
     def restore_and_get_workflow_data(**context):
         workflow_data = workflow_management_hook.restore_workflow(
@@ -1221,7 +1231,7 @@ def hep_create_dag():
                 and not is_journal_coverage_full(workflow_data)
                 and not should_hide_record(workflow_data)
             ):
-                return "preprocessing.save_workflow"
+                return "save_and_complete_workflow_task"
             return "preprocessing.refextract"
 
         @task(multiple_outputs=True)
@@ -1275,7 +1285,7 @@ def hep_create_dag():
             >> populate_journal_coverage()
             >> guess_coreness()
             >> check_guess_coreness_rejection()
-            >> [refextract_task, save_workflow_task]
+            >> [save_and_complete_workflow_task, refextract_task]
         )
         (
             refextract_task
@@ -2012,14 +2022,6 @@ def hep_create_dag():
         s3_store.write_workflow(workflow_data)
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def save_and_complete_workflow(**context):
-        workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3_store.read_workflow(workflow_id)
-        workflow_data["status"] = STATUS_COMPLETED
-
-        workflow_management_hook.update_workflow(workflow_id, workflow_data)
-
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow = s3_store.read_workflow(workflow_id)
@@ -2050,7 +2052,6 @@ def hep_create_dag():
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
-    save_and_complete_workflow_task = save_and_complete_workflow()
     stop_if_existing_submission_notify_and_close_task = (
         stop_if_existing_submission_notify_and_close()
     )
