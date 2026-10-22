@@ -21,6 +21,7 @@ from include.utils.constants import (
     DECISION_AUTO_REJECT,
     DECISION_FUZZY_MATCH,
     DECISION_HEP_REJECT,
+    DECISION_WITHDRAWN,
     LITERATURE_PID_TYPE,
     STATUS_COMPLETED,
 )
@@ -32,6 +33,22 @@ from parsel import Selector
 from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
+
+
+def handle_withdrawn_arxiv_error(error, hook, workflow_management_hook, workflow_id):
+    response_body = hook.last_response.text if hook.last_response is not None else ""
+    logger.warning("arXiv error response: %s", response_body)
+
+    is_not_found = "404:Not Found" in str(error.last_attempt.exception())
+    is_withdrawn = "withdrawn and is unavailable" in response_body
+    if is_not_found and is_withdrawn:
+        workflow_management_hook.add_decision(
+            workflow_id=workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
+        return True
+
+    return False
 
 
 def get_decision(decisions, actions):
