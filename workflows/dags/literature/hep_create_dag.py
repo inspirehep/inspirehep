@@ -128,6 +128,7 @@ from plotextractor.errors import (
 from pylatexenc.latex2text import LatexNodes2Text
 from refextract.extract import extract_journal_info as refextract_journal_info
 from refextract.extract import extract_references_from_list
+from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -484,28 +485,29 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
-        @task
-        def arxiv_package_download(**context):
+        def _arxiv_package_download(**context):
             """Perform the package download step for arXiv records."""
 
             workflow_id = context["params"]["workflow_id"]
             workflow = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
-            filename = secure_filename(f"{arxiv_id}.tar.gz")
             url = f"/e-print/{arxiv_id}"
 
-            s3_tarball_key = f"{workflow_id}/{filename}"
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=url, method="GET", extra_options={"stream": True}
+                )
+            except (RetryError, AirflowException) as e:
+                if workflows.handle_withdrawn_arxiv_error(e, arxiv_hook, workflow_id):
+                    return "save_and_complete_workflow"
+                raise
 
-            response = arxiv_hook.call_api(
-                endpoint=url, method="GET", extra_options={"stream": True}
+            s3_store.hook.load_file_obj(
+                response.raw, workflows.get_tarball_key(workflow_id), replace=True
             )
 
-            response.raise_for_status()
-
-            s3_store.hook.load_file_obj(response.raw, s3_tarball_key, replace=True)
-
-            return s3_tarball_key
+            return "preprocessing.arxiv_plot_extract"
 
         @task
         def count_reference_coreness(**context):
@@ -1031,8 +1033,7 @@ def hep_create_dag():
                 return "preprocessing.populate_arxiv_document"
             return "preprocessing.populate_submission_document"
 
-        @task
-        def populate_arxiv_document(**context):
+        def _populate_arxiv_document(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
@@ -1041,13 +1042,18 @@ def hep_create_dag():
 
             endpoint = f"/pdf/{arxiv_id}"
 
-            response = arxiv_hook.call_api(
-                endpoint=endpoint,
-                extra_options={"stream": True, "allow_redirects": True},
-            )
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=endpoint,
+                    extra_options={"stream": True, "allow_redirects": True},
+                )
+            except (RetryError, AirflowException) as e:
+                if workflows.handle_withdrawn_arxiv_error(e, arxiv_hook, workflow_id):
+                    return "save_and_complete_workflow"
+                raise
 
             if not workflows.is_pdf_link(response):
-                return
+                return "preprocessing.arxiv_package_download"
 
             url = arxiv_hook.get_url() + endpoint
             filename = secure_filename(f"{arxiv_id}.pdf")
@@ -1071,13 +1077,17 @@ def hep_create_dag():
 
             s3_store.write_workflow(workflow_data)
 
+            return "preprocessing.arxiv_package_download"
+
         @task(execution_timeout=datetime.timedelta(minutes=5))
-        def arxiv_plot_extract(tarball_key, **context):
+        def arxiv_plot_extract(**context):
             """Extract plots from an arXiv archive."""
 
-            workflow = s3_store.read_workflow(context["params"]["workflow_id"])
+            workflow_id = context["params"]["workflow_id"]
+            workflow = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
+            tarball_key = workflows.get_tarball_key(workflow_id)
 
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
                 tarball_file = s3_store.hook.download_file(
@@ -1136,8 +1146,8 @@ def hep_create_dag():
             workflows.delete_empty_key(workflow, "figures")
             s3_store.write_workflow(workflow)
 
-        @task(trigger_rule=TriggerRule.ALL_DONE_MIN_ONE_SUCCESS)
-        def arxiv_author_list(tarball_key, **context):
+        @task
+        def arxiv_author_list(**context):
             """Extract authors from any author XML found in the arXiv archive.
 
             :param obj: Workflow Object to process
@@ -1148,7 +1158,9 @@ def hep_create_dag():
                 "<collaborationauthorlist.*?>.*?</collaborationauthorlist>", re.DOTALL
             )
 
-            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3_store.read_workflow(workflow_id)
+            tarball_key = workflows.get_tarball_key(workflow_id)
 
             has_author_xml = False
 
@@ -1241,10 +1253,17 @@ def hep_create_dag():
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
-        populate_arxiv_document_task = populate_arxiv_document()
-        arxiv_package_download_task = arxiv_package_download()
+        populate_arxiv_document_task = ShortCircuitBranchOperator(
+            task_id="populate_arxiv_document",
+            python_callable=_populate_arxiv_document,
+        )
+        arxiv_plot_extract_task = arxiv_plot_extract()
+        arxiv_package_download_task = ShortCircuitBranchOperator(
+            task_id="arxiv_package_download",
+            python_callable=_arxiv_package_download,
+        )
         populate_submission_document_task = populate_submission_document()
-        arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
+        arxiv_author_list_task = arxiv_author_list()
         normalize_journal_titles_task = normalize_journal_titles()
         extract_authors_from_pdf_task = extract_authors_from_pdf()
         refextract_task = refextract()
@@ -1263,8 +1282,15 @@ def hep_create_dag():
 
         (
             populate_arxiv_document_task
-            >> arxiv_package_download_task
-            >> arxiv_plot_extract(arxiv_package_download_task)
+            >> [save_and_complete_workflow_task, arxiv_package_download_task]
+        )
+
+        (
+            arxiv_package_download_task
+            >> [save_and_complete_workflow_task, arxiv_plot_extract_task]
+        )
+        (
+            arxiv_plot_extract_task
             >> arxiv_author_list_task
             >> populate_submission_document_task
             >> download_documents()

@@ -24,6 +24,7 @@ from include.utils.constants import (
     DECISION_DISCARD,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
+    DECISION_WITHDRAWN,
     HEP_CREATE,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
@@ -43,6 +44,7 @@ from include.utils.constants import (
 from include.utils.tickets import get_ticket_by_type
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
+from requests import Response
 from tenacity import Future, RetryError
 
 from tests.test_utils import (
@@ -50,6 +52,29 @@ from tests.test_utils import (
 )
 
 dagbag = DagBag()
+
+
+def raise_withdrawn_arxiv_error(hook, *args, **kwargs):
+    response = Response()
+    response.status_code = 404
+    response._content = b"The article has been withdrawn and is unavailable"
+    hook.last_response = response
+
+    last_attempt = Future(attempt_number=1)
+    last_attempt.set_exception(AirflowException("404:Not Found"))
+    raise RetryError(last_attempt=last_attempt)
+
+
+def raise_not_found_arxiv_error(hook, *args, **kwargs):
+    response = Response()
+    response.status_code = 404
+    response._content = b"<html>404</html>"
+    hook.last_response = response
+
+    last_attempt = Future(attempt_number=1)
+    last_attempt.set_exception(AirflowException("404:Not Found"))
+    raise RetryError(last_attempt=last_attempt)
+
 
 HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
 
@@ -870,7 +895,35 @@ class Test_HEPCreateDAG:
             },
         )
         res = task_test(self.dag, "preprocessing.arxiv_package_download", self.context)
-        assert res == f"{self.workflow_id}/2508.17630.tar.gz"
+        assert res == "preprocessing.arxiv_plot_extract"
+        assert self.s3_store.hook.check_for_key(
+            workflows.get_tarball_key(self.workflow_id), self.s3_store.bucket_name
+        )
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api", autospec=True)
+    def test_arxiv_package_download_handles_withdrawn_paper(
+        self, mock_call_api, mock_add_decision
+    ):
+        mock_call_api.side_effect = raise_withdrawn_arxiv_error
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "2607.18295"}]},
+            }
+        )
+
+        result = task_test(
+            self.dag, "preprocessing.arxiv_package_download", self.context
+        )
+
+        assert result == "save_and_complete_workflow"
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
 
     def test_arxiv_author_list_with_missing_tarball(self):
         schema = load_schema("hep")
@@ -900,6 +953,9 @@ class Test_HEPCreateDAG:
             },
         )
         validate(workflow_data["data"]["arxiv_eprints"], eprints_subschema)
+        self.s3_store.hook.delete_objects(
+            self.s3_store.bucket_name, workflows.get_tarball_key(self.workflow_id)
+        )
 
         task_test(
             self.dag,
@@ -910,7 +966,7 @@ class Test_HEPCreateDAG:
 
     def test_arxiv_author_list_handles_no_author_list(self, datadir):
         tarball_name = "2411.11095.tar.gz"
-        tarball_key = f"{self.workflow_id}/{tarball_name}"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         self.s3_store.hook.load_file(
             datadir / tarball_name,
@@ -934,7 +990,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_author_list",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -942,7 +997,7 @@ class Test_HEPCreateDAG:
 
     def test_arxiv_ignores_random_xml_files(self, datadir):
         tarball_name = "2411.11095.tar.gz"
-        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         self.s3_store.hook.load_file(
             datadir / tarball_name,
@@ -963,7 +1018,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_author_list",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -971,7 +1025,7 @@ class Test_HEPCreateDAG:
 
     def test_arxiv_author_list_only_overrides_authors(self, datadir):
         tarball_name = "1703.09986.tar.gz"
-        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         self.s3_store.hook.load_file(
             datadir / tarball_name,
@@ -1000,7 +1054,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_author_list",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1022,7 +1075,7 @@ class Test_HEPCreateDAG:
 
         tarball_name = "1703.09986.multiple_author_lists.tar.gz"
 
-        tarball_key = f"{self.workflow_id}/{tarball_name}"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         self.s3_store.hook.load_file(
             (datadir / tarball_name), tarball_key, replace=True
@@ -1045,7 +1098,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_author_list",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1078,7 +1130,7 @@ class Test_HEPCreateDAG:
 
         tarball_name = "1802.03388.tar.gz"
 
-        tarball_key = f"{self.workflow_id}/{tarball_name}"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         self.s3_store.hook.load_file(
             (datadir / tarball_name),
@@ -1112,7 +1164,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_author_list",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1205,7 +1256,7 @@ class Test_HEPCreateDAG:
         assert "full" in result["journal_coverage"]
 
     def test_arxiv_plot_extract(self, datadir):
-        tarball_key = f"{self.workflow_id}/test"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
         self.s3_store.hook.load_file(
             (datadir / "arXiv-2509.06062v1.tar.gz"),
             tarball_key,
@@ -1220,7 +1271,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_plot_extract",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1236,7 +1286,7 @@ class Test_HEPCreateDAG:
         schema = load_schema("hep")
         subschema = schema["properties"]["arxiv_eprints"]
 
-        tarball_key = f"{self.workflow_id}/test"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
         self.s3_store.hook.load_file(
             (datadir / "0804.1873.tar.gz"),
             tarball_key,
@@ -1264,7 +1314,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_plot_extract",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1292,7 +1341,7 @@ class Test_HEPCreateDAG:
         schema = load_schema("hep")
         subschema = schema["properties"]["arxiv_eprints"]
 
-        tarball_key = f"{self.workflow_id}/test"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
         self.s3_store.hook.load_file(
             (datadir / "0804.1873.tar.gz"),
             tarball_key,
@@ -1321,7 +1370,6 @@ class Test_HEPCreateDAG:
                     self.dag,
                     "preprocessing.arxiv_plot_extract",
                     self.context,
-                    params={"tarball_key": tarball_key},
                 )
                 is None
             )
@@ -1353,7 +1401,7 @@ class Test_HEPCreateDAG:
         schema = load_schema("hep")
         subschema = schema["properties"]["arxiv_eprints"]
 
-        tarball_key = f"{self.workflow_id}/test"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
         self.s3_store.hook.load_file(
             (datadir / "1711.10662.tar.gz"),
             tarball_key,
@@ -1380,14 +1428,13 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_plot_extract",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
         assert len(workflow_result["data"]["figures"]) == 66
 
     def test_arxiv_plot_extract_logs_when_tarball_is_invalid(self, datadir):
-        tarball_key = f"{self.workflow_id}/test"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
         self.s3_store.hook.load_file(
             (datadir / "1612.00626"),
             tarball_key,
@@ -1414,7 +1461,6 @@ class Test_HEPCreateDAG:
             self.dag,
             "preprocessing.arxiv_plot_extract",
             self.context,
-            params={"tarball_key": tarball_key},
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1422,7 +1468,7 @@ class Test_HEPCreateDAG:
         assert "figures" not in workflow_result["data"]
 
     def test_arxiv_plot_extract_no_file(self):
-        tarball_key = f"{self.workflow_id}/no-file"
+        tarball_key = workflows.get_tarball_key(self.workflow_id)
 
         workflow_data = {
             "id": self.workflow_id,
@@ -1439,13 +1485,13 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.hook.delete_objects(self.s3_store.bucket_name, tarball_key)
 
         with pytest.raises(ClientError, match="Not Found"):
             task_test(
                 self.dag,
                 "preprocessing.arxiv_plot_extract",
                 self.context,
-                params={"tarball_key": tarball_key},
             )
 
     @pytest.mark.vcr
@@ -1863,6 +1909,31 @@ class Test_HEPCreateDAG:
         ]
         assert workflow_data["data"]["documents"] == expected
 
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api", autospec=True)
+    def test_populate_arxiv_document_handles_withdrawn_paper(
+        self, mock_call_api, mock_add_decision
+    ):
+        mock_call_api.side_effect = raise_withdrawn_arxiv_error
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "2607.18295"}]},
+            }
+        )
+
+        result = task_test(
+            self.dag, "preprocessing.populate_arxiv_document", self.context
+        )
+
+        assert result == "save_and_complete_workflow"
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
+
     @pytest.mark.vcr
     def test_populate_arxiv_document_does_not_duplicate_files_if_called_multiple_times(
         self,
@@ -1894,7 +1965,14 @@ class Test_HEPCreateDAG:
         workflow_data = self.s3_store.read_workflow(self.workflow_id)
         assert len(workflow_data["data"]["documents"]) == 1
 
-    def test_populate_arxiv_document_logs_on_pdf_not_existing(self):
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api", autospec=True)
+    def test_populate_arxiv_document_logs_on_pdf_not_existing(
+        self, mock_call_api, mock_add_decision
+    ):
+        mock_call_api.side_effect = raise_not_found_arxiv_error
         schema = load_schema("hep")
         subschema = schema["properties"]["arxiv_eprints"]
 
@@ -1906,7 +1984,7 @@ class Test_HEPCreateDAG:
                         "categories": [
                             "cs.CV",
                         ],
-                        "value": "2412.13417",
+                        "value": "2412.99999",
                     },
                 ],
             },
@@ -1918,6 +1996,8 @@ class Test_HEPCreateDAG:
 
         with pytest.raises(RetryError):
             task_test(self.dag, "preprocessing.populate_arxiv_document", self.context)
+
+        mock_add_decision.assert_not_called()
 
     @pytest.mark.vcr
     def test_normalize_journal_titles_with_data(self):
