@@ -24,6 +24,7 @@ import recordEditor, {
   initialState as recordEditorInitialState,
 } from './recordEditor';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
+import authorlist from './authorlist';
 
 export default function createRootReducer(routerReducer) {
   return combineReducers({
@@ -44,6 +45,7 @@ export default function createRootReducer(routerReducer) {
     experiments,
     data,
     bibliographyGenerator,
+    authorlist,
     journals,
     backoffice,
     recordEditor,

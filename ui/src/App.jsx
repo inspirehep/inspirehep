@@ -30,6 +30,7 @@ import {
   BIBLIOGRAPHY_GENERATOR,
   JOURNALS,
   NEW_EDITOR,
+  AUTHORLIST_TOOL,
 } from './common/routes';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
 import { fetchLoggedInUser } from './actions/user';
@@ -50,6 +51,7 @@ import Experiments from './experiments';
 import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
+import AuthorlistToolContainer from './authorlistTool/AuthorlistToolContainer';
 
 const LazyBackoffice = React.lazy(() => import('./backoffice'));
 const LazySubmissions = React.lazy(() => import('./submissions'));
@@ -120,6 +122,14 @@ function App({
               <Route
                 path={`${BIBLIOGRAPHY_GENERATOR}/*`}
                 element={<BibliographyGeneratorPageContainer />}
+              />
+              <Route
+                path={`${AUTHORLIST_TOOL}/*`}
+                element={
+                  <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                    <AuthorlistToolContainer />
+                  </RequireAuth>
+                }
               />
               <Route
                 path={`${NEW_EDITOR}/*`}

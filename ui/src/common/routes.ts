@@ -72,3 +72,4 @@ export const EDIT_DATA = `${EDITOR}/record/data`;
 export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';
+export const AUTHORLIST_TOOL = '/authorlist-tool';
