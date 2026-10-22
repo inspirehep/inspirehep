@@ -492,7 +492,7 @@ mysqlclient==2.2.8
 narwhals==2.26.0
 natsort==8.4.0
 nbclient==0.11.0
-nbconvert==7.17.1
+nbconvert==7.17.2
 nbformat==5.11.1
 neo4j==6.3.0
 nest-asyncio2==1.7.2
