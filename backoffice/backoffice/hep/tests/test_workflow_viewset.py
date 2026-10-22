@@ -61,19 +61,17 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             id=uuid.UUID(int=2),
         )
 
-    def test_list_curator(self):
+    def test_list_not_allowed_curator(self):
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.get(self.endpoint, format="json")
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.status_code, 405)
 
-    def test_list_admin(self):
+    def test_list_not_allowed_admin(self):
         self.api_client.force_authenticate(user=self.admin)
         response = self.api_client.get(self.endpoint, format="json")
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.status_code, 405)
 
     def test_list_anonymous(self):
         self.api_client.force_authenticate(user=self.user)
