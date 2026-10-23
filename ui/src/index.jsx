@@ -24,6 +24,14 @@ Sentry.init({
   ignoreErrors: [
     'ResizeObserver loop limit exceeded',
     'ResizeObserver loop completed with undelivered notifications',
+    /Object Not Found Matching Id:\d+, MethodName:update, ParamCount:\d+/,
+    /Invalid call to runtime\.sendMessage\(\)\. Tab not found\./,
+  ],
+  denyUrls: [
+    /^chrome-extension:\/\//i,
+    /^moz-extension:\/\//i,
+    /^safari-(web-)?extension:\/\//i,
+    /^\/\/hidden\/$/,
   ],
 });
 Sentry.setUser({ id: getClientId() });
