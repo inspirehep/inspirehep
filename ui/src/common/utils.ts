@@ -120,8 +120,8 @@ export function mergeWithConcattingArrays(destObject: any, ...sources: any) {
 }
 
 export function httpErrorToActionPayload(httpError: any) {
-  const { message } = httpError;
-  if (message === 'Network Error') {
+  const { message, code } = httpError;
+  if (message === 'Network Error' || code === 'ECONNABORTED') {
     return {
       error: { status: 'network' },
     };
