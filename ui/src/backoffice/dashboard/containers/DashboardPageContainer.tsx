@@ -50,7 +50,6 @@ const META_DESCRIPTION =
 const TITLE = 'Home - Backoffice';
 
 const { Search } = Input;
-const { Option } = Select;
 
 const DashboardPageContainer = ({
   dispatch,
@@ -183,12 +182,12 @@ const DashboardPageContainer = ({
                 )
               }
               style={{ height: '48px' }}
-            >
-              <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
-                Literature
-              </Option>
-              <Option value={BACKOFFICE_AUTHORS_SEARCH_NS}>Authors</Option>
-            </Select>
+              options={[
+                { value: BACKOFFICE_LITERATURE_SEARCH_NS, label: 'Literature' },
+                { value: BACKOFFICE_AUTHORS_SEARCH_NS, label: 'Authors' },
+              ]}
+            />
+
             <Search
               className="search-container"
               enterButton

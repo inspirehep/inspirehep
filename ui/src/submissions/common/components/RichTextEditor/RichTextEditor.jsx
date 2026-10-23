@@ -90,6 +90,4 @@ function RichTextEditor(props) {
   );
 }
 
-RichTextEditor.propTypes = QuillEditor.propTypes;
-
 export default RichTextEditor;
