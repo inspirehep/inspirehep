@@ -47,8 +47,7 @@ export class AuthorExtractActionsComponent {
   source: string;
   replaceExisting = true;
   extractingToast: ActiveToast;
-  helpLink =
-    'https://cern.service-now.com/service-portal?sys_kb_id=c306d05e83f60b10bd5a5fb6feaad38a&id=kb_article_view&sysparm_rank=1&sysparm_tsqueryId=10a255eb837e4710bd5a5fb6feaad33c';
+  helpLink = '/authorlist-tool';
 
   constructor(
     private apiService: CommonApiService,
