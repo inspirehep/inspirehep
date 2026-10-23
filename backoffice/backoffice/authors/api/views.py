@@ -9,7 +9,6 @@ from drf_spectacular.utils import (
 )
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -191,6 +190,7 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
     serializer_class = AuthorWorkflowSerializer
     resolution_serializer = AuthorResolutionSerializer
     schema_name = "authors"
+    status_choices = AuthorStatusChoices
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -260,59 +260,6 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
                 "Error clearing Airflow DAG",
                 e,
             )
-        return Response(self.get_serializer(workflow).data)
-
-    @action(detail=True, methods=["post"])
-    def restart(self, request, pk=None):
-        workflow = get_object_or_404(AuthorWorkflow, pk=pk)
-
-        restart_current_task = request.data.get("restart_current_task")
-
-        try:
-            if restart_current_task:
-                response = airflow_utils.restart_failed_tasks(
-                    workflow.id, workflow.workflow_type
-                )
-                error_msg = "No failed tasks found to restart. Skipping restart."
-            else:
-                executed_dags = airflow_utils.find_executed_dags(
-                    workflow.id, workflow.workflow_type
-                )
-                has_failed_dag = airflow_utils.find_failed_dag_for_workflow(
-                    executed_dags
-                )
-                has_no_executions = not executed_dags
-
-                if has_failed_dag or has_no_executions:
-                    response = airflow_utils.restart_workflow_dags(
-                        workflow.id,
-                        workflow.workflow_type,
-                        request.data.get("params"),
-                        workflow=self.get_serializer(workflow).data,
-                    )
-                    error_msg = "No run configuration found. Skipping restart."
-                else:
-                    response = None
-                    error_msg = (
-                        "Workflow has already run successfully. Skipping restart."
-                    )
-
-            if response is None:
-                return Response(
-                    {"error": error_msg}, status=status.HTTP_400_BAD_REQUEST
-                )
-
-        except RequestException as e:
-            return handle_request_exception(
-                "Error restarting Airflow DAGs for workflow %s",
-                e,
-                workflow.id,
-                response_text="Error restarting Airflow DAGs for workflow %s",
-            )
-
-        workflow.status = AuthorStatusChoices.PROCESSING
-        workflow.save()
-
         return Response(self.get_serializer(workflow).data)
 
 
