@@ -306,7 +306,7 @@ fastavro==1.12.2
 fastcore==2.2.23
 fastjsonschema==2.22.2
 fastuuid==0.14.0
-filelock==3.32.6
+filelock==4.2.1
 flask-appbuilder==5.2.2
 flask-babel==4.0.0
 flower==2.1.0
