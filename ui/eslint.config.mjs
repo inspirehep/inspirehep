@@ -513,4 +513,25 @@ export default defineConfig([
       'import/named': 'off',
     },
   },
+  {
+    // Type-aware linting to flag usage of any `@deprecated`-annotated API
+    //  Scoped to src/ because only `src` is in tsconfig's `include`
+    // (with allowJs, so .jsx/.js are covered too) and `yarn lint` only targets ./src.
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
+
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+
+    rules: {
+      '@typescript-eslint/no-deprecated': 'error',
+    },
+  },
 ]);

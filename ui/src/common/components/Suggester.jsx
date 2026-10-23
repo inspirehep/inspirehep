@@ -54,12 +54,7 @@ class Suggester extends Component {
     }
   }
 
-  responseDataToResults(responseData) {
-    const { suggesterName } = this.props;
-    return responseData[suggesterName][0].options;
-  }
-
-  renderSuggestions() {
+  getOptions() {
     const { results } = this.state;
     const {
       renderResultItem,
@@ -71,17 +66,19 @@ class Suggester extends Component {
       const completionValue = extractItemCompletionValue
         ? extractItemCompletionValue(result)
         : uniqueValue;
-      return (
-        <AutoComplete.Option
-          key={uniqueValue}
-          value={uniqueValue}
-          completionValue={completionValue}
-          suggestion={result}
-        >
-          {renderResultItem ? renderResultItem(result) : completionValue}
-        </AutoComplete.Option>
-      );
+      return {
+        key: uniqueValue,
+        value: uniqueValue,
+        label: renderResultItem ? renderResultItem(result) : completionValue,
+        completionValue,
+        suggestion: result,
+      };
     });
+  }
+
+  responseDataToResults(responseData) {
+    const { suggesterName } = this.props;
+    return responseData[suggesterName][0].options;
   }
 
   render() {
@@ -98,10 +95,9 @@ class Suggester extends Component {
       <AutoComplete
         {...autoCompleteProps}
         onSelect={this.onSuggestionSelect}
-        onSearch={this.onSearch}
-      >
-        {this.renderSuggestions()}
-      </AutoComplete>
+        showSearch={{ onSearch: this.onSearch }}
+        options={this.getOptions()}
+      />
     );
   }
 }
