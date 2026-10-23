@@ -15,6 +15,7 @@ from inspirehep.curation.api import (
     normalize_affiliations,
     normalize_collaborations,
 )
+from inspirehep.curation.utils import find_institution_by_ror
 
 
 @pytest.mark.usefixtures("_insert_experiments_into_db")
@@ -568,3 +569,159 @@ def test_assign_institution_reference_to_affiliations(inspire_app):
     affiliations = [{"value": "CERN"}, {"value": "Warsaw U."}]
     assign_institution_reference_to_affiliations(affiliations, {})
     assert ["record" in affiliation for affiliation in affiliations]
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_find_institution_by_ror_returns_match(inspire_app):
+    result = find_institution_by_ror("https://ror.org/00nzsxq20")
+
+    assert result["legacy_ICN"] == "NCBJ, Swierk"
+    assert result["self"]["$ref"] == "http://localhost:5000/api/institutions/1126070"
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_find_institution_by_ror_excludes_obsolete_institution(inspire_app):
+    result = find_institution_by_ror("https://ror.org/0testxx99")
+
+    assert result is None
+
+
+def test_find_institution_by_ror_returns_none_when_not_found(inspire_app):
+    result = find_institution_by_ror("https://ror.org/does-not-exist")
+
+    assert result is None
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_normalize_affiliations_one_to_one_ror_match(inspire_app):
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "full_name": "Kozioł, Karol",
+                "raw_affiliations": [{"value": "NCBJ Świerk"}],
+                "affiliations_identifiers": [
+                    {"schema": "ROR", "value": "https://ror.org/00nzsxq20"}
+                ],
+            }
+        ],
+    }
+
+    data = normalize_affiliations(record["authors"])
+
+    assert data["normalized_affiliations"][0] == [
+        {
+            "record": {"$ref": "http://localhost:5000/api/institutions/1126070"},
+            "value": "NCBJ, Swierk",
+        }
+    ]
+    assert data["ambiguous_affiliations"] == []
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db", "_insert_literature_in_db")
+def test_normalize_affiliations_one_to_one_ror_miss_falls_back_to_raw(inspire_app):
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "full_name": "Latacz, Barbara",
+                "raw_affiliations": [{"value": "CERN, Genève, Switzerland"}],
+                "affiliations_identifiers": [
+                    {"schema": "ROR", "value": "https://ror.org/does-not-exist"}
+                ],
+            }
+        ],
+    }
+
+    data = normalize_affiliations(record["authors"])
+
+    assert data["normalized_affiliations"][0] == [
+        {
+            "record": {"$ref": "http:/localhost:5000/api/institutions/902725"},
+            "value": "CERN",
+        }
+    ]
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_normalize_affiliations_ror_only_no_fallback_match(inspire_app):
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "full_name": "Kozioł, Karol",
+                "affiliations_identifiers": [
+                    {"schema": "ROR", "value": "https://ror.org/00nzsxq20"}
+                ],
+            }
+        ],
+    }
+
+    data = normalize_affiliations(record["authors"])
+
+    assert data["normalized_affiliations"][0] == [
+        {
+            "record": {"$ref": "http://localhost:5000/api/institutions/1126070"},
+            "value": "NCBJ, Swierk",
+        }
+    ]
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_normalize_affiliations_ror_only_no_match_no_fallback(inspire_app):
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "full_name": "Kozioł, Karol",
+                "affiliations_identifiers": [
+                    {"schema": "ROR", "value": "https://ror.org/does-not-exist"}
+                ],
+            }
+        ],
+    }
+
+    data = normalize_affiliations(record["authors"])
+
+    # no raw_affiliations to fall back to and no raw string to flag as ambiguous
+    assert data["normalized_affiliations"][0] == []
+    assert data["ambiguous_affiliations"] == []
+
+
+@pytest.mark.usefixtures("_insert_institutions_in_db", "_insert_literature_in_db")
+def test_normalize_affiliations_mismatched_counts_ignores_ror(inspire_app):
+    # 2 raw_affiliations but only 1 ROR id: falls into "everything else",
+    # ROR matching must not be attempted at all
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "full_name": "Kozioł, Karol",
+                "raw_affiliations": [
+                    {"value": "NCBJ Świerk"},
+                    {"value": "CERN, Genève, Switzerland"},
+                ],
+                "affiliations_identifiers": [
+                    {"schema": "ROR", "value": "https://ror.org/00nzsxq20"}
+                ],
+            }
+        ],
+    }
+
+    data = normalize_affiliations(record["authors"])
+
+    assert {"value": "NCBJ, Swierk"} in data["normalized_affiliations"][0]
+    assert {
+        "record": {"$ref": "http:/localhost:5000/api/institutions/902725"},
+        "value": "CERN",
+    } in data["normalized_affiliations"][0]
