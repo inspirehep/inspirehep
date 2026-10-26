@@ -2693,7 +2693,7 @@ tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage 
 type = "git"
 url = "https://github.com/inspirehep/invenio-oauthclient.git"
 reference = "rest-api"
-resolved_reference = "77ed9cac767a5c33ccc68ebe06c442e53a83e859"
+resolved_reference = "dc827ed16d05d2d7b376b0fa76ba0ea870b67f0b"
 
 [[package]]
 name = "invenio-pidstore"
