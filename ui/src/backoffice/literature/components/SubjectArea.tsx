@@ -200,10 +200,11 @@ const SubjectArea = ({
               <AutoComplete
                 options={inspireCategoryOptions}
                 placeholder="Select a subject"
-                filterOption={(input, option) =>
-                  !!option &&
-                  option.value.toLowerCase().includes(input.toLowerCase())
-                }
+                showSearch={{
+                  filterOption: (input, option) =>
+                    !!option &&
+                    option.value.toLowerCase().includes(input.toLowerCase()),
+                }}
                 onKeyDown={(e: React.KeyboardEvent) => {
                   if (e.key === 'Enter' && !disableActions) {
                     form.submit();

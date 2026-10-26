@@ -2,7 +2,7 @@ import React, {
   useCallback,
   useState,
   useMemo,
-  MutableRefObject,
+  RefObject,
   PropsWithChildren,
   ReactNode,
   useRef,
@@ -35,11 +35,11 @@ const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> = (
   const carouselLastIndex = React.Children.count(children) - 1;
 
   const onNextClick = useCallback(() => {
-    (carouselRef as MutableRefObject<any>).current.next();
+    (carouselRef as RefObject<any>).current.next();
   }, [carouselRef]);
 
   const onPreviousClick = useCallback(() => {
-    (carouselRef as MutableRefObject<any>).current.prev();
+    (carouselRef as RefObject<any>).current.prev();
   }, [carouselRef]);
 
   const onCourselIndexChange = useCallback((_: number, newIndex: number) => {

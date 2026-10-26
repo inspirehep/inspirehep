@@ -6,9 +6,9 @@ function SelectBox({ options, virtualScroll = false, ...selectProps }) {
       popupMatchSelectWidth={virtualScroll}
       data-testid="select-box"
       {...selectProps}
-    >
-      {options.map((option) => (
-        <Select.Option key={option.value} value={option.value}>
+      options={options.map((option) => ({
+        value: option.value,
+        label: (
           <span
             data-testid={
               selectProps['data-testid'] &&
@@ -17,9 +17,9 @@ function SelectBox({ options, virtualScroll = false, ...selectProps }) {
           >
             {option.display || option.value}
           </span>
-        </Select.Option>
-      ))}
-    </Select>
+        ),
+      }))}
+    />
   );
 }
 
