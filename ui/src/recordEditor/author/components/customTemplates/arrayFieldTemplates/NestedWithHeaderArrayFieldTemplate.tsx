@@ -1,8 +1,7 @@
 import { ArrayFieldTemplateProps, RJSFSchema, UiSchema } from '@rjsf/utils';
-import { Button, Dropdown, Space } from 'antd';
-import { CaretDownOutlined } from '@ant-design/icons';
 
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
+import ActionsDropdown from '../ActionsDropdown';
 
 function NestedWithHeaderArrayFieldTemplate({
   title,
@@ -25,47 +24,15 @@ function NestedWithHeaderArrayFieldTemplate({
     ? order.filter((key) => key in itemProperties)
     : Object.keys(itemProperties);
 
-  const actions = [
-    {
-      key: 'add',
-      label: (
-        <Button type="link" onClick={onAddClick} style={{ width: '100%' }}>
-          Add new
-        </Button>
-      ),
-    },
-    {
-      key: 'delete',
-      label: (
-        <Button
-          type="link"
-          danger
-          onClick={() => onFieldChange(undefined)}
-          style={{ width: '100%' }}
-        >
-          Delete
-        </Button>
-      ),
-    },
-  ];
-
   return (
     <tr>
       <td className="record-editor-array__row-label">
-        <Dropdown
-          menu={{ items: actions }}
-          trigger={['click']}
-          disabled={readonly}
-          styles={{
-            root: { width: '100px', minWidth: '100px' },
-            item: { padding: 0 },
-          }}
-        >
-          <Space styles={{ root: { width: '100%' } }}>
-            {displayTitle}
-            <CaretDownOutlined />
-          </Space>
-        </Dropdown>
+        <ActionsDropdown
+          onAddClick={onAddClick}
+          onRemoveClick={() => onFieldChange(undefined)}
+          disabled={readonly ?? false}
+          title={displayTitle}
+        />
       </td>
       <td className="record-editor-array__cell">
         <table className="record-editor-array__table">

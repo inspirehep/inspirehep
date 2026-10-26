@@ -24,6 +24,7 @@ import {
   EDITOR_USERS_REQUEST,
   EDITOR_USERS_SUCCESS,
 } from '../actions/actionTypes';
+import { toRevision, toTicket } from '../recordEditor/types';
 
 export const initialState = fromJS({
   recordData: {
@@ -83,7 +84,10 @@ const RecordEditorReducer = (state = initialState, action) => {
         );
     case EDITOR_AUTHOR_REVISIONS_SUCCESS:
       return state
-        .setIn(['recordData', 'author_revisions'], fromJS(action.payload.data))
+        .setIn(
+          ['recordData', 'author_revisions'],
+          fromJS(action.payload.data.map((revision) => toRevision(revision)))
+        )
         .setIn(['recordData', 'revisionError'], null);
     case EDITOR_AUTHOR_REVISION_DATA_REQUEST:
       return state
@@ -158,7 +162,10 @@ const RecordEditorReducer = (state = initialState, action) => {
         .setIn(['tickets', 'ticketsError'], 'Error while fetching tickets');
     case EDITOR_TICKETS_SUCCESS:
       return state
-        .setIn(['tickets', 'items'], fromJS(action.payload.data))
+        .setIn(
+          ['tickets', 'items'],
+          fromJS(action.payload.data.map((ticket) => toTicket(ticket)))
+        )
         .setIn(['tickets', 'ticketsError'], null);
     default:
       return state;

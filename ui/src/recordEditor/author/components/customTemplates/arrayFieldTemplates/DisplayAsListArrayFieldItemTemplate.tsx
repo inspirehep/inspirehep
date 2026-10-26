@@ -1,12 +1,9 @@
 import { ArrayFieldItemTemplateProps } from '@rjsf/utils';
 import { Button } from 'antd';
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { useArrayAddItem } from '../../../ArrayAddItemContext';
 import { ArrayItemRemoveContext } from '../../../ArrayItemRemoveContext';
+import ReorderButtons from './ReorderButtons';
 
 function DisplayAsListArrayFieldItemTemplate({
   children,
@@ -37,19 +34,12 @@ function DisplayAsListArrayFieldItemTemplate({
         >
           {canReorder && (
             <div className="flex justify-end pb1">
-              <Button
-                type="text"
-                aria-label="Move up"
-                icon={<ArrowUpOutlined />}
-                onClick={buttonsProps.onMoveUpItem}
-                disabled={readonly || !buttonsProps.hasMoveUp}
-              />
-              <Button
-                type="text"
-                aria-label="Move down"
-                icon={<ArrowDownOutlined />}
-                onClick={buttonsProps.onMoveDownItem}
-                disabled={readonly || !buttonsProps.hasMoveDown}
+              <ReorderButtons
+                onMoveDownItem={buttonsProps.onMoveDownItem}
+                onMoveUpItem={buttonsProps.onMoveUpItem}
+                readonly={readonly ?? false}
+                hasMoveDown={buttonsProps.hasMoveDown}
+                hasMoveUp={buttonsProps.hasMoveUp}
               />
             </div>
           )}

@@ -1,8 +1,7 @@
 import { ArrayFieldTemplateProps, RJSFSchema, UiSchema } from '@rjsf/utils';
-import { Button, Dropdown, Space } from 'antd';
-import { CaretDownOutlined } from '@ant-design/icons';
 
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
+import ActionsDropdown from '../ActionsDropdown';
 
 function DefaultArrayFieldTemplate({
   title,
@@ -30,51 +29,17 @@ function DefaultArrayFieldTemplate({
 
   const onFieldChange = useFieldOnChange();
 
-  const actions = [
-    canAdd
-      ? {
-          key: 'add',
-          label: (
-            <Button type="link" onClick={onAddClick} style={{ width: '100%' }}>
-              Add new
-            </Button>
-          ),
-        }
-      : undefined,
-    canRemove
-      ? {
-          key: 'delete',
-          label: (
-            <Button
-              type="link"
-              danger
-              onClick={() => onFieldChange(undefined)}
-              style={{ width: '100%' }}
-            >
-              Delete
-            </Button>
-          ),
-        }
-      : undefined,
-  ];
-
   return (
     <div className="record-editor-array">
       <div className="record-editor-array__header">
-        <Dropdown
-          menu={{ items: actions.filter((action) => action !== undefined) }}
-          trigger={['click']}
-          disabled={readonly}
-          styles={{
-            root: { width: '100px', minWidth: '100px' },
-            item: { padding: 0 },
-          }}
-        >
-          <Space styles={{ root: { width: '100%' } }}>
-            {displayTitle}
-            <CaretDownOutlined />
-          </Space>
-        </Dropdown>
+        <ActionsDropdown
+          canAdd={canAdd ?? false}
+          canRemove={canRemove}
+          onAddClick={onAddClick}
+          onRemoveClick={() => onFieldChange(undefined)}
+          disabled={readonly ?? false}
+          title={displayTitle}
+        />
       </div>
       <table className="record-editor-array__table">
         {showHeader && (

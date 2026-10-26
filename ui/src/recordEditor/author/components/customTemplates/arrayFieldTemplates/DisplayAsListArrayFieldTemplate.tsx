@@ -1,8 +1,7 @@
-import { CaretDownOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Space } from 'antd';
 import { ArrayFieldTemplateProps } from '@rjsf/utils';
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
 import { ArrayAddItemContext } from '../../../ArrayAddItemContext';
+import ActionsDropdown from '../ActionsDropdown';
 
 function DisplayAsListArrayFieldTemplate({
   title,
@@ -17,47 +16,15 @@ function DisplayAsListArrayFieldTemplate({
   const addAt = (index: number) =>
     (onAddClick as (event: undefined, index: number) => void)(undefined, index);
 
-  const actions = [
-    {
-      key: 'add',
-      label: (
-        <Button type="link" onClick={onAddClick} style={{ width: '100%' }}>
-          Add new
-        </Button>
-      ),
-    },
-    {
-      key: 'delete',
-      label: (
-        <Button
-          type="link"
-          danger
-          onClick={() => onFieldChange(undefined)}
-          style={{ width: '100%' }}
-        >
-          Delete
-        </Button>
-      ),
-    },
-  ];
-
   return (
     <div className="record-editor-field">
       <div className="record-editor-field__label">
-        <Dropdown
-          menu={{ items: actions }}
-          trigger={['click']}
-          disabled={readonly}
-          styles={{
-            root: { width: '100px', minWidth: '100px' },
-            item: { padding: 0 },
-          }}
-        >
-          <Space styles={{ root: { width: '100%' } }}>
-            {displayTitle}
-            <CaretDownOutlined />
-          </Space>
-        </Dropdown>
+        <ActionsDropdown
+          onAddClick={onAddClick}
+          onRemoveClick={() => onFieldChange(undefined)}
+          disabled={readonly ?? false}
+          title={displayTitle}
+        />
       </div>
       <ArrayAddItemContext.Provider value={{ addAt }}>
         <div>{items}</div>

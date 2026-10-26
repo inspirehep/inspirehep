@@ -10,8 +10,11 @@ import './Tickets.less';
 import { legacy_connect as connect } from 'react-redux';
 import { RootState } from '../../../types';
 import { HttpClientWrapper } from '../../../common/http';
-import { Queue, Ticket, TicketFromApi, toTicket, User } from '../../types';
-import { createTicket, resolveTicket } from '../../../actions/recordEditor';
+import { Queue, Ticket, User } from '../../types';
+import {
+  createTicket,
+  resolveTicket,
+} from '../../../actions/recordEditor/tickets';
 
 interface TicketItemProps {
   ticket: Ticket;
@@ -86,9 +89,9 @@ function Tickets({
   const [description, setDescription] = useState('');
   const [isCreating, setIsCreating] = useState(false);
 
-  const ticketsData = (tickets.toJS() as TicketFromApi[])
-    .filter((ticket) => ticket.u_functional_category !== 'HEP_conflicts')
-    .map((ticket) => toTicket(ticket));
+  const ticketsData = (tickets.toJS() as Ticket[]).filter(
+    (ticket) => ticket.category !== 'HEP_conflicts'
+  );
 
   const queuesData = queues.toJS() as Queue[];
   const queuesOptions = queuesData.map((queue) => ({

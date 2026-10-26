@@ -14,6 +14,14 @@ export interface RevisionFromApi {
   transaction_id: number;
 }
 
+export const toRevision = (revision: RevisionFromApi): Revision => ({
+  updated: revision.updated,
+  userEmail: revision.user_email,
+  revisionId: revision.revision_id,
+  recUuid: revision.rec_uuid,
+  transactionId: revision.transaction_id,
+});
+
 export interface Queue {
   name: string;
   id: string;

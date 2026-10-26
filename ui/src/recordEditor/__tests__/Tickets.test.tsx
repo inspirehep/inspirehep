@@ -4,9 +4,12 @@ import { screen, waitFor, within } from '@testing-library/dom';
 import { getStore } from '../../fixtures/store';
 import { renderWithProviders } from '../../fixtures/render';
 import TicketsContainer from '../author/components/Tickets';
-import { createTicket, resolveTicket } from '../../actions/recordEditor';
+import {
+  createTicket,
+  resolveTicket,
+} from '../../actions/recordEditor/tickets';
 
-vi.mock('../../actions/recordEditor', () => ({
+vi.mock('../../actions/recordEditor/tickets', () => ({
   createTicket: vi.fn(),
   resolveTicket: vi.fn(),
 }));
@@ -24,27 +27,24 @@ const baseTickets = {
   usersError: null as string | null,
   items: [
     {
-      u_functional_category: 'German curation',
-      assigned_to: 'John Doe',
-      sys_id: '237ddc8487049b50152564230cbb35a9',
+      category: 'German curation',
+      id: '237ddc8487049b50152564230cbb35a9',
       date: '2026-10-15 11:32:19',
       link: 'https://cerntraining.service-now.com/',
       subject: 'test ticket 1',
       description: 'test ticket 1 description',
     },
     {
-      u_functional_category: 'Author curation',
-      assigned_to: 'Jane Doe',
-      sys_id: '237ddc8487049b50152564230cbb35a8',
+      category: 'Author curation',
+      id: '237ddc8487049b50152564230cbb35a8',
       date: '2026-10-14 13:32:19',
       link: 'https://cerntraining.service-now.com/',
       subject: 'test ticket 2',
       description: 'test ticket 2 description',
     },
     {
-      u_functional_category: 'Literature',
-      assigned_to: 'John Doe',
-      sys_id: '237ddc8487049b50152564230cbb35a7',
+      category: 'Literature',
+      id: '237ddc8487049b50152564230cbb35a7',
       date: '2026-10-13 10:32:19',
       link: 'https://cerntraining.service-now.com/',
       subject: 'test ticket 3',

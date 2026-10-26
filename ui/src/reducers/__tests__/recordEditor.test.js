@@ -115,7 +115,22 @@ describe('recordEditor reducer', () => {
 
   it('EDITOR_AUTHOR_REVISIONS_SUCCESS', () => {
     const payload = {
-      data: [{ rev_id: 1 }, { rev_id: 2 }],
+      data: [
+        {
+          updated: 'date1',
+          user_email: 'test1@cern.ch',
+          revision_id: 1,
+          rec_uuid: 'someUuid',
+          transaction_id: 100,
+        },
+        {
+          updated: 'date2',
+          user_email: 'test2@cern.ch',
+          revision_id: 2,
+          rec_uuid: 'someUuidBis',
+          transaction_id: 200,
+        },
+      ],
     };
     const currentState = recordData({ author_revisions: [] });
     const state = reducer(currentState, {
@@ -123,7 +138,22 @@ describe('recordEditor reducer', () => {
       payload,
     });
     const expected = recordData({
-      author_revisions: payload.data,
+      author_revisions: [
+        {
+          updated: 'date1',
+          userEmail: 'test1@cern.ch',
+          revisionId: 1,
+          recUuid: 'someUuid',
+          transactionId: 100,
+        },
+        {
+          updated: 'date2',
+          userEmail: 'test2@cern.ch',
+          revisionId: 2,
+          recUuid: 'someUuidBis',
+          transactionId: 200,
+        },
+      ],
       revisionError: null,
     });
     expect(state).toEqual(expected);
@@ -339,13 +369,31 @@ describe('recordEditor reducer', () => {
   });
 
   it('EDITOR_TICKETS_SUCCESS', () => {
-    const data = [{ id: '1', subject: 'a ticket' }];
+    const data = [
+      {
+        u_functional_category: 'test',
+        date: 'some date',
+        link: 'test link',
+        subject: 'great subject',
+        description: 'amazing description',
+        sys_id: '123',
+      },
+    ];
     const state = reducer(tickets({ ticketsError: 'old error' }), {
       type: EDITOR_TICKETS_SUCCESS,
       payload: { data },
     });
     const expected = tickets({
-      items: data,
+      items: [
+        {
+          category: 'test',
+          date: 'some date',
+          link: 'test link',
+          subject: 'great subject',
+          description: 'amazing description',
+          id: '123',
+        },
+      ],
       ticketsError: null,
     });
     expect(state).toEqual(expected);
