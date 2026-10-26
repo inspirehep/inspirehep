@@ -9,6 +9,7 @@ import { initialState as submissions } from '../reducers/submissions';
 import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as ui } from '../reducers/ui';
 import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
+import { initialState as authorlist } from '../reducers/authorlist';
 import { initialState as backoffice } from '../reducers/backoffice';
 import { initialState as recordEditor } from '../reducers/recordEditor';
 
@@ -37,6 +38,7 @@ export function getState() {
     jobs: initialRecordState,
     conferences: initialRecordState,
     bibliographyGenerator,
+    authorlist,
     seminars: initialRecordState,
     institutions: initialRecordState,
     experiments: initialRecordState,

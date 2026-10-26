@@ -7,7 +7,7 @@ import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
-import { BACKOFFICE, NEW_EDITOR } from '../common/routes';
+import { AUTHORLIST_TOOL, BACKOFFICE, NEW_EDITOR } from '../common/routes';
 
 vi.mock('../tracker');
 vi.mock('../actions/user');
@@ -254,5 +254,43 @@ describe('App', () => {
     const recordEditor = within(app).queryByTestId('record-editor');
 
     expect(recordEditor).not.toBeInTheDocument();
+  });
+
+  it('navigates to AuthorlistTool when /authorlist-tool if superuser logged in', async () => {
+    const store = getStore({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
+        },
+      }),
+    });
+    renderWithProviders(<App />, {
+      store,
+      route: AUTHORLIST_TOOL,
+    });
+    const app = await screen.findByTestId('app');
+    const authorlistTool = await within(app).findByTestId('authorlist-tool');
+
+    expect(authorlistTool).toBeInTheDocument();
+  });
+
+  it('does not navigate to AuthorlistTool when /authorlist-tool if not logged in', async () => {
+    const store = getStore({
+      user: fromJS({
+        loggedIn: false,
+        data: {
+          roles: [],
+        },
+      }),
+    });
+    renderWithProviders(<App />, {
+      store,
+      route: AUTHORLIST_TOOL,
+    });
+    const app = await screen.findByTestId('app');
+    const authorlistTool = within(app).queryByTestId('authorlist-tool');
+
+    expect(authorlistTool).not.toBeInTheDocument();
   });
 });
