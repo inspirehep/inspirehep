@@ -36,6 +36,9 @@ window.getComputedStyle = (element) => originalGetComputedStyle(element);
 
 window.scrollTo = vi.fn();
 
+// JSDOM doesn't implement scrollIntoView
+Element.prototype.scrollIntoView = vi.fn();
+
 // JSDOM doesn't implement ResizeObserver, which antd 6's
 // @rc-component/resize-observer now uses more broadly (e.g. Menu, Table).
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

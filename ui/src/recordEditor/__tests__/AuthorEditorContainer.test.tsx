@@ -196,6 +196,25 @@ describe('<AuthorEditorContainer/>', () => {
       ).toBeVisible();
       expect(saveAuthor).not.toHaveBeenCalled();
     });
+    it('should display details on click and go to errored field on click and hide details on click', async () => {
+      const user = userEvent.setup();
+
+      renderEditor();
+
+      const nameValueInput = getNameValueInput();
+      await user.clear(nameValueInput);
+      await user.click(screen.getByRole('button', { name: /save/ }));
+
+      const detailsButton = screen.getByRole('button', { name: /Details/ });
+      await user.click(detailsButton);
+      const errorProperty = '.name.value';
+      const linkToError = screen.getByRole('button', { name: errorProperty });
+      await user.click(linkToError);
+      expect(nameValueInput).toHaveFocus();
+
+      await user.click(detailsButton);
+      expect(screen.queryByText(errorProperty)).not.toBeInTheDocument();
+    });
   });
 
   describe('undo', () => {

@@ -93,3 +93,21 @@
 .field-errors {
   color: @error-color;
 }
+
+*:has(> .field-errors:not(:empty)) {
+  background-color: #fff1f0;
+
+  input,
+  select,
+  .ant-input,
+  .ant-select,
+  .ant-picker {
+    border: 1px solid @error-color;
+  }
+}
+
+.record-editor-error-list {
+  position: sticky;
+  top: 55px;
+  z-index: 999;
+}
