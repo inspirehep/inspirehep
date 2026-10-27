@@ -205,7 +205,7 @@ const DashboardPageContainer = ({
           />
         </div>
         <LoadingOrChildren loading={loading}>
-          <EmptyOrChildren data={authors || literature} title="0 Results">
+          <EmptyOrChildren data={workflowTypes} title="0 Results">
             <div className="content-grid">
               <Row
                 gutter={[20, 20]}

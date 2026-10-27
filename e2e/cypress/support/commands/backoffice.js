@@ -49,7 +49,6 @@ Cypress.Commands.add("loginToBackoffice", () => {
         },
         (req) => {
           req.headers.authorization = `Bearer ${token}`;
-          req.continue();
         },
       ).as("backofficeWorkflowsAuth");
 
