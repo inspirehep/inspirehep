@@ -7,6 +7,14 @@ on:
         description: The reference to build
         type: string
         required: true
+      push:
+        description: Push the built images to the registries
+        type: boolean
+        default: false
+    secrets:
+      CYPRESS_RECORD_KEY:
+        description: Records the e2e runs in Cypress Cloud when set
+        required: false
     outputs:
       image-id:
         description: The ID of image that has been built
@@ -20,6 +28,8 @@ jobs:
       image: cern-sis/inspire/backoffice
       context: ./backoffice
       dockerfile: ./backoffice/Dockerfile
+      push: ${{ inputs.push }}
+      artifact-name: image-backoffice
     secrets: inherit
 
   test:
@@ -53,15 +63,27 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - name: Download image
+        if: ${{ !inputs.push }}
+        uses: actions/download-artifact@v8.0.2
+        with:
+          name: image-backoffice
+          path: ${{ runner.temp }}/images
+
+      - name: Load image
+        if: ${{ !inputs.push }}
+        run: docker load --input ${{ runner.temp }}/images/image.tar
 
       - name: Test
         working-directory: ./backoffice
         run: >
           docker run
-          --pull always
+          --pull ${{ inputs.push && 'always' || 'never' }}
           --network=host
           --entrypoint poetry
           --env DJANGO_SETTINGS_MODULE=config.settings.test
@@ -71,7 +93,7 @@ jobs:
           --env POSTGRES_PASSWORD=postgres
           --env POSTGRES_HOST=127.0.0.1
           --env OPENSEARCH_HOST=127.0.0.1:9200
-          registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
+          ${{ needs.build.outputs.image }}
           run pytest
 
   build-backend:
@@ -80,6 +102,8 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/hep
       context: backend/
+      push: ${{ inputs.push }}
+      artifact-name: image-hep
     secrets: inherit
 
   build-ui:
@@ -88,6 +112,8 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/ui
       context: ui/
+      push: ${{ inputs.push }}
+      artifact-name: image-ui
     secrets: inherit
 
   build-editor:
@@ -96,6 +122,8 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/editor
       context: record-editor/
+      push: ${{ inputs.push }}
+      artifact-name: image-editor
     secrets: inherit
 
   test-e2e:
@@ -103,8 +131,9 @@ jobs:
     uses: ./.github/workflows/e2e-tests.yml
     with:
       ref: ${{ inputs.ref }}
-      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
-      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
-      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
-      backoffice-image: "registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}"
+      backend-image: ${{ needs.build-backend.outputs.image }}
+      ui-image: ${{ needs.build-ui.outputs.image }}
+      editor-image: ${{ needs.build-editor.outputs.image }}
+      backoffice-image: ${{ needs.build.outputs.image }}
+      load-image-artifacts: ${{ !inputs.push }}
     secrets: inherit

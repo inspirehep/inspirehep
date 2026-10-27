@@ -1,12 +1,19 @@
 name: Pull request master (backend, ui & record-editor)
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [master]
     paths-ignore:
       - 'backoffice/**'
       - 'workflows/**'
       - 'renderer/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -18,4 +25,5 @@ jobs:
     uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
-    secrets: inherit
+    secrets:
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

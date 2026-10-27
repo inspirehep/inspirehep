@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/test-workflows.yml
     with:
       ref: ${{ github.ref }}
+      push: true
     secrets: inherit
   deploy:
     name: Deploy (workflows)
