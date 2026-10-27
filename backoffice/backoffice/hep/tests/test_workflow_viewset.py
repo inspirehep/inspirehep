@@ -673,6 +673,37 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
 
+    @patch("backoffice.common.airflow_utils.requests.patch")
+    def test_complete(self, mock_patch):
+        mock_patch.return_value = Mock(
+            status_code=200, content=b"", raise_for_status=Mock()
+        )
+        status_before = self.workflow.status
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-complete",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(
+            url, format="json", data={"note": "Completed early"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+        mock_patch.assert_called_once()
+        self.assertTrue(
+            mock_patch.call_args.args[0].endswith(
+                f"/dags/{dag_id}/dagRuns/{self.workflow.id}"
+            )
+        )
+        self.assertEqual(
+            mock_patch.call_args.kwargs["json"],
+            {"state": "success", "note": "Completed early"},
+        )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, status_before)
+
     @pytest.mark.vcr
     def test_block(self):
         dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize

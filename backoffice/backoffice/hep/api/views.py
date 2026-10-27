@@ -254,6 +254,17 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         return Response(status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["post"])
+    def complete(self, request, pk=None):
+        try:
+            complete_workflow(pk, request.data)
+        except RequestException as e:
+            return handle_request_exception(
+                "Error marking Airflow DAG run as success",
+                e,
+            )
+        return Response(status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
     def block(self, request, pk=None):
         workflow = complete_workflow(pk, request.data)
 
