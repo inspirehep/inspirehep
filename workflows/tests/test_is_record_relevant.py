@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock
+
 import pytest
 from include.inspire import is_record_relevant
 
@@ -61,4 +63,42 @@ def test_is_auto_rejected_not_rejected():
     ids=["rejected", "not_rejected", "submission", "full_journal_coverage"],
 )
 def test_should_auto_reject(workflow_data, expected):
-    assert is_record_relevant.should_auto_reject(workflow_data) is expected
+    s3_store = MagicMock()
+    s3_store.get_flag.return_value = False
+
+    assert (
+        is_record_relevant.should_auto_reject(workflow_data, "workflow_id", s3_store)
+        is expected
+    )
+
+
+def test_should_auto_reject_auto_approved():
+    workflow_data = {
+        "data": {"acquisition_source": {"source": "arXiv"}},
+        "relevance_prediction": {"decision": "Rejected"},
+    }
+    s3_store = MagicMock()
+    s3_store.get_flag.return_value = True
+
+    assert not is_record_relevant.should_auto_reject(
+        workflow_data, "workflow_id", s3_store
+    )
+
+
+@pytest.mark.parametrize(
+    ("auto_approved", "categories", "expected"),
+    [
+        (True, ["hep-th", "gr-qc"], True),
+        (True, ["gr-qc", "hep-th"], False),
+        (False, ["hep-th"], False),
+    ],
+    ids=["auto_approved_core", "auto_approved_non_core", "not_auto_approved"],
+)
+def test_is_auto_accepted_core(auto_approved, categories, expected):
+    s3_store = MagicMock()
+    s3_store.get_flag.return_value = auto_approved
+    s3_store.read_workflow.return_value = {
+        "data": {"arxiv_eprints": [{"value": "2501.00001", "categories": categories}]}
+    }
+
+    assert is_record_relevant.is_auto_accepted_core("workflow_id", s3_store) is expected

@@ -2603,10 +2603,15 @@ class Test_HEPCreateDAG:
         ],
     )
     @patch("inspire_classifier.Classifier.predict_coreness")
-    def test_guess_coreness_skipped_for_auto_approved_or_update(
+    def test_guess_coreness_skipped_for_auto_accepted_core_or_update(
         self, mock_predict_coreness, flags
     ):
-        workflow_data = {"id": self.workflow_id, "data": {}}
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "arxiv_eprints": [{"value": "2501.00001", "categories": ["hep-th"]}]
+            },
+        }
         self.s3_store.write_workflow(workflow_data)
         self.s3_store.set_flags(flags, self.workflow_id)
 
@@ -2626,6 +2631,9 @@ class Test_HEPCreateDAG:
             "relevance_prediction": {"decision": "Rejected"},
         }
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False}, self.workflow_id
+        )
 
         result = task_test(
             self.dag, "preprocessing.check_guess_coreness_rejection", self.context
@@ -2682,6 +2690,9 @@ class Test_HEPCreateDAG:
         self, mock_add_decision, workflow_data
     ):
         self.s3_store.write_workflow({"id": self.workflow_id, **workflow_data})
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False}, self.workflow_id
+        )
 
         result = task_test(
             self.dag, "preprocessing.check_guess_coreness_rejection", self.context

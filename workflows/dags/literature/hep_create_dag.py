@@ -24,7 +24,7 @@ from hooks.inspirehep.inspire_http_hook import (
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.inspire.approval import auto_approve, is_first_category_core
+from include.inspire.approval import auto_approve
 from include.inspire.grobid_authors_parser import GrobidAuthors
 from include.inspire.guess_coreness import calculate_coreness
 from include.inspire.hidden_collections import (
@@ -34,7 +34,7 @@ from include.inspire.hidden_collections import (
     should_hide_record,
 )
 from include.inspire.is_record_relevant import (
-    is_auto_approved,
+    is_auto_accepted_core,
     is_submission,
     should_auto_reject,
 )
@@ -426,7 +426,7 @@ def hep_create_dag():
         s3_store.set_flag("auto-approved", is_auto_approve, workflow_id)
         is_update = s3_store.get_flag("is-update", workflow_id)
 
-        if is_auto_approve and not is_update and is_first_category_core(data):
+        if not is_update and is_auto_accepted_core(workflow_id, s3_store):
             workflow_data["core"] = True
             workflow_management_hook.add_decision(
                 workflow_id=workflow_id,
@@ -1202,7 +1202,7 @@ def hep_create_dag():
         def guess_coreness(**context):
             workflow_id = context["params"]["workflow_id"]
 
-            if is_auto_approved(workflow_id, s3_store) or s3_store.get_flag(
+            if is_auto_accepted_core(workflow_id, s3_store) or s3_store.get_flag(
                 "is-update", workflow_id
             ):
                 return
@@ -1224,9 +1224,9 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
-            if should_auto_reject(workflow_data) and not should_hide_record(
-                workflow_data
-            ):
+            if should_auto_reject(
+                workflow_data, workflow_id, s3_store
+            ) and not should_hide_record(workflow_data):
                 workflow_management_hook.add_decision(
                     workflow_id=workflow_id,
                     decision_data={"action": DECISION_AUTO_REJECT},
@@ -1476,9 +1476,7 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
-            if not is_auto_approved(workflow_id, s3_store) and should_auto_reject(
-                workflow_data
-            ):
+            if should_auto_reject(workflow_data, workflow_id, s3_store):
                 workflow_management_hook.add_decision(
                     workflow_id=workflow_id,
                     decision_data={"action": DECISION_AUTO_REJECT},
