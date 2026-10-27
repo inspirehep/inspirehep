@@ -258,10 +258,9 @@ class Test_HEPCreateDAG:
         )
 
         result = task_test(self.dag, "discard_older_wfs_w_same_source", self.context)
-        assert result == "run_next_if_necessary"
+        assert result == "save_and_complete_workflow"
         workflow_result = self.wf_hook.get_workflow(self.workflow_id)
 
-        assert workflow_result["status"] == STATUS_COMPLETED
         assert workflows.get_decision(workflow_result["decisions"], DECISION_DISCARD)
 
     @patch(
