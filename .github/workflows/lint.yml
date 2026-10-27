@@ -13,9 +13,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
       - name: Pre-commit check
         uses: pre-commit/action@v3.0.1

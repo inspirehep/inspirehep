@@ -7,6 +7,14 @@ on:
         description: The reference to build
         type: string
         required: true
+      push:
+        description: Push the built images to the registries
+        type: boolean
+        default: false
+    secrets:
+      CYPRESS_RECORD_KEY:
+        description: Records the e2e runs in Cypress Cloud when set
+        required: false
     outputs:
       backend-image-id:
         description: The ID of image that has been buit
@@ -28,6 +36,8 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/hep
       context: backend/
+      push: ${{ inputs.push }}
+      artifact-name: image-hep
     secrets: inherit
 
   test-backend:
@@ -45,29 +55,39 @@ jobs:
     uses: ./.github/workflows/backend-tests.yml
     with:
       ref: ${{ inputs.ref }}
-      image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+      image: ${{ needs.build-backend.outputs.image }}
+      image-artifact: ${{ !inputs.push && 'image-hep' || '' }}
       suite: ${{ matrix.suite }}
       splits: ${{ matrix.splits }}
 
-  build-ui-build-stage:
-    uses: ./.github/workflows/build.yml
-    with:
-      ref: ${{ inputs.ref }}
-      image: inspirehep/ui-build
-      context: ui/
-      stage: build-stage
-    secrets: inherit
-
   test-ui:
-    needs: build-ui-build-stage
     runs-on: ubuntu-24.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4.4.1
+
+      - name: Build
+        uses: docker/build-push-action@v7.4.0
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          context: ui/
+          target: build-stage
+          tags: inspirehep/ui-build:ci
+          cache-from: type=registry,ref=inspirehep/ui:buildcache
+          load: true
+
       - name: test
         run: >
           docker run
-          --pull always
           --network="host"
-          "inspirehep/ui-build@${{ needs.build-ui-build-stage.outputs.image-id }}"
+          inspirehep/ui-build:ci
           yarn test
 
   build-ui:
@@ -76,27 +96,38 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/ui
       context: ui/
-    secrets: inherit
-
-  build-editor-build-stage:
-    uses: ./.github/workflows/build.yml
-    with:
-      ref: ${{ inputs.ref }}
-      image: inspirehep/editor-build
-      context: record-editor/
-      stage: build-stage
+      push: ${{ inputs.push }}
+      artifact-name: image-ui
     secrets: inherit
 
   test-editor:
-    needs: build-editor-build-stage
     runs-on: ubuntu-24.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4.4.1
+
+      - name: Build
+        uses: docker/build-push-action@v7.4.0
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          context: record-editor/
+          target: build-stage
+          tags: inspirehep/editor-build:ci
+          cache-from: type=registry,ref=inspirehep/editor:buildcache
+          load: true
+
       - name: test
         run: >
           docker run
-          --pull always
           --network="host"
-          "inspirehep/editor-build@${{ needs.build-editor-build-stage.outputs.image-id }}"
+          inspirehep/editor-build:ci
           yarn lint
 
   build-editor:
@@ -105,6 +136,8 @@ jobs:
       ref: ${{ inputs.ref }}
       image: inspirehep/editor
       context: record-editor/
+      push: ${{ inputs.push }}
+      artifact-name: image-editor
     secrets: inherit
 
   build-backoffice:
@@ -114,6 +147,8 @@ jobs:
       image: cern-sis/inspire/backoffice
       context: ./backoffice
       dockerfile: ./backoffice/Dockerfile
+      push: ${{ inputs.push }}
+      artifact-name: image-backoffice
     secrets: inherit
 
   test-e2e:
@@ -121,8 +156,9 @@ jobs:
     uses: ./.github/workflows/e2e-tests.yml
     with:
       ref: ${{ inputs.ref }}
-      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
-      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
-      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
-      backoffice-image: "registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build-backoffice.outputs.image-id }}"
+      backend-image: ${{ needs.build-backend.outputs.image }}
+      ui-image: ${{ needs.build-ui.outputs.image }}
+      editor-image: ${{ needs.build-editor.outputs.image }}
+      backoffice-image: ${{ needs.build-backoffice.outputs.image }}
+      load-image-artifacts: ${{ !inputs.push }}
     secrets: inherit

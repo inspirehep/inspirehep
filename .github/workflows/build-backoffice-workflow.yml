@@ -19,6 +19,17 @@ on:
         description: The path to the Dockerfile
         type: string
         required: false
+      push:
+        description: >
+          Push the image to the registry. When false,
+          the image is built without credentials and, if artifact-name is set,
+          handed to later jobs of the same run as a workflow artifact.
+        type: boolean
+        default: false
+      artifact-name:
+        description: Name of the artifact holding the image tarball (only used when push is false)
+        type: string
+        required: false
     outputs:
       json:
         description: JSON output of tags and labels
@@ -26,21 +37,27 @@ on:
       image-id:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
+      image:
+        description: Reference to pass to docker run (registry digest when pushed, local tag otherwise)
+        value: ${{ jobs.build.outputs.image }}
 
 jobs:
   build:
     runs-on: ubuntu-24.04
     outputs:
-      image-id: ${{ steps.build.outputs.image-id }}
-      json: ${{ steps.build.outputs.json }}
+      image-id: ${{ steps.push.outputs.image-id }}
+      json: ${{ steps.push.outputs.json }}
+      image: ${{ inputs.push && format('registry.cern.ch/{0}@{1}', inputs.image, steps.push.outputs.image-id) || format('registry.cern.ch/{0}:ci', inputs.image) }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
-      - id: build
+      - id: push
         name: Build and push
+        if: ${{ inputs.push }}
         uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.1.0
         with:
           image: ${{ inputs.image }}
@@ -55,3 +72,28 @@ jobs:
             type=ref,event=tag
           username: ${{ secrets.HARBOR_USERNAME }}
           password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        if: ${{ !inputs.push }}
+        uses: docker/setup-buildx-action@v4.4.1
+
+      - name: Build
+        if: ${{ !inputs.push }}
+        uses: docker/build-push-action@v7.4.0
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          context: ${{ inputs.context }}
+          file: ${{ inputs.dockerfile }}
+          tags: registry.cern.ch/${{ inputs.image }}:ci
+          no-cache: true
+          outputs: type=docker,dest=${{ runner.temp }}/image.tar
+
+      - name: Upload image
+        if: ${{ !inputs.push && inputs.artifact-name != '' }}
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ runner.temp }}/image.tar
+          retention-days: 1
+          compression-level: 0
