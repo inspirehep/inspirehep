@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.ref }}
+          persist-credentials: false
 
       - id: build
         uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.1.0
