@@ -51,7 +51,7 @@
     "history": "^5",
     "idlejs": "^3.0.0",
     "immutable": "^4.1.0",
-    "inspire-schemas": "^61.6.36",
+    "inspire-schemas": "^61.6.38",
     "is-valid-orcid": "^1.2.0",
     "js-yaml": "^5.5.0",
     "lodash": "^4.17.21",
