@@ -10,15 +10,15 @@ import {
   fetchAuthorRevisionData,
   revertToRevision,
   saveAuthor,
-} from '../../actions/recordEditor';
+} from '../../actions/recordEditor/record';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return { ...actual, useParams: vi.fn().mockReturnValue({ id: 123 }) };
 });
 
-vi.mock('../../actions/recordEditor', async () => {
-  const actual = await vi.importActual('../../actions/recordEditor');
+vi.mock('../../actions/recordEditor/record', async () => {
+  const actual = await vi.importActual('../../actions/recordEditor/record');
   return {
     ...actual,
     saveAuthor: vi.fn(),
@@ -33,26 +33,26 @@ mockActionCreator(revertToRevision);
 
 const lastRevision = {
   updated: '2026-07-20T10:30:00',
-  user_email: 'jane.doe@cern.ch',
-  revision_id: 100,
-  rec_uuid: '53dad093-b1e2-4d5c-a109-8800005dc9f1',
-  transaction_id: 200,
+  userEmail: 'jane.doe@cern.ch',
+  revisionId: 100,
+  recUuid: '53dad093-b1e2-4d5c-a109-8800005dc9f1',
+  transactionId: 200,
 };
 
 const otherRevision1 = {
   updated: '2026-07-17T10:30:00',
-  user_email: 'john.doe@cern.ch',
-  revision_id: 99,
-  rec_uuid: '5d457a9a-a18a-4c47-86c7-3538e8fb1b80',
-  transaction_id: 130,
+  userEmail: 'john.doe@cern.ch',
+  revisionId: 99,
+  recUuid: '5d457a9a-a18a-4c47-86c7-3538e8fb1b80',
+  transactionId: 130,
 };
 
 const otherRevision2 = {
   updated: '2026-07-15T10:30:00',
-  user_email: 'jane.doe@cern.ch',
-  revision_id: 98,
-  rec_uuid: 'feb56603-6cb9-428a-8452-a54f90588e49',
-  transaction_id: 110,
+  userEmail: 'jane.doe@cern.ch',
+  revisionId: 98,
+  recUuid: 'feb56603-6cb9-428a-8452-a54f90588e49',
+  transactionId: 110,
 };
 
 const baseRecordEditorState = fromJS({
@@ -102,12 +102,12 @@ const selectOtherRevision1 = async (
 
   await user.hover(
     screen.getByRole('button', {
-      name: `Last edit on Jul 20, 2026, 10:30:00 AM by ${lastRevision.user_email}`,
+      name: `Last edit on Jul 20, 2026, 10:30:00 AM by ${lastRevision.userEmail}`,
     })
   );
   await user.click(
     await screen.findByRole('button', {
-      name: `On Jul 17, 2026, 10:30:00 AM by ${otherRevision1.user_email}`,
+      name: `On Jul 17, 2026, 10:30:00 AM by ${otherRevision1.userEmail}`,
     })
   );
 };
@@ -275,18 +275,18 @@ describe('<AuthorEditorContainer/>', () => {
       renderEditor();
 
       const lastRevisionButton = screen.getByRole('button', {
-        name: `Last edit on Jul 20, 2026, 10:30:00 AM by ${lastRevision.user_email}`,
+        name: `Last edit on Jul 20, 2026, 10:30:00 AM by ${lastRevision.userEmail}`,
       });
       await user.hover(lastRevisionButton);
 
       const revision1 = await screen.findByRole('button', {
-        name: `On Jul 17, 2026, 10:30:00 AM by ${otherRevision1.user_email}`,
+        name: `On Jul 17, 2026, 10:30:00 AM by ${otherRevision1.userEmail}`,
       });
       await user.click(revision1);
 
       expect(fetchAuthorRevisionData).toHaveBeenCalledWith(
-        otherRevision1.rec_uuid,
-        otherRevision1.transaction_id
+        otherRevision1.recUuid,
+        otherRevision1.transactionId
       );
     });
 
@@ -408,7 +408,7 @@ describe('<AuthorEditorContainer/>', () => {
 
       expect(revertToRevision).toHaveBeenCalledWith(
         123,
-        otherRevision1.revision_id
+        otherRevision1.revisionId
       );
       expect(screen.getByRole('button', { name: /save/i })).toBeDisabled();
     });

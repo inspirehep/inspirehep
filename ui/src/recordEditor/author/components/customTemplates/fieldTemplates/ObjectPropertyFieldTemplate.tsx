@@ -1,6 +1,5 @@
 import { FieldTemplateProps } from '@rjsf/utils';
-import { Button, Dropdown, Space } from 'antd';
-import { CaretDownOutlined } from '@ant-design/icons';
+import ActionsDropdown from '../ActionsDropdown';
 
 function ObjectPropertyFieldTemplate({
   label,
@@ -10,39 +9,15 @@ function ObjectPropertyFieldTemplate({
   fieldPathId,
   readonly,
 }: FieldTemplateProps) {
-  const actions = [
-    {
-      key: 'delete',
-      label: (
-        <Button
-          type="link"
-          danger
-          onClick={() => onChange(undefined, fieldPathId.path)}
-          style={{ width: '100%' }}
-        >
-          Delete
-        </Button>
-      ),
-    },
-  ];
-
   return (
     <tr>
       <td className="record-editor-array__row-label">
-        <Dropdown
-          menu={{ items: actions }}
-          trigger={['click']}
-          disabled={readonly}
-          styles={{
-            root: { width: '100px', minWidth: '100px' },
-            item: { padding: 0 },
-          }}
-        >
-          <Space styles={{ root: { width: '100%' } }}>
-            {label}
-            <CaretDownOutlined />
-          </Space>
-        </Dropdown>
+        <ActionsDropdown
+          canAdd={false}
+          onRemoveClick={() => onChange(undefined, fieldPathId.path)}
+          disabled={readonly ?? false}
+          title={label}
+        />
       </td>
       <td className="record-editor-array__cell">
         {children}

@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { ObjectFieldTemplateProps } from '@rjsf/utils';
-import { Button, Dropdown, Space } from 'antd';
-import { CaretDownOutlined } from '@ant-design/icons';
+
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
 import {
   ArrayItemRemoveContext,
   useArrayItemRemove,
 } from '../../../ArrayItemRemoveContext';
+import ActionsDropdown from '../ActionsDropdown';
 
 function TableObjectFieldTemplate({
   title,
@@ -22,39 +22,17 @@ function TableObjectFieldTemplate({
   const handleDelete = arrayItemRemove
     ? arrayItemRemove.remove
     : () => onFieldChange(undefined);
-  const actions = [
-    {
-      key: 'delete',
-      label: (
-        <Button
-          type="link"
-          danger
-          onClick={handleDelete}
-          style={{ width: '100%' }}
-        >
-          Delete
-        </Button>
-      ),
-    },
-  ];
+
   return (
     <div className="record-editor-array">
       {showHeader && (
         <div className="record-editor-array__header">
-          <Dropdown
-            menu={{ items: actions }}
-            trigger={['click']}
-            disabled={readonly}
-            styles={{
-              root: { width: '100px', minWidth: '100px' },
-              item: { padding: 0 },
-            }}
-          >
-            <Space styles={{ root: { width: '100%' } }}>
-              {displayTitle}
-              <CaretDownOutlined />
-            </Space>
-          </Dropdown>
+          <ActionsDropdown
+            canAdd={false}
+            onRemoveClick={handleDelete}
+            disabled={readonly ?? false}
+            title={displayTitle}
+          />
         </div>
       )}
       <table className="record-editor-array__table">

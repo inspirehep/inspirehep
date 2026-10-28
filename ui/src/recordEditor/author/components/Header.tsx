@@ -12,7 +12,7 @@ import Revisions from './Revisions';
 import {
   fetchAuthorRevisionData,
   revertToRevision,
-} from '../../../actions/recordEditor';
+} from '../../../actions/recordEditor/record';
 import Help from './Help';
 import TicketsContainer from './Tickets';
 

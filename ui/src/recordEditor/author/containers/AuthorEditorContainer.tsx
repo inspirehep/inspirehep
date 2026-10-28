@@ -13,12 +13,14 @@ import {
   fetchAuthor,
   resetEditor,
   fetchAuthorRevisions,
+  resetAuthorRevisionData,
+  saveAuthor,
+} from '../../../actions/recordEditor/record';
+import {
   fetchQueues,
   fetchTickets,
   fetchUsers,
-  resetAuthorRevisionData,
-  saveAuthor,
-} from '../../../actions/recordEditor';
+} from '../../../actions/recordEditor/tickets';
 import { RootState } from '../../../types';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import Header from '../components/Header';
@@ -39,7 +41,7 @@ import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 import FetchingRecordError from '../components/FetchingRecordError';
 import ToggleWidget from '../components/customWidgets/ToggleWidget';
-import { RevisionFromApi } from '../../types';
+import { Revision } from '../../types';
 
 const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
@@ -63,14 +65,7 @@ const AuthorEditor = ({
 }: AuthorEditorProps) => {
   const { id } = useParams();
   const authorData = author.get('record')?.get('metadata');
-  const initialRevisions = authorRevisions.toJS() as RevisionFromApi[];
-  const revisions = initialRevisions.map((revision) => ({
-    updated: revision.updated,
-    userEmail: revision.user_email,
-    revisionId: revision.revision_id,
-    recUuid: revision.rec_uuid,
-    transactionId: revision.transaction_id,
-  }));
+  const revisions = authorRevisions.toJS() as Revision[];
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
 
