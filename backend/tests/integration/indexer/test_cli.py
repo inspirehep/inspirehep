@@ -514,3 +514,61 @@ def test_reindex_specific_type_enables_reference_reindexing(
     assert (
         mock_batch_index.mock_calls[0][2]["kwargs"]["skip_indexing_references"] is False
     )
+
+
+def test_reindex_one_record_indexes_it_synchronously(inspire_app, cli):
+    record = create_record_factory("lit")
+    control_number = str(record.json["control_number"])
+
+    result = cli.invoke(["index", "reindex", "-id", "lit", control_number])
+    current_search.flush_and_refresh("*")
+
+    assert result.exit_code == 0
+    assert f"Successfully reindexed record ('lit', '{control_number}')" in result.output
+    assert LiteratureSearch().execute().hits.hits[0]["_id"] == str(record.id)
+
+
+@mock.patch(
+    "inspirehep.indexer.cli.InspireRecordIndexer.index",
+    side_effect=Exception("indexing error"),
+)
+def test_reindex_one_record_reports_indexing_failure(mock_index, inspire_app, cli):
+    record = create_record_factory("lit")
+    control_number = str(record.json["control_number"])
+
+    result = cli.invoke(["index", "reindex", "-id", "lit", control_number])
+
+    assert result.exit_code == 1
+    assert (
+        f"Failed to reindex record ('lit', '{control_number}'): indexing error"
+        in result.output
+    )
+    assert "Successfully reindexed" not in result.output
+
+
+def test_reindex_one_record_reports_missing_record(inspire_app, cli):
+    result = cli.invoke(["index", "reindex", "-id", "lit", "999999999999"])
+
+    assert result.exit_code == 1
+    assert "Record ('lit', '999999999999') does not exist." in result.output
+    assert "Successfully reindexed" not in result.output
+
+
+@mock.patch("inspirehep.indexer.cli.batch_index")
+@mock.patch("inspirehep.indexer.cli.get_references_to_update")
+def test_reindex_one_record_dispatches_linked_records_asynchronously(
+    mock_get_references_to_update, mock_batch_index, inspire_app, cli
+):
+    record = create_record_factory("lit")
+    linked_record = create_record_factory("lit")
+    mock_get_references_to_update.return_value = {linked_record.id}
+
+    result = cli.invoke(
+        ["index", "reindex", "-id", "lit", str(record.json["control_number"])]
+    )
+
+    assert result.exit_code == 0
+    mock_batch_index.apply_async.assert_called_once_with(
+        kwargs={"records_uuids": [str(linked_record.id)]}, queue="indexer_task"
+    )
+    mock_batch_index.assert_not_called()
