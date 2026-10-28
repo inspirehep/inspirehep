@@ -46,20 +46,22 @@ function ActionsDropdown({
       : undefined,
   ];
   return (
-    <Dropdown
-      menu={{ items: actions.filter((action) => action !== undefined) }}
-      trigger={['click']}
-      disabled={disabled}
-      styles={{
-        root: { width: '100px', minWidth: '100px' },
-        item: { padding: 0 },
-      }}
-    >
-      <Space styles={{ root: { width: '100%' } }}>
-        {title}
-        <CaretDownOutlined />
-      </Space>
-    </Dropdown>
+    <div data-testid={title} className="w100">
+      <Dropdown
+        menu={{ items: actions.filter((action) => action !== undefined) }}
+        trigger={['click']}
+        disabled={disabled}
+        styles={{
+          root: { width: '100px', minWidth: '100px' },
+          item: { padding: 0 },
+        }}
+      >
+        <Space styles={{ root: { width: '100%' } }}>
+          {title}
+          <CaretDownOutlined />
+        </Space>
+      </Dropdown>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 beforeEach(() => {
-  cy.loginAsAdmin();
+  cy.loginAsAdminForBackoffice();
   cy.loginToBackoffice();
 });
 

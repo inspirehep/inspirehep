@@ -1,4 +1,4 @@
-Cypress.Commands.add("loginAsAdmin", () => {
+Cypress.Commands.add("loginAsAdminForBackoffice", () => {
   const email = "admin@inspirehep.net";
   const password = "123456";
 
