@@ -92,6 +92,7 @@ exports[`AuthorResultItem > renders full author result 1`] = `
               class="__UserAction__"
             >
               <a
+                data-testid="edit-record-12345"
                 href="/submissions/authors/12345"
                 target="_blank"
               >
