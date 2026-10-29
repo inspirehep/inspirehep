@@ -1,5 +1,5 @@
 import { legacy_connect as connect } from 'react-redux';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 import { Form } from '@rjsf/antd';
 import FormType from '@rjsf/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -9,22 +9,16 @@ import { ConfigProvider } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { useParams } from 'react-router-dom';
 
-import {
-  fetchAuthor,
-  resetEditor,
-  fetchAuthorRevisions,
-  resetAuthorRevisionData,
-  saveAuthor,
-} from '../../../actions/recordEditor/record';
+import { fetchAuthor, saveAuthor } from '../../actions/recordEditor/record';
 import {
   fetchQueues,
   fetchTickets,
   fetchUsers,
-} from '../../../actions/recordEditor/tickets';
-import { RootState } from '../../../types';
-import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
+} from '../../actions/recordEditor/tickets';
+import { RootState } from '../../types';
+import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import Header from '../components/Header';
-import authorUiSchema from '../../uiSchema/authorUiSchema';
+import authorUiSchema from '../uiSchema/authorUiSchema';
 import prepareAuthorSchema from '../utils/prepareAuthorSchema';
 import DefaultObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
 import DefaultFieldTemplate from '../components/customTemplates/fieldTemplates/DefaultFieldTemplate';
@@ -41,31 +35,26 @@ import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 import FetchingRecordError from '../components/FetchingRecordError';
 import ToggleWidget from '../components/customWidgets/ToggleWidget';
-import { Revision } from '../../types';
+import { resetEditor } from '../../actions/recordEditor/common';
 
 const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
 
-interface AuthorEditorProps {
+interface BackofficeAuthorEditorProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
-  authorRevisions: List<Map<string, any>>;
   error: number | null;
   currentRevision: Map<string, any>;
-  revisionError: string | null;
 }
 
-const AuthorEditor = ({
+const BackofficeAuthorEditor = ({
   dispatch,
   author,
-  authorRevisions,
   error,
   currentRevision,
-  revisionError,
-}: AuthorEditorProps) => {
+}: BackofficeAuthorEditorProps) => {
   const { id } = useParams();
   const authorData = author.get('record')?.get('metadata');
-  const revisions = authorRevisions.toJS() as Revision[];
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
 
@@ -105,16 +94,6 @@ const AuthorEditor = ({
       setFormData(currentRevision.toJS());
     }
   }, [currentRevision]);
-
-  useEffect(() => {
-    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (historyRef.current.length > 0) {
-        event.preventDefault();
-      }
-    };
-    window.addEventListener('beforeunload', warnBeforeUnload);
-    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
-  }, []);
 
   if (!id) {
     return null;
@@ -159,12 +138,6 @@ const AuthorEditor = ({
     dispatch(saveAuthor(id, prunedFormData));
   };
 
-  const resetToLastUpdate = () => {
-    setFormData(preRevisionFormDataRef.current ?? authorData?.toJS());
-    preRevisionFormDataRef.current = null;
-    dispatch(resetAuthorRevisionData());
-  };
-
   return (
     <div
       className="__AuthorEditorContainer__"
@@ -174,14 +147,11 @@ const AuthorEditor = ({
     >
       <Header
         controlNumber={id}
-        revisions={revisions}
-        revisionError={revisionError}
+        withRevisions={false}
         onSave={() => onSave()}
         onUndo={onUndo}
         canUndo={historyRef.current.length > 0}
         dispatch={dispatch}
-        resetToLastUpdate={resetToLastUpdate}
-        isViewingRevision={isViewingRevision}
       />
 
       <ConfigProvider componentSize="small">
@@ -229,14 +199,15 @@ const stateToProps = (state: RootState) => ({
   revisionError: state.recordEditor.getIn(['recordData', 'revisionError']),
 });
 
-const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);
+const BackofficeAuthorEditorContainer = connect(stateToProps)(
+  BackofficeAuthorEditor
+);
 
-export default withRouteActionsDispatcher(AuthorEditorContainer, {
+export default withRouteActionsDispatcher(BackofficeAuthorEditorContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
     resetEditor(),
     fetchAuthor(id!),
-    fetchAuthorRevisions(id!),
     fetchQueues(),
     fetchUsers(),
     fetchTickets(id!),

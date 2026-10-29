@@ -22,7 +22,7 @@ import { httpErrorToActionPayload } from '../../common/utils';
 import {
   notifyCreateTicketError,
   notifyResolveTicketError,
-} from '../../recordEditor/author/notifications';
+} from '../../recordEditor/notifications';
 
 function fetchingQueues() {
   return {

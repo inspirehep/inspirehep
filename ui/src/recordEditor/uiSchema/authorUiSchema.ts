@@ -1,15 +1,15 @@
 import { UiSchema } from '@rjsf/utils';
 
-import NestedArrayFieldTemplate from '../author/components/customTemplates/arrayFieldTemplates/NestedArrayFieldTemplate';
-import NestedArrayFieldItemTemplate from '../author/components/customTemplates/arrayFieldTemplates/NestedArrayFieldItemTemplate';
-import NestedWithHeaderArrayFieldTemplate from '../author/components/customTemplates/arrayFieldTemplates/NestedWithHeaderArrayFieldTemplate';
-import DefaultArrayFieldItemTemplate from '../author/components/customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
-import ArrayItemObjectFieldTemplate from '../author/components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
-import ObjectPropertyFieldTemplate from '../author/components/customTemplates/fieldTemplates/ObjectPropertyFieldTemplate';
-import TableObjectFieldTemplate from '../author/components/customTemplates/objectFieldTemplates/TableObjectFieldTemplate';
-import StandaloneFieldTemplate from '../author/components/customTemplates/fieldTemplates/StandaloneFieldTemplate';
-import DisplayAsListArrayFieldTemplate from '../author/components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldTemplate';
-import DisplayAsListArrayFieldItemTemplate from '../author/components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldItemTemplate';
+import NestedArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/NestedArrayFieldTemplate';
+import NestedArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/NestedArrayFieldItemTemplate';
+import NestedWithHeaderArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/NestedWithHeaderArrayFieldTemplate';
+import DefaultArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
+import ArrayItemObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
+import ObjectPropertyFieldTemplate from '../components/customTemplates/fieldTemplates/ObjectPropertyFieldTemplate';
+import TableObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/TableObjectFieldTemplate';
+import StandaloneFieldTemplate from '../components/customTemplates/fieldTemplates/StandaloneFieldTemplate';
+import DisplayAsListArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldTemplate';
+import DisplayAsListArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldItemTemplate';
 
 const authorUiSchema: UiSchema = {
   'ui:submitButtonOptions': { norender: true },

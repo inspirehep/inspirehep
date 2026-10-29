@@ -57,6 +57,12 @@ export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 export const EDITOR = '/editor';
 export const NEW_EDITOR = '/new-editor';
 
+export const BACKOFFICE_AUTHOR_EDITOR = getConfigFor(
+  'BACKOFFICE_EDITOR_AUTHOR_FEATURE_FLAG'
+)
+  ? NEW_EDITOR
+  : EDITOR;
+
 export const EDIT_LITERATURE = `${EDITOR}/record/literature`;
 export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
 export const EDIT_AUTHOR_CATALOGER = `/editor/record/authors`;

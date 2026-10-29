@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import MockAdapter from 'axios-mock-adapter';
 import { WidgetProps } from '@rjsf/utils';
 
-import http from '../../../../../common/http';
+import http from '../../../../common/http';
 import {
   ObjectFieldDataContext,
   ObjectFieldData,

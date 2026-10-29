@@ -19,7 +19,6 @@ import {
   EDITOR_AUTHOR_SAVE_REQUEST,
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
-  EDITOR_RESET,
 } from '../actionTypes';
 import { RootState } from '../../types';
 import { HttpClientWrapper } from '../../common/http';
@@ -29,14 +28,8 @@ import {
   notifyEditionSuccess,
   notifyParallelEdition,
   notifyRevertToRevisionError,
-} from '../../recordEditor/author/notifications';
+} from '../../recordEditor/notifications';
 import { httpErrorToActionPayload } from '../../common/utils';
-
-export function resetEditor() {
-  return {
-    type: EDITOR_RESET,
-  };
-}
 
 function fetchingAuthor() {
   return {

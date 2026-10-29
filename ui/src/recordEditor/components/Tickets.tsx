@@ -8,13 +8,13 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import './Tickets.less';
 import { legacy_connect as connect } from 'react-redux';
-import { RootState } from '../../../types';
-import { HttpClientWrapper } from '../../../common/http';
-import { Queue, Ticket, User } from '../../types';
+import { RootState } from '../../types';
+import { HttpClientWrapper } from '../../common/http';
+import { Queue, Ticket, User } from '../types';
 import {
   createTicket,
   resolveTicket,
-} from '../../../actions/recordEditor/tickets';
+} from '../../actions/recordEditor/tickets';
 
 interface TicketItemProps {
   ticket: Ticket;

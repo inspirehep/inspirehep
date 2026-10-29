@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { getStore, mockActionCreator } from '../../fixtures/store';
 import { renderWithProviders } from '../../fixtures/render';
-import AuthorEditorContainer from '../author/containers/AuthorEditorContainer';
+import AuthorEditorContainer from '../containers/AuthorEditorContainer';
 import { authorWithSchema } from './authorWithSchemaFixture';
 import {
   fetchAuthorRevisionData,
