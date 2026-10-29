@@ -106,6 +106,16 @@ const AuthorEditor = ({
     }
   }, [currentRevision]);
 
+  useEffect(() => {
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (historyRef.current.length > 0) {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener('beforeunload', warnBeforeUnload);
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
+  }, []);
+
   if (!id) {
     return null;
   }
