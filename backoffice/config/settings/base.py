@@ -331,23 +331,21 @@ CELERY_TASK_SEND_SENT_EVENT = True
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 SOCIALACCOUNT_ONLY = env.bool("DJANGO_SOCIALACCOUNT_ONLY", True)
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_REQUIRED = True
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_USERNAME_REQUIRED = False
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_LOGIN_METHODS = {"email"}
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_SIGNUP_FIELDS = ["email*"]
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "none"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "backoffice.users.adapters.AccountAdapter"
-# https://django-allauth.readthedocs.io/en/latest/forms.html
+# https://docs.allauth.org/en/latest/socialaccount/forms.html
 ACCOUNT_FORMS = {"signup": "backoffice.users.forms.UserSignupForm"}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 SOCIALACCOUNT_ADAPTER = "backoffice.users.adapters.SocialAccountAdapter"
-# https://django-allauth.readthedocs.io/en/latest/forms.html
+# https://docs.allauth.org/en/latest/socialaccount/forms.html
 SOCIALACCOUNT_FORMS = {"signup": "backoffice.users.forms.UserSocialSignupForm"}
 
 # django-rest-framework
