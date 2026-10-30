@@ -118,6 +118,7 @@ from literature.set_workflow_status_tasks import (
 )
 from literature.store_root_task import store_root
 from literature.validate import validate_record
+from operators.short_circuit_branch import ShortCircuitBranchOperator
 from plotextractor.api import process_tarball
 from plotextractor.converter import untar
 from plotextractor.errors import (
@@ -127,6 +128,7 @@ from plotextractor.errors import (
 from pylatexenc.latex2text import LatexNodes2Text
 from refextract.extract import extract_journal_info as refextract_journal_info
 from refextract.extract import extract_references_from_list
+from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -189,8 +191,7 @@ def hep_create_dag():
 
         s3_store.set_flags({}, workflow_id)
 
-    @task.branch
-    def discard_older_wfs_w_same_source(**context):
+    def _discard_older_wfs_w_same_source(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
 
@@ -230,11 +231,7 @@ def hep_create_dag():
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_DISCARD},
             )
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_COMPLETED,
-                workflow_id=workflow_id,
-            )
-            return "run_next_if_necessary"
+            return "save_and_complete_workflow"
 
         return "check_for_blocking_workflows"
 
@@ -383,8 +380,7 @@ def hep_create_dag():
         s3_store.write_workflow(workflow_data)
         return True
 
-    @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def stop_if_existing_submission_notify_and_close(**context):
+    def _stop_if_existing_submission_notify_and_close(**context):
         """Send notification if the workflow is a submission."""
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
@@ -435,8 +431,7 @@ def hep_create_dag():
 
         s3_store.write_workflow(workflow_data)
 
-    @task.branch
-    def check_if_previously_rejected(**context):
+    def _check_if_previously_rejected(**context):
         """Equivalent to first IF of PROCESS_HOLDINGPEN_MATCH_HARVEST"""
 
         workflow_id = context["params"]["workflow_id"]
@@ -490,28 +485,29 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
-        @task
-        def arxiv_package_download(**context):
+        def _arxiv_package_download(**context):
             """Perform the package download step for arXiv records."""
 
             workflow_id = context["params"]["workflow_id"]
             workflow = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
-            filename = secure_filename(f"{arxiv_id}.tar.gz")
             url = f"/e-print/{arxiv_id}"
 
-            s3_tarball_key = f"{workflow_id}/{filename}"
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=url, method="GET", extra_options={"stream": True}
+                )
+            except (RetryError, AirflowException) as e:
+                if workflows.handle_withdrawn_arxiv_error(e, arxiv_hook, workflow_id):
+                    return "save_and_complete_workflow"
+                raise
 
-            response = arxiv_hook.call_api(
-                endpoint=url, method="GET", extra_options={"stream": True}
+            s3_store.hook.load_file_obj(
+                response.raw, workflows.get_tarball_key(workflow_id), replace=True
             )
 
-            response.raise_for_status()
-
-            s3_store.hook.load_file_obj(response.raw, s3_tarball_key, replace=True)
-
-            return s3_tarball_key
+            return "preprocessing.arxiv_plot_extract"
 
         @task
         def count_reference_coreness(**context):
@@ -1037,8 +1033,7 @@ def hep_create_dag():
                 return "preprocessing.populate_arxiv_document"
             return "preprocessing.populate_submission_document"
 
-        @task
-        def populate_arxiv_document(**context):
+        def _populate_arxiv_document(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
@@ -1047,13 +1042,18 @@ def hep_create_dag():
 
             endpoint = f"/pdf/{arxiv_id}"
 
-            response = arxiv_hook.call_api(
-                endpoint=endpoint,
-                extra_options={"stream": True, "allow_redirects": True},
-            )
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=endpoint,
+                    extra_options={"stream": True, "allow_redirects": True},
+                )
+            except (RetryError, AirflowException) as e:
+                if workflows.handle_withdrawn_arxiv_error(e, arxiv_hook, workflow_id):
+                    return "save_and_complete_workflow"
+                raise
 
             if not workflows.is_pdf_link(response):
-                return
+                return "preprocessing.arxiv_package_download"
 
             url = arxiv_hook.get_url() + endpoint
             filename = secure_filename(f"{arxiv_id}.pdf")
@@ -1077,13 +1077,17 @@ def hep_create_dag():
 
             s3_store.write_workflow(workflow_data)
 
+            return "preprocessing.arxiv_package_download"
+
         @task(execution_timeout=datetime.timedelta(minutes=5))
-        def arxiv_plot_extract(tarball_key, **context):
+        def arxiv_plot_extract(**context):
             """Extract plots from an arXiv archive."""
 
-            workflow = s3_store.read_workflow(context["params"]["workflow_id"])
+            workflow_id = context["params"]["workflow_id"]
+            workflow = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
+            tarball_key = workflows.get_tarball_key(workflow_id)
 
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
                 tarball_file = s3_store.hook.download_file(
@@ -1142,8 +1146,8 @@ def hep_create_dag():
             workflows.delete_empty_key(workflow, "figures")
             s3_store.write_workflow(workflow)
 
-        @task(trigger_rule=TriggerRule.ALL_DONE_MIN_ONE_SUCCESS)
-        def arxiv_author_list(tarball_key, **context):
+        @task
+        def arxiv_author_list(**context):
             """Extract authors from any author XML found in the arXiv archive.
 
             :param obj: Workflow Object to process
@@ -1154,7 +1158,9 @@ def hep_create_dag():
                 "<collaborationauthorlist.*?>.*?</collaborationauthorlist>", re.DOTALL
             )
 
-            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3_store.read_workflow(workflow_id)
+            tarball_key = workflows.get_tarball_key(workflow_id)
 
             has_author_xml = False
 
@@ -1219,8 +1225,7 @@ def hep_create_dag():
             workflow_data["relevance_prediction"] = calculate_coreness(results)
             s3_store.write_workflow(workflow_data)
 
-        @task.branch
-        def check_guess_coreness_rejection(**context):
+        def _check_guess_coreness_rejection(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
 
@@ -1248,13 +1253,24 @@ def hep_create_dag():
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
-        populate_arxiv_document_task = populate_arxiv_document()
-        arxiv_package_download_task = arxiv_package_download()
+        populate_arxiv_document_task = ShortCircuitBranchOperator(
+            task_id="populate_arxiv_document",
+            python_callable=_populate_arxiv_document,
+        )
+        arxiv_plot_extract_task = arxiv_plot_extract()
+        arxiv_package_download_task = ShortCircuitBranchOperator(
+            task_id="arxiv_package_download",
+            python_callable=_arxiv_package_download,
+        )
         populate_submission_document_task = populate_submission_document()
-        arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
+        arxiv_author_list_task = arxiv_author_list()
         normalize_journal_titles_task = normalize_journal_titles()
         extract_authors_from_pdf_task = extract_authors_from_pdf()
         refextract_task = refextract()
+        check_guess_coreness_rejection_task = ShortCircuitBranchOperator(
+            task_id="check_guess_coreness_rejection",
+            python_callable=_check_guess_coreness_rejection,
+        )
         save_workflow_task = save_workflow.override(
             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
         )()
@@ -1266,8 +1282,15 @@ def hep_create_dag():
 
         (
             populate_arxiv_document_task
-            >> arxiv_package_download_task
-            >> arxiv_plot_extract(arxiv_package_download_task)
+            >> [save_and_complete_workflow_task, arxiv_package_download_task]
+        )
+
+        (
+            arxiv_package_download_task
+            >> [save_and_complete_workflow_task, arxiv_plot_extract_task]
+        )
+        (
+            arxiv_plot_extract_task
             >> arxiv_author_list_task
             >> populate_submission_document_task
             >> download_documents()
@@ -1284,7 +1307,7 @@ def hep_create_dag():
             >> normalize_journal_titles_task
             >> populate_journal_coverage()
             >> guess_coreness()
-            >> check_guess_coreness_rejection()
+            >> check_guess_coreness_rejection_task
             >> [save_and_complete_workflow_task, refextract_task]
         )
         (
@@ -1615,8 +1638,7 @@ def hep_create_dag():
         )
         is_record_relevant_task >> should_replace_collection_to_hidden_task
 
-    @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def is_record_accepted(**context):
+    def _is_record_accepted(**context):
         """Check if the record has been accepted"""
 
         workflow_id = context["params"]["workflow_id"]
@@ -1837,8 +1859,7 @@ def hep_create_dag():
                 recid=recid,
             )
 
-    @task.branch
-    def should_proceed_to_core_selection(**context):
+    def _should_proceed_to_core_selection(**context):
         workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
         is_auto_approved = s3_store.get_flag(
@@ -2046,8 +2067,14 @@ def hep_create_dag():
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
-    stop_if_existing_submission_notify_and_close_task = (
-        stop_if_existing_submission_notify_and_close()
+    check_if_previously_rejected_task = ShortCircuitBranchOperator(
+        task_id="check_if_previously_rejected",
+        python_callable=_check_if_previously_rejected,
+    )
+    stop_if_existing_submission_notify_and_close_task = ShortCircuitBranchOperator(
+        task_id="stop_if_existing_submission_notify_and_close",
+        python_callable=_stop_if_existing_submission_notify_and_close,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
     )
 
     (
@@ -2066,7 +2093,7 @@ def hep_create_dag():
     )
     (
         check_auto_approve_task
-        >> check_if_previously_rejected()
+        >> check_if_previously_rejected_task
         >> [preprocessing_group, save_and_complete_workflow_task]
     )
 
@@ -2085,6 +2112,10 @@ def hep_create_dag():
 
     run_next_if_necessary_task = run_next_if_necessary()
     check_for_blocking_workflows_task = check_for_blocking_workflows()
+    discard_older_wfs_w_same_source_task = ShortCircuitBranchOperator(
+        task_id="discard_older_wfs_w_same_source",
+        python_callable=_discard_older_wfs_w_same_source,
+    )
 
     (
         restore_and_get_workflow_data()
@@ -2092,20 +2123,28 @@ def hep_create_dag():
         >> validate_record()
         >> notify_if_submission()
         >> set_workflow_status_to_running()
-        >> discard_older_wfs_w_same_source()
-        >> [check_for_blocking_workflows_task, run_next_if_necessary_task]
+        >> discard_older_wfs_w_same_source_task
+        >> [check_for_blocking_workflows_task, save_and_complete_workflow_task]
     )
 
     check_for_blocking_workflows_task >> check_for_exact_matches_task
 
     postprocessing_group = postprocessing()
-    should_proceed_to_core_selection_task = should_proceed_to_core_selection()
+    should_proceed_to_core_selection_task = ShortCircuitBranchOperator(
+        task_id="should_proceed_to_core_selection",
+        python_callable=_should_proceed_to_core_selection,
+    )
+    is_record_accepted_task = ShortCircuitBranchOperator(
+        task_id="is_record_accepted",
+        python_callable=_is_record_accepted,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+    )
     notify_and_close_not_accepted_task = notify_and_close_not_accepted()
 
     (
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
-        >> is_record_accepted()
+        >> is_record_accepted_task
         >> [postprocessing_group, notify_and_close_not_accepted_task]
     )
     (
