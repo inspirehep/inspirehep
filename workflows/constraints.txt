@@ -434,7 +434,7 @@ jeepney==0.9.0
 jiter==0.17.0
 jmespath==1.1.0
 joblib==1.6.0
-joserfc==1.7.5
+joserfc==1.7.6
 jpype1==1.7.1
 jsonpath-ng==1.8.0
 jsonschema-specifications==2025.9.1
