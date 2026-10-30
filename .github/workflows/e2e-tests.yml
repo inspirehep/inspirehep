@@ -23,6 +23,10 @@ on:
         description: The backoffice image
         type: string
         required: true
+      load-image-artifacts:
+        description: Load the images from the image-* artifacts of this run
+        type: boolean
+        default: false
 
 defaults:
   run:
@@ -76,9 +80,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - name: Download images
+        if: ${{ inputs.load-image-artifacts }}
+        uses: actions/download-artifact@v8.0.2
+        with:
+          pattern: image-*
+          path: ${{ runner.temp }}/images
+
+      - name: Load images
+        if: ${{ inputs.load-image-artifacts }}
+        run: find ${{ runner.temp }}/images -name image.tar -exec docker load --input {} \;
 
       - name: create environment file
         run: |
@@ -226,15 +242,15 @@ jobs:
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch document index --force
 
       - name: cypress
-        uses: cypress-io/github-action@v7.4.0
+        uses: cypress-io/github-action@v7.4.8
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
-          record: true
+          record: ${{ secrets.CYPRESS_RECORD_KEY != '' }}
           parallel: false
           browser: ${{ matrix.browser }}
-          tag: Chrome
+          tag: ${{ secrets.CYPRESS_RECORD_KEY != '' && 'Chrome' || '' }}
           env: inspirehep_url=http://localhost:8080,backoffice_url=http://localhost:8001
 
       - name: application logs

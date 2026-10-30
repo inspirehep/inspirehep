@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.ref }}
+      push: true
     secrets: inherit
 
   deploy:

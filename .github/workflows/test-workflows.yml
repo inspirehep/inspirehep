@@ -7,6 +7,10 @@ on:
         description: The reference to build
         type: string
         required: true
+      push:
+        description: Push the built images to the registries
+        type: boolean
+        default: false
     outputs:
       json:
         description: JSON output of tags and labels
@@ -23,6 +27,7 @@ jobs:
       image: cern-sis/inspire/workflows
       context: ./workflows
       dockerfile: ./workflows/Dockerfile
+      push: ${{ inputs.push }}
     secrets: inherit
   test:
     runs-on: ubuntu-24.04
@@ -30,9 +35,10 @@ jobs:
       AIRFLOW_PROJ_DIR: ./workflows
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
       - name: Spin up Docker containers
         run: |
