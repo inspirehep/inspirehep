@@ -1,3 +1,5 @@
+import { ErrorSchema } from '@rjsf/utils';
+
 export interface Revision {
   updated: string;
   userEmail: string;
@@ -60,3 +62,27 @@ export const toTicket = (ticket: TicketFromApi): Ticket => ({
   description: ticket.description,
   id: ticket.sys_id,
 });
+
+export type BackendValidationError = {
+  message: string;
+  path: (string | number)[];
+};
+
+export const toExtraErrors = (
+  validationErrors: BackendValidationError[] | undefined
+): ErrorSchema | undefined => {
+  if (!validationErrors?.length) {
+    return undefined;
+  }
+  const extraErrors: ErrorSchema = {};
+  validationErrors.forEach(({ message, path }) => {
+    let node: any = extraErrors;
+    path.forEach((key) => {
+      node[key] = node[key] ?? {};
+      node = node[key];
+    });
+    // eslint-disable-next-line no-underscore-dangle -- it respects the ErrorSchema type
+    node.__errors = [...(node.__errors ?? []), message];
+  });
+  return extraErrors;
+};

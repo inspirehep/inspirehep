@@ -1,6 +1,5 @@
 import { legacy_connect as connect } from 'react-redux';
 
-import { fetchAuthor } from '../../actions/recordEditor/record';
 import {
   fetchQueues,
   fetchTickets,
@@ -13,10 +12,26 @@ import './AuthorEditorContainer.less';
 
 import { resetEditor } from '../../actions/recordEditor/common';
 import CommonEditor from '../components/CommonEditor';
+import {
+  fetchAuthorWorkflow,
+  saveAuthorWorkflow,
+} from '../../actions/recordEditor/workflow';
+import prepareAuthorSchema from '../utils/prepareAuthorSchema';
 
 const stateToProps = (state: RootState) => ({
-  author: state.recordEditor.getIn(['recordData', 'author']),
-  error: state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
+  authorData: state.recordEditor.getIn(['workflowData', 'author']).get('data'),
+  schema: state.recordEditor.getIn(['workflowData', 'schema'])
+    ? prepareAuthorSchema(
+        state.recordEditor.getIn(['workflowData', 'schema']).toJS()
+      )
+    : null,
+  error:
+    state.recordEditor.getIn(['workflowData', 'fetchAuthorError']) ??
+    state.recordEditor.getIn(['workflowData', 'fetchSchemaError']),
+  validationErrors: state.recordEditor
+    .getIn(['workflowData', 'author'])
+    .get('validation_errors'),
+  save: saveAuthorWorkflow,
   withRevisions: false as const,
 });
 
@@ -26,12 +41,22 @@ export default withRouteActionsDispatcher(BackofficeAuthorEditorContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
     resetEditor(),
-    fetchAuthor(id!),
+    fetchAuthorWorkflow(id!),
     fetchQueues(),
     fetchUsers(),
     fetchTickets(id!),
   ],
-  loadingStateSelector: (state: RootState) =>
-    !state.recordEditor.hasIn(['recordData', 'author', 'record']) &&
-    !state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
+  loadingStateSelector: (state: RootState) => {
+    const fetchingAuthor =
+      !state.recordEditor.hasIn(['workflowData', 'author', 'data']) &&
+      !state.recordEditor.getIn(['workflowData', 'fetchAuthorError']);
+    const fetchingAuthorFailed = !!state.recordEditor.getIn([
+      'workflowData',
+      'fetchAuthorError',
+    ]);
+    const fetchingSchema =
+      !state.recordEditor.getIn(['workflowData', 'schema']) &&
+      !state.recordEditor.getIn(['workflowData', 'fetchSchemaError']);
+    return fetchingAuthor || (!fetchingAuthorFailed && fetchingSchema);
+  },
 });

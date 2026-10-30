@@ -3,18 +3,15 @@ import { useParams } from 'react-router-dom';
 import { Action, ActionCreator } from 'redux';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import FormType from '@rjsf/core';
+import { RJSFSchema } from '@rjsf/utils';
 import { isEqual } from 'lodash';
 import { flushSync } from 'react-dom';
 import { ConfigProvider } from 'antd';
 import { Form } from '@rjsf/antd';
 import FetchingRecordError from './FetchingRecordError';
-import prepareAuthorSchema from '../utils/prepareAuthorSchema';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
-import {
-  resetAuthorRevisionData,
-  saveAuthor,
-} from '../../actions/recordEditor/record';
-import { Revision } from '../types';
+import { resetAuthorRevisionData } from '../../actions/recordEditor/record';
+import { BackendValidationError, Revision, toExtraErrors } from '../types';
 import Header from './Header';
 import validator from '../utils/validator';
 import authorUiSchema from '../uiSchema/authorUiSchema';
@@ -28,14 +25,26 @@ import ProjectNameAutocompleteWidget from './customWidgets/ProjectNameAutocomple
 import ViewRecordWidget from './customWidgets/ViewRecordWidget';
 import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
 import ToggleWidget from './customWidgets/ToggleWidget';
+import { RootState } from '../../types';
+import { HttpClientWrapper } from '../../common/http';
 
 const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
 
 interface CommonEditorProps {
   dispatch: ActionCreator<Action>;
-  author: Map<string, any>;
+  authorData: Map<string, any>;
+  schema: RJSFSchema | null;
   error: number | null;
+  save: (
+    id: string,
+    record: object
+  ) => (
+    dispatch: ActionCreator<Action, any[]>,
+    getState: () => RootState,
+    http: HttpClientWrapper
+  ) => Promise<void>;
+  validationErrors?: List<Map<string, any>>;
   withRevisions:
     | false
     | {
@@ -47,17 +56,23 @@ interface CommonEditorProps {
 
 const CommonEditor = ({
   dispatch,
-  author,
+  authorData,
+  schema,
   error,
+  save,
+  validationErrors,
   withRevisions,
 }: CommonEditorProps) => {
   const { id } = useParams();
-  const authorData = author.get('record')?.get('metadata');
 
   const currentRevision = withRevisions ? withRevisions.currentRevision : null;
   const isViewingRevision = !!currentRevision;
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
+
+  const [extraErrors, setExtraErrors] = useState(() =>
+    toExtraErrors(validationErrors?.toJS() as BackendValidationError[])
+  );
 
   const formRef = useRef<FormType>(null);
   const historyRef = useRef<any[]>([]);
@@ -91,10 +106,13 @@ const CommonEditor = ({
 
   useEffect(() => {
     setFormData(authorData?.toJS());
+    setExtraErrors(
+      toExtraErrors(validationErrors?.toJS() as BackendValidationError[])
+    );
     historyRef.current = [];
     isTypingGroupOpenRef.current = false;
     preRevisionFormDataRef.current = null;
-  }, [authorData]);
+  }, [authorData, validationErrors]);
 
   useEffect(() => {
     if (currentRevision) {
@@ -112,8 +130,9 @@ const CommonEditor = ({
   if (error !== null) {
     return <FetchingRecordError controlNumber={id} errorStatus={error} />;
   }
-
-  const schema = prepareAuthorSchema(author.get('schema').toJS());
+  if (schema === null) {
+    return <FetchingRecordError controlNumber={id} errorStatus={500} />;
+  }
 
   const onFormChange = (nextFormData: any) => {
     if (isViewingRevision) {
@@ -139,13 +158,14 @@ const CommonEditor = ({
     // flushSync forces the pruned formData to reach the Form's internal
     // state synchronously, so validateForm() right after can read it.
     flushSync(() => {
+      setExtraErrors(undefined);
       setFormData(prunedFormData);
     });
     if (!formRef.current?.validateForm()) {
       window.scrollTo(0, 0);
       return;
     }
-    dispatch(saveAuthor(id, prunedFormData));
+    dispatch(save(id, prunedFormData));
   };
 
   const resetToLastUpdate = () => {
@@ -185,6 +205,7 @@ const CommonEditor = ({
           schema={schema}
           validator={validator}
           formData={formData}
+          extraErrors={extraErrors}
           readonly={isViewingRevision}
           onChange={({ formData: nextFormData }) => onFormChange(nextFormData)}
           uiSchema={authorUiSchema}
