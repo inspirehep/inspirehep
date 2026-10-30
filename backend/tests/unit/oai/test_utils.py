@@ -4,12 +4,15 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from datetime import datetime
+
 import pytest
 from helpers.providers.faker import faker
 from inspirehep.oai.utils import (
     ACCELERATOR_EXPERIMENTS_NAMES,
     COLLABORATIONS,
     COLLECTIONS,
+    datetime_to_datestamp,
     has_cern_accelerator_experiment,
     has_cern_affiliation,
     has_cern_collaboration,
@@ -19,6 +22,7 @@ from inspirehep.oai.utils import (
     is_cds_set,
     is_cern_arxiv_set,
     is_in_cern_arxiv_collection,
+    sanitize_unicode,
 )
 
 
@@ -401,3 +405,19 @@ def test_is_arxiv_set_with_collection_and_without_arxiv_eprints():
     data = {"report_numbers": [{"value": "CERN-TH-2020-136"}]}
     record = faker.record("lit", data)
     assert False is is_cern_arxiv_set(record)
+
+
+def test_datetime_to_datestamp():
+    dt = datetime(2026, 10, 29, 13, 45, 12, 123456)
+
+    assert datetime_to_datestamp(dt) == "2026-10-29T13:45:12Z"
+
+
+def test_datetime_to_datestamp_with_day_granularity():
+    dt = datetime(2026, 10, 29, 13, 45, 12)
+
+    assert datetime_to_datestamp(dt, day_granularity=True) == "2026-10-29"
+
+
+def test_sanitize_unicode_removes_characters_invalid_in_xml():
+    assert sanitize_unicode("uni\x01co\x0bde\ufffe") == "unicode"
