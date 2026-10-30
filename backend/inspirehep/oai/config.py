@@ -6,8 +6,18 @@
 
 OAISERVER_ID_PREFIX = "oai:inspirehep.net:"
 OAISERVER_RECORD_INDEX = "records-hep"
-OAISERVER_QUERY_PARSER_FIELDS = {}
-OAISERVER_REGISTER_RECORD_SIGNALS = False
+
+OAISERVER_REPOSITORY_NAME = "Invenio-OAIServer"
+OAISERVER_PROTOCOL_VERSION = "2.0"
+OAISERVER_ADMIN_EMAILS = ["info@inveniosoftware.org"]
+OAISERVER_GRANULARITY = "YYYY-MM-DDThh:mm:ssZ"
+OAISERVER_COMPRESSIONS = ["identity"]
+OAISERVER_DESCRIPTIONS = []
+OAISERVER_XSL_URL = None
+OAISERVER_PAGE_SIZE = 10
+# In seconds. Also used as the OpenSearch scroll timeout, so longer values keep
+# cursors open for longer.
+OAISERVER_RESUMPTION_TOKEN_EXPIRE_TIME = 60
 
 OAISERVER_METADATA_FORMATS = {
     "marcxml": {

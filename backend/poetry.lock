@@ -2576,48 +2576,6 @@ docs = ["Flask-CeleryExt (>=0.2.2)", "Sphinx (>=1.4.2)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest (>=2.8.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
 
 [[package]]
-name = "invenio-oaiserver"
-version = "1.1.2"
-description = "Invenio module that implements OAI-PMH server."
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = []
-develop = false
-
-[package.dependencies]
-arrow = "1.3.0"
-dojson = "1.5.0"
-Flask = "2.1.3"
-Flask-BabelEx = ">=0.9.3"
-flask-cors = ">=3.0.8"
-invenio-pidstore = "1.3.1"
-invenio-records = ">=1.0.0"
-invenio-rest = "1.2.8"
-lxml = "5.2.2"
-marshmallow = "2.21.0"
-Werkzeug = ">=0.14.1"
-
-[package.extras]
-admin = ["Flask-Admin (==1.6.1)"]
-all = ["Flask-Admin (==1.6.1)", "Flask-Admin (==1.6.1)", "SQLAlchemy-Continuum (>=1.2.1)", "SQLAlchemy-Continuum (>=1.2.1)", "coverage (>=4.0)", "coverage (>=4.0)", "invenio-celery (==1.3.1)", "invenio-celery (==1.3.1)", "invenio-indexer (==2.3.0)", "invenio-indexer (==2.3.0)", "invenio-jsonschemas (==1.0.1)", "invenio-jsonschemas (==1.0.1)", "invenio-marc21 (>=1.0.0a9)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "mock (>=1.3.0)", "pytest-invenio (>=1.2.1)", "pytest-invenio (>=1.2.1)"]
-celery = ["invenio-celery (==1.3.1)"]
-elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.2.0)"]
-mysql = ["invenio-db[mysql] (==1.1.5)"]
-opensearch1 = ["invenio-search[opensearch1] (>=2.1.0,<3.0.0)"]
-opensearch2 = ["invenio-search[opensearch2] (>=2.1.0,<3.0.0)"]
-opensearch3 = ["invenio-search[opensearch3] (>=2.1.0,<3.0.0)"]
-postgresql = ["invenio-db[postgresql] (==1.1.5)"]
-sqlite = ["invenio-db (==1.1.5)"]
-tests = ["SQLAlchemy-Continuum (>=1.2.1)", "coverage (>=4.0)", "invenio-indexer (==2.3.0)", "invenio-jsonschemas (==1.0.1)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "pytest-invenio (>=1.2.1)"]
-
-[package.source]
-type = "git"
-url = "https://github.com/inspirehep/invenio-oaiserver.git"
-reference = "HEAD"
-resolved_reference = "6397aba580369cffe41772aeb953b8da8e082aa4"
-
-[[package]]
 name = "invenio-oauth2server"
 version = "1.0.4"
 description = "Invenio module that implements OAuth 2 server."
@@ -7127,4 +7085,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "588825d9e7c703c57920d9944fd14c99628bf6003af5760e8e408fd1389ce8a3"
+content-hash = "3adbfc95abb81abd5e533879eebf9888a76d47933c6a4105e49c8867db4440bd"

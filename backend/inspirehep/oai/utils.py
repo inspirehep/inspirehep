@@ -5,9 +5,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import re
+from functools import lru_cache, partial
 from itertools import chain
 
+from flask import current_app
 from inspire_utils.record import get_value
+from werkzeug.utils import import_string
 
 ACCELERATOR_EXPERIMENTS_NAMES = {"larp", "iaxo", "calice", "opera", "cloud"}
 COLLABORATIONS = {"atlas", "alice", "cms", "lhcb", "totem", "lhcf", "cern"}
@@ -106,3 +109,35 @@ def is_cern_arxiv_set(record):
 def is_oaire_set(record):
     """Check if the record should be part of `oaire` set."""
     return "Literature" in record.get("_collections", [])
+
+
+@lru_cache(maxsize=100)
+def serializer(metadata_prefix):
+    """Return the record serializer for the given metadata prefix.
+
+    Args:
+        metadata_prefix (str): one of the metadata identifiers configured in
+            ``OAISERVER_METADATA_FORMATS``.
+    """
+    metadata_formats = current_app.config["OAISERVER_METADATA_FORMATS"]
+    serializer_ = metadata_formats[metadata_prefix]["serializer"]
+    if isinstance(serializer_, tuple):
+        return partial(import_string(serializer_[0]), **serializer_[1])
+    return import_string(serializer_)
+
+
+def datetime_to_datestamp(dt, day_granularity=False):
+    """Transform datetime to an OAI-PMH datestamp, ignoring microseconds."""
+    dt = dt.replace(microsecond=0)
+    result = dt.isoformat() + "Z"
+    if day_granularity:
+        result = result[:-10]
+    return result
+
+
+def sanitize_unicode(value):
+    """Remove characters incompatible with XML 1.0.
+
+    Following W3C recommendation: https://www.w3.org/TR/REC-xml/#charsets
+    """
+    return re.sub("[\x00-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]", "", value)

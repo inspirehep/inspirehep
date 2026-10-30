@@ -8,7 +8,7 @@
 """init oai"""
 
 from alembic import op
-from invenio_oaiserver.models import OAISet
+from inspirehep.oai.models import OAISet
 
 # revision identifiers, used by Alembic.
 revision = "c9f31d2a189d"
