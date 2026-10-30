@@ -1,5 +1,9 @@
+import logging
+
 from hooks.backoffice.base import BackofficeHook
 from requests import Response
+
+logger = logging.getLogger(__name__)
 
 AUTHORS = "authors"
 HEP = "literature"
@@ -74,7 +78,19 @@ class WorkflowManagementHook(BackofficeHook):
         response = self.call_api(method="GET", endpoint=endpoint, params=params)
         return response.json()
 
-    def add_decision(self, workflow_id: str, decision_data: dict) -> Response:
+    def add_decision(self, workflow_id: str, decision_data: dict) -> Response | None:
+        workflow = self.get_workflow(workflow_id)
+        if any(
+            decision.get("action") == decision_data["action"]
+            for decision in workflow.get("decisions") or []
+        ):
+            logger.info(
+                "Decision %s already exists for workflow %s, skipping",
+                decision_data["action"],
+                workflow_id,
+            )
+            return None
+
         endpoint = f"{self.endpoint}/{workflow_id}/resolve/"
         return self.call_api(
             method="POST",

@@ -42,21 +42,18 @@ class TestUtils(TransactionTestCase):
         )
         self.assertIsNotNone(decision_data)
 
-    def test_add_decision_is_idempotent(self):
-        first = add_hep_decision(
-            self.workflow.id, self.user, HepResolutions.auto_reject
-        )
-        second = add_hep_decision(
-            self.workflow.id, self.user, HepResolutions.auto_reject
-        )
+    def test_add_decision_rejects_duplicate_action(self):
+        add_hep_decision(self.workflow.id, self.user, HepResolutions.auto_reject)
+
+        with pytest.raises(ValidationError):
+            add_hep_decision(self.workflow.id, self.user, HepResolutions.auto_reject)
+
         self.assertEqual(
             HepDecision.objects.filter(
                 workflow=self.workflow, action=HepResolutions.auto_reject
             ).count(),
             1,
         )
-        self.assertIsNotNone(second)
-        self.assertEqual(first["action"], second["action"])
 
     def test_add_decision_validation_errors(self):
         with pytest.raises(ValidationError):
@@ -82,7 +79,8 @@ class TestUtils(TransactionTestCase):
         self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
         self.assertEqual(workflow.decisions.first().action, HepResolutions.auto_reject)
 
-        resolve_workflow(self.workflow.id, decision_data, self.user)
+        with pytest.raises(ValidationError):
+            resolve_workflow(self.workflow.id, decision_data, self.user)
         self.assertEqual(
             HepDecision.objects.filter(
                 workflow=self.workflow, action=HepResolutions.auto_reject
