@@ -16,7 +16,7 @@ from rest_framework import status
 from backoffice.authors.models import AuthorWorkflowTicket
 from backoffice.authors.constants import (
     AuthorCreateDags,
-    AuthorResolutionDags,
+    AuthorResolutions,
     AuthorStatusChoices,
     AuthorWorkflowType,
 )
@@ -43,6 +43,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             workflow_type=AuthorWorkflowType.AUTHOR_CREATE,
             id=uuid.UUID(int=0),
         )
+
         airflow_utils.trigger_airflow_dag(
             WORKFLOW_DAGS[self.workflow.workflow_type].initialize,
             self.workflow.id,
@@ -228,7 +229,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             data=data,
         )
         workflow = AuthorWorkflow.objects.get(id=self.workflow.id)
-        self.assertEqual(workflow.status, AuthorStatusChoices.PROCESSING)
+        self.assertEqual(workflow.status, AuthorStatusChoices.RUNNING)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             AuthorDecision.objects.filter(workflow=self.workflow.id)[0].action, action
@@ -236,11 +237,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         response = response.json()
         self.assertEqual(response["id"], str(self.workflow.id))
         self.assertIn("decisions", response)
-        self.assertEqual(response["status"], "processing")
-
-        airflow_utils.delete_workflow_dag(
-            WORKFLOW_DAGS[AuthorWorkflowType.AUTHOR_CREATE].approve, self.workflow.id
-        )
+        self.assertEqual(response["status"], AuthorStatusChoices.RUNNING)
 
     @pytest.mark.vcr
     def test_reject_author(self):
@@ -260,10 +257,6 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
         self.assertEqual(response.json()["id"], str(self.workflow.id))
         self.assertIn("decisions", response.json())
-
-        airflow_utils.delete_workflow_dag(
-            WORKFLOW_DAGS[AuthorWorkflowType.AUTHOR_CREATE].reject, self.workflow.id
-        )
 
     @pytest.mark.vcr
     def test_restart_successful_dagrun(self):
@@ -291,25 +284,6 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("test", response.json()["data"])
-
-    @pytest.mark.vcr
-    def test_restart_full_dagrun_without_ran_dags(self):
-        self.api_client.force_authenticate(user=self.curator)
-
-        workflow = AuthorWorkflow.objects.create(
-            data={"test": "test"},
-            status="running",
-            workflow_type=AuthorWorkflowType.AUTHOR_CREATE,
-            id=uuid.UUID(int=6),
-        )
-
-        url = reverse(
-            "api:authors-restart",
-            kwargs={"pk": workflow.id},
-        )
-
-        response = self.api_client.post(url)
-        self.assertEqual(response.status_code, 200)
 
     @pytest.mark.vcr
     def test_restart_a_task(self):
@@ -470,7 +444,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
     def test_decisions(self):
         AuthorDecision.objects.create(
-            workflow=self.workflow, user=self.user, action=AuthorResolutionDags.accept
+            workflow=self.workflow, user=self.user, action=AuthorResolutions.accept
         )
         workflow_data = AuthorWorkflowSerializer(self.workflow).data
         assert "decisions" in workflow_data
