@@ -53,4 +53,37 @@ describe('validator', () => {
       expect(validator.isValid(schema, 'J Ellis 1', schema)).toBe(false);
     });
   });
+
+  describe('backend-compatible patterns', () => {
+    const bai = {
+      type: 'string',
+      pattern: "^((\\w|\\-|\\')+\\.)+\\d+$",
+    } as const;
+    const inspireId = { type: 'string', pattern: '^INSPIRE-\\d{8}$' } as const;
+
+    it('accepts accented letters in BAIs', () => {
+      expect(validator.isValid(bai, 'François.Lanusse.2', bai)).toBe(true);
+    });
+
+    it('accepts a trailing newline like Python re.search', () => {
+      expect(
+        validator.isValid(inspireId, 'INSPIRE-00123456\n', inspireId)
+      ).toBe(true);
+      expect(validator.isValid(inspireId, 'INSPIRE-0012345\n', inspireId)).toBe(
+        false
+      );
+    });
+  });
+
+  describe('email format', () => {
+    const schema = { type: 'string', format: 'email' } as const;
+
+    it('accepts hostnames without a TLD', () => {
+      expect(validator.isValid(schema, 'JOE@UTAPHY', schema)).toBe(true);
+    });
+
+    it('rejects values without @', () => {
+      expect(validator.isValid(schema, 'JOE', schema)).toBe(false);
+    });
+  });
 });
