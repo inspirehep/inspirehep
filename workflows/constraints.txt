@@ -372,7 +372,7 @@ google-cloud-texttospeech==2.37.0
 google-cloud-translate==3.27.0
 google-cloud-videointelligence==2.20.0
 google-cloud-vision==3.15.0
-google-cloud-workflows==1.23.0
+google-cloud-workflows==1.24.0
 google-crc32c==1.8.0
 google-genai==2.23.0
 google-resumable-media==2.10.2
