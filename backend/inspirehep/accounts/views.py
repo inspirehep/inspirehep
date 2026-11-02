@@ -4,7 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, redirect, request, session
+from flask import Blueprint, abort, current_app, redirect, request, session
 from flask_login import current_user
 from flask_security.utils import login_user, logout_user, verify_password
 from inspirehep.accounts.api import get_current_user_remote_orcid_account
@@ -61,6 +61,8 @@ def login():
 
 @blueprint.route("/login", methods=["POST"])
 def local_login():
+    if not current_app.config.get("FEATURE_FLAG_ENABLE_LOCAL_LOGIN"):
+        abort(404)
     body = request.get_json()
     email = body["email"]
     password = body["password"]
