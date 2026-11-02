@@ -14,7 +14,7 @@ describe("recordEditor - authorRecord", () => {
     cy.wait("@publications");
     cy.wait(["@facets", "@facets"]);
     cy.editRecord(authorRecordId);
-    cy.url().should("include", `/new-editor/record/authors/${authorRecordId}`);
+    cy.url().should("include", `/editor/record/authors/${authorRecordId}`);
 
     cy.get('[id="root_name_preferred_name"]').click().type(" updated");
     cy.addPositionAtCern(3, 1970, "MASTER");
@@ -22,7 +22,7 @@ describe("recordEditor - authorRecord", () => {
     cy.addArxivCategory(/^cond-mat$/);
 
     cy.contains("button", "Save").click();
-    cy.url().should("not.include", "new-editor");
+    cy.url().should("not.include", "editor");
     cy.contains(`${authorPreferredName} updated`).should("exist");
     cy.contains("cond-mat").should("exist");
     cy.contains("Show all positions").click();

@@ -54,15 +54,12 @@ export const SUBMISSIONS_EXPERIMENT = `${SUBMISSIONS}/experiments`;
 export const SUBMISSIONS_JOURNAL = `${SUBMISSIONS}/journals`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
-const EDITOR = '/editor';
+export const EDITOR = '/editor';
 export const NEW_EDITOR = '/new-editor';
-const AUTHOR_EDITOR = getConfigFor('RECORD_EDITOR_AUTHOR_FEATURE_FLAG')
-  ? NEW_EDITOR
-  : EDITOR;
 
 export const EDIT_LITERATURE = `${EDITOR}/record/literature`;
 export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
-export const EDIT_AUTHOR_CATALOGER = `${AUTHOR_EDITOR}/record/authors`;
+export const EDIT_AUTHOR_CATALOGER = `/editor/record/authors`;
 export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = `${EDITOR}/record/conferences`;
 export const EDIT_INSTITUTION = `${EDITOR}/record/institutions`;

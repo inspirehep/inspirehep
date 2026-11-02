@@ -1,14 +1,6 @@
 Cypress.Commands.add("loginAsAdmin", () => {
   const email = "admin@inspirehep.net";
   const password = "123456";
-  cy.intercept("GET", "/config.js", (req) => {
-    req.reply((res) => {
-      res.body = res.body.replace(
-        /RECORD_EDITOR_AUTHOR_FEATURE_FLAG:\s*(true|false)/,
-        "RECORD_EDITOR_AUTHOR_FEATURE_FLAG: true",
-      );
-    });
-  });
 
   cy.env(["inspirehep_url"]).then(({ inspirehep_url }) => {
     cy.request({

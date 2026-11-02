@@ -29,7 +29,7 @@ import {
   EXPERIMENTS,
   BIBLIOGRAPHY_GENERATOR,
   JOURNALS,
-  NEW_EDITOR,
+  EDITOR,
   AUTHORLIST_TOOL,
 } from './common/routes';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
@@ -132,7 +132,7 @@ function App({
                 }
               />
               <Route
-                path={`${NEW_EDITOR}/*`}
+                path={`${EDITOR}/*`}
                 element={
                   <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
                     <LazyRecordEditor />
@@ -159,9 +159,7 @@ App.propTypes = {
 const stateToProps = (state) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
-  isRecordEditorPage: String(state.router.location.pathname).startsWith(
-    NEW_EDITOR
-  ),
+  isRecordEditorPage: String(state.router.location.pathname).startsWith(EDITOR),
 });
 
 const dispatchToProps = (dispatch) => ({
