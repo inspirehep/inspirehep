@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
+import requests
 from airflow.models import DagBag
 from airflow.sdk.exceptions import (
     AirflowException,
@@ -44,6 +45,7 @@ from include.utils.tickets import get_ticket_by_type
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
 from tenacity import Future, RetryError
+from urllib3 import HTTPResponse
 
 from tests.test_utils import (
     task_test,
@@ -1739,10 +1741,13 @@ class Test_HEPCreateDAG:
 
     @patch("include.utils.download_documents.requests.get")
     def test_download_documents_from_external_source(self, mock_call_api):
-        download_response = Mock()
-        download_response.raw = BytesIO(b"external document")
+        download_response = requests.Response()
+        download_response.status_code = 200
+        download_response.raw = HTTPResponse(
+            body=BytesIO(b"%PDF-1.4 external document"), preload_content=False
+        )
         mock_call_api.return_value = download_response
-        filename = "external_file.txt"
+        filename = "external_file.pdf"
 
         workflow_data = {
             "id": self.workflow_id,
@@ -1773,6 +1778,38 @@ class Test_HEPCreateDAG:
             urlparse(result["data"]["documents"][0]["url"]).path
             == f"/{self.s3_store.bucket_name}/{self.workflow_id}/documents/{filename}"
         )
+
+    @pytest.mark.parametrize(
+        ("url", "body", "error"),
+        [
+            ("file:///etc/passwd", None, "No connection adapters"),
+            ("https://www.example.org/page", b"<html>not a pdf</html>", "not a PDF"),
+        ],
+    )
+    @patch("include.utils.download_documents.requests.get", wraps=requests.get)
+    def test_download_documents_fails_on_rejected_document(
+        self, mock_get, url, body, error
+    ):
+        if body is not None:
+            response = requests.Response()
+            response.status_code = 200
+            response.raw = HTTPResponse(body=BytesIO(body), preload_content=False)
+            mock_get.return_value = response
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {"documents": [{"key": "rejected.pdf", "url": url}]},
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        with pytest.raises(ValueError, match=error):
+            task_test(self.dag, "preprocessing.download_documents", self.context)
+
+        assert not self.s3_store.hook.check_for_key(
+            f"{self.workflow_id}/documents/rejected.pdf"
+        )
+        result = self.s3_store.read_workflow(self.workflow_id)
+        assert result["data"]["documents"] == workflow_data["data"]["documents"]
 
     @pytest.mark.vcr
     def test_count_reference_coreness(self):

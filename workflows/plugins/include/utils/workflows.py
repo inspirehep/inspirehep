@@ -33,6 +33,10 @@ from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
 
+PDF_LINK_CHECK_TIMEOUT = 60
+# Bytes read from a document to check its PDF header
+PDF_SIGNATURE_WINDOW = 1024
+
 
 def get_decision(decisions, actions):
     if not decisions:
@@ -115,6 +119,15 @@ def delete_empty_key(workflow_data, key):
         del workflow_data["data"][key]
 
 
+def has_pdf_signature(data):
+    """Whether ``data`` starts with the PDF header, ignoring leading whitespace.
+
+    The header is required at the start, rather than anywhere near it, so files
+    that are also valid HTML (or other formats) are rejected.
+    """
+    return data[:PDF_SIGNATURE_WINDOW].lstrip().startswith(b"%PDF-")
+
+
 def is_pdf_link(response):
     """Verify if the response points to a PDF.
 
@@ -125,11 +138,11 @@ def is_pdf_link(response):
     """
 
     if isinstance(response, str):
-        response = requests.get(response, allow_redirects=True, stream=True)
+        response = requests.get(response, stream=True, timeout=PDF_LINK_CHECK_TIMEOUT)
+        if not response.ok:
+            return False
 
-    found = next(response.iter_content(10000), b"").find(b"%PDF")
-
-    return found >= 0
+    return has_pdf_signature(next(response.iter_content(PDF_SIGNATURE_WINDOW), b""))
 
 
 def post_pdf_to_grobid(workflow, s3_hook, process_fulltext=False):
