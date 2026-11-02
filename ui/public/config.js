@@ -15,6 +15,7 @@
     SEARCH_FEEDBACK_CARD_FEATURE_FLAG: false,
     AI_SEARCH_FEATURE_FLAG: false,
     RECORD_EDITOR_AUTHOR_FEATURE_FLAG: false,
+    LOCAL_LOGIN_FEATURE_FLAG: true,
     /* Example:
     BANNERS: [
       {

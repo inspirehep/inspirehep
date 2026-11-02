@@ -12,6 +12,7 @@ import LocalLoginPageContainer from './containers/LocalLoginPageContainer';
 import { USER_PROFILE, HOME } from '../common/routes';
 import RoutesWithFallback from '../common/components/RoutesWithFallback';
 import SettingsContainer from '../settings/containers/SettingsContainer';
+import { getConfigFor } from '../common/config';
 
 const User = ({
   loggedIn,
@@ -49,14 +50,16 @@ const User = ({
             </ConditionalElement>
           }
         />
-        <Route
-          path="login/local"
-          element={
-            <ConditionalElement condition={!loggedIn} redirectTo={redirectTo}>
-              <LocalLoginPageContainer />
-            </ConditionalElement>
-          }
-        />
+        {getConfigFor('LOCAL_LOGIN_FEATURE_FLAG') && (
+          <Route
+            path="login/local"
+            element={
+              <ConditionalElement condition={!loggedIn} redirectTo={redirectTo}>
+                <LocalLoginPageContainer />
+              </ConditionalElement>
+            }
+          />
+        )}
         <Route
           path="profile"
           element={

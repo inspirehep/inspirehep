@@ -57,6 +57,15 @@ def test_login_redirects_to_oauthclient_login(inspire_app):
     assert response_location_header == expected_redirect_url
 
 
+def test_local_login_returns_404_when_disabled(inspire_app):
+    user = create_user(role="superuser")
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/accounts/login", json={"email": user.email, "password": "123456"}
+        )
+    assert response.status_code == 404
+
+
 def test_login_success_redirects_to_next_url(inspire_app):
     next_url = "http://localhost:3000/literature?q=moskovic"
     with inspire_app.test_client() as client:

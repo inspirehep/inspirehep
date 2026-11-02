@@ -11,6 +11,7 @@ import LocalLoginPageContainer from './login/containers/LocalLoginPageContainer'
 import AuthorDetailPageContainer from './authors/containers/AuthorDetailPageContainer';
 import LiteratureDetailPageContainer from './literature/containers/LiteratureDetailPageContainer';
 import RequireAuth from '../common/RequireAuth';
+import { getConfigFor } from '../common/config';
 
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
@@ -28,14 +29,16 @@ const Backoffice = () => (
             </RequireAuth>
           }
         />
-        <Route
-          path="login/local"
-          element={
-            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
-              <LocalLoginPageContainer />
-            </RequireAuth>
-          }
-        />
+        {getConfigFor('LOCAL_LOGIN_FEATURE_FLAG') && (
+          <Route
+            path="login/local"
+            element={
+              <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+                <LocalLoginPageContainer />
+              </RequireAuth>
+            }
+          />
+        )}
         <Route
           index
           element={
