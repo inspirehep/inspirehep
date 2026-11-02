@@ -11,6 +11,7 @@ from backoffice.hep.utils import (
     complete_workflow,
     get_restored_hep_workflow_type,
     is_another_hep_submission_running,
+    is_matching_submission_processing,
 )
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions, HepWorkflowType
@@ -175,6 +176,32 @@ class TestUtils(TransactionTestCase):
                 }
             },
         )
+
+    @patch("backoffice.hep.utils.opensearch_client.search")
+    def test_is_matching_submission_processing(self, mock_search):
+        mock_search.return_value = {"hits": {"total": {"value": 0}}}
+        workflow = HepWorkflow.objects.create(
+            data={"arxiv_eprints": [{"value": "2502.05665"}]},
+            status=HepStatusChoices.APPROVAL,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+
+        result = is_matching_submission_processing(workflow)
+
+        self.assertFalse(result)
+        query = mock_search.call_args.kwargs["body"]["query"]["bool"]
+        self.assertIn(
+            {
+                "terms": {
+                    "status": [
+                        HepStatusChoices.RUNNING,
+                        HepStatusChoices.PROCESSING,
+                    ]
+                }
+            },
+            query["must"],
+        )
+        self.assertIn({"ids": {"values": [str(workflow.id)]}}, query["must_not"])
 
     @patch("backoffice.hep.utils.opensearch_client.search")
     def test_is_another_hep_submission_running_ignores_opensearch_error(

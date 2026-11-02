@@ -601,6 +601,62 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
         self.assertEqual(workflow.decisions.count(), 1)
 
+    @patch(
+        "backoffice.hep.api.views.is_matching_submission_processing",
+        return_value=True,
+    )
+    @patch("backoffice.hep.api.views.resolve_workflow")
+    def test_resolve_returns_409_if_matching_submission_processing(
+        self, mock_resolve_workflow, mock_is_processing
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse("api:hep-resolve", kwargs={"pk": self.workflow.id})
+
+        response = self.api_client.post(
+            url, format="json", data={"action": HepResolutions.hep_accept}
+        )
+
+        self.assertEqual(response.status_code, 409)
+        mock_is_processing.assert_called_once_with(self.workflow)
+        mock_resolve_workflow.assert_not_called()
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL)
+        self.assertEqual(self.workflow.decisions.count(), 0)
+
+    @patch("backoffice.hep.api.views.is_matching_submission_processing")
+    @patch("backoffice.common.airflow_utils.requests.post")
+    def test_batch_resolve_skips_workflow_with_matching_submission_processing(
+        self, mock_post, mock_is_processing
+    ):
+        blocked_workflow = HepWorkflow.objects.create(
+            data={},
+            status=HepStatusChoices.APPROVAL,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        mock_is_processing.side_effect = (
+            lambda workflow: workflow.id == blocked_workflow.id
+        )
+        mock_post.return_value = Mock(
+            status_code=200, content=b"", raise_for_status=Mock()
+        )
+        self.api_client.force_authenticate(user=self.curator)
+
+        response = self.api_client.post(
+            reverse("api:hep-batch-resolve-list"),
+            format="json",
+            data={
+                "ids": [self.workflow.id, blocked_workflow.id],
+                "action": HepResolutions.hep_accept,
+            },
+        )
+
+        self.assertEqual(response.status_code, 202, response.data)
+        self.assertEqual(response.data["ids"], [str(self.workflow.id)])
+        self.assertEqual(response.data["blocked_ids"], [str(blocked_workflow.id)])
+        blocked_workflow.refresh_from_db()
+        self.assertEqual(blocked_workflow.status, HepStatusChoices.APPROVAL)
+        self.assertEqual(blocked_workflow.decisions.count(), 0)
+
     @patch("backoffice.common.airflow_utils.requests.post")
     def test_batch_resolve_exception_partial_success(self, mock_post):
         response_ok = Mock(
@@ -746,6 +802,129 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.workflow.refresh_from_db()
         self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL)
         mock_clear_airflow_dag_run.assert_not_called()
+
+    @patch("backoffice.hep.api.views.airflow_utils.mark_airflow_dag_run_as_failed")
+    def test_pause(self, mock_mark_airflow_dag_run_as_failed):
+        self.workflow.status = HepStatusChoices.RUNNING
+        self.workflow.save()
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-pause",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(
+            url, format="json", data={"note": "Paused by submission"}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.ERROR)
+        mock_mark_airflow_dag_run_as_failed.assert_called_once_with(
+            self.workflow, note="Paused by submission"
+        )
+
+    @patch("backoffice.hep.api.views.airflow_utils.mark_airflow_dag_run_as_failed")
+    def test_pause_requires_running_workflow(self, mock_mark_airflow_dag_run_as_failed):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-pause",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["message"], "Can only pause running workflows."
+        )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL)
+        mock_mark_airflow_dag_run_as_failed.assert_not_called()
+
+    @patch("backoffice.common.airflow_utils.requests.post")
+    @patch("backoffice.common.airflow_utils.requests.get")
+    def test_resume(self, mock_get, mock_post):
+        mock_get.return_value = Mock(
+            json=Mock(
+                return_value={
+                    "task_instances": [
+                        {"task_id": "preprocessing.normalize_journal_titles"}
+                    ]
+                }
+            ),
+            raise_for_status=Mock(),
+        )
+        mock_post.return_value = Mock(
+            status_code=200, content=b"", raise_for_status=Mock()
+        )
+        self.workflow.status = HepStatusChoices.ERROR
+        self.workflow.save()
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resume",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
+
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+        self.assertTrue(
+            mock_post.call_args.args[0].endswith(
+                f"/api/v2/dags/{dag_id}/clearTaskInstances"
+            )
+        )
+        posted_data = mock_post.call_args.kwargs["json"]
+        self.assertEqual(
+            posted_data["task_ids"], ["preprocessing.normalize_journal_titles"]
+        )
+        self.assertTrue(posted_data["include_downstream"])
+
+    @patch("backoffice.common.airflow_utils.requests.post")
+    @patch("backoffice.common.airflow_utils.requests.get")
+    def test_resume_without_failed_tasks_clears_dag_run(self, mock_get, mock_post):
+        mock_get.return_value = Mock(
+            json=Mock(return_value={"task_instances": []}),
+            raise_for_status=Mock(),
+        )
+        mock_post.return_value = Mock(
+            status_code=200, content=b"", raise_for_status=Mock()
+        )
+        self.workflow.status = HepStatusChoices.ERROR
+        self.workflow.save()
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resume",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+        self.assertTrue(
+            mock_post.call_args.args[0].endswith(
+                f"/api/v2/dags/{dag_id}/dagRuns/{self.workflow.id}/clear"
+            )
+        )
+
+    @patch("backoffice.hep.api.views.airflow_utils.resume_airflow_dag_run")
+    def test_resume_requires_workflow_in_error_state(self, mock_resume_airflow_dag_run):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resume",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["message"], "Can only resume workflows in error state."
+        )
+        mock_resume_airflow_dag_run.assert_not_called()
 
     def test_restart_completed_workflow(self):
         completed_workflow = HepWorkflow.objects.create(

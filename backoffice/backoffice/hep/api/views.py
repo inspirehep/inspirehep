@@ -14,6 +14,7 @@ from backoffice.hep.utils import (
     complete_workflow,
     get_restored_hep_workflow_type,
     is_another_hep_submission_running,
+    is_matching_submission_processing,
 )
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
@@ -190,6 +191,16 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     def resolve(self, request, pk=None):
         serializer = self.resolution_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+        if is_matching_submission_processing(workflow):
+            return Response(
+                {
+                    "error": "A submission with the same arXiv eprint or DOI is currently being processed, please wait for it to finish"
+                },
+                status=status.HTTP_409_CONFLICT,
+            )
+
         try:
             workflow = resolve_workflow(pk, serializer.validated_data, request.user)
         except RequestException as e:
@@ -213,9 +224,17 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         data = serializer.validated_data
         data["ids"] = [str(wf_id) for wf_id in data["ids"]]
         accepted_ids = []
+        blocked_ids = []
 
         for wf_id in data["ids"]:
             workflow = get_object_or_404(HepWorkflow, pk=wf_id)
+            if is_matching_submission_processing(workflow):
+                logger.warning(
+                    "Workflow %s not resolved, a matching submission is being processed.",
+                    wf_id,
+                )
+                blocked_ids.append(wf_id)
+                continue
             try:
                 with transaction.atomic():
                     add_hep_decision_batch(
@@ -240,7 +259,11 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
 
         return Response(
-            {"message": "Batch resolution started.", "ids": data["ids"]},
+            {
+                "message": "Batch resolution started.",
+                "ids": data["ids"],
+                "blocked_ids": blocked_ids,
+            },
             status=status.HTTP_202_ACCEPTED,
         )
 
@@ -297,6 +320,58 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 e,
                 workflow.id,
                 response_text="Error restarting Airflow DAGs for workflow %s",
+            )
+
+        return Response(self.get_serializer(workflow).data)
+
+    @action(detail=True, methods=["post"])
+    def pause(self, request, pk=None):
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+
+        if workflow.status != HepStatusChoices.RUNNING:
+            return Response(
+                {"message": "Can only pause running workflows."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            airflow_utils.mark_airflow_dag_run_as_failed(
+                workflow, note=request.data.get("note", "")
+            )
+            workflow.status = HepStatusChoices.ERROR
+            workflow.save()
+        except RequestException as e:
+            return handle_request_exception(
+                "Error pausing Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error pausing Airflow DAGs for workflow %s",
+            )
+
+        return Response(self.get_serializer(workflow).data)
+
+    @action(detail=True, methods=["post"])
+    def resume(self, request, pk=None):
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+
+        if workflow.status not in ERROR_STATUSES:
+            return Response(
+                {"message": "Can only resume workflows in error state."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+        try:
+            airflow_utils.resume_airflow_dag_run(dag_id, str(workflow.id))
+            workflow.status = HepStatusChoices.RUNNING
+            workflow.save()
+        except RequestException as e:
+            return handle_request_exception(
+                "Error resuming Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error resuming Airflow DAGs for workflow %s",
             )
 
         return Response(self.get_serializer(workflow).data)

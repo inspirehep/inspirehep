@@ -115,8 +115,12 @@ def complete_workflow(id, data):
     return workflow
 
 
-def is_another_hep_submission_running(workflow):
-    """Check whether a matching HEP submission has not completed."""
+def is_another_hep_submission_running(workflow, statuses=None):
+    """Check whether a matching HEP submission has not completed.
+
+    :param workflow: workflow data, its own id is excluded from the matches
+    :param statuses: if given, only submissions in one of these statuses match
+    """
 
     index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.HEP_DOCUMENTS)
     arxiv_eprints_values = [
@@ -138,11 +142,19 @@ def is_another_hep_submission_running(workflow):
     if dois_values:
         should_clauses.append({"terms": {"data.dois.value": dois_values}})
 
+    must_clauses = [{"term": {"data.acquisition_source.method": "submitter"}}]
+    if statuses:
+        must_clauses.append({"terms": {"status": statuses}})
+
+    must_not_clauses = [{"match": {"status": HepStatusChoices.COMPLETED}}]
+    if workflow.get("id"):
+        must_not_clauses.append({"ids": {"values": [str(workflow["id"])]}})
+
     query = {
         "query": {
             "bool": {
-                "must": [{"term": {"data.acquisition_source.method": "submitter"}}],
-                "must_not": [{"match": {"status": HepStatusChoices.COMPLETED}}],
+                "must": must_clauses,
+                "must_not": must_not_clauses,
                 "should": should_clauses,
                 "minimum_should_match": 1,
             }
@@ -160,3 +172,15 @@ def is_another_hep_submission_running(workflow):
     number_workflows_running = response.get("hits", {}).get("total", {}).get("value", 0)
     logger.info("Found %s matching active HEP submissions", number_workflows_running)
     return number_workflows_running > 0
+
+
+def is_matching_submission_processing(workflow):
+    """Check whether a matching HEP submission is being processed by Airflow.
+
+    Resolving a workflow while such a submission is processed would make both
+    run at the same time, the submission must take priority.
+    """
+    return is_another_hep_submission_running(
+        {"id": workflow.id, "data": workflow.data},
+        statuses=[HepStatusChoices.RUNNING, HepStatusChoices.PROCESSING],
+    )
