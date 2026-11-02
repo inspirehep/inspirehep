@@ -90,12 +90,13 @@ class BaseDecisionAdmin(BaseModelAdmin):
     """
 
     ordering = ("-_updated_at",)
-    search_fields = ["id", "data"]
+    search_fields = ["id", "workflow__id", "user__email"]
     list_display = ("id", "action_value", "user", "workflow_id")
     list_filter = [
         "action",
         "user",
     ]
+    raw_id_fields = ("workflow",)
 
     @admin.display(description="action")
     def action_value(self, obj):
@@ -108,6 +109,7 @@ class BaseWorkflowTicketAdmin(BaseModelAdmin):
     """
 
     ordering = ("-_updated_at",)
-    search_fields = ["id", "ticket_id"]
+    search_fields = ["id", "ticket_id", "workflow__id"]
     list_display = ("id", "ticket_id", "ticket_type", "workflow_id")
-    list_filter = ["workflow_id", "ticket_type"]
+    list_filter = ["ticket_type"]
+    raw_id_fields = ("workflow",)
