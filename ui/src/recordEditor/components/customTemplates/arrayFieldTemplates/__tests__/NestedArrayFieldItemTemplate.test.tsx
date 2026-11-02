@@ -106,7 +106,12 @@ describe('<NestedArrayFieldItemTemplate />', () => {
     const user = userEvent.setup();
     const onMoveUpItem = vi.fn();
     const onMoveDownItem = vi.fn();
-    renderInTable(reorderProps({ onMoveUpItem, onMoveDownItem }));
+    renderInTable(
+      reorderProps(
+        { onMoveUpItem, onMoveDownItem },
+        { children: <span>field content</span> }
+      )
+    );
 
     await user.click(screen.getByRole('button', { name: 'Move up' }));
     expect(onMoveUpItem).toHaveBeenCalledTimes(1);
@@ -116,21 +121,36 @@ describe('<NestedArrayFieldItemTemplate />', () => {
   });
 
   it('disables "Move up" for the first item', () => {
-    renderInTable(reorderProps({ hasMoveUp: false }));
+    renderInTable(
+      reorderProps(
+        { hasMoveUp: false },
+        { children: <span>field content</span> }
+      )
+    );
 
     expect(screen.getByRole('button', { name: 'Move up' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Move down' })).toBeEnabled();
   });
 
   it('disables "Move down" for the last item', () => {
-    renderInTable(reorderProps({ hasMoveDown: false }));
+    renderInTable(
+      reorderProps(
+        { hasMoveDown: false },
+        { children: <span>field content</span> }
+      )
+    );
 
     expect(screen.getByRole('button', { name: 'Move up' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Move down' })).toBeDisabled();
   });
 
   it('does not render arrows when the item cannot move', () => {
-    renderInTable(reorderProps({ hasMoveUp: false, hasMoveDown: false }));
+    renderInTable(
+      reorderProps(
+        { hasMoveUp: false, hasMoveDown: false },
+        { children: <span>field content</span> }
+      )
+    );
 
     expect(
       screen.queryByRole('button', { name: 'Move up' })
@@ -138,7 +158,7 @@ describe('<NestedArrayFieldItemTemplate />', () => {
   });
 
   it('disables arrows when readonly', () => {
-    const props = reorderProps();
+    const props = reorderProps({}, { children: <span>field content</span> });
     renderInTable({ ...props, readonly: true });
 
     expect(screen.getByRole('button', { name: 'Move up' })).toBeDisabled();
