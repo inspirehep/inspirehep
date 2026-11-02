@@ -8,9 +8,13 @@ from airflow.sdk import Variable
 from airflow.sdk.bases.hook import BaseHook
 from hooks.generic_http_hook import GenericHttpHook
 from include.utils.s3 import S3JsonStore
+from include.utils.workflows import has_pdf_signature
+from urllib3.exceptions import LocationParseError
+from urllib3.util import parse_url
 
 ARXIV_CONNECTION_ID = "arxiv_connection"
 S3_PUBLISHER_CONNECTION_ID = "s3_publisher_conn"
+DEFAULT_MAX_DOCUMENT_SIZE = 200 * 1024 * 1024
 
 
 logger = logging.getLogger(__name__)
@@ -24,12 +28,17 @@ def is_connection_url(url, connection_id):
         connection_id (str): The ID of the connection to use for the check.
     """
     conn = BaseHook.get_connection(connection_id)
-    url_hostname = urlparse(url).hostname
+    try:
+        url_hostname = parse_url(url).host
+    except LocationParseError:
+        return False
+    if not url_hostname:
+        return False
     if conn.conn_type == "aws":
         conn_wrapper = AwsConnectionWrapper(conn)
         aws_url = conn_wrapper.endpoint_url
-        return urlparse(aws_url).hostname == url_hostname
-    return (urlparse(conn.host).hostname or conn.host) == url_hostname
+        return parse_url(aws_url).host == url_hostname
+    return (parse_url(conn.host).host or conn.host) == url_hostname
 
 
 def _get_upload_object(url):
@@ -41,14 +50,20 @@ def _get_upload_object(url):
 
 
 def _download_from_url(url):
-    response = requests.get(
-        url,
-        stream=True,
-        timeout=int(Variable.get("DOWNLOAD_FILE_TO_WORKFLOW_TIMEOUT", 300)),
-    )
+    timeout = int(Variable.get("DOWNLOAD_FILE_TO_WORKFLOW_TIMEOUT", 300))
+    max_size = int(Variable.get("DOWNLOAD_FILE_MAX_SIZE", DEFAULT_MAX_DOCUMENT_SIZE))
+
+    response = requests.get(url, stream=True, timeout=timeout)
     response.raise_for_status()
-    response.raw.decode_content = True
-    return response.raw
+
+    content = response.raw.read(max_size + 1, decode_content=True)
+    if len(content) > max_size:
+        raise ValueError(
+            f"Document at {url} is larger than the maximum of {max_size} bytes"
+        )
+    if not has_pdf_signature(content):
+        raise ValueError(f"Document at {url} is not a PDF")
+    return BytesIO(content)
 
 
 def _download_from_s3(url):
