@@ -71,7 +71,10 @@ const CommonEditor = ({
   const [formData, setFormData] = useState(() => authorData?.toJS());
 
   const [extraErrors, setExtraErrors] = useState(() =>
-    toExtraErrors(validationErrors?.toJS() as BackendValidationError[])
+    toExtraErrors(
+      validationErrors?.toJS() as BackendValidationError[],
+      authorData?.toJS()
+    )
   );
 
   const formRef = useRef<FormType>(null);
@@ -107,7 +110,10 @@ const CommonEditor = ({
   useEffect(() => {
     setFormData(authorData?.toJS());
     setExtraErrors(
-      toExtraErrors(validationErrors?.toJS() as BackendValidationError[])
+      toExtraErrors(
+        validationErrors?.toJS() as BackendValidationError[],
+        authorData?.toJS()
+      )
     );
     historyRef.current = [];
     isTypingGroupOpenRef.current = false;

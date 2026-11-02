@@ -128,7 +128,7 @@ describe('<BackofficeAuthorEditorContainer/>', () => {
 
     const detailsButton = screen.getByRole('button', { name: /Details/ });
     await user.click(detailsButton);
-    const errorProperty = '.name.value';
+    const errorProperty = /.name.value/;
     const linkToError = screen.getByRole('button', { name: errorProperty });
     await user.click(linkToError);
     expect(getNameValueInput()).toHaveFocus();
@@ -188,7 +188,7 @@ describe('<BackofficeAuthorEditorContainer/>', () => {
 
       const detailsButton = screen.getByRole('button', { name: /Details/ });
       await user.click(detailsButton);
-      const errorProperty = '.name.value';
+      const errorProperty = /.name.value/;
       const linkToError = screen.getByRole('button', { name: errorProperty });
       await user.click(linkToError);
       expect(nameValueInput).toHaveFocus();

@@ -5,7 +5,6 @@ import {
   WorkflowActions,
   WorkflowStatuses,
 } from '../../../constants';
-import { BACKOFFICE_AUTHOR_EDITOR } from '../../../../common/routes';
 
 export const RestartActionButtons = ({
   restartActionInProgress,
@@ -61,11 +60,7 @@ export const RestartActionButtons = ({
       <Button
         className="mb2 w-75"
         type="primary"
-        href={
-          pidType === 'authors'
-            ? `${BACKOFFICE_AUTHOR_EDITOR}/backoffice/${pidType}/${id}`
-            : `/editor/backoffice/${pidType}/${id}`
-        }
+        href={`/editor/backoffice/${pidType}/${id}`}
       >
         <EditOutlined />
         {'  '}

@@ -68,14 +68,35 @@ export type BackendValidationError = {
   path: (string | number)[];
 };
 
+// When the backend path stops on an object (e.g. ids.1 for an anyOf failure),
+// no input has the matching id: descend to the object's first field so the
+// error can be focused.
+const resolvePathToLeaf = (
+  path: (string | number)[],
+  formData: any
+): (string | number)[] => {
+  const value = path.reduce((acc, key) => acc?.[key], formData);
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const [firstKey] = Object.keys(value);
+    if (firstKey !== undefined) {
+      return resolvePathToLeaf([...path, firstKey], formData);
+    }
+  }
+  return path;
+};
+
 export const toExtraErrors = (
-  validationErrors: BackendValidationError[] | undefined
+  validationErrors: BackendValidationError[] | undefined,
+  formData?: any
 ): ErrorSchema | undefined => {
   if (!validationErrors?.length) {
     return undefined;
   }
   const extraErrors: ErrorSchema = {};
-  validationErrors.forEach(({ message, path }) => {
+  validationErrors.forEach(({ message, path: backendPath }) => {
+    const path = formData
+      ? resolvePathToLeaf(backendPath, formData)
+      : backendPath;
     let node: any = extraErrors;
     path.forEach((key) => {
       node[key] = node[key] ?? {};

@@ -50,7 +50,7 @@ function ErrorListTemplate({ errors }: ErrorListProps) {
               // eslint-disable-next-line react/no-array-index-key -- no change in the list
               <li key={index}>
                 <Button type="link" onClick={() => focusField(error.property!)}>
-                  {error.property}
+                  {error.property}: {error.message}
                 </Button>
               </li>
             ))}
