@@ -75,6 +75,11 @@ describe('Header', () => {
     expect(revision2Label).toBeInTheDocument();
   });
 
+  it('should not display revisions when withRevision is false', () => {
+    renderHeaderWithProps({ withRevisions: false });
+    expect(screen.queryByText(/Last edit on/)).not.toBeInTheDocument();
+  });
+
   it('should call onUndo when the undo button is clicked', async () => {
     const user = userEvent.setup();
     const onUndo = vi.fn();

@@ -15,7 +15,7 @@ export const authorWithSchema = {
     },
   },
   schema: {
-    type: 'object',
+    type: 'object' as const,
     properties: {
       ids: {
         items: {
@@ -28,18 +28,18 @@ export const authorWithSchema = {
                 schema: {
                   enum: ['INSPIRE ID'],
                   minLength: 1,
-                  type: 'string',
+                  type: 'string' as const,
                 },
                 value: {
                   description: ':example: ``INSPIRE-12345678``',
                   minLength: 1,
                   pattern: '^INSPIRE-\\d{8}$',
-                  type: 'string',
+                  type: 'string' as const,
                 },
               },
               required: ['schema', 'value'],
               title: 'Inspire ID',
-              type: 'object',
+              type: 'object' as const,
             },
             {
               additionalProperties: false,
@@ -49,24 +49,24 @@ export const authorWithSchema = {
                 schema: {
                   enum: ['ORCID'],
                   minLength: 1,
-                  type: 'string',
+                  type: 'string' as const,
                 },
                 value: {
                   description: ':example: ``0000-0012-1234-5647``',
                   format: 'orcid',
                   minLength: 1,
                   pattern: '^\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$',
-                  type: 'string',
+                  type: 'string' as const,
                 },
               },
               required: ['schema', 'value'],
               title: 'ORCID',
-              type: 'object',
+              type: 'object' as const,
             },
           ],
         },
         minItems: 1,
-        type: 'array',
+        type: 'array' as const,
         uniqueItems: true,
       },
       name: {
@@ -78,19 +78,19 @@ export const authorWithSchema = {
               'Contains other variations (besides `preferred_name`) of the\nauthor name in `value` that are in use.\n\nThese could be:\n\n- other spellings;\n- other transliterations from the :ref:`native_names` to the\n  Latin alphabet;\n- other splittings among last names and first names;\n- combinations with :ref:`previous_names`.\n\n:example: ``Smith-Taylor, Johnny``\n:MARC: ``400__a``',
             items: {
               minLength: 1,
-              type: 'string',
+              type: 'string' as const,
             },
             minItems: 1,
             pattern: '^[^,]+(,[^,]+)?(,?[^,]+)?$',
             title: 'List of name variants',
-            type: 'array',
+            type: 'array' as const,
             uniqueItems: true,
           },
           preferred_name: {
             description:
               'differs from the full name in `value`. This should use Latin alphabet.\n\n:example: ``Smith, John``\n:MARC: ``100__q``',
             minLength: 1,
-            type: 'string',
+            type: 'string' as const,
           },
           value: {
             description:
@@ -98,18 +98,18 @@ export const authorWithSchema = {
             minLength: 1,
             pattern: '^[^,]+(,[^,]+)?(,?[^,]+)?$',
             title: 'Full name of the author',
-            type: 'string',
+            type: 'string' as const,
           },
         },
         required: ['value'],
         title: 'Name information of the author',
-        type: 'object',
+        type: 'object' as const,
       },
       status: {
         description: "The person's status",
         enum: ['active', 'deceased', 'departed', 'retired'],
         minLength: 1,
-        type: 'string',
+        type: 'string' as const,
       },
     },
   },
