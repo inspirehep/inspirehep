@@ -34,37 +34,12 @@ Cypress.Commands.add("loginToBackoffice", () => {
   const password = "admin";
 
   cy.env(["backoffice_url"]).then(({ backoffice_url }) => {
-    cy.request("POST", `${backoffice_url}/api/token/`, {
+    // sets the backoffice sessionid cookie, sent by the UI on backoffice requests
+    cy.request("POST", `${backoffice_url}/api/login/`, {
       email,
       password,
-    }).then(({ body }) => {
-      expect(body.access).to.be.a("string").and.not.be.empty;
-      const token = body.access;
-
-      cy.intercept(
-        {
-          method: "GET",
-          url: `${backoffice_url}/api/workflows/**`,
-          middleware: true,
-        },
-        (req) => {
-          req.headers.authorization = `Bearer ${token}`;
-        },
-      ).as("backofficeWorkflowsAuth");
-
-      cy.visit("/backoffice", {
-        onBeforeLoad(win) {
-          win.localStorage.setItem(
-            "backoffice.token",
-            JSON.stringify(body.access),
-          );
-          win.localStorage.setItem(
-            "backoffice.refreshToken",
-            JSON.stringify(body.refresh),
-          );
-        },
-      });
     });
+    cy.visit("/backoffice");
   });
 });
 

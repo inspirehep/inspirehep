@@ -106,7 +106,6 @@ THIRD_PARTY_APPS = [
     "django_prometheus",
     "django_opensearch_dsl",
     "django_elasticsearch_dsl_drf",
-    "rest_framework_simplejwt",
     "django_json_widget",
 ]
 
@@ -269,6 +268,9 @@ MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
 # Force the `admin` sign in process to go through the `django-allauth` workflow
 DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=False)
+# Disable the `admin` login form, the admin session is then only created by the
+# UI backoffice login (ORCID or local login)
+DJANGO_ADMIN_DISABLE_LOGIN = env.bool("DJANGO_ADMIN_DISABLE_LOGIN", default=False)
 
 # LOGGING
 # ------------------------------------------------------------------------------
@@ -357,7 +359,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "backoffice.management.permissions.IsAdminOrCuratorUser",
@@ -365,6 +366,10 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
 }
+
+# Password login creating a session (/api/login/), local and e2e only.
+# Never enable on prod/QA, there login goes through ORCID (allauth).
+ENABLE_LOCAL_LOGIN = False
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"

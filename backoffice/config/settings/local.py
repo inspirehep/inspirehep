@@ -5,6 +5,8 @@ from config.settings.base import env
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
+# Password login creating a session (/api/login/), used by the backoffice local login and e2e
+ENABLE_LOCAL_LOGIN = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",

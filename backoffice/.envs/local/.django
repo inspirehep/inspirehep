@@ -24,6 +24,7 @@ AIRFLOW_BASE_URL=http://airflow-apiserver:8080
 SERVICENOW_URL=https://cerntraining.service-now.com
 
 FRONTEND_LOGIN_SUCCESS=http://localhost:8080/backoffice
+DJANGO_ADMIN_DISABLE_LOGIN=True
 
 # Inspirehep
 INSPIREHEP_BASE_URL=http://hep-web:8000

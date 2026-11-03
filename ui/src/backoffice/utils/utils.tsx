@@ -13,8 +13,6 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
-import storage from '../../common/storage';
-import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
 import { searchQueryUpdate } from '../../actions/search';
 import { WorkflowTypes } from '../constants';
 import {
@@ -61,32 +59,6 @@ export const COLLECTIONS = [
   },
   { key: 'manual merge', value: WorkflowTypes.HEP_MANUAL_MERGE },
 ];
-
-export const refreshToken = async () => {
-  try {
-    const res = await fetch(`${BACKOFFICE_LOGIN_API}refresh/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        refresh: storage.getSync('backoffice.refreshToken'),
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error('Failed to refresh token');
-    }
-
-    const data = await res.json();
-    storage.set('backoffice.token', data.access);
-    return data.access;
-  } catch {
-    window.location.assign(BACKOFFICE_LOGIN);
-  }
-
-  return null;
-};
 
 export const resolveDecision = (decision: string | number) => {
   const decisions: {

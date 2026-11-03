@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { push } from 'redux-first-history';
 import { Action, ActionCreator } from 'redux';
 import axios from 'axios';
@@ -51,7 +50,6 @@ import {
   BACKOFFICE_LOGIN,
 } from '../common/routes';
 import { Credentials, RootState } from '../types';
-import storage from '../common/storage';
 import {
   notifyLoginError,
   notifyActionError,
@@ -59,46 +57,21 @@ import {
   notifyDeleteSuccess,
   notifyDeleteError,
 } from '../backoffice/notifications';
-import { refreshToken } from '../backoffice/utils/utils';
 import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
 import { Subject, WorkflowActions } from '../backoffice/constants';
 
-// withCredentials is needed for ORCID login with sessionId cookie
-const httpClient = axios.create({ withCredentials: true });
+// withCredentials is needed to send the backoffice sessionid cookie
+const httpClient = axios.create({
+  withCredentials: true,
+  headers: { 'Content-Type': 'application/json' },
+});
 
-// Request interceptor for API calls
-httpClient.interceptors.request.use(
-  async (config) => {
-    const token = storage.getSync('backoffice.token');
-
-    config.headers = {
-      'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
-    };
-
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Response interceptor for API calls, needed for local login with token
+// Missing or expired backoffice session, log in again
 httpClient.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    if (axios.isAxiosError(error)) {
-      if (
-        error.response?.status === 403 &&
-        (!(error.config as any)._retry as boolean)
-      ) {
-        (error.config as any)._retry = true;
-        try {
-          const accessToken = await refreshToken();
-          axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-          return httpClient(error.config!);
-        } catch (tokenError) {
-          return Promise.reject(tokenError);
-        }
-      }
+  (error) => {
+    if (axios.isAxiosError(error) && error.response?.status === 403) {
+      window.location.assign(BACKOFFICE_LOGIN);
     }
     return Promise.reject(error);
   }
@@ -150,10 +123,6 @@ export function backofficeLocalLogin(
       );
 
       if (response.status === 200) {
-        const { access, refresh } = await response.data;
-        storage.set('backoffice.token', access);
-        storage.set('backoffice.refreshToken', refresh);
-
         dispatch(backofficeLoginSuccess());
         dispatch(push(BACKOFFICE));
       }
@@ -170,9 +139,6 @@ export function backofficeLogout(): (
 ) => Promise<void> {
   return async (dispatch) => {
     try {
-      storage.remove('backoffice.token');
-      storage.remove('backoffice.refreshToken');
-
       await httpClient.get(`${BACKOFFICE_API}/users/logout/`);
 
       dispatch(backofficeLogoutSuccess());
