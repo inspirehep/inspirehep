@@ -8,83 +8,87 @@ exports[`PDGKeywords > renders with keywords 1`] = `
       href="https://pdglive.lbl.gov/view/Q007TP"
       target="_blank"
     >
-      <span
-        class="__Latex__"
-      >
+      <span>
         \\Gamma(
-        <span
-          class="katex"
-        >
+        <span>
           <span
-            class="katex-mathml"
+            class="katex"
           >
-            <math
-              xmlns="http://www.w3.org/1998/Math/MathML"
+            <span
+              class="katex-mathml"
             >
-              <semantics>
-                <mrow />
-                <annotation
-                  encoding="application/x-tex"
-                >
-                    
-                </annotation>
-              </semantics>
-            </math>
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <semantics>
+                  <mrow />
+                  <annotation
+                    encoding="application/x-tex"
+                  >
+                      
+                  </annotation>
+                </semantics>
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            />
           </span>
-          <span
-            aria-hidden="true"
-            class="katex-html"
-          />
         </span>
         {{\\mathit W}^{+}}
-        <span
-          class="katex"
-        >
+        <span>
           <span
-            class="katex-mathml"
+            class="katex"
           >
-            <math
-              xmlns="http://www.w3.org/1998/Math/MathML"
+            <span
+              class="katex-mathml"
             >
-              <semantics>
-                <mrow />
-                <annotation
-                  encoding="application/x-tex"
-                >
-                     
-                </annotation>
-              </semantics>
-            </math>
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <semantics>
+                  <mrow />
+                  <annotation
+                    encoding="application/x-tex"
+                  >
+                       
+                  </annotation>
+                </semantics>
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            />
           </span>
-          <span
-            aria-hidden="true"
-            class="katex-html"
-          />
         </span>
         \\rightarrow
-        <span
-          class="katex"
-        >
+        <span>
           <span
-            class="katex-mathml"
+            class="katex"
           >
-            <math
-              xmlns="http://www.w3.org/1998/Math/MathML"
+            <span
+              class="katex-mathml"
             >
-              <semantics>
-                <mrow />
-                <annotation
-                  encoding="application/x-tex"
-                >
-                     
-                </annotation>
-              </semantics>
-            </math>
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <semantics>
+                  <mrow />
+                  <annotation
+                    encoding="application/x-tex"
+                  >
+                       
+                  </annotation>
+                </semantics>
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            />
           </span>
-          <span
-            aria-hidden="true"
-            class="katex-html"
-          />
         </span>
         {{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}
       </span>

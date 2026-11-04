@@ -7,9 +7,7 @@ exports[`PartialAbstract > should not append ellipsis when abstract length is le
   <div
     class="__PartialAbstract__"
   >
-    <span
-      class="__Latex__"
-    >
+    <span>
       A short abstract
     </span>
   </div>
@@ -21,9 +19,7 @@ exports[`PartialAbstract > should render partial abstract 1`] = `
   <div
     class="__PartialAbstract__"
   >
-    <span
-      class="__Latex__"
-    >
+    <span>
       The phenomenon of CP violation is crucial to understand the asymmetry between matter and antimatter that exists in the Universe. Dramatic experimental progress has been made, in particular in measurements of the behaviour of particles containing the ...
     </span>
   </div>

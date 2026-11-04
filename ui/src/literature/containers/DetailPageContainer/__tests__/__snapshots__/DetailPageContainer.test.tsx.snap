@@ -47,9 +47,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           Detail view
                         </span>
                       </span>
