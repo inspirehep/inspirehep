@@ -7,7 +7,7 @@ import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
-import { AUTHORLIST_TOOL, BACKOFFICE, NEW_EDITOR } from '../common/routes';
+import { AUTHORLIST_TOOL, BACKOFFICE, EDITOR } from '../common/routes';
 
 vi.mock('../tracker');
 vi.mock('../actions/user');
@@ -229,7 +229,7 @@ describe('App', () => {
     });
     renderWithProviders(<App />, {
       store,
-      route: NEW_EDITOR,
+      route: EDITOR,
     });
     const app = await screen.findByTestId('app');
     const recordEditor = await within(app).findByTestId('record-editor');
@@ -248,7 +248,7 @@ describe('App', () => {
     });
     renderWithProviders(<App />, {
       store,
-      route: NEW_EDITOR,
+      route: EDITOR,
     });
     const app = await screen.findByTestId('app');
     const recordEditor = within(app).queryByTestId('record-editor');
