@@ -465,9 +465,7 @@ exports[`ReferenceList > renders with references 1`] = `
                                     <span
                                       data-testid="literature-detail-title"
                                     >
-                                      <span
-                                        class="__Latex__"
-                                      >
+                                      <span>
                                         Reference 1
                                       </span>
                                     </span>
@@ -576,9 +574,7 @@ exports[`ReferenceList > renders with references 1`] = `
                                     <span
                                       data-testid="literature-detail-title"
                                     >
-                                      <span
-                                        class="__Latex__"
-                                      >
+                                      <span>
                                         Reference 2
                                       </span>
                                     </span>

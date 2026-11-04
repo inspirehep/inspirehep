@@ -35,18 +35,14 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           Test title
                         </span>
                         <span>
                           <span>
                              : 
                           </span>
-                          <span
-                            class="__Latex__"
-                          >
+                          <span>
                             voluptate eiusmod fugiat
                           </span>
                         </span>
@@ -274,18 +270,14 @@ exports[`DataItem > renders with all props set 1`] = `
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           Test title
                         </span>
                         <span>
                           <span>
                              : 
                           </span>
-                          <span
-                            class="__Latex__"
-                          >
+                          <span>
                             voluptate eiusmod fugiat
                           </span>
                         </span>
@@ -554,18 +546,14 @@ exports[`DataItem > renders with only needed props 1`] = `
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           Test title
                         </span>
                         <span>
                           <span>
                              : 
                           </span>
-                          <span
-                            class="__Latex__"
-                          >
+                          <span>
                             voluptate eiusmod fugiat
                           </span>
                         </span>

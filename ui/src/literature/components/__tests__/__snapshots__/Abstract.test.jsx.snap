@@ -6,9 +6,7 @@ exports[`Abstract > does not display abstractSource when it is null 1`] = `
     <div>
       Abstract:
     </div>
-    <span
-      class="__Latex__"
-    >
+    <span>
       Test abstract
     </span>
   </div>
@@ -26,9 +24,7 @@ exports[`Abstract > renders with abstract 1`] = `
          (arXiv)
       </span>
     </div>
-    <span
-      class="__Latex__"
-    >
+    <span>
       Test abstract
     </span>
   </div>

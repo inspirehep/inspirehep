@@ -43,18 +43,14 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                           <span
                             data-testid="literature-detail-title"
                           >
-                            <span
-                              class="__Latex__"
-                            >
+                            <span>
                               Test title
                             </span>
                             <span>
                               <span>
                                  : 
                               </span>
-                              <span
-                                class="__Latex__"
-                              >
+                              <span>
                                 voluptate eiusmod fugiat
                               </span>
                             </span>

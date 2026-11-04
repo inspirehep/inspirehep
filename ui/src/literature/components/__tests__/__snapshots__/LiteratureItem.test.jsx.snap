@@ -35,9 +35,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           test
                         </span>
                       </span>
@@ -239,9 +237,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           test
                         </span>
                       </span>
@@ -443,9 +439,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           test
                         </span>
                       </span>
@@ -667,9 +661,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           test
                         </span>
                       </span>
@@ -1131,9 +1123,7 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
                       <span
                         data-testid="literature-detail-title"
                       >
-                        <span
-                          class="__Latex__"
-                        >
+                        <span>
                           test
                         </span>
                       </span>
