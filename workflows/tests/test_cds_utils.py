@@ -1,9 +1,13 @@
+from unittest.mock import Mock
+
 from include.utils.cds import (
     build_literature_search_params,
     get_identifiers_for_scheme,
     get_record_for_provided_ids,
     search_and_return_single,
+    update_record,
 )
+from include.utils.constants import LITERATURE_PID_TYPE
 
 
 class FakeESCallHook:
@@ -92,6 +96,38 @@ def test_get_record_for_provided_ids_fallback_to_report(monkeypatch):
         report_numbers=["RN1"],
     )
     assert recid == 20
+
+
+def test_update_record_uses_json_patch():
+    external_system_identifiers = [{"schema": "CDS", "value": "2056247"}]
+    payload = {
+        "revision": 2,
+        "updated_record": {
+            "control_number": 123,
+            "external_system_identifiers": external_system_identifiers,
+        },
+    }
+    response = Mock()
+    response.json.return_value = {"updated": True}
+    hook = Mock()
+    hook.patch_record.return_value = response
+
+    result = update_record(hook, payload)
+
+    hook.patch_record.assert_called_once_with(
+        data=[
+            {
+                "op": "add",
+                "path": "/external_system_identifiers",
+                "value": external_system_identifiers,
+            }
+        ],
+        pid_type=LITERATURE_PID_TYPE,
+        control_number=123,
+        revision_id=3,
+    )
+    response.raise_for_status.assert_called_once_with()
+    assert result == {"updated": True}
 
 
 def test_get_record_for_provided_ids_none(monkeypatch):
