@@ -1,5 +1,8 @@
 from flask import Blueprint, request
-from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.decorators import (
+    login_required_with_roles,
+    login_required_with_roles_or_collection_write,
+)
 from inspirehep.accounts.roles import Roles
 from inspirehep.matcher.api import (
     exact_match_literature_data,
@@ -16,6 +19,7 @@ parser = FlaskParser()
 
 
 @blueprint.route("/linked_references", methods=["POST"])
+@login_required_with_roles_or_collection_write([Roles.cataloger.value])
 def get_linked_refs():
     data = request.json
     match_result = match_references(data["references"])

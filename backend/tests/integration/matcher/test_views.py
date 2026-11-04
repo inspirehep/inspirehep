@@ -38,7 +38,7 @@ def test_get_linked_refs(inspire_app):
         ]
     }
 
-    user = create_user()
+    user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -57,7 +57,7 @@ def test_get_linked_refs(inspire_app):
 
 
 def test_get_linked_refs_empty_list(inspire_app):
-    user = create_user()
+    user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -73,7 +73,7 @@ def test_get_linked_refs_empty_list(inspire_app):
 
 
 def test_get_linked_refs_references_are_none(inspire_app):
-    user = create_user()
+    user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -90,6 +90,42 @@ def test_get_linked_refs_bad_request(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get("api/matcher/linked_references/")
     assert response.status_code == 405
+
+
+def test_get_linked_refs_allows_collection_write_role(inspire_app):
+    user = create_user(role="cdf-internal-notes-read-write")
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/matcher/linked_references/",
+            content_type="application/json",
+            data=orjson.dumps({"references": []}),
+        )
+    assert response.status_code == 200
+
+
+def test_get_linked_refs_forbidden_for_collection_read_role(inspire_app):
+    user = create_user(role="cdf-internal-notes-read")
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/matcher/linked_references/",
+            content_type="application/json",
+            data=orjson.dumps({"references": []}),
+        )
+    assert response.status_code == 403
+
+
+def test_get_linked_refs_requires_login(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "api/matcher/linked_references/",
+            content_type="application/json",
+            data=orjson.dumps({"references": []}),
+        )
+    assert response.status_code == 401
 
 
 def test_get_journal_kb_data(inspire_app):

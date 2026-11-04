@@ -45,3 +45,30 @@ def login_required_with_roles(roles=None):
         return wrapped_function
 
     return wrapper_function
+
+
+def login_required_with_roles_or_collection_write(roles):
+    """Login required with roles or any collection read-write role decorator.
+
+    :param roles (list(str)): a list of roles names.
+    """
+
+    def wrapper_function(func):
+        @wraps(func)
+        def wrapped_function(*args, **kwargs):
+            if not current_user.is_authenticated:
+                abort(401)
+
+            user_roles = {role.name for role in current_user.roles}
+            # superuser can do everything
+            allowed_roles = {*roles, Roles.superuser.value}
+            has_access = user_roles & allowed_roles or any(
+                role.endswith("-read-write") for role in user_roles
+            )
+            if not has_access:
+                abort(403)
+            return func(*args, **kwargs)
+
+        return wrapped_function
+
+    return wrapper_function
