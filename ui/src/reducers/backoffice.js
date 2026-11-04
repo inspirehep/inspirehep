@@ -7,7 +7,6 @@ import {
   BACKOFFICE_SEARCH_REQUEST,
   BACKOFFICE_SEARCH_ERROR,
   BACKOFFICE_SEARCH_SUCCESS,
-  BACKOFFICE_SEARCH_QUERY_UPDATE,
   BACKOFFICE_AUTHOR_ERROR,
   BACKOFFICE_AUTHOR_REQUEST,
   BACKOFFICE_AUTHOR_SUCCESS,
@@ -118,8 +117,6 @@ const BackofficeReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('literature', fromJS(action.payload.data));
-    case BACKOFFICE_SEARCH_QUERY_UPDATE:
-      return state.set('query', fromJS(action.payload));
     case BACKOFFICE_SEARCH_QUERY_RESET:
       return state.set('query', fromJS({ page: 1, size: 10 }));
     case BACKOFFICE_UPDATE_LITERATURE_REQUEST:
