@@ -35,7 +35,7 @@ export const BACKOFFICE_LITERATURE_SEARCH = `${BACKOFFICE}${LITERATURE}/search`;
 export const BACKOFFICE_BACKEND = getConfigFor('BACKOFFICE_URL');
 export const BACKOFFICE_API = `${BACKOFFICE_BACKEND}/api`;
 export const BACKOFFICE_LOGIN_ORCID = `${BACKOFFICE_BACKEND}/accounts/orcid/login/`;
-export const BACKOFFICE_LOGIN_API = `${BACKOFFICE_API}/token/`;
+export const BACKOFFICE_LOGIN_API = `${BACKOFFICE_API}/login/`;
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;

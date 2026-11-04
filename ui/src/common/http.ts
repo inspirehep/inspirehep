@@ -4,7 +4,7 @@ import axios, {
   CancelTokenSource,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { BACKOFFICE_API } from './routes';
+import { BACKOFFICE_API, BACKOFFICE_LOGIN } from './routes';
 
 function transformBackofficeUrl(url: string): string {
   const match = url.match(/\/backoffice\/(authors|literature)\/search/);
@@ -53,9 +53,27 @@ export class HttpClientWrapper {
     return config;
   }
 
+  // Missing or expired backoffice session, log in again. Cancel so callers
+  // don't redirect to the error page instead
+  private static handleBackofficeForbiddenInterceptor(error: unknown) {
+    if (
+      axios.isAxiosError(error) &&
+      error.config?.baseURL === BACKOFFICE_API &&
+      error.response?.status === 403
+    ) {
+      window.location.assign(BACKOFFICE_LOGIN);
+      throw new axios.CanceledError('Backoffice session expired');
+    }
+    throw error;
+  }
+
   private setupInterceptors() {
     this.httpClient.interceptors.request.use(
       HttpClientWrapper.handleRequestUrlInterceptor
+    );
+    this.httpClient.interceptors.response.use(
+      (response) => response,
+      HttpClientWrapper.handleBackofficeForbiddenInterceptor
     );
   }
 

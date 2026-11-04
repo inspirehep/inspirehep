@@ -8,8 +8,8 @@ from django.views import defaults as default_views
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView, TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from backoffice.users.api.views import LocalLoginView
 
 urlpatterns = [
     path("", RedirectView.as_view(pattern_name="admin:index"), name="home"),
@@ -33,8 +33,6 @@ urlpatterns += [
     # API base url
     path("api/", include("config.search_router")),
     path("api/", include("config.api_router")),
-    # DRF auth token
-    path("auth-token/", obtain_auth_token),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
         "api/docs/",
@@ -42,10 +40,13 @@ urlpatterns += [
         name="api-docs",
     ),
     path("api/oauth/authorized/orcid/", oauth2_callback, name="orcid_callback"),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/_allauth/", include("allauth.headless.urls")),
 ]
+
+if settings.ENABLE_LOCAL_LOGIN:
+    urlpatterns += [
+        path("api/login/", LocalLoginView.as_view(), name="local_login"),
+    ]
 
 
 if settings.DEBUG:

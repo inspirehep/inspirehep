@@ -1,7 +1,6 @@
 import { List, Map as ImmutableMap } from 'immutable';
 import { vi } from 'vitest';
 import {
-  refreshToken,
   filterByProperty,
   formatDateTime,
   getDag,
@@ -10,47 +9,13 @@ import {
   isLiteratureUpdateWorkflow,
   createPdfLinksFromArxivEprints,
 } from '../utils';
-import storage from '../../../common/storage';
-import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
 import { WorkflowTypes } from '../../constants';
 import { WorkflowDecisions } from '../../../common/constants';
 
-vi.mock('../../../common/storage');
 vi.mock('../../../common/constants', async () => ({
   ...(await vi.importActual('../../../common/constants')),
   LOCAL_TIMEZONE: 'UTC',
 }));
-
-describe('refreshToken', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should call storage.getSync and fetch with the correct URL and payload', async () => {
-    const mockToken = 'mockRefreshToken';
-    (storage.getSync as jest.Mock).mockReturnValue(mockToken);
-
-    const mockResponse = {
-      ok: true,
-      json: jest.fn().mockResolvedValue({ access: 'newAccessToken' }),
-    };
-    global.fetch = jest.fn().mockResolvedValue(mockResponse);
-
-    const result = await refreshToken();
-
-    expect(storage.getSync).toHaveBeenCalledWith('backoffice.refreshToken');
-    expect(fetch).toHaveBeenCalledWith(`${BACKOFFICE_LOGIN_API}refresh/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refresh: mockToken }),
-    });
-    expect(storage.set).toHaveBeenCalledWith(
-      'backoffice.token',
-      'newAccessToken'
-    );
-    expect(result).toBe('newAccessToken');
-  });
-});
 
 describe('filterByProperty', () => {
   let testData: ImmutableMap<string, Array<ImmutableMap<string, string>>>;
