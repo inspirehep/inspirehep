@@ -61,7 +61,7 @@ opensearch-py = "3.2.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
 sentry-sdk = "^2.60.0"
-django-allauth = {version = "65.0.1", extras = ["headless"]}
+django-allauth = {version = "65.14.1", extras = ["headless"]}
 inspire-schemas = "^61.6.38"
 inspire-utils = "^3.0.70"
 ipdb = "^0.13.13"
