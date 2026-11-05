@@ -10,7 +10,6 @@ from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_test
 from inspire_dojson.api import record2marcxml
 from inspire_utils.record import get_value
-from inspirehep.oai.models import OAISet
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 from invenio_search import current_search
@@ -37,10 +36,6 @@ def test_oai_with_for_cds_set(inspire_app, clean_celery_session):
     assert_the_record_is_indexed()
 
     set_name = inspire_app.config["OAI_SET_CDS"]
-    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
-    db.session.add(oaiset)
-    db.session.commit()
-
     with inspire_app.test_client() as client:
         response = client.get(
             f"/api/oai2d?verb=ListRecords&metadataPrefix=marcxml&set={set_name}"
@@ -70,9 +65,6 @@ def test_oai_with_for_arxiv_set(inspire_app, clean_celery_session):
     assert_the_record_is_indexed()
 
     set_name = inspire_app.config["OAI_SET_CERN_ARXIV"]
-    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
-    db.session.add(oaiset)
-    db.session.commit()
     with inspire_app.test_client() as client:
         response = client.get(
             f"/api/oai2d?verb=ListRecords&metadataPrefix=marcxml&set={set_name}"
@@ -96,11 +88,6 @@ def test_oai_get_single_identifier_for_CDS_set(inspire_app, clean_celery_session
         assert str(record_uuid) in uuids
 
     assert_the_record_is_indexed()
-
-    set_name = inspire_app.config["OAI_SET_CDS"]
-    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
-    db.session.add(oaiset)
-    db.session.commit()
 
     with inspire_app.test_client() as client:
         response = client.get(
@@ -129,11 +116,6 @@ def test_oai_get_single_identifier_for_arxiv_set(inspire_app, clean_celery_sessi
         assert str(record_uuid) in uuids
 
     assert_the_record_is_indexed()
-
-    set_name = inspire_app.config["OAI_SET_CERN_ARXIV"]
-    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
-    db.session.add(oaiset)
-    db.session.commit()
 
     with inspire_app.test_client() as client:
         response = client.get(

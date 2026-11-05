@@ -203,7 +203,6 @@ records = "inspirehep.search.mappings"
 
 [tool.poetry.plugins."invenio_db.models"]
 inspirehep_records = "inspirehep.records.models"
-inspirehep_oai = "inspirehep.oai.models"
 
 [tool.poetry.plugins."invenio_celery.tasks"]
 inspirehep_indexer = "inspirehep.indexer.tasks"
