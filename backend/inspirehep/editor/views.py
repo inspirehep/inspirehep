@@ -36,6 +36,7 @@ from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
 from inspirehep.utils import hash_data
+from invenio_accounts.models import User
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -108,6 +109,7 @@ def get_revisions(endpoint, pid_value):
     """Get revisions of given record"""
     try:
         Transaction = transaction_class(RecordMetadata)
+        RecordMetadataVersion = version_class(RecordMetadata)
         pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
@@ -118,27 +120,31 @@ def get_revisions(endpoint, pid_value):
         ):
             return jsonify(message="Unauthorized"), 403
 
-        revisions = []
-        for revision in reversed(record.revisions):
-            transaction_id = revision.model.transaction_id
-            transaction = Transaction.query.filter(
-                Transaction.id == transaction_id
-            ).one_or_none()
-            if transaction:
-                user = transaction.user
-                user_email = user.email if user else "system"
-            else:
-                user_email = "system"
-
-            revisions.append(
-                {
-                    "updated": revision.updated,
-                    "revision_id": revision.revision_id,
-                    "user_email": user_email,
-                    "transaction_id": transaction_id,
-                    "rec_uuid": record.id,
-                }
+        rows = (
+            db.session.query(
+                RecordMetadataVersion.updated,
+                RecordMetadataVersion.version_id,
+                RecordMetadataVersion.transaction_id,
+                User.email,
             )
+            .outerjoin(
+                Transaction, Transaction.id == RecordMetadataVersion.transaction_id
+            )
+            .outerjoin(User, User.id == Transaction.user_id)
+            .filter(RecordMetadataVersion.id == record.id)
+            .order_by(RecordMetadataVersion.version_id.desc())
+            .all()
+        )
+        revisions = [
+            {
+                "updated": updated,
+                "revision_id": version_id - 1,
+                "user_email": user_email or "system",
+                "transaction_id": transaction_id,
+                "rec_uuid": record.id,
+            }
+            for updated, version_id, transaction_id, user_email in rows
+        ]
         return jsonify(revisions)
     except Exception as e:
         raise EditorGetRevisionError from e
