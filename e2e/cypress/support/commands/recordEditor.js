@@ -23,6 +23,10 @@ Cypress.Commands.add("editRecord", (recordId) => {
     .click();
 });
 
+Cypress.Commands.add("editWorkflow", () => {
+  cy.contains("Open in Editor").click();
+});
+
 Cypress.Commands.add("addPositionAtCern", (index, endDate, rank) => {
   cy.get('[data-testid="positions"]').click();
   cy.contains(
