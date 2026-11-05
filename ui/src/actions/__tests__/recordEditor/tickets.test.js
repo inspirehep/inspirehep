@@ -29,11 +29,11 @@ import {
 import {
   notifyCreateTicketError,
   notifyResolveTicketError,
-} from '../../../recordEditor/author/notifications';
+} from '../../../recordEditor/notifications';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
-vi.mock('../../../recordEditor/author/notifications', () => ({
+vi.mock('../../../recordEditor/notifications', () => ({
   notifyCreateTicketError: vi.fn(),
   notifyResolveTicketError: vi.fn(),
 }));

@@ -5,45 +5,51 @@ import { useEffect, useState } from 'react';
 
 import './Header.less';
 import { SaveOutlined, UndoOutlined } from '@ant-design/icons';
-import { Revision } from '../../types';
-import { RootState } from '../../../types';
-import { HttpClientWrapper } from '../../../common/http';
+import { Revision } from '../types';
+import { RootState } from '../../types';
+import { HttpClientWrapper } from '../../common/http';
 import Revisions from './Revisions';
 import {
   fetchAuthorRevisionData,
   revertToRevision,
-} from '../../../actions/recordEditor/record';
+} from '../../actions/recordEditor/record';
 import Help from './Help';
 import TicketsContainer from './Tickets';
 
-export interface HeaderProps {
+type HeaderWithRevisionProps = {
+  revisions: Revision[];
+  revisionError: string | null;
+  resetToLastUpdate: () => void;
+  isViewingRevision: boolean;
+};
+
+export type HeaderProps = {
   controlNumber: string;
   onUndo: () => void;
   canUndo: boolean;
-  revisions: Revision[];
-  revisionError: string | null;
   onSave: () => void;
-  resetToLastUpdate: () => void;
-  isViewingRevision: boolean;
   dispatch: ThunkDispatch<RootState, HttpClientWrapper, Action>;
-}
+  withRevisions: false | HeaderWithRevisionProps;
+};
 
 const Header = ({
   controlNumber,
   onUndo,
   canUndo,
-  revisions,
-  revisionError,
   onSave,
-  resetToLastUpdate,
-  isViewingRevision,
   dispatch,
+  withRevisions,
 }: HeaderProps) => {
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(
     null
   );
 
   const [isReverting, setIsReverting] = useState(false);
+
+  const isViewingRevision = withRevisions
+    ? withRevisions.isViewingRevision
+    : false;
+  const revisionError = withRevisions ? withRevisions.revisionError : null;
 
   useEffect(() => {
     if (isReverting && !isViewingRevision) {
@@ -66,8 +72,10 @@ const Header = ({
   const isUndoDisabled = !canUndo || !!selectedRevision;
 
   const onGoBackToCurrentFromRevision = () => {
-    resetToLastUpdate();
-    setSelectedRevision(null);
+    if (withRevisions) {
+      withRevisions.resetToLastUpdate();
+      setSelectedRevision(null);
+    }
   };
 
   const onRevertToSelectedRevision = () => {
@@ -111,14 +119,16 @@ const Header = ({
           controlNumber={controlNumber}
           dispatchAction={dispatch}
         />
-        <Revisions
-          revisions={revisions}
-          revisionError={revisionError}
-          selectedRevision={selectedRevision}
-          selectRevision={selectRevision}
-          onGoBackToCurrentFromRevision={onGoBackToCurrentFromRevision}
-          onRevertToSelectedRevision={onRevertToSelectedRevision}
-        />
+        {withRevisions && (
+          <Revisions
+            revisions={withRevisions.revisions}
+            revisionError={withRevisions.revisionError}
+            selectedRevision={selectedRevision}
+            selectRevision={selectRevision}
+            onGoBackToCurrentFromRevision={onGoBackToCurrentFromRevision}
+            onRevertToSelectedRevision={onRevertToSelectedRevision}
+          />
+        )}
       </div>
     </div>
   );

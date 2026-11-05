@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { Button, Dropdown } from 'antd';
 
-import { Revision } from '../../types';
+import { Revision } from '../types';
 
 interface RevisionsProps {
   revisions: Revision[];

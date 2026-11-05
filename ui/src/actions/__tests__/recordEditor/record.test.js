@@ -33,11 +33,11 @@ import {
   notifyEditionSuccess,
   notifyParallelEdition,
   notifyRevertToRevisionError,
-} from '../../../recordEditor/author/notifications';
+} from '../../../recordEditor/notifications';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
-vi.mock('../../../recordEditor/author/notifications', () => ({
+vi.mock('../../../recordEditor/notifications', () => ({
   notifyEditionInProgress: vi.fn(),
   notifyEditionSuccess: vi.fn(),
   notifyEditionError: vi.fn(),

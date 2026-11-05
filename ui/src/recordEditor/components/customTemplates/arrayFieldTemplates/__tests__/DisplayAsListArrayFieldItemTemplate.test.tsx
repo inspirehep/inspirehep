@@ -54,7 +54,13 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
     const onMoveDownItem = vi.fn();
     render(
       <DisplayAsListArrayFieldItemTemplate
-        {...reorderProps({ onMoveUpItem, onMoveDownItem })}
+        {...reorderProps(
+          {
+            onMoveUpItem,
+            onMoveDownItem,
+          },
+          { children: <div>field content</div> }
+        )}
       />
     );
 
@@ -68,7 +74,10 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   it('disables "Move up" for the first item', () => {
     render(
       <DisplayAsListArrayFieldItemTemplate
-        {...reorderProps({ hasMoveUp: false })}
+        {...reorderProps(
+          { hasMoveUp: false },
+          { children: <div>field content</div> }
+        )}
       />
     );
 
@@ -79,7 +88,10 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   it('disables "Move down" for the last item', () => {
     render(
       <DisplayAsListArrayFieldItemTemplate
-        {...reorderProps({ hasMoveDown: false })}
+        {...reorderProps(
+          { hasMoveDown: false },
+          { children: <div>field content</div> }
+        )}
       />
     );
 
@@ -90,7 +102,10 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   it('does not render arrows when the item cannot move', () => {
     render(
       <DisplayAsListArrayFieldItemTemplate
-        {...reorderProps({ hasMoveUp: false, hasMoveDown: false })}
+        {...reorderProps(
+          { hasMoveUp: false, hasMoveDown: false },
+          { children: <div>field content</div> }
+        )}
       />
     );
 
@@ -100,7 +115,7 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   });
 
   it('disables arrows when readonly', () => {
-    const props = reorderProps();
+    const props = reorderProps({}, { children: <div>field content</div> });
     render(<DisplayAsListArrayFieldItemTemplate {...props} readonly />);
 
     expect(screen.getByRole('button', { name: 'Move up' })).toBeDisabled();
@@ -110,7 +125,9 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   it('does not render "Add new element here" without an add context', () => {
     render(
       <DisplayAsListArrayFieldItemTemplate
-        {...buildArrayFieldItemTemplateProps()}
+        {...buildArrayFieldItemTemplateProps({
+          children: <div>field content</div>,
+        })}
       />
     );
 
@@ -122,7 +139,10 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   it('calls addAt with the item index on "Add new element here" click', async () => {
     const user = userEvent.setup();
     const addAt = vi.fn();
-    const props = buildArrayFieldItemTemplateProps({ index: 2 });
+    const props = buildArrayFieldItemTemplateProps({
+      index: 2,
+      children: <div>field content</div>,
+    });
 
     render(
       <ArrayAddItemContext.Provider value={{ addAt }}>
@@ -139,7 +159,10 @@ describe('<DisplayAsListArrayFieldItemTemplate />', () => {
   });
 
   it('disables "Add new element here" when readonly', () => {
-    const props = buildArrayFieldItemTemplateProps({ index: 0 });
+    const props = buildArrayFieldItemTemplateProps({
+      index: 0,
+      children: <div>field content</div>,
+    });
 
     render(
       <ArrayAddItemContext.Provider value={{ addAt: vi.fn() }}>

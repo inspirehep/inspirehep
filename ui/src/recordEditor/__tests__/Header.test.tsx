@@ -1,20 +1,24 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Header, { HeaderProps } from '../author/components/Header';
+import Header, { HeaderProps } from '../components/Header';
 import { renderWithProviders } from '../../fixtures/render';
+
+const baseWithRevisions = {
+  revisions: [],
+  revisionError: null,
+  resetToLastUpdate: vi.fn(),
+  isViewingRevision: false,
+};
 
 const renderHeaderWithProps = (overrides: Partial<HeaderProps> = {}) => {
   renderWithProviders(
     <Header
       controlNumber="123"
-      revisions={[]}
+      withRevisions={baseWithRevisions}
       onSave={vi.fn()}
       onUndo={vi.fn()}
       canUndo={false}
-      revisionError={null}
-      resetToLastUpdate={vi.fn()}
-      isViewingRevision={false}
       dispatch={vi.fn()}
       {...overrides}
     />
@@ -50,7 +54,10 @@ describe('Header', () => {
     const user = userEvent.setup();
 
     renderHeaderWithProps({
-      revisions: [lastRevision, otherRevision1, otherRevision2],
+      withRevisions: {
+        ...baseWithRevisions,
+        revisions: [lastRevision, otherRevision1, otherRevision2],
+      },
     });
 
     const lastRevisionButton = screen.getByRole('button', {
@@ -66,6 +73,11 @@ describe('Header', () => {
     );
     expect(revision1Label).toBeInTheDocument();
     expect(revision2Label).toBeInTheDocument();
+  });
+
+  it('should not display revisions when withRevision is false', () => {
+    renderHeaderWithProps({ withRevisions: false });
+    expect(screen.queryByText(/Last edit on/)).not.toBeInTheDocument();
   });
 
   it('should call onUndo when the undo button is clicked', async () => {
@@ -88,7 +100,10 @@ describe('Header', () => {
     const user = userEvent.setup();
 
     renderHeaderWithProps({
-      revisions: [lastRevision, otherRevision1],
+      withRevisions: {
+        ...baseWithRevisions,
+        revisions: [lastRevision, otherRevision1],
+      },
     });
 
     const lastRevisionButton = screen.getByRole('button', {
@@ -118,8 +133,11 @@ describe('Header', () => {
   it('should display revision error', () => {
     const errorMessage = 'Some big error';
     renderHeaderWithProps({
-      revisions: [lastRevision],
-      revisionError: errorMessage,
+      withRevisions: {
+        ...baseWithRevisions,
+        revisions: [lastRevision],
+        revisionError: errorMessage,
+      },
     });
 
     expect(

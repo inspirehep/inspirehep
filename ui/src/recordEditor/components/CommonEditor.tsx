@@ -1,79 +1,86 @@
-import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
-import { Form } from '@rjsf/antd';
-import FormType from '@rjsf/core';
+import { useParams } from 'react-router-dom';
+import { Action, ActionCreator } from 'redux';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import FormType from '@rjsf/core';
+import { RJSFSchema } from '@rjsf/utils';
 import { isEqual } from 'lodash';
 import { flushSync } from 'react-dom';
 import { ConfigProvider } from 'antd';
-import { Action, ActionCreator } from 'redux';
-import { useParams } from 'react-router-dom';
-
-import {
-  fetchAuthor,
-  resetEditor,
-  fetchAuthorRevisions,
-  resetAuthorRevisionData,
-  saveAuthor,
-} from '../../../actions/recordEditor/record';
-import {
-  fetchQueues,
-  fetchTickets,
-  fetchUsers,
-} from '../../../actions/recordEditor/tickets';
-import { RootState } from '../../../types';
-import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
-import Header from '../components/Header';
-import authorUiSchema from '../../uiSchema/authorUiSchema';
-import prepareAuthorSchema from '../utils/prepareAuthorSchema';
-import DefaultObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
-import DefaultFieldTemplate from '../components/customTemplates/fieldTemplates/DefaultFieldTemplate';
-import DefaultArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldTemplate';
-import DefaultArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
-import InstitutionAutocompleteWidget from '../components/customWidgets/InstitutionAutocompleteWidget';
-import ProjectNameAutocompleteWidget from '../components/customWidgets/ProjectNameAutocompleteWidget';
-import ViewRecordWidget from '../components/customWidgets/ViewRecordWidget';
-import EnumMultiSelectWidget from '../components/customWidgets/EnumMultiSelectWidget';
-import '../components/customTemplates/Templates.less';
-import validator from '../utils/validator';
-import './AuthorEditorContainer.less';
+import { Form } from '@rjsf/antd';
+import FetchingRecordError from './FetchingRecordError';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
-import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
-import FetchingRecordError from '../components/FetchingRecordError';
-import ToggleWidget from '../components/customWidgets/ToggleWidget';
-import { Revision } from '../../types';
+import { resetAuthorRevisionData } from '../../actions/recordEditor/record';
+import { BackendValidationError, Revision, toExtraErrors } from '../types';
+import Header from './Header';
+import validator from '../utils/validator';
+import authorUiSchema from '../uiSchema/authorUiSchema';
+import DefaultObjectFieldTemplate from './customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
+import DefaultArrayFieldTemplate from './customTemplates/arrayFieldTemplates/DefaultArrayFieldTemplate';
+import DefaultArrayFieldItemTemplate from './customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
+import DefaultFieldTemplate from './customTemplates/fieldTemplates/DefaultFieldTemplate';
+import ErrorListTemplate from './customTemplates/ErrorListTemplate';
+import InstitutionAutocompleteWidget from './customWidgets/InstitutionAutocompleteWidget';
+import ProjectNameAutocompleteWidget from './customWidgets/ProjectNameAutocompleteWidget';
+import ViewRecordWidget from './customWidgets/ViewRecordWidget';
+import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
+import ToggleWidget from './customWidgets/ToggleWidget';
+import { RootState } from '../../types';
+import { HttpClientWrapper } from '../../common/http';
 
 const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
 
-interface AuthorEditorProps {
+interface CommonEditorProps {
   dispatch: ActionCreator<Action>;
-  author: Map<string, any>;
-  authorRevisions: List<Map<string, any>>;
+  authorData: Map<string, any>;
+  schema: RJSFSchema | null;
   error: number | null;
-  currentRevision: Map<string, any>;
-  revisionError: string | null;
+  save: (
+    id: string,
+    record: object
+  ) => (
+    dispatch: ActionCreator<Action, any[]>,
+    getState: () => RootState,
+    http: HttpClientWrapper
+  ) => Promise<void>;
+  validationErrors?: List<Map<string, any>>;
+  withRevisions:
+    | false
+    | {
+        authorRevisions: List<Map<string, any>>;
+        currentRevision: Map<string, any>;
+        revisionError: string | null;
+      };
 }
 
-const AuthorEditor = ({
+const CommonEditor = ({
   dispatch,
-  author,
-  authorRevisions,
+  authorData,
+  schema,
   error,
-  currentRevision,
-  revisionError,
-}: AuthorEditorProps) => {
+  save,
+  validationErrors,
+  withRevisions,
+}: CommonEditorProps) => {
   const { id } = useParams();
-  const authorData = author.get('record')?.get('metadata');
-  const revisions = authorRevisions.toJS() as Revision[];
+
+  const currentRevision = withRevisions ? withRevisions.currentRevision : null;
+  const isViewingRevision = !!currentRevision;
 
   const [formData, setFormData] = useState(() => authorData?.toJS());
+
+  const [extraErrors, setExtraErrors] = useState(() =>
+    toExtraErrors(
+      validationErrors?.toJS() as BackendValidationError[],
+      authorData?.toJS()
+    )
+  );
 
   const formRef = useRef<FormType>(null);
   const historyRef = useRef<any[]>([]);
   const isTypingGroupOpenRef = useRef(false);
   const preRevisionFormDataRef = useRef<any>(null);
-  const isViewingRevision = !!currentRevision;
 
   const formDataRef = useRef(formData);
   formDataRef.current = formData;
@@ -91,11 +98,27 @@ const AuthorEditor = ({
   }, []);
 
   useEffect(() => {
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (historyRef.current.length > 0) {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener('beforeunload', warnBeforeUnload);
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
+  }, []);
+
+  useEffect(() => {
     setFormData(authorData?.toJS());
+    setExtraErrors(
+      toExtraErrors(
+        validationErrors?.toJS() as BackendValidationError[],
+        authorData?.toJS()
+      )
+    );
     historyRef.current = [];
     isTypingGroupOpenRef.current = false;
     preRevisionFormDataRef.current = null;
-  }, [authorData]);
+  }, [authorData, validationErrors]);
 
   useEffect(() => {
     if (currentRevision) {
@@ -106,16 +129,6 @@ const AuthorEditor = ({
     }
   }, [currentRevision]);
 
-  useEffect(() => {
-    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (historyRef.current.length > 0) {
-        event.preventDefault();
-      }
-    };
-    window.addEventListener('beforeunload', warnBeforeUnload);
-    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
-  }, []);
-
   if (!id) {
     return null;
   }
@@ -123,8 +136,9 @@ const AuthorEditor = ({
   if (error !== null) {
     return <FetchingRecordError controlNumber={id} errorStatus={error} />;
   }
-
-  const schema = prepareAuthorSchema(author.get('schema').toJS());
+  if (schema === null) {
+    return <FetchingRecordError controlNumber={id} errorStatus={500} />;
+  }
 
   const onFormChange = (nextFormData: any) => {
     if (isViewingRevision) {
@@ -150,13 +164,14 @@ const AuthorEditor = ({
     // flushSync forces the pruned formData to reach the Form's internal
     // state synchronously, so validateForm() right after can read it.
     flushSync(() => {
+      setExtraErrors(undefined);
       setFormData(prunedFormData);
     });
     if (!formRef.current?.validateForm()) {
       window.scrollTo(0, 0);
       return;
     }
-    dispatch(saveAuthor(id, prunedFormData));
+    dispatch(save(id, prunedFormData));
   };
 
   const resetToLastUpdate = () => {
@@ -174,14 +189,20 @@ const AuthorEditor = ({
     >
       <Header
         controlNumber={id}
-        revisions={revisions}
-        revisionError={revisionError}
+        withRevisions={
+          withRevisions
+            ? {
+                revisions: withRevisions.authorRevisions.toJS() as Revision[],
+                revisionError: withRevisions.revisionError,
+                isViewingRevision,
+                resetToLastUpdate,
+              }
+            : false
+        }
         onSave={() => onSave()}
         onUndo={onUndo}
         canUndo={historyRef.current.length > 0}
         dispatch={dispatch}
-        resetToLastUpdate={resetToLastUpdate}
-        isViewingRevision={isViewingRevision}
       />
 
       <ConfigProvider componentSize="small">
@@ -190,6 +211,7 @@ const AuthorEditor = ({
           schema={schema}
           validator={validator}
           formData={formData}
+          extraErrors={extraErrors}
           readonly={isViewingRevision}
           onChange={({ formData: nextFormData }) => onFormChange(nextFormData)}
           uiSchema={authorUiSchema}
@@ -218,30 +240,4 @@ const AuthorEditor = ({
   );
 };
 
-const stateToProps = (state: RootState) => ({
-  author: state.recordEditor.getIn(['recordData', 'author']),
-  authorRevisions: state.recordEditor.getIn(['recordData', 'author_revisions']),
-  error: state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
-  currentRevision: state.recordEditor.getIn([
-    'recordData',
-    'current_author_revision',
-  ]),
-  revisionError: state.recordEditor.getIn(['recordData', 'revisionError']),
-});
-
-const AuthorEditorContainer = connect(stateToProps)(AuthorEditor);
-
-export default withRouteActionsDispatcher(AuthorEditorContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [
-    resetEditor(),
-    fetchAuthor(id!),
-    fetchAuthorRevisions(id!),
-    fetchQueues(),
-    fetchUsers(),
-    fetchTickets(id!),
-  ],
-  loadingStateSelector: (state: RootState) =>
-    !state.recordEditor.hasIn(['recordData', 'author', 'record']) &&
-    !state.recordEditor.getIn(['recordData', 'fetchAuthorError']),
-});
+export default CommonEditor;

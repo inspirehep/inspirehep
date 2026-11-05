@@ -1,6 +1,6 @@
 import { WidgetProps } from '@rjsf/utils';
 
-import Suggester from '../../../common/components/Suggester';
+import Suggester from '../../common/components/Suggester';
 
 type SuggesterForWidgetProps = WidgetProps & {
   onSelectSuggestion: (controlNumber: string, suggestion: any) => void;

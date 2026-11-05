@@ -23,6 +23,15 @@ import {
   EDITOR_USERS_ERROR,
   EDITOR_USERS_REQUEST,
   EDITOR_USERS_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS,
 } from '../actions/actionTypes';
 import { toRevision, toTicket } from '../recordEditor/types';
 
@@ -35,6 +44,13 @@ export const initialState = fromJS({
     saveError: null,
     fetchAuthorError: null,
     currentRecordETag: null,
+  },
+  workflowData: {
+    author: {},
+    schema: null,
+    saveError: null,
+    fetchAuthorError: null,
+    fetchSchemaError: null,
   },
   tickets: {
     queues: [],
@@ -167,6 +183,51 @@ const RecordEditorReducer = (state = initialState, action) => {
           fromJS(action.payload.data.map((ticket) => toTicket(ticket)))
         )
         .setIn(['tickets', 'ticketsError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_REQUEST:
+      return state.set('workflowData', initialState.get('workflowData'));
+    case EDITOR_AUTHOR_WORKFLOW_ERROR:
+      return state
+        .setIn(
+          ['workflowData', 'author'],
+          initialState.getIn(['workflowData', 'author'])
+        )
+        .setIn(
+          ['workflowData', 'fetchAuthorError'],
+          action.payload.error.status
+        );
+    case EDITOR_AUTHOR_WORKFLOW_SUCCESS:
+      return state
+        .setIn(['workflowData', 'author'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchAuthorError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST:
+      return state
+        .setIn(['workflowData', 'schema'], null)
+        .setIn(['workflowData', 'fetchSchemaError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR:
+      return state
+        .setIn(['workflowData', 'schema'], null)
+        .setIn(
+          ['workflowData', 'fetchSchemaError'],
+          action.payload.error.status
+        );
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS:
+      return state
+        .setIn(['workflowData', 'schema'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchSchemaError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST:
+      return state.setIn(
+        ['workflowData', 'saveError'],
+        initialState.getIn(['workflowData', 'saveError'])
+      );
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS:
+      return state
+        .setIn(['workflowData', 'author'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchAuthorError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR:
+      return state.setIn(
+        ['workflowData', 'saveError'],
+        fromJS(action.payload.error)
+      );
     default:
       return state;
   }

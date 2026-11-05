@@ -34,6 +34,15 @@ import {
   EDITOR_RESOLVE_TICKET_REQUEST,
   EDITOR_RESOLVE_TICKET_SUCCESS,
   EDITOR_RESOLVE_TICKET_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS,
 } from '../../actions/actionTypes';
 
 const recordData = (data) => fromJS({ recordData: data });
@@ -423,5 +432,123 @@ describe('recordEditor reducer', () => {
       const initial = tickets({ items: [{ id: '1' }], ticketsError: null });
       expect(reducer(initial, { type, payload })).toEqual(initial);
     });
+  });
+
+  const workflow = initialState.get('workflowData');
+
+  it('EDITOR_AUTHOR_WORKFLOW_REQUEST resets workflowData but keeps recordData', () => {
+    const currentState = initialState
+      .setIn(['workflowData', 'author'], fromJS({ name: 'old' }))
+      .setIn(['workflowData', 'schema'], fromJS({ type: 'object' }))
+      .setIn(['workflowData', 'saveError'], fromJS({ message: 'x' }))
+      .setIn(['workflowData', 'fetchAuthorError'], 404)
+      .setIn(['workflowData', 'fetchSchemaError'], 500)
+      .setIn(['recordData', 'currentRecordETag'], 'etag');
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_REQUEST,
+    });
+    expect(state.get('workflowData')).toEqual(workflow);
+    expect(state.get('recordData')).toEqual(currentState.get('recordData'));
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SUCCESS', () => {
+    const data = { metadata: { name: { value: 'Jones, Jessica' } } };
+    const currentState = initialState.setIn(
+      ['workflowData', 'fetchAuthorError'],
+      404
+    );
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SUCCESS,
+      payload: { data },
+    });
+    expect(state.getIn(['workflowData', 'author'])).toEqual(fromJS(data));
+    expect(state.getIn(['workflowData', 'fetchAuthorError'])).toBeNull();
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_ERROR', () => {
+    const currentState = initialState.setIn(
+      ['workflowData', 'author'],
+      fromJS({ name: 'old' })
+    );
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_ERROR,
+      payload: { error: { status: 404 } },
+    });
+    expect(state.getIn(['workflowData', 'author'])).toEqual(Map());
+    expect(state.getIn(['workflowData', 'fetchAuthorError'])).toEqual(404);
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST', () => {
+    const currentState = initialState
+      .setIn(['workflowData', 'schema'], fromJS({ type: 'object' }))
+      .setIn(['workflowData', 'fetchSchemaError'], 500);
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST,
+    });
+    expect(state.getIn(['workflowData', 'schema'])).toBeNull();
+    expect(state.getIn(['workflowData', 'fetchSchemaError'])).toBeNull();
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS', () => {
+    const data = { type: 'object', properties: { name: {} } };
+    const currentState = initialState.setIn(
+      ['workflowData', 'fetchSchemaError'],
+      500
+    );
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS,
+      payload: { data },
+    });
+    expect(state.getIn(['workflowData', 'schema'])).toEqual(fromJS(data));
+    expect(state.getIn(['workflowData', 'fetchSchemaError'])).toBeNull();
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR', () => {
+    const currentState = initialState.setIn(
+      ['workflowData', 'schema'],
+      fromJS({ type: 'object' })
+    );
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR,
+      payload: { error: { status: 500 } },
+    });
+    expect(state.getIn(['workflowData', 'schema'])).toBeNull();
+    expect(state.getIn(['workflowData', 'fetchSchemaError'])).toEqual(500);
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST clears saveError only', () => {
+    const currentState = initialState
+      .setIn(['workflowData', 'saveError'], fromJS({ message: 'x' }))
+      .setIn(['workflowData', 'author'], fromJS({ name: 'kept' }));
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST,
+    });
+    expect(state.getIn(['workflowData', 'saveError'])).toBeNull();
+    expect(state.getIn(['workflowData', 'author'])).toEqual(
+      fromJS({ name: 'kept' })
+    );
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS', () => {
+    const data = { metadata: { name: { value: 'Updated' } } };
+    const currentState = initialState.setIn(
+      ['workflowData', 'fetchAuthorError'],
+      404
+    );
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS,
+      payload: { data },
+    });
+    expect(state.getIn(['workflowData', 'author'])).toEqual(fromJS(data));
+    expect(state.getIn(['workflowData', 'fetchAuthorError'])).toBeNull();
+  });
+
+  it('EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR', () => {
+    const error = { status: 400, message: 'Invalid' };
+    const state = reducer(initialState, {
+      type: EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR,
+      payload: { error },
+    });
+    expect(state.getIn(['workflowData', 'saveError'])).toEqual(fromJS(error));
   });
 });

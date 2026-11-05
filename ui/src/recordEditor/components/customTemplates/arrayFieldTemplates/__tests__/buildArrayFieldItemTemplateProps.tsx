@@ -16,7 +16,10 @@ export function buildArrayFieldItemTemplateProps(
   } as unknown as ArrayFieldItemTemplateProps;
 }
 
-export const reorderProps = (buttonsOverrides = {}) =>
+export const reorderProps = (
+  buttonsOverrides = {},
+  overrides: Partial<ArrayFieldItemTemplateProps> = {}
+) =>
   buildArrayFieldItemTemplateProps({
     buttonsProps: {
       hasRemove: true,
@@ -27,4 +30,5 @@ export const reorderProps = (buttonsOverrides = {}) =>
       onMoveDownItem: vi.fn(),
       ...buttonsOverrides,
     } as unknown as ArrayFieldItemButtonsTemplateProps,
+    ...overrides,
   });

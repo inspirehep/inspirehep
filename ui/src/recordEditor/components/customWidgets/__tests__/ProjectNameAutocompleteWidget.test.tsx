@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 
 import { buildWidgetProps } from './buildWidgetProps';
-import http from '../../../../../common/http';
+import http from '../../../../common/http';
 import {
   ObjectFieldData,
   ObjectFieldDataContext,

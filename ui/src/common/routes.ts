@@ -55,11 +55,10 @@ export const SUBMISSIONS_JOURNAL = `${SUBMISSIONS}/journals`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
 export const EDITOR = '/editor';
-export const NEW_EDITOR = '/new-editor';
 
 export const EDIT_LITERATURE = `${EDITOR}/record/literature`;
 export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
-export const EDIT_AUTHOR_CATALOGER = `/editor/record/authors`;
+export const EDIT_AUTHOR_CATALOGER = `${EDITOR}/record/authors`;
 export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = `${EDITOR}/record/conferences`;
 export const EDIT_INSTITUTION = `${EDITOR}/record/institutions`;

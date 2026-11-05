@@ -3,7 +3,7 @@ import userEvent, { UserEvent } from '@testing-library/user-event';
 import { screen, waitFor, within } from '@testing-library/dom';
 import { getStore } from '../../fixtures/store';
 import { renderWithProviders } from '../../fixtures/render';
-import TicketsContainer from '../author/components/Tickets';
+import TicketsContainer from '../components/Tickets';
 import {
   createTicket,
   resolveTicket,

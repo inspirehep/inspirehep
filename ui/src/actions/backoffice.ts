@@ -64,7 +64,7 @@ import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
 import { Subject, WorkflowActions } from '../backoffice/constants';
 
 // withCredentials is needed for ORCID login with sessionId cookie
-const httpClient = axios.create({ withCredentials: true });
+export const httpClient = axios.create({ withCredentials: true });
 
 // Request interceptor for API calls
 httpClient.interceptors.request.use(
