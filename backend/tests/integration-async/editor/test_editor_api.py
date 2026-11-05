@@ -143,6 +143,30 @@ def test_get_revisions_with_transaction_missing(
     assert result[1]["user_email"] == "system"
 
 
+def test_get_revisions_with_transaction_user(
+    inspire_app, clean_celery_session, record_with_two_revisions
+):
+    user = create_user(role=Roles.cataloger.value)
+    Transaction = transaction_class(RecordMetadata)
+    record = InspireRecord.get_record_by_pid_value(
+        record_with_two_revisions, "lit", original_record=True
+    )
+    transaction_id = record.revisions[-1].model.transaction_id
+    db.session.get(Transaction, transaction_id).user_id = user.id
+    db.session.commit()
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/api/editor/literature/{record_with_two_revisions}/revisions",
+            content_type="application/json",
+        )
+
+    result = orjson.loads(response.data)
+
+    assert [r["user_email"] for r in result] == [user.email, "system"]
+
+
 def test_get_revisions_hidden_collection_user(
     inspire_app, clean_celery_session, hidden_record_with_two_revisions
 ):
