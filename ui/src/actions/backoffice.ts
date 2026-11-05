@@ -11,7 +11,6 @@ import {
   BACKOFFICE_SEARCH_REQUEST,
   BACKOFFICE_SEARCH_ERROR,
   BACKOFFICE_SEARCH_SUCCESS,
-  BACKOFFICE_SEARCH_QUERY_UPDATE,
   BACKOFFICE_AUTHOR_ERROR,
   BACKOFFICE_AUTHOR_REQUEST,
   BACKOFFICE_AUTHOR_SUCCESS,
@@ -245,35 +244,13 @@ function searchError(errorPayload: { error: Error }) {
   };
 }
 
-function updateQuery(data: any) {
-  return {
-    type: BACKOFFICE_SEARCH_QUERY_UPDATE,
-    payload: data,
-  };
-}
-
 function resetQuery() {
   return {
     type: BACKOFFICE_SEARCH_QUERY_RESET,
   };
 }
 
-type QueryParams = {
-  page: number;
-  size?: number;
-  ordering?: string;
-  [key: string]: any;
-};
-
-export function searchQueryUpdate(
-  query: QueryParams
-): (dispatch: ActionCreator<Action>) => Promise<void> {
-  return async (dispatch) => {
-    dispatch(updateQuery(query));
-  };
-}
-
-export function searchQueryReset(): (
+function searchQueryReset(): (
   dispatch: ActionCreator<Action>
 ) => Promise<void> {
   return async (dispatch) => {
@@ -666,15 +643,15 @@ export function restartCurrentWorkflowAction(
 
 // DELETE ACTIONS
 
-export const deletingWorkflow = () => ({
+const deletingWorkflow = () => ({
   type: BACKOFFICE_DELETE_REQUEST,
 });
 
-export const deleteWorkflowSuccess = () => ({
+const deleteWorkflowSuccess = () => ({
   type: BACKOFFICE_DELETE_SUCCESS,
 });
 
-export const deleteWorkflowError = (errorPayload: { error: Error }) => ({
+const deleteWorkflowError = (errorPayload: { error: Error }) => ({
   type: BACKOFFICE_DELETE_ERROR,
   payload: { ...errorPayload },
 });
