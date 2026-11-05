@@ -1408,6 +1408,11 @@ def hep_create_dag():
                 record_uuid=head_uuid, source=update_source.lower()
             )
 
+            s3_store.write_object(
+                head_root,
+                key=f"{workflow_id}/original_merge_root.json",
+            )
+
             head_root = deepcopy(head_root["json"] if head_root else {})
 
             try:
