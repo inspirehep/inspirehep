@@ -14,6 +14,16 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    assert "oaiserver_set" not in _get_table_names()
+
+    alembic.downgrade(target="41e81f8ee63a")
+    assert "oaiserver_set" in _get_table_names()
+    assert "ix_oaiserver_set_name" in _get_indexes("oaiserver_set")
+    assert _get_oai_sets() == [
+        ("ForCDS", "CDS", "OAI set for CDS."),
+        ("CERN:arXiv", "CERN arXiv", "OAI set for CERN arXiv."),
+    ]
+
     alembic.downgrade(target="3fd6471bb960")
 
     assert "data_literature" not in _get_table_names()
@@ -354,6 +364,17 @@ def test_upgrade(inspire_app):
     assert "data_literature" in _get_table_names()
     assert "ix_data_literature_literature_uuid" in _get_indexes("data_literature")
     assert "ix_data_literature_data_uuid" in _get_indexes("data_literature")
+
+    alembic.upgrade(target="41e81f8ee63a")
+    assert "oaiserver_set" in _get_table_names()
+
+    alembic.upgrade(target="67d257fb3749")
+    assert "oaiserver_set" not in _get_table_names()
+
+
+def _get_oai_sets():
+    query = text("SELECT spec, name, description FROM oaiserver_set ORDER BY id")
+    return [tuple(row) for row in db.session.execute(query)]
 
 
 def _get_indexes(tablename):

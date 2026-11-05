@@ -11,7 +11,6 @@ from datetime import MINYEAR, datetime, timedelta
 import arrow
 from flask import current_app, url_for
 from inspirehep.oai.fetchers import oaiid_fetcher
-from inspirehep.oai.models import OAISet
 from inspirehep.oai.provider import OAIIDProvider
 from inspirehep.oai.query import OAIServerSearch, get_records
 from inspirehep.oai.resumption_token import serialize
@@ -179,17 +178,13 @@ def listsets(**kwargs):
     """Create OAI-PMH response for ListSets verb."""
     e_tree, e_listsets = verb(**kwargs)
 
-    page = kwargs.get("resumptionToken", {}).get("page", 1)
-    size = current_app.config["OAISERVER_PAGE_SIZE"]
-    oai_sets = OAISet.query.paginate(page=page, per_page=size, error_out=False)
-
-    for oai_set in oai_sets.items:
+    for oai_set in current_app.config["OAI_SETS"]:
         e_set = SubElement(e_listsets, etree.QName(NS_OAIPMH, "set"))
         e_set_spec = SubElement(e_set, etree.QName(NS_OAIPMH, "setSpec"))
-        e_set_spec.text = oai_set.spec
+        e_set_spec.text = oai_set["spec"]
         e_set_name = SubElement(e_set, etree.QName(NS_OAIPMH, "setName"))
-        e_set_name.text = sanitize_unicode(oai_set.name)
-        if oai_set.description:
+        e_set_name.text = sanitize_unicode(oai_set["name"])
+        if oai_set.get("description"):
             e_set_description = SubElement(
                 e_set, etree.QName(NS_OAIPMH, "setDescription")
             )
@@ -200,9 +195,8 @@ def listsets(**kwargs):
             )
             e_dc.set(etree.QName(NS_XSI, "schemaLocation"), NS_OAIDC)
             e_description = SubElement(e_dc, etree.QName(NS_DC, "description"))
-            e_description.text = oai_set.description
+            e_description.text = oai_set["description"]
 
-    resumption_token(e_listsets, oai_sets, **kwargs)
     return e_tree
 
 

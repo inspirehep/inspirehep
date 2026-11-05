@@ -35,3 +35,12 @@ OAISERVER_METADATA_FORMATS = {
 OAI_SET_CDS = "ForCDS"
 OAI_SET_CERN_ARXIV = "CERN:arXiv"
 OAI_SET_OAIRE = "Literature"
+
+OAI_SETS = [
+    {"name": "CDS", "description": "OAI set for CDS.", "spec": OAI_SET_CDS},
+    {
+        "name": "CERN arXiv",
+        "description": "OAI set for CERN arXiv.",
+        "spec": OAI_SET_CERN_ARXIV,
+    },
+]
