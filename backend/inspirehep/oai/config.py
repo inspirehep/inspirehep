@@ -7,9 +7,9 @@
 OAISERVER_ID_PREFIX = "oai:inspirehep.net:"
 OAISERVER_RECORD_INDEX = "records-hep"
 
-OAISERVER_REPOSITORY_NAME = "Invenio-OAIServer"
+OAISERVER_REPOSITORY_NAME = "INSPIRE"
 OAISERVER_PROTOCOL_VERSION = "2.0"
-OAISERVER_ADMIN_EMAILS = ["info@inveniosoftware.org"]
+OAISERVER_ADMIN_EMAILS = ["inspire-admin@inspirehep.net"]
 OAISERVER_GRANULARITY = "YYYY-MM-DDThh:mm:ssZ"
 OAISERVER_COMPRESSIONS = ["identity"]
 OAISERVER_DESCRIPTIONS = []
@@ -42,5 +42,10 @@ OAI_SETS = [
         "name": "CERN arXiv",
         "description": "OAI set for CERN arXiv.",
         "spec": OAI_SET_CERN_ARXIV,
+    },
+    {
+        "name": "Literature",
+        "description": "OAI set for OpenAIRE.",
+        "spec": OAI_SET_OAIRE,
     },
 ]
