@@ -1,0 +1,236 @@
+import { fromJS } from 'immutable';
+import {
+  EDITOR_RESET,
+  EDITOR_RECORD_ERROR,
+  EDITOR_RECORD_REQUEST,
+  EDITOR_RECORD_SUCCESS,
+  EDITOR_RECORD_REVISIONS_REQUEST,
+  EDITOR_RECORD_REVISIONS_ERROR,
+  EDITOR_RECORD_REVISIONS_SUCCESS,
+  EDITOR_AUTHOR_SAVE_REQUEST,
+  EDITOR_AUTHOR_SAVE_SUCCESS,
+  EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_RECORD_REVISION_DATA_REQUEST,
+  EDITOR_RECORD_REVISION_DATA_ERROR,
+  EDITOR_RECORD_REVISION_DATA_SUCCESS,
+  EDITOR_RECORD_REVISION_DATA_RESET,
+  EDITOR_QUEUES_REQUEST,
+  EDITOR_QUEUES_ERROR,
+  EDITOR_QUEUES_SUCCESS,
+  EDITOR_TICKETS_ERROR,
+  EDITOR_TICKETS_REQUEST,
+  EDITOR_TICKETS_SUCCESS,
+  EDITOR_USERS_ERROR,
+  EDITOR_USERS_REQUEST,
+  EDITOR_USERS_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR,
+  EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS,
+} from '../actions/actionTypes';
+import { toRevision, toTicket } from '../editor/types';
+
+export const initialState = fromJS({
+  recordData: {
+    record: {},
+    record_revisions: [],
+    current_record_revision: null,
+    revisionError: null,
+    saveError: null,
+    fetchRecordError: null,
+    currentRecordETag: null,
+  },
+  workflowData: {
+    author: {},
+    schema: null,
+    saveError: null,
+    fetchAuthorError: null,
+    fetchSchemaError: null,
+  },
+  tickets: {
+    queues: [],
+    users: [],
+    queuesError: null,
+    usersError: null,
+    items: [],
+    ticketsError: null,
+  },
+});
+
+const EditorReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case EDITOR_RESET:
+      return initialState;
+    case EDITOR_RECORD_REQUEST:
+      return state.set('recordData', initialState.get('recordData'));
+    case EDITOR_RECORD_ERROR:
+      return state
+        .setIn(
+          ['recordData', 'record'],
+          initialState.getIn(['recordData', 'record'])
+        )
+        .setIn(['recordData', 'fetchRecordError'], action.payload.error.status)
+        .setIn(['recordData', 'current_record_revision'], null);
+    case EDITOR_RECORD_SUCCESS:
+      return state
+        .setIn(['recordData', 'record'], fromJS(action.payload.data))
+        .setIn(['recordData', 'currentRecordETag'], fromJS(action.payload.eTag))
+        .setIn(['recordData', 'fetchRecordError'], null);
+    case EDITOR_RECORD_REVISIONS_REQUEST:
+      return state
+        .setIn(
+          ['recordData', 'record_revisions'],
+          initialState.getIn(['recordData', 'record_revisions'])
+        )
+        .setIn(['recordData', 'revisionError'], null);
+    case EDITOR_RECORD_REVISIONS_ERROR:
+      return state
+        .setIn(
+          ['recordData', 'record_revisions'],
+          initialState.getIn(['recordData', 'record_revisions'])
+        )
+        .setIn(
+          ['recordData', 'revisionError'],
+          'Error while fetching revisions'
+        );
+    case EDITOR_RECORD_REVISIONS_SUCCESS:
+      return state
+        .setIn(
+          ['recordData', 'record_revisions'],
+          fromJS(action.payload.data.map((revision) => toRevision(revision)))
+        )
+        .setIn(['recordData', 'revisionError'], null);
+    case EDITOR_RECORD_REVISION_DATA_REQUEST:
+      return state
+        .setIn(
+          ['recordData', 'current_record_revision'],
+          initialState.getIn(['recordData', 'current_record_revision'])
+        )
+        .setIn(['recordData', 'revisionError'], null);
+    case EDITOR_RECORD_REVISION_DATA_ERROR:
+      return state
+        .setIn(
+          ['recordData', 'current_record_revision'],
+          initialState.getIn(['recordData', 'current_record_revision'])
+        )
+        .setIn(
+          ['recordData', 'revisionError'],
+          'Error while fetching data from revision'
+        );
+    case EDITOR_RECORD_REVISION_DATA_SUCCESS:
+      return state
+        .setIn(
+          ['recordData', 'current_record_revision'],
+          fromJS(action.payload.data)
+        )
+        .setIn(['recordData', 'revisionError'], null);
+    case EDITOR_RECORD_REVISION_DATA_RESET:
+      return state.setIn(
+        ['recordData', 'current_record_revision'],
+        initialState.getIn(['recordData', 'current_record_revision'])
+      );
+    case EDITOR_AUTHOR_SAVE_REQUEST:
+      return state.setIn(
+        ['recordData', 'saveError'],
+        initialState.getIn(['recordData', 'saveError'])
+      );
+    case EDITOR_AUTHOR_SAVE_SUCCESS:
+      return state;
+    case EDITOR_AUTHOR_SAVE_ERROR:
+      return state.setIn(
+        ['recordData', 'saveError'],
+        fromJS(action.payload.error)
+      );
+    case EDITOR_QUEUES_REQUEST:
+      return state
+        .setIn(['tickets', 'queues'], initialState.getIn(['tickets', 'queues']))
+        .setIn(['tickets', 'queuesError'], null);
+    case EDITOR_QUEUES_ERROR:
+      return state
+        .setIn(['tickets', 'queues'], initialState.getIn(['tickets', 'queues']))
+        .setIn(['tickets', 'queuesError'], 'Error while fetching queues');
+    case EDITOR_QUEUES_SUCCESS:
+      return state
+        .setIn(['tickets', 'queues'], fromJS(action.payload.data))
+        .setIn(['tickets', 'queuesError'], null);
+    case EDITOR_USERS_REQUEST:
+      return state
+        .setIn(['tickets', 'users'], initialState.getIn(['tickets', 'users']))
+        .setIn(['tickets', 'usersError'], null);
+    case EDITOR_USERS_ERROR:
+      return state
+        .setIn(['tickets', 'users'], initialState.getIn(['tickets', 'users']))
+        .setIn(['tickets', 'usersError'], 'Error while fetching users');
+    case EDITOR_USERS_SUCCESS:
+      return state
+        .setIn(['tickets', 'users'], fromJS(action.payload.data))
+        .setIn(['tickets', 'usersError'], null);
+    case EDITOR_TICKETS_REQUEST:
+      return state.setIn(['tickets', 'ticketsError'], null);
+    case EDITOR_TICKETS_ERROR:
+      return state
+        .setIn(['tickets', 'items'], initialState.getIn(['tickets', 'items']))
+        .setIn(['tickets', 'ticketsError'], 'Error while fetching tickets');
+    case EDITOR_TICKETS_SUCCESS:
+      return state
+        .setIn(
+          ['tickets', 'items'],
+          fromJS(action.payload.data.map((ticket) => toTicket(ticket)))
+        )
+        .setIn(['tickets', 'ticketsError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_REQUEST:
+      return state.set('workflowData', initialState.get('workflowData'));
+    case EDITOR_AUTHOR_WORKFLOW_ERROR:
+      return state
+        .setIn(
+          ['workflowData', 'author'],
+          initialState.getIn(['workflowData', 'author'])
+        )
+        .setIn(
+          ['workflowData', 'fetchAuthorError'],
+          action.payload.error.status
+        );
+    case EDITOR_AUTHOR_WORKFLOW_SUCCESS:
+      return state
+        .setIn(['workflowData', 'author'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchAuthorError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_REQUEST:
+      return state
+        .setIn(['workflowData', 'schema'], null)
+        .setIn(['workflowData', 'fetchSchemaError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_ERROR:
+      return state
+        .setIn(['workflowData', 'schema'], null)
+        .setIn(
+          ['workflowData', 'fetchSchemaError'],
+          action.payload.error.status
+        );
+    case EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS:
+      return state
+        .setIn(['workflowData', 'schema'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchSchemaError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST:
+      return state.setIn(
+        ['workflowData', 'saveError'],
+        initialState.getIn(['workflowData', 'saveError'])
+      );
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_SUCCESS:
+      return state
+        .setIn(['workflowData', 'author'], fromJS(action.payload.data))
+        .setIn(['workflowData', 'fetchAuthorError'], null);
+    case EDITOR_AUTHOR_WORKFLOW_SAVE_ERROR:
+      return state.setIn(
+        ['workflowData', 'saveError'],
+        fromJS(action.payload.error)
+      );
+    default:
+      return state;
+  }
+};
+
+export default EditorReducer;

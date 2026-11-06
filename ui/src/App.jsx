@@ -55,14 +55,9 @@ import AuthorlistToolContainer from './authorlistTool/AuthorlistToolContainer';
 
 const LazyBackoffice = React.lazy(() => import('./backoffice'));
 const LazySubmissions = React.lazy(() => import('./submissions'));
-const LazyRecordEditor = React.lazy(() => import('./recordEditor'));
+const LazyEditor = React.lazy(() => import('./editor'));
 
-function App({
-  userRoles,
-  dispatch,
-  guideModalVisibility,
-  isRecordEditorPage,
-}) {
+function App({ userRoles, dispatch, guideModalVisibility, isEditorPage }) {
   useEffect(() => {
     dispatch(fetchLoggedInUser());
   }, [dispatch]);
@@ -88,7 +83,7 @@ function App({
   return (
     <ConfigProvider theme={antdTheme}>
       <Layout className="__App__" data-testid="app">
-        {!isRecordEditorPage && <Header />}
+        {!isEditorPage && <Header />}
         <Layout.Content className="content">
           <Suspense fallback={<Loading />}>
             <RoutesWithFallback>
@@ -135,7 +130,7 @@ function App({
                 path={`${EDITOR}/*`}
                 element={
                   <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                    <LazyRecordEditor />
+                    <LazyEditor />
                   </RequireAuth>
                 }
               />
@@ -144,7 +139,7 @@ function App({
           </Suspense>
           <GuideModalContainer />
         </Layout.Content>
-        {!isRecordEditorPage && <Footer />}
+        {!isEditorPage && <Footer />}
       </Layout>
     </ConfigProvider>
   );
@@ -159,7 +154,7 @@ App.propTypes = {
 const stateToProps = (state) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
-  isRecordEditorPage: String(state.router.location.pathname).startsWith(EDITOR),
+  isEditorPage: String(state.router.location.pathname).startsWith(EDITOR),
 });
 
 const dispatchToProps = (dispatch) => ({

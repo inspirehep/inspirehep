@@ -218,7 +218,7 @@ describe('App', () => {
     expect(journals).toBeInTheDocument();
   });
 
-  it('navigates to RecordEditor when /new-editor if superuser logged in', async () => {
+  it('navigates to Editor when /new-editor if superuser logged in', async () => {
     const store = getStore({
       user: fromJS({
         loggedIn: true,
@@ -232,12 +232,12 @@ describe('App', () => {
       route: EDITOR,
     });
     const app = await screen.findByTestId('app');
-    const recordEditor = await within(app).findByTestId('record-editor');
+    const editor = await within(app).findByTestId('editor');
 
-    expect(recordEditor).toBeInTheDocument();
+    expect(editor).toBeInTheDocument();
   });
 
-  it('does not navigate to RecordEditor when /new-editor if not logged in', async () => {
+  it('does not navigate to Editor when /new-editor if not logged in', async () => {
     const store = getStore({
       user: fromJS({
         loggedIn: false,
@@ -251,9 +251,9 @@ describe('App', () => {
       route: EDITOR,
     });
     const app = await screen.findByTestId('app');
-    const recordEditor = within(app).queryByTestId('record-editor');
+    const editor = within(app).queryByTestId('editor');
 
-    expect(recordEditor).not.toBeInTheDocument();
+    expect(editor).not.toBeInTheDocument();
   });
 
   it('navigates to AuthorlistTool when /authorlist-tool if superuser logged in', async () => {
