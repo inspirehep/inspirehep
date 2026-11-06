@@ -20,6 +20,7 @@ import {
 } from '../../common/components/InlineList';
 import IconText from '../../common/components/IconText';
 import LinkLikeButton from '../../common/components/LinkLikeButton/LinkLikeButton';
+import EventTracker from '../../common/components/EventTracker';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -147,19 +148,25 @@ class ReferenceItem extends Component {
                     className="flex items-center justify-center"
                     data-testid="edit-reference"
                   >
-                    <LinkLikeButton
-                      onClick={() => {
-                        setScrollElement(`reference-${reference_index}`);
-                        onEditReferenceClick(reference_index);
-                      }}
-                      disabled={!loggedIn}
+                    <EventTracker
+                      eventCategory="Literature detail"
+                      eventAction="Edit reference"
+                      eventId={`edit-reference-${reference_index}`}
                     >
-                      <IconText
-                        text="edit"
-                        icon={<EditOutlined />}
-                        className="flex items-center justify-center pr2"
-                      />
-                    </LinkLikeButton>
+                      <LinkLikeButton
+                        onClick={() => {
+                          setScrollElement(`reference-${reference_index}`);
+                          onEditReferenceClick(reference_index);
+                        }}
+                        disabled={!loggedIn}
+                      >
+                        <IconText
+                          text="edit"
+                          icon={<EditOutlined />}
+                          className="flex items-center justify-center pr2"
+                        />
+                      </LinkLikeButton>
+                    </EventTracker>
                   </div>
                 </Tooltip>
               </Col>

@@ -16,6 +16,7 @@ import LiteratureDate from '../../../common/components/LiteratureDate';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import PaginationContainer from '../../../common/containers/PaginationContainer';
 import useResponsiveCheck from '../../../common/hooks/useResponsiveCheck';
+import EventTracker from '../../../common/components/EventTracker';
 
 export function renderReferenceItem(
   result: Map<string, any>,
@@ -162,15 +163,21 @@ function CurateReferenceDrawer({
 
         <Row className="mt2" justify="end">
           <Col>
-            <Button
-              data-testid="curate-button"
-              disabled={selectedRecordId == null}
-              icon={<SelectOutlined />}
-              type="primary"
-              onClick={onSelectClick}
+            <EventTracker
+              eventCategory="Literature detail"
+              eventAction="Select reference"
+              eventId={`curate-reference-${referenceId}`}
             >
-              Select
-            </Button>
+              <Button
+                data-testid="curate-button"
+                disabled={selectedRecordId == null}
+                icon={<SelectOutlined />}
+                type="primary"
+                onClick={onSelectClick}
+              >
+                Select
+              </Button>
+            </EventTracker>
           </Col>
         </Row>
       </LoadingOrChildren>
