@@ -11,10 +11,8 @@ from datetime import datetime, timedelta
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
-from inspirehep.oai.models import OAISet
 from inspirehep.oai.response import NS_DC, NS_OAIDC, NS_OAIPMH
 from inspirehep.oai.utils import datetime_to_datestamp
-from invenio_db import db
 from lxml import etree
 
 NAMESPACES = {"x": NS_OAIPMH, "y": NS_OAIDC, "z": NS_DC}
@@ -38,12 +36,6 @@ def _check_xml_error(tree, code):
     error = _xpath(tree, "/x:OAI-PMH/x:error")
     assert len(error) == 1
     assert error[0].attrib["code"] == code
-
-
-def _add_oai_sets(*sets):
-    for oai_set in sets:
-        db.session.add(oai_set)
-    db.session.commit()
 
 
 def test_no_verb(inspire_app):
@@ -88,6 +80,10 @@ def test_identify(inspire_app):
     config = inspire_app.config
 
     assert len(_xpath(tree, "/x:OAI-PMH/x:Identify")) == 1
+    assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:repositoryName/text()") == ["INSPIRE"]
+    assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:adminEmail/text()") == [
+        "inspire-admin@inspirehep.net"
+    ]
     assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:repositoryName/text()") == [
         config["OAISERVER_REPOSITORY_NAME"]
     ]
@@ -153,9 +149,29 @@ def test_getrecord(inspire_app):
 
     assert len(_xpath(tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header")) == 1
     assert _xpath(
+        tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:identifier/text()"
+    ) == [f"{prefix}{record['control_number']}"]
+    assert _xpath(
+        tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:setSpec/text()"
+    ) == ["ForCDS", "Literature"]
+    assert _xpath(
         tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:datestamp/text()"
     ) == [datetime_to_datestamp(record.updated)]
     assert len(_xpath(tree, "/x:OAI-PMH/x:GetRecord/x:record/x:metadata")) == 1
+
+
+def test_getrecord_deleted_record(inspire_app):
+    record = create_record("lit", data={"deleted": True})
+    prefix = inspire_app.config["OAISERVER_ID_PREFIX"]
+
+    result = _get(
+        inspire_app,
+        f"?verb=GetRecord&metadataPrefix=marcxml"
+        f"&identifier={prefix}{record['control_number']}",
+    )
+
+    assert result.status_code == 422
+    _check_xml_error(etree.fromstring(result.data), code="idDoesNotExist")
 
 
 def test_getrecord_fail(inspire_app):
@@ -167,8 +183,16 @@ def test_getrecord_fail(inspire_app):
     _check_xml_error(etree.fromstring(result.data), code="idDoesNotExist")
 
 
-def test_listmetadataformats(inspire_app):
-    result = _get(inspire_app, "?verb=ListMetadataFormats")
+@pytest.mark.parametrize("with_identifier", [False, True])
+def test_listmetadataformats(inspire_app, with_identifier):
+    query = "?verb=ListMetadataFormats"
+    if with_identifier:
+        record = create_record("lit")
+        prefix = inspire_app.config["OAISERVER_ID_PREFIX"]
+        query += f"&identifier={prefix}{record['control_number']}"
+
+    result = _get(inspire_app, query)
+    assert result.status_code == 200
     tree = etree.fromstring(result.data)
     metadata_formats = inspire_app.config["OAISERVER_METADATA_FORMATS"]
 
@@ -196,10 +220,10 @@ def test_listmetadataformats_record_fail(inspire_app):
     _check_xml_error(etree.fromstring(result.data), code="idDoesNotExist")
 
 
-def test_listsets(inspire_app):
-    _add_oai_sets(OAISet(spec="test", name="Test", description="test desc"))
-
-    result = _get(inspire_app, "?verb=ListSets")
+def test_listsets(inspire_app, override_config):
+    oai_sets = [{"spec": "test", "name": "Test", "description": "test desc"}]
+    with override_config(OAI_SETS=oai_sets):
+        result = _get(inspire_app, "?verb=ListSets")
     tree = etree.fromstring(result.data)
 
     assert len(_xpath(tree, "/x:OAI-PMH/x:ListSets/x:set")) == 1
@@ -211,36 +235,43 @@ def test_listsets(inspire_app):
     ) == ["test desc"]
 
 
-def test_listsets_invalid_name(inspire_app):
-    _add_oai_sets(OAISet(spec="test", name="uni\x01co\x0bde", description="test"))
-
-    result = _get(inspire_app, "?verb=ListSets")
+def test_listsets_invalid_name(inspire_app, override_config):
+    oai_sets = [{"spec": "test", "name": "uni\x01co\x0bde", "description": "test"}]
+    with override_config(OAI_SETS=oai_sets):
+        result = _get(inspire_app, "?verb=ListSets")
     tree = etree.fromstring(result.data)
 
     assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setName/text()") == ["unicode"]
 
 
-def test_listsets_long(inspire_app):
-    _add_oai_sets(
-        *[
-            OAISet(spec=f"test{i}", name=f"Test{i}", description=f"test desc {i}")
-            for i in range(27)
-        ]
-    )
+def test_listsets_without_description(inspire_app, override_config):
+    with override_config(OAI_SETS=[{"spec": "test", "name": "Test"}]):
+        result = _get(inspire_app, "?verb=ListSets")
+    tree = etree.fromstring(result.data)
 
-    expected_sets_per_page = [10, 10, 7]
-    query = "?verb=ListSets"
-    for page, expected_sets in enumerate(expected_sets_per_page, start=1):
-        result = _get(inspire_app, query)
-        tree = etree.fromstring(result.data)
+    assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setSpec/text()") == ["test"]
+    assert not _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setDescription")
 
-        assert len(_xpath(tree, "/x:OAI-PMH/x:ListSets/x:set")) == expected_sets
-        token = _xpath(tree, "/x:OAI-PMH/x:ListSets/x:resumptionToken")[0]
-        if page < len(expected_sets_per_page):
-            assert token.text
-            query = f"?verb=ListSets&resumptionToken={token.text}"
-        else:
-            assert not token.text
+
+def test_listsets_default_config(inspire_app):
+    result = _get(inspire_app, "?verb=ListSets")
+    tree = etree.fromstring(result.data)
+
+    assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setSpec/text()") == [
+        "ForCDS",
+        "CERN:arXiv",
+        "Literature",
+    ]
+    assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setName/text()") == [
+        "CDS",
+        "CERN arXiv",
+        "Literature",
+    ]
+    assert _xpath(
+        tree,
+        "/x:OAI-PMH/x:ListSets/x:set/x:setDescription/y:dc/z:description/text()",
+    ) == ["OAI set for CDS.", "OAI set for CERN arXiv.", "OAI set for OpenAIRE."]
+    assert not _xpath(tree, "/x:OAI-PMH/x:ListSets/x:resumptionToken")
 
 
 @pytest.mark.parametrize(

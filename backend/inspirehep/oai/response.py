@@ -11,15 +11,20 @@ from datetime import MINYEAR, datetime, timedelta
 import arrow
 from flask import current_app, url_for
 from inspirehep.oai.fetchers import oaiid_fetcher
-from inspirehep.oai.models import OAISet
-from inspirehep.oai.provider import OAIIDProvider
 from inspirehep.oai.query import OAIServerSearch, get_records
 from inspirehep.oai.resumption_token import serialize
-from inspirehep.oai.utils import datetime_to_datestamp, sanitize_unicode, serializer
+from inspirehep.oai.utils import (
+    datetime_to_datestamp,
+    get_oai_sets,
+    sanitize_unicode,
+    serializer,
+)
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from lxml import etree
 from lxml.etree import Element, ElementTree, SubElement
+from sqlalchemy.orm.exc import NoResultFound
 
 NS_OAIPMH = "http://www.openarchives.org/OAI/2.0/"
 NS_OAIPMH_XSD = "http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"
@@ -179,17 +184,13 @@ def listsets(**kwargs):
     """Create OAI-PMH response for ListSets verb."""
     e_tree, e_listsets = verb(**kwargs)
 
-    page = kwargs.get("resumptionToken", {}).get("page", 1)
-    size = current_app.config["OAISERVER_PAGE_SIZE"]
-    oai_sets = OAISet.query.paginate(page=page, per_page=size, error_out=False)
-
-    for oai_set in oai_sets.items:
+    for oai_set in current_app.config["OAI_SETS"]:
         e_set = SubElement(e_listsets, etree.QName(NS_OAIPMH, "set"))
         e_set_spec = SubElement(e_set, etree.QName(NS_OAIPMH, "setSpec"))
-        e_set_spec.text = oai_set.spec
+        e_set_spec.text = oai_set["spec"]
         e_set_name = SubElement(e_set, etree.QName(NS_OAIPMH, "setName"))
-        e_set_name.text = sanitize_unicode(oai_set.name)
-        if oai_set.description:
+        e_set_name.text = sanitize_unicode(oai_set["name"])
+        if oai_set.get("description"):
             e_set_description = SubElement(
                 e_set, etree.QName(NS_OAIPMH, "setDescription")
             )
@@ -200,9 +201,8 @@ def listsets(**kwargs):
             )
             e_dc.set(etree.QName(NS_XSI, "schemaLocation"), NS_OAIDC)
             e_description = SubElement(e_dc, etree.QName(NS_DC, "description"))
-            e_description.text = oai_set.description
+            e_description.text = oai_set["description"]
 
-    resumption_token(e_listsets, oai_sets, **kwargs)
     return e_tree
 
 
@@ -213,7 +213,7 @@ def listmetadataformats(**kwargs):
 
     if "identifier" in kwargs:
         # test if record exists
-        OAIIDProvider.get(pid_value=kwargs["identifier"])
+        PersistentIdentifier.get("lit", _strip_id_prefix(kwargs["identifier"]))
 
     for prefix, metadata in cfg.get("OAISERVER_METADATA_FORMATS", {}).items():
         e_metadataformat = SubElement(
@@ -248,23 +248,29 @@ def header(parent, identifier, datestamp, sets=None, deleted=False):
     return e_header
 
 
+def _strip_id_prefix(identifier):
+    return identifier.replace(current_app.config["OAISERVER_ID_PREFIX"], "")
+
+
 def getrecord(**kwargs):
     """Create OAI-PMH response for verb GetRecord."""
     record_dumper = serializer(kwargs["metadataPrefix"])
-    pid_value = kwargs["identifier"].replace(
-        current_app.config["OAISERVER_ID_PREFIX"], ""
-    )
-    pid = PersistentIdentifier.get("lit", pid_value)
-    record = Record.get_record(pid.object_uuid)
+    pid = PersistentIdentifier.get("lit", _strip_id_prefix(kwargs["identifier"]))
+    try:
+        record = Record.get_record(pid.object_uuid)
+    except NoResultFound:
+        record = None
+    if record is None or record.get("deleted"):
+        raise PIDDoesNotExistError(pid.pid_type, pid.pid_value)
 
     e_tree, e_getrecord = verb(**kwargs)
     e_record = SubElement(e_getrecord, etree.QName(NS_OAIPMH, "record"))
 
     header(
         e_record,
-        identifier=pid.pid_value,
+        identifier=f"{current_app.config['OAISERVER_ID_PREFIX']}{pid.pid_value}",
         datestamp=record.updated,
-        sets=record.get("_oai", {}).get("sets", []),
+        sets=get_oai_sets(record),
     )
     e_metadata = SubElement(e_record, etree.QName(NS_OAIPMH, "metadata"))
     e_metadata.append(record_dumper(pid, {"_source": record}))
