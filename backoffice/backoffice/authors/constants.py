@@ -30,13 +30,13 @@ class AuthorWorkflowType(models.TextChoices):
 AUTHOR_DEFAULT_WORKFLOW_TYPE = AuthorWorkflowType.AUTHOR_CREATE
 
 
-class AuthorResolutionDags(models.TextChoices):
-    accept = "accept", "author_create_approved_dag"
-    reject = "reject", "author_create_rejected_dag"
-    accept_curate = "accept_curate", "author_create_approved_dag"
+class AuthorResolutions(models.TextChoices):
+    accept = "accept", "await_author_check_approval"
+    accept_curate = "accept_curate", "await_author_check_approval"
+    reject = "reject", "await_author_check_approval"
 
 
-AUTHOR_DECISION_CHOICES = AuthorResolutionDags.choices
+AUTHOR_DECISION_CHOICES = AuthorResolutions.choices
 
 
 class AuthorCreateDags(models.TextChoices):
