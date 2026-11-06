@@ -80,6 +80,10 @@ def test_identify(inspire_app):
     config = inspire_app.config
 
     assert len(_xpath(tree, "/x:OAI-PMH/x:Identify")) == 1
+    assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:repositoryName/text()") == ["INSPIRE"]
+    assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:adminEmail/text()") == [
+        "inspire-admin@inspirehep.net"
+    ]
     assert _xpath(tree, "/x:OAI-PMH/x:Identify/x:repositoryName/text()") == [
         config["OAISERVER_REPOSITORY_NAME"]
     ]
@@ -145,9 +149,29 @@ def test_getrecord(inspire_app):
 
     assert len(_xpath(tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header")) == 1
     assert _xpath(
+        tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:identifier/text()"
+    ) == [f"{prefix}{record['control_number']}"]
+    assert _xpath(
+        tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:setSpec/text()"
+    ) == ["ForCDS", "Literature"]
+    assert _xpath(
         tree, "/x:OAI-PMH/x:GetRecord/x:record/x:header/x:datestamp/text()"
     ) == [datetime_to_datestamp(record.updated)]
     assert len(_xpath(tree, "/x:OAI-PMH/x:GetRecord/x:record/x:metadata")) == 1
+
+
+def test_getrecord_deleted_record(inspire_app):
+    record = create_record("lit", data={"deleted": True})
+    prefix = inspire_app.config["OAISERVER_ID_PREFIX"]
+
+    result = _get(
+        inspire_app,
+        f"?verb=GetRecord&metadataPrefix=marcxml"
+        f"&identifier={prefix}{record['control_number']}",
+    )
+
+    assert result.status_code == 422
+    _check_xml_error(etree.fromstring(result.data), code="idDoesNotExist")
 
 
 def test_getrecord_fail(inspire_app):
@@ -159,8 +183,16 @@ def test_getrecord_fail(inspire_app):
     _check_xml_error(etree.fromstring(result.data), code="idDoesNotExist")
 
 
-def test_listmetadataformats(inspire_app):
-    result = _get(inspire_app, "?verb=ListMetadataFormats")
+@pytest.mark.parametrize("with_identifier", [False, True])
+def test_listmetadataformats(inspire_app, with_identifier):
+    query = "?verb=ListMetadataFormats"
+    if with_identifier:
+        record = create_record("lit")
+        prefix = inspire_app.config["OAISERVER_ID_PREFIX"]
+        query += f"&identifier={prefix}{record['control_number']}"
+
+    result = _get(inspire_app, query)
+    assert result.status_code == 200
     tree = etree.fromstring(result.data)
     metadata_formats = inspire_app.config["OAISERVER_METADATA_FORMATS"]
 
@@ -228,15 +260,17 @@ def test_listsets_default_config(inspire_app):
     assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setSpec/text()") == [
         "ForCDS",
         "CERN:arXiv",
+        "Literature",
     ]
     assert _xpath(tree, "/x:OAI-PMH/x:ListSets/x:set/x:setName/text()") == [
         "CDS",
         "CERN arXiv",
+        "Literature",
     ]
     assert _xpath(
         tree,
         "/x:OAI-PMH/x:ListSets/x:set/x:setDescription/y:dc/z:description/text()",
-    ) == ["OAI set for CDS.", "OAI set for CERN arXiv."]
+    ) == ["OAI set for CDS.", "OAI set for CERN arXiv.", "OAI set for OpenAIRE."]
     assert not _xpath(tree, "/x:OAI-PMH/x:ListSets/x:resumptionToken")
 
 
