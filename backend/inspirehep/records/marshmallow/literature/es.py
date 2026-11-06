@@ -9,11 +9,10 @@ from itertools import chain
 
 import orjson
 import structlog
-from flask import current_app
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from inspirehep.files.proxies import current_s3_instance
-from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set, is_oaire_set
+from inspirehep.oai.utils import get_oai_sets
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 from inspirehep.records.marshmallow.literature.base import LiteratureRawSchema
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
@@ -181,13 +180,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         return {"input": input_values}
 
     def get_oai(self, record):
-        sets = []
-        if is_cds_set(record):
-            sets.append(current_app.config["OAI_SET_CDS"])
-        if is_cern_arxiv_set(record):
-            sets.append(current_app.config["OAI_SET_CERN_ARXIV"])
-        if is_oaire_set(record):
-            sets.append(current_app.config["OAI_SET_OAIRE"])
+        sets = get_oai_sets(record)
 
         if sets:
             return {

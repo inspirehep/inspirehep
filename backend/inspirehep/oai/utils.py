@@ -111,6 +111,18 @@ def is_oaire_set(record):
     return "Literature" in record.get("_collections", [])
 
 
+def get_oai_sets(record):
+    """Return the OAI sets (setSpecs) the record belongs to."""
+    sets = []
+    if is_cds_set(record):
+        sets.append(current_app.config["OAI_SET_CDS"])
+    if is_cern_arxiv_set(record):
+        sets.append(current_app.config["OAI_SET_CERN_ARXIV"])
+    if is_oaire_set(record):
+        sets.append(current_app.config["OAI_SET_OAIRE"])
+    return sets
+
+
 @lru_cache(maxsize=100)
 def serializer(metadata_prefix):
     """Return the record serializer for the given metadata prefix.
