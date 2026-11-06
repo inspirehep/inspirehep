@@ -93,6 +93,21 @@ class WorkflowManagementHook(BackofficeHook):
             endpoint=endpoint,
         )
 
+    def pause_workflow(self, workflow_id: str, note: str | None = None) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/pause/"
+        return self.call_api(
+            method="POST",
+            json={"note": note},
+            endpoint=endpoint,
+        )
+
+    def resume_workflow(self, workflow_id: str) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/resume/"
+        return self.call_api(
+            method="POST",
+            endpoint=endpoint,
+        )
+
     def restore_workflow(self, workflow_id: str) -> dict:
         endpoint = f"{self.endpoint}/{workflow_id}/restore/"
         response = self.call_api(

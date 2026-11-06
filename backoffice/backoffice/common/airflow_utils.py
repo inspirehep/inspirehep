@@ -90,9 +90,28 @@ def mark_airflow_dag_run_as_success(workflow, note=""):
     :param workflow: workflow object
     :returns: request response content
     """
+    return set_airflow_dag_run_state(workflow, "success", note=note)
+
+
+def mark_airflow_dag_run_as_failed(workflow, note=""):
+    """Marks an airflow dag run as failed, stopping its running tasks.
+
+    :param workflow: workflow object
+    :returns: request response content
+    """
+    return set_airflow_dag_run_state(workflow, "failed", note=note)
+
+
+def set_airflow_dag_run_state(workflow, state, note=""):
+    """Sets the state of an airflow dag run.
+
+    :param workflow: workflow object
+    :param state: new state of the dag run
+    :returns: request response content
+    """
 
     data = {
-        "state": "success",
+        "state": state,
         "note": note,
     }
 
@@ -100,9 +119,10 @@ def mark_airflow_dag_run_as_success(workflow, note=""):
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow.id)}"
     logger.info(
-        "Discarding DAG %s with run id: %s",
+        "Setting DAG %s with run id %s to state %s",
         dag_id,
         str(workflow.id),
+        state,
     )
     response = requests.patch(
         url,
@@ -141,6 +161,55 @@ def clear_airflow_dag_run(dag_id, workflow_id, only_failed=False):
     )
     response.raise_for_status()
     return response.content, response.status_code
+
+
+def find_failed_task_ids(dag_id, workflow_id):
+    """Finds the ids of the failed tasks of an airflow dag run.
+
+    :param dag_id: name of the dag
+    :param workflow_id: id of the workflow (dag run id)
+    :returns: list of failed task ids
+    """
+    url = (
+        f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow_id)}"
+        "/taskInstances"
+    )
+    response = requests.get(
+        url,
+        params={"state": "failed"},
+        headers=AIRFLOW_HEADERS,
+    )
+    response.raise_for_status()
+    return list(
+        dict.fromkeys(
+            task_instance["task_id"]
+            for task_instance in response.json()["task_instances"]
+        )
+    )
+
+
+def resume_airflow_dag_run(dag_id, workflow_id):
+    """Resumes a dag run from its failed tasks, including their downstream tasks.
+
+    Marking a dag run as failed skips its pending tasks, so clearing only the
+    failed tasks would not be enough to continue the run. If there are no
+    failed tasks the whole dag run is cleared.
+
+    :param dag_id: name of the dag
+    :param workflow_id: id of the workflow (dag run id)
+    :returns: request response content
+    """
+    failed_task_ids = find_failed_task_ids(dag_id, workflow_id)
+
+    if not failed_task_ids:
+        logger.info(
+            "No failed tasks found for DAG %s with run id %s, clearing whole run",
+            dag_id,
+            str(workflow_id),
+        )
+        return clear_airflow_dag_run(dag_id, workflow_id)
+
+    return clear_airflow_dag_tasks(dag_id, workflow_id, tasks=failed_task_ids)
 
 
 def restart_failed_tasks(workflow_id, workflow_type):
