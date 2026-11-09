@@ -27,8 +27,11 @@ const RESET_QUERY_AND_AGGS_NAMESPACES = [LITERATURE_NS, DATA_NS];
 
 const idInUrlRegExp = new RegExp('/\\d+');
 function isSearchPage(location) {
-  const isCollectionPage = SEARCHABLE_COLLECTION_PATHNAMES.some((pathname) =>
-    location.pathname.startsWith(pathname)
+  // match whole path segments, `/literaturesearch` is not the `/literature` collection
+  const isCollectionPage = SEARCHABLE_COLLECTION_PATHNAMES.some(
+    (pathname) =>
+      location.pathname === pathname ||
+      location.pathname.startsWith(`${pathname}/`)
   );
 
   return isCollectionPage && !idInUrlRegExp.test(location.pathname);
