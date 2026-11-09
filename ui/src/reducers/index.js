@@ -20,9 +20,7 @@ import ui, { initialState as uiInitialState } from './ui';
 import backoffice, {
   initialState as backofficeInitialState,
 } from './backoffice';
-import recordEditor, {
-  initialState as recordEditorInitialState,
-} from './recordEditor';
+import editor, { initialState as editorInitialState } from './editor';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
 import authorlist from './authorlist';
 
@@ -48,7 +46,7 @@ export default function createRootReducer(routerReducer) {
     authorlist,
     journals,
     backoffice,
-    recordEditor,
+    editor,
   });
 }
 
@@ -66,5 +64,5 @@ export const REDUCERS_TO_PERSISTS = [
     statePath: ['namespaces', LITERATURE_NS, 'query', 'size'],
   },
   { name: 'backoffice', initialState: backofficeInitialState },
-  { name: 'recordEditor', initialState: recordEditorInitialState },
+  { name: 'editor', initialState: editorInitialState },
 ];
