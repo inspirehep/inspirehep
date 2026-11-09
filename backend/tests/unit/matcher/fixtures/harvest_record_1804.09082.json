@@ -1,0 +1,80 @@
+{"preprint_date":"2018-04-24",
+  "curated":false,
+  "license":[
+    {
+      "url":"http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "material":"preprint",
+      "license":"arXiv nonexclusive-distrib 1.0"
+    }
+  ],
+  "public_notes":[
+    {
+      "source":"arXiv",
+      "value":"Accepted for publication in ApJ. Changes from v1 to v2: Figure 16 was\n  updated"
+    }
+  ],
+  "authors":[
+    {
+      "raw_affiliations":[
+        {
+          "source":"arXiv",
+          "value":"Observat\u00f3rio Nacional"
+        }
+      ],
+      "full_name":"Ghezzi, Luan"
+    },
+    {
+      "raw_affiliations":[
+        {
+          "source":"arXiv",
+          "value":"University of Chicago"
+        }
+      ],
+      "full_name":"Montet, Benjamin T."
+    },
+    {
+      "raw_affiliations":[
+        {
+          "source":"arXiv",
+          "value":"Harvard-Smithsonian Center for Astrophysics"
+        }
+      ],
+      "full_name":"Johnson, John Asher"
+    }
+  ],
+  "acquisition_source":{
+    "source":"arXiv",
+    "method":"hepcrawl",
+    "submission_number":"5f419c1a539811e8a96d0242ac120009",
+    "datetime":"2018-05-09T14:51:05.509077"
+  },
+  "_collections":[
+    "Literature"
+  ],
+  "titles":[
+    {
+      "source":"arXiv",
+      "title":"Retired A Stars Revisited: An Updated Giant Planet Occurrence Rate as a Function of Stellar Metallicity and Mass"
+    }
+  ],
+  "arxiv_eprints":[
+    {
+      "categories":[
+        "astro-ph.SR",
+        "astro-ph.EP"
+      ],
+      "value":"1804.09082"
+    }
+  ],
+  "$schema":"http://localhost:5000/schemas/records/hep.json",
+  "document_type":[
+    "article"
+  ],
+  "abstracts":[
+    {
+      "source":"arXiv",
+      "value":"Exoplanet surveys of evolved stars have provided increasing evidence that the formation of giant planets depends not only on stellar metallicity ([Fe/H]), but also the mass ($M_\\star$). However, measuring accurate masses for subgiants and giants is far more challenging than it is for their main-sequence counterparts, which has led to recent concerns regarding the veracity of the correlation between stellar mass and planet occurrence. In order to address these concerns we use HIRES spectra to perform a spectroscopic analysis on an sample of 245 subgiants and derive new atmospheric and physical parameters. We also calculate the space velocities of this sample in a homogeneous manner for the first time. When reddening corrections are considered in the calculations of stellar masses and a -0.12 M$_{\\odot}$ offset is applied to the results, the masses of the subgiants are consistent with their space velocity distributions, contrary to claims in the literature. Similarly, our measurements of their rotational velocities provide additional confirmation that the masses of subgiants with $M_\\star \\geq 1.6$ M$_{\\odot}$ (the \"Retired A Stars\") have not been overestimated in previous analyses. Using these new results for our sample of evolved stars, together with an updated sample of FGKM dwarfs, we confirm that giant planet occurrence increases with both stellar mass and metallicity up to 2.0 M$_{\\odot}$. We show that the probability of formation of a giant planet is approximately a one-to-one function of the total amount of metals in the protoplanetary disk $M_\\star 10^{[Fe/H]}$. This correlation provides additional support for the core accretion mechanism of planet formation."
+    }
+  ],
+  "citeable":true
+}

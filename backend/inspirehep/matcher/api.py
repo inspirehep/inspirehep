@@ -12,11 +12,102 @@ from urllib.parse import urljoin
 import requests
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
-from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
+from inspirehep.matcher.core import compile
 from inspirehep.matcher.parsers import GrobidAuthors, GrobidReferenceParser
 from inspirehep.matcher.serializers import LiteratureSummary
+from invenio_search import current_search_client as es
+from invenio_search.utils import prefix_index
+from werkzeug.utils import import_string
+
+
+def _get_validator(validator_param):
+    if callable(validator_param):
+        return validator_param
+
+    try:
+        validator = import_string(validator_param)
+    except (KeyError, ImportError, AttributeError):
+        current_app.logger.debug(
+            "No validator provided. Falling back to the default validator."
+        )
+        validator = import_string("inspirehep.matcher.validators:default_validator")
+
+    return validator
+
+
+def match(record, config=None):
+    """Given a record, yield the records in INSPIRE most similar to it.
+
+    This method can be used to detect if a record that we are ingesting as a
+    submission or as an harvest is already present in the system, or to find
+    out which record a reference should be pointing to.
+    """
+    if config is None:
+        current_app.logger.debug(
+            "No configuration provided. Falling back to the default configuration."
+        )
+        config = current_app.config["MATCHER_DEFAULT_CONFIGURATION"]
+
+    try:
+        index = prefix_index(config["index"])
+        size = config.get("size", 10)
+        algorithm = config["algorithm"]
+        query_config = {"index": index, "size": size}
+    except KeyError as e:
+        raise KeyError(f"Malformed configuration: {e!r}.") from e
+
+    source = config.get("source", [])
+    if source:
+        query_config["_source"] = source
+    match_deleted = config.get("match_deleted", False)
+    collections = config.get("collections")
+    if not (
+        collections is None
+        or (
+            isinstance(collections, list | tuple)
+            and all(isinstance(collection, str) for collection in collections)
+        )
+    ):
+        raise ValueError(
+            f"Malformed collections. Expected a list of strings bug got: {collections!r}"
+        )
+
+    for i, step in enumerate(algorithm):
+        try:
+            queries = step["queries"]
+        except KeyError as e:
+            raise KeyError(f"Malformed algorithm: step {i} has no queries.") from e
+
+        if not isinstance(step.get("validator"), list):
+            validator_params = [step.get("validator")]
+        else:
+            validator_params = step.get("validator")
+
+        validators = []
+        for validator_param in validator_params:
+            validators.append(_get_validator(validator_param))
+
+        for j, query in enumerate(queries):
+            try:
+                body = compile(
+                    query, record, collections=collections, match_deleted=match_deleted
+                )
+            except Exception as e:
+                raise ValueError(
+                    f"Malformed query. Query {j} of step {i} does not compile: {e!r}."
+                ) from e
+
+            if not body:
+                continue
+            query_config["body"] = body
+            current_app.logger.debug(f"Sending ES query: {body!r}")
+            result = es.search(**query_config)
+            for hit in result["hits"]["hits"]:
+                is_hit_valid = all([validator(record, hit) for validator in validators])
+                if is_hit_valid:
+                    yield hit
 
 
 def get_reference_from_grobid(query):
@@ -36,10 +127,10 @@ def _add_match_to_reference(reference, matched_recid, es_index):
 
 
 def match_reference_with_config(reference, config, previous_matched_recid=None):
-    """Match a reference using inspire-matcher given the config.
+    """Match a reference using the matcher given the config.
     Args:
         reference (dict): the metadata of the reference.
-        config (dict): the list of inspire-matcher configurations for queries.
+        config (dict): the list of matcher configurations for queries.
         previous_matched_recid (int): the record id of the last matched
             reference from the list of references.
     Returns:
@@ -125,7 +216,7 @@ def match_literature_reference_config(reference, use_relaxed_titles_matching=Fal
 
 
 def match_reference(reference, previous_matched_recid=None):
-    """Match a reference using inspire-matcher.
+    """Match a reference using the matcher.
 
     Args:
         reference (dict): the metadata of a reference.
@@ -242,7 +333,7 @@ def get_affiliations_from_pdf(url, **kwargs):
 def exact_match_literature_data(data):
     """Return matched record ids if the record is already present in the system.
 
-    Uses the default configuration of the ``inspire-matcher`` to find
+    Uses the default configuration of the matcher to find
     duplicates of the current workflow object in the system.
 
     Arguments:
@@ -263,7 +354,7 @@ def exact_match_literature_data(data):
 def fuzzy_match_literature_data(data):
     """Return list of similar records are found in the system.
 
-    Uses a custom configuration for ``inspire-matcher`` to find records
+    Uses a custom configuration for matcher to find records
     similar to the current workflow object's payload in the system.
 
     Arguments:

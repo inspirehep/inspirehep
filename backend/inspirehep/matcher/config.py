@@ -6,8 +6,54 @@
 
 from copy import deepcopy
 
-from inspire_matcher.config import MATCHER_DEFAULT_CONFIGURATION as exact_match
 from inspirehep.matcher.validators import authors_validator
+
+MATCHER_DEFAULT_CONFIGURATION = {
+    "algorithm": [
+        {
+            "queries": [
+                {
+                    "path": "arxiv_eprints.value",
+                    "search_path": "arxiv_eprints.value.raw",
+                    "type": "exact",
+                },
+                {
+                    "path": "dois.value",
+                    "search_path": "dois.value.raw",
+                    "type": "exact",
+                },
+            ],
+        },
+        {
+            "queries": [
+                {
+                    "path": "persistent_identifiers.value",
+                    "search_path": "persistent_identifiers.value",
+                    "type": "exact",
+                },
+            ],
+            "validator": "inspirehep.matcher.validators:persistent_identifier_validator",
+        },
+        {
+            "queries": [
+                {
+                    "path": "external_system_identifiers.value",
+                    "search_path": "external_system_identifiers.value.raw",
+                    "type": "exact",
+                },
+            ],
+            "validator": "inspirehep.matcher.validators:cds_identifier_validator",
+        },
+    ],
+    "source": [
+        "control_number",
+        "external_system_identifiers",
+        "persistent_identifiers",
+    ],
+    "doc_type": "hep",
+    "index": "records-hep",
+}
+"""Default configuration of the matcher."""
 
 GROBID_URL = "https://grobid.inspirebeta.net"
 
@@ -377,8 +423,8 @@ FUZZY_LITERATURE_MATCH_CONFIG = {
                 }
             ],
             "validator": [
-                "inspire_matcher.validators:authors_titles_validator",
-                "inspire_matcher.validators:arxiv_eprints_validator",
+                "inspirehep.matcher.validators:authors_titles_validator",
+                "inspirehep.matcher.validators:arxiv_eprints_validator",
             ],
         }
     ],
@@ -421,4 +467,4 @@ FUZZY_LITERATURE_THESIS_MATCH_CONFIG["algorithm"][0]["queries"][0]["clauses"] = 
     },
 ]
 
-EXACT_LITERATURE_MATCH_CONFIG = exact_match
+EXACT_LITERATURE_MATCH_CONFIG = MATCHER_DEFAULT_CONFIGURATION

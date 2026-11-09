@@ -1,0 +1,65 @@
+{"preprint_date":"2016-01-11",
+  "curated":false,
+  "license":[
+    {
+      "url":"http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "material":"preprint",
+      "license":"arXiv nonexclusive-distrib 1.0"
+    }
+  ],
+  "public_notes":[
+    {
+      "source":"arXiv",
+      "value":"General arguments are constructed to demonstrate how conserved\n  currents can have an anomalous dimension"
+    }
+  ],
+  "authors":[
+    {
+      "full_name":"Limtragool, Kridsanaphong"
+    },
+    {
+      "full_name":"Phillips, Philip W."
+    }
+  ],
+  "acquisition_source":{
+    "source":"arXiv",
+    "method":"hepcrawl",
+    "submission_number":"649abf32537c11e8a96d0242ac120009",
+    "datetime":"2018-05-09T11:30:45.664036"
+  },
+  "_collections":[
+    "Literature"
+  ],
+  "titles":[
+    {
+      "source":"arXiv",
+      "title":"Anomalous Dimension of the Electrical Current in the Normal State of the Cuprates from the Fractional Aharonov-Bohm Effect"
+    }
+  ],
+  "arxiv_eprints":[
+    {
+      "categories":[
+        "cond-mat.str-el",
+        "hep-th"
+      ],
+      "value":"1601.02340"
+    }
+  ],
+  "publication_info":[
+    {
+      "material":"publication",
+      "pubinfo_freetext":"Euro. Phys. Lett. 121, 27003 (2018)"
+    }
+  ],
+  "$schema":"http://localhost:5000/schemas/records/hep.json",
+  "document_type":[
+    "article"
+  ],
+  "abstracts":[
+    {
+      "source":"arXiv",
+      "value":"We demonstrate quite generally how a conserved current can have an anomalous dimension. We show here that if the current in the normal state of the cuprates has an anomalous dimension, then the Aharonov-Bohm flux through a ring does not have the standard $eBA/\\hbar$ form, where $A$ is the area and $B$ the external magnetic field, but instead is modified by a geometrical factor that depends directly on the anomalous dimension of the current. We calculate the signal in square and disk geometries. In both cases, the deviation from the standard result is striking and offers a fingerprint about what precisely is strange about the strange metal."
+    }
+  ],
+  "citeable":true
+}

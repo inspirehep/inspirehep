@@ -1,0 +1,1210 @@
+{"_type":"hep",
+  "_source":{
+    "$schema": "https://qa.inspirehep.net/schemas/records/hep.json",
+    "_collections": [
+      "Literature"
+    ],
+    "_created": "2012-11-19T00:00:00+00:00",
+    "_private_notes": [
+      {
+        "source": "SPIRES-HIDDEN",
+        "value": "31 References from cites2 direct on 11/19/12"
+      },
+      {
+        "source": "SPIRES-HIDDEN",
+        "value": "31 References from cites2 direct on 11/20/12"
+      },
+      {
+        "source": "SPIRES-HIDDEN",
+        "value": "31 References from cites2 direct on 11/21/12"
+      },
+      {
+        "source": "SPIRES-HIDDEN",
+        "value": "31 References from cites2 direct on 11/22/12"
+      },
+      {
+        "source": "CERN",
+        "value": "CDS-1494760"
+      }
+    ],
+    "_updated": "2018-03-29T11:08:10.034414+00:00",
+    "abstracts": [
+      {
+        "abstract_source_suggest": {
+          "input": "arXiv",
+          "output": "arXiv"
+        },
+        "source": "arXiv",
+        "value": "Precise exoplanet characterization requires precise classification of exoplanet host stars. The masses of host stars are commonly estimated by comparing their spectra to those predicted by stellar evolution models. However, spectroscopically determined properties are difficult to measure accurately for stars that are substantially different from the Sun, such as M-dwarfs and evolved stars. Here, we propose a new method to dynamically measure the masses of transiting planets near mean-motion resonances and their host stars by combining observations of transit timing variations with radial velocity measurements. We derive expressions to analytically determine the mass of each member of the system and demonstrate the technique on the Kepler-18 system. We compare these analytic results to numerical simulations and find the two are consistent. We identify eight systems for which our technique could be applied if follow-up radial velocity measurements are collected. We conclude this analysis would be optimal for systems discovered by next generation missions similar to TESS or PLATO, which will target bright stars that are amenable to efficient RV follow-up."
+      }
+    ],
+    "arxiv_eprints": [
+      {
+        "categories": [
+          "astro-ph.SR"
+        ],
+        "value": "1211.4028"
+      }
+    ],
+    "author_count": 2,
+    "authors": [
+      {
+        "full_name": "Montet, Benjamin T.",
+        "full_name_unicode_normalized": "montet, benjamin t.",
+        "ids": [
+          {
+            "schema": "INSPIRE BAI",
+            "value": "B.T.Montet.1"
+          }
+        ],
+        "name_suggest": {
+          "input": [
+            "benjamin t montet",
+            "montet b t",
+            "b t. montet",
+            "montet b t.",
+            "montet b",
+            "montet, benjamin",
+            "montet, benjamin t.",
+            "montet",
+            "montet benjamin",
+            "montet, t.",
+            "b t, montet",
+            "montet, b t",
+            "benjamin t., montet",
+            "montet t",
+            "b t montet",
+            "benjamin montet",
+            "t. montet",
+            "b, montet",
+            "montet, b t.",
+            "benjamin t, montet",
+            "montet, b",
+            "benjamin t. montet",
+            "b montet",
+            "montet t.",
+            "t., montet",
+            "t, montet",
+            "montet, t",
+            "montet, benjamin t",
+            "t montet",
+            "montet benjamin t.",
+            "montet benjamin t",
+            "benjamin, montet",
+            "b t., montet"
+          ],
+          "output": "Montet, Benjamin T.",
+          "payload": {
+            "bai": "B.T.Montet.1"
+          }
+        },
+        "name_variations": [
+          "benjamin t montet",
+          "montet b t",
+          "b t. montet",
+          "montet b t.",
+          "montet b",
+          "montet, benjamin",
+          "montet, benjamin t.",
+          "montet",
+          "montet benjamin",
+          "montet, t.",
+          "b t, montet",
+          "montet, b t",
+          "benjamin t., montet",
+          "montet t",
+          "b t montet",
+          "benjamin montet",
+          "t. montet",
+          "b, montet",
+          "montet, b t.",
+          "benjamin t, montet",
+          "montet, b",
+          "benjamin t. montet",
+          "b montet",
+          "montet t.",
+          "t., montet",
+          "t, montet",
+          "montet, t",
+          "montet, benjamin t",
+          "t montet",
+          "montet benjamin t.",
+          "montet benjamin t",
+          "benjamin, montet",
+          "b t., montet"
+        ],
+        "recid": 1489425,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/authors/1489425"
+        },
+        "signature_block": "MANTATb",
+        "uuid": "8a8ff4f9-d48c-4358-92ef-967de0ce4766"
+      },
+      {
+        "full_name": "Johnson, John Asher",
+        "full_name_unicode_normalized": "johnson, john asher",
+        "ids": [
+          {
+            "schema": "INSPIRE BAI",
+            "value": "John.Asher.Johnson.1"
+          }
+        ],
+        "name_suggest": {
+          "input": [
+            "john a johnson",
+            "johnson asher",
+            "johnson, j",
+            "john a, johnson",
+            "johnson john",
+            "j asher johnson",
+            "john johnson",
+            "johnson john a",
+            "j a johnson",
+            "johnson, john asher",
+            "john asher, johnson",
+            "a johnson",
+            "johnson, john a",
+            "j johnson",
+            "johnson john asher",
+            "johnson, john",
+            "asher, johnson",
+            "johnson, j asher",
+            "john asher johnson",
+            "j, johnson",
+            "johnson, a",
+            "j asher, johnson",
+            "a, johnson",
+            "johnson a",
+            "johnson",
+            "john, johnson",
+            "johnson j",
+            "johnson, asher",
+            "johnson j a",
+            "j a, johnson",
+            "johnson j asher",
+            "johnson, j a",
+            "asher johnson"
+          ],
+          "output": "Johnson, John Asher",
+          "payload": {
+            "bai": "John.Asher.Johnson.1"
+          }
+        },
+        "name_variations": [
+          "john a johnson",
+          "johnson asher",
+          "johnson, j",
+          "john a, johnson",
+          "johnson john",
+          "j asher johnson",
+          "john johnson",
+          "johnson john a",
+          "j a johnson",
+          "johnson, john asher",
+          "john asher, johnson",
+          "a johnson",
+          "johnson, john a",
+          "j johnson",
+          "johnson john asher",
+          "johnson, john",
+          "asher, johnson",
+          "johnson, j asher",
+          "john asher johnson",
+          "j, johnson",
+          "johnson, a",
+          "j asher, johnson",
+          "a, johnson",
+          "johnson a",
+          "johnson",
+          "john, johnson",
+          "johnson j",
+          "johnson, asher",
+          "johnson j a",
+          "j a, johnson",
+          "johnson j asher",
+          "johnson, j a",
+          "asher johnson"
+        ],
+        "recid": 1025485,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/authors/1025485"
+        },
+        "signature_block": "JANSANj",
+        "uuid": "8b271235-31f2-41d0-ba75-8ade68b82d9d"
+      }
+    ],
+    "citeable": true,
+    "control_number": 1203053,
+    "curated": false,
+    "document_type": [
+      "article"
+    ],
+    "documents": [
+      {
+        "key": "arXiv:1211.4028.pdf",
+        "source": "arXiv",
+        "url": "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g66/1321811/arXiv%3A1211.4028.pdf%3B1"
+      }
+    ],
+    "dois": [
+      {
+        "value": "10.1088/0004-637X/762/2/112"
+      }
+    ],
+    "earliest_date": "2012-11-19",
+    "external_system_identifiers": [
+      {
+        "schema": "ADS",
+        "value": "2013ApJ...762..112M"
+      },
+      {
+        "schema": "SPIRES",
+        "value": "SPIRES-9856064"
+      }
+    ],
+    "facet_inspire_doc_type": [
+      "article",
+      "peer reviewed"
+    ],
+    "figures": [
+      {
+        "caption": "Derived fractional errors in the Doppler semiamplitude measurement as a function of number of radial velocity observations taken, for various values of $K$, the Doppler semiamplitude. For all observations, the same statistical uncertainties and RV jitter levels are assumed. The jitter level is 3 m s$^{-1}$, a reasonable estimate for all but the youngest dwarf stars. From top to bottom, these curves represent semiamplitudes of $[7, 11, 15, 19, 23]$ m s$^{-1}$. For a system like Kepler-18, where $K \\approx 7$ m s$^{-1}$, many more measurements would be required to constrain $K$ to five percent (and thus the stellar mass to 15 percent). However, for a system with either larger planets or a smaller star, this level of precision could be reached with fewer observations.",
+        "key": "f1.png",
+        "url": "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g66/1321810/f1.png%3B1"
+      }
+    ],
+    "inspire_categories": [
+      {
+        "term": "Astrophysics"
+      }
+    ],
+    "keywords": [
+      {
+        "source": "author",
+        "value": "methods: analytical"
+      },
+      {
+        "source": "author",
+        "value": "planets and satellites: fundamental parameters"
+      },
+      {
+        "source": "author",
+        "value": "stars: fundamental parameters"
+      }
+    ],
+    "legacy_creation_date": "2012-11-19",
+    "number_of_pages": 9,
+    "preprint_date": "2012-11",
+    "public_notes": [
+      {
+        "source": "arXiv",
+        "value": "9 pages, 1 figure, submitted to ApJ"
+      }
+    ],
+    "publication_info": [
+      {
+        "artid": "112",
+        "journal_recid": 1214843,
+        "journal_record": {
+          "$ref": "http://qa.inspirehep.net/api/journals/1214843"
+        },
+        "journal_title": "Astrophys.J.",
+        "journal_volume": "762",
+        "page_start": "112",
+        "year": 2013
+      }
+    ],
+    "refereed": true,
+    "references": [
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Agol, E."
+            },
+            {
+              "full_name": "Steffen, J."
+            },
+            {
+              "full_name": "Sari, R."
+            },
+            {
+              "full_name": "Clarkson, W."
+            }
+          ],
+          "misc": [
+            "2005, MNRAS"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "359, 567"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 926721,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/926721"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Ballard, S."
+            },
+            {
+              "full_name": "Fabrycky, D."
+            },
+            {
+              "full_name": "Fressin, F."
+            }
+          ],
+          "misc": [
+            "2011"
+          ],
+          "publication_info": {
+            "artid": "200",
+            "journal_title": "Astrophys.J.",
+            "journal_volume": "743",
+            "page_start": "200",
+            "year": 2011
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Batalha, N.M."
+            },
+            {
+              "full_name": "Rowe, J.F."
+            },
+            {
+              "full_name": "Bryson, S.T."
+            }
+          ],
+          "misc": [
+            "2012"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1090857,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1090857"
+        },
+        "reference": {
+          "arxiv_eprint": "1202.5852"
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 886470,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/886470"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Borucki, W.J."
+            },
+            {
+              "full_name": "Koch, D.G."
+            },
+            {
+              "full_name": "Basri, G."
+            }
+          ],
+          "misc": [
+            "2011"
+          ],
+          "publication_info": {
+            "artid": "19",
+            "journal_title": "Astrophys.J.",
+            "journal_volume": "736",
+            "page_start": "19",
+            "year": 2011
+          }
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 804486,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/804486"
+        },
+        "reference": {
+          "arxiv_eprint": "0812.1305",
+          "authors": [
+            {
+              "full_name": "Brown, T.M."
+            },
+            {
+              "full_name": "Latham, D.W."
+            }
+          ],
+          "misc": [
+            "2008"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Catala, C."
+            },
+            {
+              "full_name": "Arentoft, T."
+            },
+            {
+              "full_name": "Fridlund, M."
+            }
+          ],
+          "misc": [
+            "2010, in"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "Astronomical Society of the Pacific Conference Series, Vol. 430"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Coude, V."
+            }
+          ],
+          "misc": [
+            "Pathways Towards Habitable Planets Du"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Foresto, D.M."
+            }
+          ],
+          "misc": [
+            "Gelino, & I. Ribas 260"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Cochran, W.D."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Torres, G."
+            }
+          ],
+          "misc": [
+            "2011, ApJS"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "197, 7"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1095008,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1095008"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Dawson, R.I."
+            },
+            {
+              "full_name": "Johnson, J.A."
+            }
+          ],
+          "misc": [
+            "2012"
+          ],
+          "publication_info": {
+            "artid": "122",
+            "journal_title": "Astrophys.J.",
+            "journal_volume": "756",
+            "page_start": "122",
+            "year": 2012
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Dawson, R.I."
+            },
+            {
+              "full_name": "Johnson, J.A."
+            },
+            {
+              "full_name": "Morton, T.D."
+            }
+          ],
+          "misc": [
+            "2012"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1119514,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1119514"
+        },
+        "reference": {
+          "arxiv_eprint": "1206.5579"
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Doyle, L.R."
+            },
+            {
+              "full_name": "Carter, J.A."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            }
+          ],
+          "misc": [
+            "2011, Science"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "333, 1602"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Ford, E.B."
+            },
+            {
+              "full_name": "Steffen, J.H."
+            }
+          ],
+          "misc": [
+            "2012, ApJ, 750"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "114"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Ford, E.B."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Steffen, J.H."
+            }
+          ],
+          "misc": [
+            "2012a, ApJ"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "750, 113"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Ford, E.B."
+            },
+            {
+              "full_name": "Ragozzine, D."
+            },
+            {
+              "full_name": "Rowe, J.F."
+            }
+          ],
+          "misc": [
+            "2012b"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1083792,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1083792"
+        },
+        "reference": {
+          "arxiv_eprint": "1201.1892"
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Holman, M.J."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Ragozzine, D."
+            }
+          ],
+          "misc": [
+            "2010"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "publication_info": {
+            "artid": "51",
+            "journal_title": "Science",
+            "journal_volume": "330",
+            "page_start": "51"
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Howard, A.W."
+            },
+            {
+              "full_name": "Marcy, G.W."
+            },
+            {
+              "full_name": "Bryson, S.T."
+            }
+          ],
+          "misc": [
+            "2012, ApJS"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "201, 15"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Jha, S."
+            },
+            {
+              "full_name": "Charbonneau, D."
+            },
+            {
+              "full_name": "Garnavich, P.M."
+            }
+          ],
+          "misc": [
+            "2000, ApJ"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "540, L45"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Johnson, J.A."
+            },
+            {
+              "full_name": "Morton, T.D."
+            },
+            {
+              "full_name": "Wright, J.T."
+            }
+          ],
+          "misc": [
+            "2012a"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1179973,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1179973"
+        },
+        "reference": {
+          "arxiv_eprint": "1208.4377"
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Johnson, J.A."
+            },
+            {
+              "full_name": "Gazak, J.Z."
+            },
+            {
+              "full_name": "Apps, K."
+            }
+          ],
+          "misc": [
+            "2012b, AJ, 143, 111"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 872791,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/872791"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Kipping, D.M."
+            }
+          ],
+          "misc": [
+            "2010"
+          ],
+          "publication_info": {
+            "artid": "L119",
+            "journal_title": "Mon.Not.Roy.Astron.Soc.",
+            "journal_volume": "409",
+            "page_start": "L119",
+            "year": 2010
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Lissauer, J.J."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Ford, E.B."
+            }
+          ],
+          "misc": [
+            "2011, Nature"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "470, 53"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Lissauer, J.J."
+            },
+            {
+              "full_name": "Marcy, G.W."
+            },
+            {
+              "full_name": "Rowe, J.F."
+            }
+          ],
+          "misc": [
+            "2012, ApJ, 750"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "112"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1122912,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1122912"
+        },
+        "reference": {
+          "arxiv_eprint": "1207.4192",
+          "authors": [
+            {
+              "full_name": "Lithwick, Y."
+            },
+            {
+              "full_name": "Xie, J."
+            }
+          ],
+          "misc": [
+            "& Wu, Y. 2012"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 598681,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/598681"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Mandel, K."
+            },
+            {
+              "full_name": "Agol, E."
+            }
+          ],
+          "misc": [
+            "2002"
+          ],
+          "publication_info": {
+            "artid": "L171",
+            "journal_title": "Astrophys.J.",
+            "journal_volume": "580",
+            "page_start": "L171",
+            "year": 2002
+          }
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 825366,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/825366"
+        },
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Meschiari, S."
+            },
+            {
+              "full_name": "Wolf, A.S."
+            },
+            {
+              "full_name": "Rivera, E."
+            }
+          ],
+          "misc": [
+            "2009"
+          ],
+          "publication_info": {
+            "artid": "1016",
+            "journal_title": "Publ.Astron.Soc.Pac.",
+            "journal_volume": "121",
+            "page_start": "1016",
+            "year": 2009
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Muirhead, P.S."
+            },
+            {
+              "full_name": "Johnson, J.A."
+            },
+            {
+              "full_name": "Apps, K."
+            }
+          ],
+          "misc": [
+            "2012, ApJ, 747"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "144"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Murray, C.D."
+            },
+            {
+              "full_name": "Dermott, S.F."
+            }
+          ],
+          "misc": [
+            "1999, Solar System Dynamics"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "(Cambridge University Press)"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Nesvorn, D."
+            },
+            {
+              "full_name": "Kipping, D.M."
+            },
+            {
+              "full_name": "Buchhave, L.A."
+            }
+          ],
+          "misc": [
+            "2012"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1125908,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1125908"
+        },
+        "reference": {
+          "publication_info": {
+            "artid": "1133",
+            "journal_title": "Science",
+            "journal_volume": "336",
+            "page_start": "1133"
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Paddock, G.F."
+            }
+          ],
+          "misc": [
+            "1913"
+          ],
+          "publication_info": {
+            "artid": "208",
+            "journal_title": "Publ.Astron.Soc.Pac.",
+            "journal_volume": "25",
+            "page_start": "208",
+            "year": 1913
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Sozzetti, A."
+            },
+            {
+              "full_name": "Torres, G."
+            },
+            {
+              "full_name": "Charbonneau, D."
+            }
+          ],
+          "misc": [
+            "2007, ApJ, 664"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "1190"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Steffen, J.H."
+            },
+            {
+              "full_name": "Ford, E.B."
+            },
+            {
+              "full_name": "Rowe, J.F."
+            }
+          ],
+          "misc": [
+            "2012a"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1083801,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1083801"
+        },
+        "reference": {
+          "arxiv_eprint": "1201.1873"
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Steffen, J.H."
+            },
+            {
+              "full_name": "Fabrycky, D.C."
+            },
+            {
+              "full_name": "Agol, E."
+            }
+          ],
+          "misc": [
+            "2012b"
+          ]
+        }
+      },
+      {
+        "curated_relation": false,
+        "recid": 1127985,
+        "record": {
+          "$ref": "http://qa.inspirehep.net/api/literature/1127985"
+        },
+        "reference": {
+          "arxiv_eprint": "1208.3499"
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Valenti, J.A."
+            },
+            {
+              "full_name": "Fischer, D.A."
+            }
+          ],
+          "misc": [
+            "2005"
+          ],
+          "publication_info": {
+            "artid": "141",
+            "journal_title": "Astrophys.J.Suppl.",
+            "journal_volume": "159",
+            "page_start": "141",
+            "year": 2005
+          }
+        }
+      },
+      {
+        "reference": {
+          "authors": [
+            {
+              "full_name": "Welsh, W.F."
+            },
+            {
+              "full_name": "Orosz, J.A."
+            },
+            {
+              "full_name": "Carter, J.A."
+            }
+          ],
+          "misc": [
+            "2012, Nature, 481"
+          ]
+        }
+      },
+      {
+        "reference": {
+          "misc": [
+            "475"
+          ]
+        }
+      }
+    ],
+    "self": {
+      "$ref": "http://qa.inspirehep.net/api/literature/1203053"
+    },
+    "self_recid": 1203053,
+    "texkeys": [
+      "Montet:2012cx"
+    ],
+    "titles": [
+      {
+        "title": "Model-Independent Stellar and Planetary Masses from Multi-Transiting Exoplanetary Systems"
+      },
+      {
+        "source": "arXiv",
+        "title": "Model-Independent Stellar and Planetary Masses from Multi-Transiting Exoplanetary Systems"
+      }
+    ]
+  },
+  "_index":"records-hep"
+}
