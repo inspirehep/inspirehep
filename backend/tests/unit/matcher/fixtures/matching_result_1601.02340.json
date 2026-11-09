@@ -1,0 +1,228 @@
+{"_score":5.268461,
+  "_type":"hep",
+  "_id":"c51d6a45-d49e-4679-9c5a-23ce1746d6be",
+  "_source":{
+    "control_number":1415293,
+    "public_notes":[
+      {
+        "source":"arXiv",
+        "value":"General arguments are constructed to demonstrate how conserved currents can have an anomalous dimension"
+      }
+    ],
+    "number_of_pages":6,
+    "authors":[
+      {
+        "uuid":"fe30759d-7a5b-4fa0-87ca-d3ace37f0f3c",
+        "name_suggest":{
+          "output":"Limtragool, Kridsanaphong",
+          "payload":{
+            "bai":"K.Limtragool.1"
+          },
+          "input":[
+            "limtragool k",
+            "kridsanaphong, limtragool",
+            "limtragool, k",
+            "k limtragool",
+            "limtragool, kridsanaphong",
+            "limtragool",
+            "k, limtragool",
+            "limtragool kridsanaphong",
+            "kridsanaphong limtragool"
+          ]
+        },
+        "full_name_unicode_normalized":"limtragool, kridsanaphong",
+        "ids":[
+          {
+            "value":"K.Limtragool.1",
+            "schema":"INSPIRE BAI"
+          }
+        ],
+        "raw_affiliations":[
+          {
+            "value":"Department of Physics and Institute for Condensed Matter Theory, University of Illinois 1110 W. Green Street, Urbana, IL 61801, USA"
+          }
+        ],
+        "affiliations":[
+          {
+            "record":{
+              "$ref":"http://localhost:5000/api/institutions/902867"
+            },
+            "recid":902867,
+            "value":"Illinois U., Urbana"
+          }
+        ],
+        "full_name":"Limtragool, Kridsanaphong",
+        "name_variations":[
+          "limtragool k",
+          "kridsanaphong, limtragool",
+          "limtragool, k",
+          "k limtragool",
+          "limtragool, kridsanaphong",
+          "limtragool",
+          "k, limtragool",
+          "limtragool kridsanaphong",
+          "kridsanaphong limtragool"
+        ],
+        "signature_block":"LANTRAGALk"
+      },
+      {
+        "uuid":"e9006a19-40d1-4648-826a-fe12dd3fdc84",
+        "name_suggest":{
+          "output":"Phillips, Philip W.",
+          "payload":{
+            "bai":"P.Phillips.2"
+          },
+          "input":[
+            "phillips p w",
+            "p phillips",
+            "phillips p w.",
+            "w., phillips",
+            "phillips, philip w",
+            "w phillips",
+            "p w, phillips",
+            "p w., phillips",
+            "phillips, w",
+            "phillips, p",
+            "phillips w.",
+            "philip w phillips",
+            "phillips, philip w.",
+            "phillips",
+            "w, phillips",
+            "philip w. phillips",
+            "p w phillips",
+            "phillips philip",
+            "phillips philip w",
+            "philip phillips",
+            "phillips, philip",
+            "phillips, w.",
+            "phillips p",
+            "phillips w",
+            "philip, phillips",
+            "philip w, phillips",
+            "w. phillips",
+            "phillips, p w.",
+            "p w. phillips",
+            "p, phillips",
+            "philip w., phillips",
+            "phillips philip w.",
+            "phillips, p w"
+          ]
+        },
+        "affiliations":[
+          {
+            "record":{
+              "$ref":"http://localhost:5000/api/institutions/902867"
+            },
+            "recid":902867,
+            "value":"Illinois U., Urbana"
+          }
+        ],
+        "full_name_unicode_normalized":"phillips, philip w.",
+        "ids":[
+          {
+            "value":"P.Phillips.2",
+            "schema":"INSPIRE BAI"
+          }
+        ],
+        "raw_affiliations":[
+          {
+            "value":"Department of Physics and Institute for Condensed Matter Theory, University of Illinois 1110 W. Green Street, Urbana, IL 61801, USA"
+          }
+        ],
+        "record":{
+          "$ref":"http://localhost:5000/api/authors/1019909"
+        },
+        "recid":1019909,
+        "full_name":"Phillips, Philip W.",
+        "name_variations":[
+          "phillips p w",
+          "p phillips",
+          "phillips p w.",
+          "w., phillips",
+          "phillips, philip w",
+          "w phillips",
+          "p w, phillips",
+          "p w., phillips",
+          "phillips, w",
+          "phillips, p",
+          "phillips w.",
+          "philip w phillips",
+          "phillips, philip w.",
+          "phillips",
+          "w, phillips",
+          "philip w. phillips",
+          "p w phillips",
+          "phillips philip",
+          "phillips philip w",
+          "philip phillips",
+          "phillips, philip",
+          "phillips, w.",
+          "phillips p",
+          "phillips w",
+          "philip, phillips",
+          "philip w, phillips",
+          "w. phillips",
+          "phillips, p w.",
+          "p w. phillips",
+          "p, phillips",
+          "philip w., phillips",
+          "phillips philip w.",
+          "phillips, p w"
+        ],
+        "signature_block":"FALAPp"
+      }
+    ],
+    "titles":[
+      {
+        "source":"IOP",
+        "title":"Anomalous dimension of the electrical current in strange metals from the fractional Aharonov-Bohm effect"
+      },
+      {
+        "source":"arXiv",
+        "title":"Anomalous Dimension of the Electrical Current in the Normal State of the Cuprates from the Fractional Aharonov-Bohm Effect"
+      }
+    ],
+    "arxiv_eprints":[
+      {
+        "value":"1601.02340",
+        "categories":[
+          "cond-mat.str-el",
+          "hep-th"
+        ]
+      }
+    ],
+    "publication_info":[
+      {
+        "journal_recid":1604850,
+        "journal_title":"EPL",
+        "journal_volume":"121",
+        "journal_record":{
+          "$ref":"http://localhost:5000/api/journals/1604850"
+        },
+        "artid":"27003",
+        "year":2018,
+        "journal_issue":"2"
+      }
+    ],
+    "abstracts":[
+      {
+        "source":"IOP",
+        "abstract_source_suggest":{
+          "output":"IOP",
+          "input":"IOP"
+        },
+        "value":"We show here that if the current in the strange metal phase of the cuprates has an anomalous dimension, then the Aharonov-Bohm flux through a ring does not have the standard form, where A is the area, B is the external magnetic field, and e is the electric charge, but instead it is modified by a geometrical factor that depends directly on the anomalous dimension of the current. We calculate the Aharonov-Bohm flux in square and disk geometries. In both cases, the deviation from the standard result is striking and offers a fingerprint about what precisely is strange about the strange metal."
+      },
+      {
+        "source":"arXiv",
+        "abstract_source_suggest":{
+          "output":"arXiv",
+          "input":"arXiv"
+        },
+        "value":"We demonstrate quite generally how a conserved current can have an anomalous dimension. We show here that if the current in the normal state of the cuprates has an anomalous dimension, then the Aharonov-Bohm flux through a ring does not have the standard $eBA/\\\\hbar$ form, where $A$ is the area and $B$ the external magnetic field, but instead is modified by a geometrical factor that depends directly on the anomalous dimension of the current. We calculate the signal in square and disk geometries. In both cases, the deviation from the standard result is striking and offers a fingerprint about what precisely is strange about the strange metal."
+      }
+    ],
+    "earliest_date":"2016-01-11"
+  },
+  "_index":"records-hep"
+}

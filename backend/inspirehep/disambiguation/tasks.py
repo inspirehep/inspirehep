@@ -2,7 +2,6 @@ import structlog
 from celery import shared_task
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from inspirehep.disambiguation.utils import (
@@ -11,6 +10,7 @@ from inspirehep.disambiguation.utils import (
 )
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
+from inspirehep.matcher.api import match
 from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,

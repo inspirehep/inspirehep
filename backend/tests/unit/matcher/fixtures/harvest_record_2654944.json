@@ -1,0 +1,99 @@
+{
+  "$schema": "https://qa.inspirehep.net/schemas/records/hep.json",
+  "_collections": [
+    "Literature"
+  ],
+  "abstracts": [
+    {
+      "source": "submitter",
+      "value": "SYNOPSIS\nThe main goal of ultra relativistic heavy-ion collisons is to investigate the strongly\ninteracting matter, called the Quark Gluon Plasma (QGP), expected to produce in\nsuch collisions. The Large Hadron Collider (LHC) at CERN provides an unique\nopportunity to study such strongly interacting matter at extreme energy densities.\nThe short lived resonances are very useful tool in high energy collisions to study\nthe dynamics and properties of a strongly interacting medium. In particular, the\nK\n\u21e4\n0\n(892) meson is important because its lifetime (4 fm/c) is comparable to the time\nscale of the hot and dense matter produced. Owing to short lifetime, the characteris-\ntic properties such as mass, width, yield and transverse momentum spectra of\nK\n\u21e4\n0\nis\nvery sensitive to the dynamics and in-medium e\n\u21b5\nects. Basically the decay products of\nK\n\u21e4\n0\n, the pions and kaons, may undergo in-medium e\n\u21b5\nects. The decay products of high\nmomentum resonances have a larger probability to escape the system and thereby de-\ntected, while that of low momentum resonances can be re-scattered by other hadrons\npresent in the medium. Thus, we can not reconstruct back the resonance and the\nsignal is lost. On the other hand, the pions and kaons in the medium can re-generate\nK\n\u21e4\n0\nvia pseudo-elastic interactions (\nK\n\u21e1\n!\nK\n\u21e4\n0\n!\nK\n\u21e1\n)duringthephasebetween\nthe chemical freeze-out (when inelastic collision ceases) and the kinetic freeze out\n(when elastic collision ceases). This re-generation process could compensate for the\nK \u21e4 0 yield, lost in re-scattering, if the system formed has a long expansion time. It\nwas observed that the pion-pion interaction cross section is five times larger than\nthe kaon-pion interaction cross section. The pion-pion interaction cross-section is responsible for the re-scattering, while the kaon-pion cross-section for the re-generation\nprocesses. Thus, the interplay of the two processes, re-scattering and re-generation,\nwill decide the final resonance yield and a resonance to non-resonance particle ratio\ncan be used to understand these processes."
+    }
+  ],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "CERN-LHC-ALICE"
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2019-01-29T13:45:45.439962",
+    "method": "hepcrawl",
+    "source": "CDS",
+    "submission_number": "946eba3e23c311e9a6e8fa163e8cc40e"
+  },
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "value": "Bhubaneswar, NISER"
+        }
+      ],
+      "full_name": "Singha, Subhash",
+      "ids": [
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00291765"
+        }
+      ]
+    },
+    {
+      "affiliations": [
+        {
+          "value": "Bhubaneswar, NISER"
+        }
+      ],
+      "full_name": "Mohanty, Bedangadas",
+      "inspire_roles": [
+        "supervisor"
+      ]
+    }
+  ],
+  "core": true,
+  "curated": true,
+  "document_type": [
+    "thesis"
+  ],
+  "external_system_identifiers": [
+    {
+      "schema": "CDS",
+      "value": "2654944"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "source": "cds",
+      "term": "Experiment-HEP"
+    },
+    {
+      "source": "cds",
+      "term": "Experiment-Nucl"
+    }
+  ],
+  "number_of_pages": 295,
+  "report_numbers": [
+    {
+      "source": "CDS",
+      "value": "CERN-THESIS-2014-462"
+    }
+  ],
+  "thesis_info": {
+    "date": "2014-09",
+    "degree_type": "phd",
+    "institutions": [
+      {
+        "name": "Bhubaneswar, NISER"
+      }
+    ]
+  },
+  "titles": [
+    {
+      "source": "submitter",
+      "title": "Identified particle production in Pb-Pb and pp collisions at LHC energies"
+    }
+  ],
+  "urls": [
+    {
+      "description": "Homi Bhabha Nat. Inst.",
+      "value": "http://www.hbni.ac.in/students/dsp_ths.html?nm=phys/PHYS07200904008.pdf"
+    }
+  ]
+}

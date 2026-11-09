@@ -1,0 +1,58 @@
+{"preprint_date":"2017-12-16",
+  "curated":false,
+  "license":[
+    {
+      "url":"http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "material":"preprint",
+      "license":"arXiv nonexclusive-distrib 1.0"
+    }
+  ],
+  "public_notes":[
+    {
+      "source":"arXiv",
+      "value":"4+ pages, 3 figures, minor changes, version to be published in Phys.\n  Rev. Lett"
+    }
+  ],
+  "authors":[
+    {
+      "full_name":"Kolomeisky, Eugene B."
+    },
+    {
+      "full_name":"Straley, Joseph P."
+    }
+  ],
+  "acquisition_source":{
+    "source":"arXiv",
+    "method":"hepcrawl",
+    "submission_number":"f7257c94551511e8a96d0242ac120009",
+    "datetime":"2018-05-11T12:22:35.651515"
+  },
+  "_collections":[
+    "Literature"
+  ],
+  "titles":[
+    {
+      "source":"arXiv",
+      "title":"Kelvin-Mach wake in a two-dimensional Fermi sea"
+    }
+  ],
+  "arxiv_eprints":[
+    {
+      "categories":[
+        "cond-mat.mes-hall"
+      ],
+      "value":"1712.05946"
+    }
+  ],
+  "$schema":"http://localhost:5000/schemas/records/hep.json",
+  "document_type":[
+    "article"
+  ],
+  "abstracts":[
+    {
+      "source":"arXiv",
+      "value":"The dispersion law for plasma oscillations in a two-dimensional electron gas in the hydrodynamic approximation interpolates between $\\Omega \\propto \\sqrt{q}$ and $\\Omega \\propto q$ dependences as the wave vector $q$ increases. As a result, downstream of a charged impurity in the presence of a uniform supersonic electric current flow, a wake pattern of induced charge density and potential is formed whose geometry is controlled by the Mach number $M$. For $1\\sqrt{2}$. These wakes also trail an external charge traveling supersonically a fixed distance away from the electron gas."
+    }
+  ],
+  "citeable":true
+}
