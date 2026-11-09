@@ -26,7 +26,7 @@ class TestUtilsOpenSearch:
 
         assert len(matches) == 2
 
-    @patch("include.utils.opensearch.CustomOpenSearchHook.search")
+    @patch("include.utils.opensearch.OpenSearchHook.search")
     def test_find_completed_workflows_past_retention(self, mock_search):
         mock_search.return_value = {
             "hits": {
@@ -53,7 +53,7 @@ class TestUtilsOpenSearch:
         assert query["size"] == opensearch.RETENTION_SEARCH_PAGE_SIZE
         assert query["_source"] == ["id"]
 
-    @patch("include.utils.opensearch.CustomOpenSearchHook.search")
+    @patch("include.utils.opensearch.OpenSearchHook.search")
     def test_find_completed_workflows_past_retention_custom_search_window(
         self, mock_search
     ):
@@ -75,7 +75,7 @@ class TestUtilsOpenSearch:
             "range": {"_updated_at": {"lte": "now-14d", "gt": "now-44d"}}
         } in query_filter
 
-    @patch("include.utils.opensearch.CustomOpenSearchHook.search")
+    @patch("include.utils.opensearch.OpenSearchHook.search")
     def test_find_completed_workflows_past_retention_paginates(self, mock_search):
         first_page = {
             "hits": {

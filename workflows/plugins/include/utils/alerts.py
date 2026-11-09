@@ -2,8 +2,8 @@ import logging
 import os
 
 from airflow.configuration import conf
+from airflow.providers.smtp.utils.emailer import send_email
 from airflow.sdk import BaseNotifier
-from airflow.utils.email import send_email
 from include.utils.set_workflow_status import (
     set_workflow_status_to_error,
 )

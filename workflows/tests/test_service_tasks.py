@@ -157,7 +157,7 @@ class TestCleanupLogs:
 
 
 @pytest.mark.usefixtures("hep_env")
-@patch("include.utils.opensearch.CustomOpenSearchHook.search")
+@patch("include.utils.opensearch.OpenSearchHook.search")
 class TestLiteratureS3Cleanup:
     dag = dagbag.get_dag("literature_s3_cleanup")
 
