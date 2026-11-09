@@ -1,7 +1,7 @@
 import logging
 
+from airflow.providers.opensearch.hooks.opensearch import OpenSearchHook
 from airflow.sdk import Variable
-from hooks.custom_opensearch_hook import CustomOpenSearchHook
 from include.utils.constants import COMPLETED_STATUSES
 from inspire_utils.record import get_value
 
@@ -49,7 +49,7 @@ def find_matching_workflows(workflow, statuses):
     }
     index_name = Variable.get("hepworkflow_open_search_index")
 
-    opensearch_hook = CustomOpenSearchHook(
+    opensearch_hook = OpenSearchHook(
         open_search_conn_id="opensearch_connection", log_query=True
     )
     response = opensearch_hook.search(query=query, index_name=index_name)
@@ -82,7 +82,7 @@ def find_completed_workflows_past_retention(retention_days, search_window_days=1
     }
     index_name = Variable.get("hepworkflow_open_search_index")
 
-    opensearch_hook = CustomOpenSearchHook(
+    opensearch_hook = OpenSearchHook(
         open_search_conn_id="opensearch_connection", log_query=True
     )
 

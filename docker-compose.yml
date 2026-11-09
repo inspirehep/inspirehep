@@ -475,4 +475,4 @@ services:
       s3:
         condition: service_healthy
     entrypoint: >
-      /bin/sh -c "/usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; /usr/bin/mc mb airflow/desy-store-incoming; /usr/bin/mc mb airflow/desy-store-processed; /usr/bin/mc mb airflow/aps-store"
+      /bin/sh -c "/usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb --ignore-existing airflow/data-store; /usr/bin/mc mb --ignore-existing airflow/elsevier-store; /usr/bin/mc mb --ignore-existing airflow/desy-store-incoming; /usr/bin/mc mb --ignore-existing airflow/desy-store-processed; /usr/bin/mc mb --ignore-existing airflow/aps-store"
