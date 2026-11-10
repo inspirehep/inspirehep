@@ -6,12 +6,19 @@ function DefaultArrayFieldItemTemplate({
   children,
   buttonsProps,
   readonly,
+  schema,
 }: ArrayFieldItemTemplateProps) {
   const canReorder = buttonsProps.hasMoveUp || buttonsProps.hasMoveDown;
+  const isPrimitiveItem =
+    schema?.type !== undefined && schema.type !== 'object';
 
   return (
     <tr>
-      {children}
+      {isPrimitiveItem ? (
+        <td className="editor-array__cell">{children}</td>
+      ) : (
+        children
+      )}
       <td className="editor-array__reorder-col">
         {canReorder && (
           <ReorderButtons

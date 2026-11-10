@@ -19,10 +19,16 @@ import {
   EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SAVE_REQUEST,
   EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_DOCUMENT_UPLOAD_REQUEST,
+  EDITOR_DOCUMENT_UPLOAD_SUCCESS,
+  EDITOR_DOCUMENT_UPLOAD_ERROR,
 } from '../actionTypes';
 import { RootState } from '../../types';
 import { HttpClientWrapper } from '../../common/http';
 import {
+  notifyDocumentUploadError,
+  notifyDocumentUploadInProgress,
+  notifyDocumentUploadSuccess,
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
@@ -268,6 +274,57 @@ export function saveAuthor(
           : error?.error?.message) || 'An error occurred'
       );
       dispatch(saveAuthorError(error));
+    }
+  };
+}
+
+function uploadingDocument() {
+  return {
+    type: EDITOR_DOCUMENT_UPLOAD_REQUEST,
+  };
+}
+
+function uploadDocumentSuccess() {
+  return {
+    type: EDITOR_DOCUMENT_UPLOAD_SUCCESS,
+  };
+}
+
+function uploadDocumentError(errorPayload: { error: Error }) {
+  return {
+    type: EDITOR_DOCUMENT_UPLOAD_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function uploadDocument(
+  type: string,
+  id: string,
+  file: File
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootState,
+  http: HttpClientWrapper
+) => Promise<string | undefined> {
+  return async (dispatch, _getState, http) => {
+    dispatch(uploadingDocument());
+    notifyDocumentUploadInProgress(file.name);
+    try {
+      const body = new FormData();
+      body.append('file', file, file.name);
+      const response = await http.post(`/editor/${type}/${id}/upload`, body);
+      dispatch(uploadDocumentSuccess());
+      notifyDocumentUploadSuccess(file.name);
+      return response.data.path;
+    } catch (err) {
+      const error = httpErrorToActionPayload(err);
+      notifyDocumentUploadError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.message) || 'An error occurred'
+      );
+      dispatch(uploadDocumentError(error));
+      return undefined;
     }
   };
 }

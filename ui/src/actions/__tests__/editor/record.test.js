@@ -18,6 +18,9 @@ import {
   EDITOR_RECORD_REVERT_TO_REVISION_REQUEST,
   EDITOR_RECORD_REVERT_TO_REVISION_SUCCESS,
   EDITOR_RECORD_REVERT_TO_REVISION_ERROR,
+  EDITOR_DOCUMENT_UPLOAD_REQUEST,
+  EDITOR_DOCUMENT_UPLOAD_SUCCESS,
+  EDITOR_DOCUMENT_UPLOAD_ERROR,
 } from '../../actionTypes';
 import { getStore } from '../../../fixtures/store';
 import {
@@ -26,8 +29,12 @@ import {
   fetchRecordRevisions,
   revertToRevision,
   saveAuthor,
+  uploadDocument,
 } from '../../editor/record';
 import {
+  notifyDocumentUploadError,
+  notifyDocumentUploadInProgress,
+  notifyDocumentUploadSuccess,
   notifyEditionError,
   notifyEditionInProgress,
   notifyEditionSuccess,
@@ -43,6 +50,9 @@ vi.mock('../../../editor/notifications', () => ({
   notifyEditionError: vi.fn(),
   notifyRevertToRevisionError: vi.fn(),
   notifyParallelEdition: vi.fn(),
+  notifyDocumentUploadInProgress: vi.fn(),
+  notifyDocumentUploadSuccess: vi.fn(),
+  notifyDocumentUploadError: vi.fn(),
 }));
 
 afterEach(() => {
@@ -275,6 +285,58 @@ describe('record - async actions creator', () => {
       await store.dispatch(revertToRevision('authors', '123', 100));
       expect(store.getActions()).toEqual(expectedActions);
       expect(notifyRevertToRevisionError).toHaveBeenCalledWith('Error');
+    });
+  });
+
+  describe('uploadDocument', () => {
+    const file = new File(['x'], 'paper.pdf', { type: 'application/pdf' });
+
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
+    it('creates EDITOR_DOCUMENT_UPLOAD_SUCCESS and returns the path', async () => {
+      mockHttp
+        .onPost('/editor/literature/123/upload')
+        .replyOnce(200, { path: 'https://s3/paper.pdf' });
+
+      const store = getStore();
+      const path = await store.dispatch(
+        uploadDocument('literature', '123', file)
+      );
+
+      expect(path).toEqual('https://s3/paper.pdf');
+      expect(store.getActions()).toEqual([
+        { type: EDITOR_DOCUMENT_UPLOAD_REQUEST },
+        { type: EDITOR_DOCUMENT_UPLOAD_SUCCESS },
+      ]);
+      expect(notifyDocumentUploadInProgress).toHaveBeenCalledWith('paper.pdf');
+      expect(notifyDocumentUploadSuccess).toHaveBeenCalledWith('paper.pdf');
+    });
+
+    it('creates EDITOR_DOCUMENT_UPLOAD_ERROR and returns undefined', async () => {
+      mockHttp
+        .onPost('/editor/literature/123/upload')
+        .replyOnce(400, { message: 'File extension is not supported.' });
+
+      const store = getStore();
+      const path = await store.dispatch(
+        uploadDocument('literature', '123', file)
+      );
+
+      expect(path).toBeUndefined();
+      expect(store.getActions()).toEqual([
+        { type: EDITOR_DOCUMENT_UPLOAD_REQUEST },
+        {
+          type: EDITOR_DOCUMENT_UPLOAD_ERROR,
+          payload: {
+            error: { status: 400, message: 'File extension is not supported.' },
+          },
+        },
+      ]);
+      expect(notifyDocumentUploadError).toHaveBeenCalledWith(
+        'File extension is not supported.'
+      );
     });
   });
 });

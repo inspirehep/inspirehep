@@ -89,7 +89,6 @@ describe('<NestedArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    await user.click(screen.getByText('Name'));
     await user.click(screen.getByRole('button', { name: 'Add new' }));
 
     expect(onAddClick).toHaveBeenCalledTimes(1);
@@ -103,14 +102,12 @@ describe('<NestedArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props, onFieldChange);
 
-    await user.click(screen.getByText('Name'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onFieldChange).toHaveBeenCalledTimes(1);
   });
 
-  it('disables the menu when readonly', async () => {
-    const user = userEvent.setup();
+  it('disables the action buttons when readonly', async () => {
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: true,
@@ -119,13 +116,7 @@ describe('<NestedArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    await user.click(screen.getByText('Authors'));
-
-    expect(
-      screen.queryByRole('button', { name: 'Add new' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Delete' })
-    ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Add new' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
   });
 });

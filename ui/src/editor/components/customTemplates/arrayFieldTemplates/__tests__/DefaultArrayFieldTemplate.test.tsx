@@ -71,15 +71,12 @@ describe('<DefaultArrayFieldTemplate />', () => {
   });
 
   it('does not render "Add new" in the menu when canAdd is false', async () => {
-    const user = userEvent.setup();
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: false,
     });
 
     renderWithFieldOnChangeContext(props);
-
-    await user.click(screen.getByText('Authors'));
 
     expect(
       screen.queryByRole('button', { name: 'Add new' })
@@ -96,7 +93,6 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Add new' }));
 
     expect(onAddClick).toHaveBeenCalledTimes(1);
@@ -107,16 +103,13 @@ describe('<DefaultArrayFieldTemplate />', () => {
     ['clearable', { clearable: false }],
   ])(
     'does not render "Delete" in the menu when ui:options.%s is false',
-    async (_optionName, uiOptions) => {
-      const user = userEvent.setup();
+    (_optionName, uiOptions) => {
       const props = buildArrayFieldTemplateProps({
         title: 'Authors',
         uiSchema: { 'ui:options': uiOptions },
       });
 
       renderWithFieldOnChangeContext(props);
-
-      await user.click(screen.getByText('Authors'));
 
       expect(
         screen.queryByRole('button', { name: 'Delete' })
@@ -144,14 +137,12 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     const { onFieldChange } = renderWithFieldOnChangeContext(props);
 
-    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onFieldChange).toHaveBeenCalledWith(undefined);
   });
 
-  it('disables the menu when readonly', async () => {
-    const user = userEvent.setup();
+  it('disables the action buttons when readonly', () => {
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: true,
@@ -160,13 +151,37 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    await user.click(screen.getByText('Authors'));
+    expect(screen.getByRole('button', { name: 'Add new' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+  });
+
+  it('wraps the table in a horizontal scroll container when scrollable', () => {
+    const props = buildArrayFieldTemplateProps({
+      uiSchema: { 'ui:options': { scrollable: true } },
+    });
+    renderWithFieldOnChangeContext(props);
+
+    const table = screen.getByRole('table');
+    expect(table).toHaveClass('editor-array__table--scrollable');
+    expect(table.parentElement).toHaveClass('editor-array__scroll');
+  });
+
+  it('does not make the table scrollable by default', () => {
+    renderWithFieldOnChangeContext(buildArrayFieldTemplateProps());
+
+    const table = screen.getByRole('table');
+    expect(table).not.toHaveClass('editor-array__table--scrollable');
+    expect(table.parentElement).not.toHaveClass('editor-array__scroll');
+  });
+
+  it('adds a value column to the table header for primitive items', () => {
+    const props = buildArrayFieldTemplateProps({
+      schema: { type: 'array', items: { type: 'string' } },
+    });
+    renderWithFieldOnChangeContext(props);
 
     expect(
-      screen.queryByRole('button', { name: 'Add new' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Delete' })
-    ).not.toBeInTheDocument();
+      within(screen.getByRole('table')).getAllByRole('columnheader')
+    ).toHaveLength(3);
   });
 });

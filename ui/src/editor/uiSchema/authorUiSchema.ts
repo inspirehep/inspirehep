@@ -306,7 +306,11 @@ const authorUiSchema: UiSchema = {
     'ui:options': { showHeader: false },
     items: {
       'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
-      $ref: { 'ui:options': { label: false } },
+      $ref: {
+        'ui:widget': 'recordRef',
+        'ui:options': { label: false },
+        'ui:placeholder': 'Reference to deleted record',
+      },
     },
   },
   self: {
@@ -367,7 +371,7 @@ const authorUiSchema: UiSchema = {
   },
   deleted: {
     'ui:title': 'deleted',
-    'ui:options': { label: false },
+    'ui:options': { label: false, color: '#E74C3C' },
     'ui:widget': 'toggle',
   },
   _collections: {

@@ -18,6 +18,9 @@ import CommonEditor from '../components/CommonEditor';
 import prepareAuthorSchema from '../utils/prepareAuthorSchema';
 import { getUiSchema } from '../utils/getUiSchema';
 
+const getUiSchemaFromFormData = (formData?: any) =>
+  getUiSchema(formData?.$schema, formData?.document_type?.[0]);
+
 const stateToProps = (state: RootState) => {
   const schemaFromState = state.editor
     .getIn(['recordData', 'record'])
@@ -41,10 +44,7 @@ const stateToProps = (state: RootState) => {
       ]),
       revisionError: state.editor.getIn(['recordData', 'revisionError']),
     },
-    uiSchema: getUiSchema(
-      recordMetadata?.get('$schema'),
-      recordMetadata?.getIn(['document_type', 0])
-    ),
+    getUiSchema: getUiSchemaFromFormData,
   };
 };
 

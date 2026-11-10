@@ -6,6 +6,9 @@ function ViewRecordWidget({ value }: WidgetProps) {
   }
   const parts = value.split('/');
   const type = parts[parts.length - 2];
+  if (!type) {
+    return null;
+  }
   const display = `View ${type.replace(/s$/, '')}`; // de pluralize
   const href = value.replace('/api/', '/');
   return (

@@ -9,6 +9,7 @@ type SuggesterForWidgetProps = WidgetProps & {
   extractUniqueItemValue: (suggestion: any) => string;
   extractItemCompletionValue: (suggestion: any) => string;
   readonly?: boolean;
+  searchAsYouType?: boolean;
 };
 
 function SuggesterForWidget({
@@ -22,6 +23,7 @@ function SuggesterForWidget({
   extractUniqueItemValue,
   extractItemCompletionValue,
   readonly,
+  searchAsYouType = true,
 }: SuggesterForWidgetProps) {
   return (
     <Suggester
@@ -31,7 +33,7 @@ function SuggesterForWidget({
       placeholder="Type for suggestions"
       pidType={pidType}
       suggesterName={suggesterName}
-      searchasyoutype="true"
+      searchasyoutype={searchAsYouType ? 'true' : undefined}
       extractUniqueItemValue={extractUniqueItemValue}
       extractItemCompletionValue={extractItemCompletionValue}
       onChange={onChange}
