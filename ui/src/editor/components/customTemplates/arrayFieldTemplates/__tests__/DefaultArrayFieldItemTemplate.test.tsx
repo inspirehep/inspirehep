@@ -120,4 +120,28 @@ describe('<DefaultArrayFieldItemTemplate />', () => {
 
     expect(screen.getByRole('button', { name: 'Remove item' })).toBeDisabled();
   });
+
+  it('wraps a primitive item in a value cell', () => {
+    const props = buildArrayFieldItemTemplateProps({
+      schema: { type: 'string' },
+      children: <input aria-label="value" />,
+    });
+
+    renderInTable(props);
+
+    expect(screen.getByLabelText('value').closest('td')).toHaveClass(
+      'editor-array__cell'
+    );
+  });
+
+  it('does not wrap an object item, which renders its own cells', () => {
+    const props = buildArrayFieldItemTemplateProps({
+      schema: { type: 'object' },
+      children: <td data-testid="own-cell">field</td>,
+    });
+
+    renderInTable(props);
+
+    expect(screen.getByTestId('own-cell').parentElement?.tagName).toBe('TR');
+  });
 });

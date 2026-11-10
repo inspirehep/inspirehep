@@ -18,9 +18,22 @@
     border-top: 1px solid #8e8e8e;
   }
 
+  &__scroll {
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+
   &__table {
     width: 100%;
     border-collapse: collapse;
+
+    &--scrollable {
+      th:not(.editor-array__reorder-col):not(.editor-array__actions-col),
+      .editor-array__cell {
+        min-width: 10rem;
+        max-width: 20rem;
+      }
+    }
 
     th {
       padding: 1px 0px 1px 6px;
@@ -114,4 +127,13 @@
     max-height: 160px;
     overflow: auto;
   }
+}
+
+.editor-array__cell:has(> .latex-field) {
+  width: 100%;
+}
+
+tr:has(> .editor-array__cell > .latex-field)
+  > .editor-array__cell:not(:has(> .latex-field)) {
+  min-width: 12rem;
 }

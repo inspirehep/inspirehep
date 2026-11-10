@@ -55,9 +55,7 @@ const renderEditor = (editorState = baseEditorState) => {
 };
 
 const getNameValueInput = () =>
-  within(screen.getByRole('row', { name: /value caret-down / })).getByRole(
-    'textbox'
-  );
+  within(screen.getByRole('row', { name: /^value/ })).getByRole('textbox');
 
 describe('<BackofficeAuthorEditorContainer/>', () => {
   it('should render generic error when fetching author failed', () => {
@@ -146,8 +144,11 @@ describe('<BackofficeAuthorEditorContainer/>', () => {
 
       renderEditor();
 
-      await user.click(screen.getByText(/name variants/));
-      await user.click(screen.getByRole('button', { name: 'Add new' }));
+      await user.click(
+        within(screen.getByTestId('name variants')).getByRole('button', {
+          name: 'Add new',
+        })
+      );
 
       const nameVariantInput = within(
         screen.getByRole('row', { name: /name variants/ })

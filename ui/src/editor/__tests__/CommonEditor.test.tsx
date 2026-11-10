@@ -30,9 +30,7 @@ const renderEditor = (props = baseCommonEditorProps) => {
 };
 
 const getNameValueInput = () =>
-  within(screen.getByRole('row', { name: /value caret-down/ })).getByRole(
-    'textbox'
-  );
+  within(screen.getByRole('row', { name: /^value/ })).getByRole('textbox');
 
 describe('<CommonEditor />', () => {
   it('should render specific error when not loggedIn', () => {

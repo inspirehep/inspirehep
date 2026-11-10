@@ -28,11 +28,7 @@ Cypress.Commands.add("editWorkflow", () => {
 });
 
 Cypress.Commands.add("addPositionAtCern", (index, endDate, rank) => {
-  cy.get('[data-testid="positions"]').click();
-  cy.contains(
-    ".ant-dropdown:not(.ant-dropdown-hidden) button",
-    "Add new",
-  ).click();
+  cy.get('[data-testid="positions"] button:contains("Add new")').click();
   cy.get(`[id="root_positions_${index}_institution"]`).type("C");
   cy.contains("CERN").click();
   cy.get(`[id="root_positions_${index}_end_date"]`).type(endDate);
@@ -41,11 +37,7 @@ Cypress.Commands.add("addPositionAtCern", (index, endDate, rank) => {
 });
 
 Cypress.Commands.add("addAward", (index, name, year) => {
-  cy.get('[data-testid="awards"]').click();
-  cy.contains(
-    ".ant-dropdown:not(.ant-dropdown-hidden) button",
-    "Add new",
-  ).click();
+  cy.get('[data-testid="awards"] button:contains("Add new")').click();
   cy.get(`[id="root_awards_${index}_name"]`).type(name);
   cy.get(`[id="root_awards_${index}_year"]`).type(year);
 });

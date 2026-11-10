@@ -23,8 +23,10 @@ function InstitutionAutocompleteWidget({
   value,
   onChange,
   onBlur,
+  options,
   ...props
 }: WidgetProps) {
+  const valueKey = (options?.valueKey as string | undefined) ?? 'institution';
   const { formData: positionFormData, onChange: onPositionChange } =
     useObjectFieldData();
 
@@ -34,7 +36,7 @@ function InstitutionAutocompleteWidget({
     if (positionFormData.record) {
       onPositionChange({
         ...positionFormData,
-        institution: newValue,
+        [valueKey]: newValue,
         record: undefined,
         curated_relation: false,
       });
@@ -47,7 +49,7 @@ function InstitutionAutocompleteWidget({
   ) => {
     onPositionChange({
       ...positionFormData,
-      institution: getInstitutionLegacyICN(suggestion),
+      [valueKey]: getInstitutionLegacyICN(suggestion),
       record: {
         $ref: `${window.location.origin}/api/institutions/${controlNumber}`,
       },
@@ -66,6 +68,7 @@ function InstitutionAutocompleteWidget({
       onChange={onInstitutionChange}
       onSelectSuggestion={onInstitutionSelect}
       onBlur={() => onBlur(id, value)}
+      options={options}
       {...props}
     />
   );

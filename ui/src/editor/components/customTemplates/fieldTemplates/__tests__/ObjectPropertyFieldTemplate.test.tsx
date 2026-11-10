@@ -40,9 +40,23 @@ describe('<ObjectPropertyFieldTemplate />', () => {
 
     renderObjectPropertyFieldTemplateInTable(props);
 
-    await user.click(screen.getByText(/Name/));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onChange).toHaveBeenCalledWith(undefined, ['name']);
+  });
+  it('should render only the value cell when withLabel is false', () => {
+    const props = buildFieldTemplateProps({
+      label: 'CDS',
+      uiSchema: { 'ui:options': { withLabel: false } },
+      children: <div>field value</div>,
+      errors: <div>Some error on this field</div>,
+    });
+
+    renderObjectPropertyFieldTemplateInTable(props);
+
+    expect(screen.getByText('field value')).toBeVisible();
+    expect(screen.getByText('Some error on this field')).toBeVisible();
+    expect(screen.queryByTestId('CDS')).toBeNull();
+    expect(screen.getAllByRole('cell')).toHaveLength(1);
   });
 });
