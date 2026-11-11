@@ -23,11 +23,10 @@ def get_references(f):
     """Extract references from LaTeX string (whole file)"""
 
     references = {}
-    cstrip = re.compile(r"(?<!\\)%.*$", re.M)
+    cstrip = re.compile(r"(?<!\\)((?:\\\\)*)%.*$", re.M)
 
     for num, line in enumerate(f, 1):
-        if cstrip.match(line):
-            continue
+        line = cstrip.sub(r"\1", line)
         cites = re.findall(r"\\cite\s*\{(.*?)\}", line, re.DOTALL)
         for ref_line in cites:
             ref_list = ref_line.split(",")
