@@ -559,7 +559,6 @@ pbr==7.1.3
 pendulum==3.3.0
 pexpect==4.9.0
 pgvector==0.5.1
-pillow==12.3.0
 pinecone==10.2.0
 pinotdb==9.2.2
 platformdirs==4.14.3
