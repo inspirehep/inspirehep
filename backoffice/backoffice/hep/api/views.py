@@ -9,7 +9,6 @@ from django.shortcuts import get_object_or_404
 from backoffice.hep.tasks import batch_resolve_workflows
 from backoffice.hep.utils import (
     add_hep_decision,
-    add_hep_decision_batch,
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
@@ -218,7 +217,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             workflow = get_object_or_404(HepWorkflow, pk=wf_id)
             try:
                 with transaction.atomic():
-                    add_hep_decision_batch(
+                    add_hep_decision(
                         wf_id,
                         request.user,
                         data["action"],

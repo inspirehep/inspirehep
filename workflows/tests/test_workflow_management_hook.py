@@ -1,4 +1,5 @@
 import contextlib
+from unittest.mock import patch
 
 import pytest
 from hooks.backoffice.workflow_management_hook import (
@@ -101,3 +102,37 @@ class TestWorkflowManagementHook:
 
         assert response["count"] == 1
         assert response["results"][0]["id"] == self.test_workflow_id
+
+    @patch.object(WorkflowManagementHook, "call_api")
+    @patch.object(WorkflowManagementHook, "get_workflow")
+    def test_add_decision_skips_if_decision_exists(
+        self, mock_get_workflow, mock_call_api
+    ):
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        mock_get_workflow.return_value = {
+            "decisions": [{"action": "fuzzy_match", "value": "123"}]
+        }
+
+        response = workflow_management_hook.add_decision(
+            self.test_workflow_id, {"action": "fuzzy_match", "value": "456"}
+        )
+
+        assert response is None
+        mock_get_workflow.assert_called_once_with(self.test_workflow_id)
+        mock_call_api.assert_not_called()
+
+    @pytest.mark.parametrize(
+        "workflow", [{}, {"decisions": [{"action": "auto_reject"}]}]
+    )
+    @patch.object(WorkflowManagementHook, "call_api")
+    @patch.object(WorkflowManagementHook, "get_workflow")
+    def test_add_decision_posts_if_decision_missing(
+        self, mock_get_workflow, mock_call_api, workflow
+    ):
+        mock_get_workflow.return_value = workflow
+
+        WorkflowManagementHook(HEP).add_decision(
+            self.test_workflow_id, {"action": "fuzzy_match"}
+        )
+
+        mock_call_api.assert_called_once()
