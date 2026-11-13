@@ -391,6 +391,47 @@ class Test_HEPCreateDAG:
         )
         assert not task_test(self.dag, "check_for_blocking_workflows", self.context)
 
+    @patch(
+        "include.utils.opensearch.find_matching_workflows",
+        return_value=[
+            {"id": "to_pause", "status": "running"},
+            {"id": "in_approval", "status": "approval"},
+        ],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.set_workflow_status"
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.pause_workflow"
+    )
+    def test_check_for_blocking_workflows_pauses_running_matches_for_submission(
+        self,
+        mock_pause_workflow,
+        mock_set_workflow_status,
+        mock_find_matching_workflows,
+    ):
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"acquisition_source": {"method": "submitter"}},
+            },
+        )
+        self.s3_store.set_flags({}, self.workflow_id)
+
+        result = task_test(self.dag, "check_for_blocking_workflows", self.context)
+
+        assert result
+        mock_pause_workflow.assert_called_once_with(
+            workflow_id="to_pause",
+            note=f"Paused by submission {self.workflow_id}",
+        )
+        mock_set_workflow_status.assert_called_once_with(
+            status_name=STATUS_RUNNING, workflow_id=self.workflow_id
+        )
+        assert self.s3_store.get_flag("paused-workflows", self.workflow_id) == [
+            "to_pause"
+        ]
+
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_continue(self):
         self.s3_store.write_workflow(
@@ -5211,6 +5252,7 @@ class Test_HEPCreateDAG:
             },
         }
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags({}, self.workflow_id)
 
         task_test(self.dag, "run_next_if_necessary", self.context)
 
@@ -5220,3 +5262,32 @@ class Test_HEPCreateDAG:
         restart_workflow_mock.assert_called_once_with("to_restart")
         matching_statuses = find_matching_workflows_mock.call_args.args[1]
         assert STATUS_APPROVAL_CORE_SELECTION not in matching_statuses
+
+    @patch("include.utils.opensearch.find_matching_workflows")
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.resume_workflow"
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.restart_workflow"
+    )
+    def test_run_next_if_necessary_resumes_paused_workflows(
+        self,
+        restart_workflow_mock,
+        resume_workflow_mock,
+        find_matching_workflows_mock,
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test resume paused"}],
+                "arxiv_eprints": [{"value": "1111.11111"}],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags({"paused-workflows": ["to_resume"]}, self.workflow_id)
+
+        task_test(self.dag, "run_next_if_necessary", self.context)
+
+        resume_workflow_mock.assert_called_once_with("to_resume")
+        restart_workflow_mock.assert_not_called()
+        find_matching_workflows_mock.assert_not_called()

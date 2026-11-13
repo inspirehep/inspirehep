@@ -241,7 +241,22 @@ def hep_create_dag():
 
         matches = opensearch.find_matching_workflows(workflow_data, RUNNING_STATUSES)
 
-        if len(matches) > 0:
+        if is_submission(workflow_data):
+            # submissions take priority: running workflows are paused and
+            # resumed from where they stopped once the submission finishes
+            paused_workflow_ids = [
+                match["id"]
+                for match in matches
+                if match.get("status") == STATUS_RUNNING
+            ]
+            for paused_workflow_id in paused_workflow_ids:
+                logger.info("Pausing workflow '%s'", paused_workflow_id)
+                workflow_management_hook.pause_workflow(
+                    workflow_id=paused_workflow_id,
+                    note=f"Paused by submission {workflow_id}",
+                )
+            s3_store.set_flag("paused-workflows", paused_workflow_ids, workflow_id)
+        elif len(matches) > 0:
             matched_ids = [match["id"] for match in matches]
             logger.info("Blocking workflows found: %s", matched_ids)
             workflow_management_hook.set_workflow_status(
@@ -2019,6 +2034,14 @@ def hep_create_dag():
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow = s3_store.read_workflow(workflow_id)
+
+        paused_workflow_ids = s3_store.get_flag("paused-workflows", workflow_id) or []
+        for paused_workflow_id in paused_workflow_ids:
+            logger.info(f"Resuming workflow '{paused_workflow_id}'")
+            workflow_management_hook.resume_workflow(paused_workflow_id)
+
+        if paused_workflow_ids:
+            return
 
         matches = opensearch.find_matching_workflows(workflow, DISCARDABLE_STATUSES)
 
