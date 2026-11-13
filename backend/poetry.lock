@@ -2540,23 +2540,24 @@ tests = ["Sphinx (>=4.5.0)", "cryptography (>=2.1.4)", "pytest-black (>=0.3.0)",
 
 [[package]]
 name = "invenio-i18n"
-version = "2.1.1"
+version = "2.2.0"
 description = "Invenio internationalization (I18N) module."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "invenio-i18n-2.1.1.tar.gz", hash = "sha256:915e011a22acfe71e83a4c1bf8ab2a7a064d977b28ba631ede0e0ab2aa0cb592"},
-    {file = "invenio_i18n-2.1.1-py2.py3-none-any.whl", hash = "sha256:057a2d67b3453a7dd2e7d70881074ed5c4dc983615472467cb6b5057366246fa"},
+    {file = "invenio_i18n-2.2.0-py2.py3-none-any.whl", hash = "sha256:57ccb74ab41061d7930e708ff812d76b03d496d37b17d1833421e175f30748db"},
+    {file = "invenio_i18n-2.2.0.tar.gz", hash = "sha256:61651313bd0a8c0d5f8b6dc59fe45c52e8c0bb01f0f9488fd23159e27fd89ad9"},
 ]
 
 [package.dependencies]
 Babel = ">=2.8"
 Flask-Babel = ">=3.0.0"
-invenio-base = ">=1.2.11"
+invenio-base = ">=1.2.11,<2.0.0"
+pytz = "<2024.2"
 
 [package.extras]
-tests = ["Flask-Login (>=0.6.2)", "invenio-assets (>=1.3.0,<2.0.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=1.4.6)", "sphinx (>=4.5)"]
+tests = ["Flask-Login (>=0.6.2)", "invenio-assets (>=1.3.0,<2.0.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=1.4.6,<3.0.0)", "sphinx (>=4.5)"]
 
 [[package]]
 name = "invenio-indexer"
@@ -2605,25 +2606,22 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "json
 
 [[package]]
 name = "invenio-mail"
-version = "1.0.2"
+version = "2.3.2"
 description = "Invenio-Mail is an integration layer between Invenio and Flask-Mail."
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "invenio-mail-1.0.2.tar.gz", hash = "sha256:898952aa8984426074fd92b60bbe3ac67117cae0c724724aa63476416a7b7647"},
-    {file = "invenio_mail-1.0.2-py2.py3-none-any.whl", hash = "sha256:fcd9ec4a89e0e68d09a9b9a638ee625e260ef98d6bc9d7aa172ec3969a95933f"},
+    {file = "invenio_mail-2.3.2-py3-none-any.whl", hash = "sha256:005e3f6821428e047aeff0c19c4b83b560e6fe8429d717ce6ac4c1a8b88275aa"},
+    {file = "invenio_mail-2.3.2.tar.gz", hash = "sha256:159e29b3c7e7c9dfd93dbfdb2753796bc782a679fcf2d839db57921e1f791ca5"},
 ]
 
 [package.dependencies]
-Flask = ">=0.11.1"
-Flask-Mail = ">=0.9.1"
+flask = ">=0.11.1"
+flask-mail = ">=0.9.1,<0.10.0"
 
 [package.extras]
-all = ["Flask-CeleryExt (>=0.2.2)", "Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest (>=2.8.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
-celery = ["Flask-CeleryExt (>=0.2.2)"]
-docs = ["Flask-CeleryExt (>=0.2.2)", "Sphinx (>=1.4.2)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest (>=2.8.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
+tests = ["flask-celeryext (>=0.2.2)", "pytest-black (>=0.6.0)", "pytest-invenio (>=3.0.0,<4.0.0)", "sphinx (>=4.5.0)"]
 
 [[package]]
 name = "invenio-oauth2server"
@@ -6835,4 +6833,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "1113ea6bde81bb5302574473303acc728debc86d3e6fdb642999872e3a0d87df"
+content-hash = "92b5d510c37bc9afb55f513bd62fe811249fb6792f446324b1cb763addcafcea"
