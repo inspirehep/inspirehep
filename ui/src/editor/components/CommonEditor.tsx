@@ -10,6 +10,7 @@ import { ConfigProvider } from 'antd';
 import { Form } from '@rjsf/antd';
 import FetchingRecordError from './FetchingRecordError';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
+import trimStrings from '../utils/trimStrings';
 import { resetRecordRevisionData } from '../../actions/editor/record';
 import { BackendValidationError, Revision, toExtraErrors } from '../types';
 import Header from './Header';
@@ -162,7 +163,7 @@ const CommonEditor = ({
   };
 
   const onSave = () => {
-    const prunedFormData = pruneEmptyObjects(formData);
+    const prunedFormData = pruneEmptyObjects(trimStrings(formData));
     // flushSync forces the pruned formData to reach the Form's internal
     // state synchronously, so validateForm() right after can read it.
     flushSync(() => {

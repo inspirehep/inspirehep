@@ -51,6 +51,28 @@ describe('<CommonEditor />', () => {
       )
     ).toBeVisible();
   });
+  describe('save', () => {
+    it('should trim leading and trailing whitespace of values on save', async () => {
+      const user = userEvent.setup();
+      const save = vi.fn();
+      renderEditor({
+        ...baseCommonEditorProps,
+        data: fromJS(authorWithSchema.record.metadata) as Map<string, any>,
+        save,
+      });
+      const input = getNameValueInput();
+      const initialValue = (input as HTMLInputElement).value;
+
+      await user.clear(input);
+      await user.type(input, `  ${initialValue}  `);
+      await user.click(screen.getByRole('button', { name: /save/i }));
+
+      expect(save).toHaveBeenCalledTimes(1);
+      const savedRecord = save.mock.calls[0][1];
+      expect(savedRecord.name.value).toBe(initialValue);
+    });
+  });
+
   describe('undo', () => {
     it('should undo all keystrokes in the same field at once on click undo', async () => {
       const user = userEvent.setup();
