@@ -1,6 +1,8 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_created_at", "_updated_at"] }] */
 import axios, {
+  AxiosError,
   AxiosRequestConfig,
+  AxiosResponse,
   CancelTokenSource,
   InternalAxiosRequestConfig,
 } from 'axios';
@@ -53,9 +55,27 @@ export class HttpClientWrapper {
     return config;
   }
 
+  // axios `settle` resolves responses with `status === 0` (the request ended
+  // without a real HTTP response, e.g. connection dropped), so callers would
+  // get an empty `data` as if it was a success. Reject them as network errors.
+  private static handleEmptyStatusInterceptor(response: AxiosResponse) {
+    if (response.status === 0) {
+      throw new AxiosError(
+        'Network Error',
+        AxiosError.ERR_NETWORK,
+        response.config,
+        response.request
+      );
+    }
+    return response;
+  }
+
   private setupInterceptors() {
     this.httpClient.interceptors.request.use(
       HttpClientWrapper.handleRequestUrlInterceptor
+    );
+    this.httpClient.interceptors.response.use(
+      HttpClientWrapper.handleEmptyStatusInterceptor
     );
   }
 
