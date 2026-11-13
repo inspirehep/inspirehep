@@ -151,3 +151,20 @@ def test_fulltext_indexing_error_is_excluded_from_documents():
 
     result = LiteraturePublicListSchema().dump(data).data
     assert "_error" not in result["documents"][0]
+
+
+def test_hidden_documents_are_excluded_from_public_schema():
+    data = {
+        "documents": [
+            {"key": "visible.pdf", "hidden": False},
+            {"key": "hidden.pdf", "hidden": True},
+            {"key": "no_flag.pdf"},
+        ]
+    }
+
+    result = LiteraturePublicListSchema().dump(data).data
+
+    assert [doc["key"] for doc in result["documents"]] == [
+        "visible.pdf",
+        "no_flag.pdf",
+    ]
