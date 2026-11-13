@@ -32,7 +32,22 @@ vi.mock('rc-notification/lib/Notification');
 // of emitting a "Not implemented: window.getComputedStyle(elt, pseudoElt)"
 // jsdomError on every test that renders a Table.
 const originalGetComputedStyle = window.getComputedStyle.bind(window);
-window.getComputedStyle = (element) => originalGetComputedStyle(element);
+// It also has no layout, so paddings and borders are empty strings, which makes
+// antd's autoSize TextArea compute `parseFloat('') + parseFloat('')` = NaN and
+// React warn about an invalid `height`. Report them as 0px instead.
+const LAYOUT_PROPERTIES = [
+  'padding-top',
+  'padding-bottom',
+  'border-top-width',
+  'border-bottom-width',
+];
+window.getComputedStyle = (element) => {
+  const style = originalGetComputedStyle(element);
+  const getPropertyValue = style.getPropertyValue.bind(style);
+  style.getPropertyValue = (name) =>
+    getPropertyValue(name) || (LAYOUT_PROPERTIES.includes(name) ? '0px' : '');
+  return style;
+};
 
 window.scrollTo = vi.fn();
 

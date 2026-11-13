@@ -2,7 +2,7 @@ import { ArrayFieldTemplateProps } from '@rjsf/utils';
 
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
 import NestedArrayRowLabelContext from './NestedArrayRowLabelContext';
-import ActionsDropdown from '../ActionsDropdown';
+import LabelWithActions from '../LabelWithActions';
 
 function NestedArrayFieldTemplate({
   title,
@@ -20,7 +20,7 @@ function NestedArrayFieldTemplate({
       className="editor-array__row-label"
       rowSpan={items.length > 0 ? items.length : 1}
     >
-      <ActionsDropdown
+      <LabelWithActions
         onAddClick={onAddClick}
         onRemoveClick={() => onFieldChange(undefined)}
         disabled={readonly ?? false}

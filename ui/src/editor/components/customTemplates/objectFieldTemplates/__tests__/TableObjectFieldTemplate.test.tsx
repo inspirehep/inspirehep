@@ -37,7 +37,6 @@ describe('<TableObjectFieldTemplate />', () => {
       </FieldOnChangeContext.Provider>
     );
 
-    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onFieldChange).toHaveBeenCalledWith(undefined);
@@ -55,7 +54,6 @@ describe('<TableObjectFieldTemplate />', () => {
       props,
     });
 
-    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(remove).toHaveBeenCalledTimes(1);

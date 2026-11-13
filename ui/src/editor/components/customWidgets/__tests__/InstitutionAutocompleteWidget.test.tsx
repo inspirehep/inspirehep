@@ -146,6 +146,38 @@ describe('InstitutionAutocompleteWidget', () => {
     });
   });
 
+  it('writes to the property named by the valueKey option', async () => {
+    const user = userEvent.setup();
+    mockHttp
+      .onGet('/institutions/_search_as_you_type?affiliation=CER')
+      .replyOnce(200, {
+        affiliation: [
+          {
+            options: [
+              { _source: { control_number: 902725, legacy_ICN: 'CERN' } },
+            ],
+          },
+        ],
+      });
+    const onObjectChange = vi.fn();
+
+    render(
+      <ControlledWidget
+        widgetProps={{ options: { valueKey: 'value' } }}
+        contextValue={{ formData: { value: '' }, onChange: onObjectChange }}
+      />
+    );
+
+    await user.type(screen.getByRole('combobox'), 'CER');
+    await user.click(await screen.findByText('CERN'));
+
+    expect(onObjectChange).toHaveBeenCalledWith({
+      value: 'CERN',
+      record: { $ref: `${window.location.origin}/api/institutions/902725` },
+      curated_relation: true,
+    });
+  });
+
   it('is disabled when readonly', () => {
     render(
       <ControlledWidget

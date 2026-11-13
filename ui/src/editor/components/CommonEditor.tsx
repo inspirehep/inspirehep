@@ -10,7 +10,10 @@ import { ConfigProvider } from 'antd';
 import { Form } from '@rjsf/antd';
 import FetchingRecordError from './FetchingRecordError';
 import pruneEmptyObjects from '../utils/pruneEmptyObjects';
-import { resetRecordRevisionData } from '../../actions/editor/record';
+import {
+  resetRecordRevisionData,
+  uploadDocument,
+} from '../../actions/editor/record';
 import { BackendValidationError, Revision, toExtraErrors } from '../types';
 import Header from './Header';
 import validator from '../utils/validator';
@@ -18,14 +21,21 @@ import DefaultObjectFieldTemplate from './customTemplates/objectFieldTemplates/D
 import DefaultArrayFieldTemplate from './customTemplates/arrayFieldTemplates/DefaultArrayFieldTemplate';
 import DefaultArrayFieldItemTemplate from './customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
 import DefaultFieldTemplate from './customTemplates/fieldTemplates/DefaultFieldTemplate';
+import WrappingInputTemplate from './customTemplates/fieldTemplates/WrappingInputTemplate';
 import ErrorListTemplate from './customTemplates/ErrorListTemplate';
 import InstitutionAutocompleteWidget from './customWidgets/InstitutionAutocompleteWidget';
 import ProjectNameAutocompleteWidget from './customWidgets/ProjectNameAutocompleteWidget';
+import AbstractSourceAutocompleteWidget from './customWidgets/AbstractSourceAutocompleteWidget';
+import JournalTitleAutocompleteWidget from './customWidgets/JournalTitleAutocompleteWidget';
+import LatexTextareaWidget from './customWidgets/LatexTextareaWidget';
+import RecordRefWidget from './customWidgets/RecordRefWidget';
 import ViewRecordWidget from './customWidgets/ViewRecordWidget';
 import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
 import ToggleWidget from './customWidgets/ToggleWidget';
 import { RootState } from '../../types';
+import { DocumentUploadContext } from '../DocumentUploadContext';
 import { HttpClientWrapper } from '../../common/http';
+import { DEFAULT_TAB_NAME, EditorTabContext } from '../EditorTabContext';
 import './CommonEditor.less';
 
 const isTextEntryElement = (element: Element | null) =>
@@ -35,7 +45,8 @@ interface CommonEditorProps {
   dispatch: ActionCreator<Action>;
   data: Map<string, any>;
   schema: RJSFSchema | null;
-  uiSchema: UiSchema;
+  uiSchema?: UiSchema;
+  getUiSchema?: (formData: any) => UiSchema;
   error: number | null;
   save: (
     id: string,
@@ -60,6 +71,7 @@ const CommonEditor = ({
   data,
   schema,
   uiSchema,
+  getUiSchema,
   error,
   save,
   validationErrors,
@@ -78,6 +90,8 @@ const CommonEditor = ({
       data?.toJS()
     )
   );
+
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB_NAME);
 
   const formRef = useRef<FormType>(null);
   const historyRef = useRef<any[]>([]);
@@ -176,6 +190,11 @@ const CommonEditor = ({
     dispatch(save(id, prunedFormData));
   };
 
+  const onUploadDocument = (file: File): Promise<string | undefined> =>
+    dispatch(uploadDocument(type, id, file)) as unknown as Promise<
+      string | undefined
+    >;
+
   const resetToLastUpdate = () => {
     setFormData(preRevisionFormDataRef.current ?? data?.toJS());
     preRevisionFormDataRef.current = null;
@@ -208,37 +227,48 @@ const CommonEditor = ({
         dispatch={dispatch}
       />
 
-      <ConfigProvider componentSize="small">
-        <Form
-          ref={formRef}
-          schema={schema}
-          validator={validator}
-          formData={formData}
-          extraErrors={extraErrors}
-          readonly={isViewingRevision}
-          onChange={({ formData: nextFormData }) => onFormChange(nextFormData)}
-          uiSchema={uiSchema}
-          templates={{
-            ObjectFieldTemplate: DefaultObjectFieldTemplate,
-            ArrayFieldTemplate: DefaultArrayFieldTemplate,
-            ArrayFieldItemTemplate: DefaultArrayFieldItemTemplate,
-            FieldTemplate: DefaultFieldTemplate,
-            ErrorListTemplate,
-          }}
-          widgets={{
-            institutionAutocomplete: InstitutionAutocompleteWidget,
-            projectNameAutocomplete: ProjectNameAutocompleteWidget,
-            viewRecordWidget: ViewRecordWidget,
-            enumMultiSelect: EnumMultiSelectWidget,
-            toggle: ToggleWidget,
-          }}
-          className="editor-form"
-          experimental_defaultFormStateBehavior={{
-            arrayMinItems: { populate: 'requiredOnly' },
-          }}
-          noHtml5Validate
-        />
-      </ConfigProvider>
+      <DocumentUploadContext.Provider value={onUploadDocument}>
+        <EditorTabContext.Provider value={{ activeTab, setActiveTab }}>
+          <ConfigProvider componentSize="small">
+            <Form
+              ref={formRef}
+              schema={schema}
+              validator={validator}
+              formData={formData}
+              extraErrors={extraErrors}
+              readonly={isViewingRevision}
+              onChange={({ formData: nextFormData }) =>
+                onFormChange(nextFormData)
+              }
+              uiSchema={getUiSchema?.(formData) ?? uiSchema}
+              templates={{
+                ObjectFieldTemplate: DefaultObjectFieldTemplate,
+                ArrayFieldTemplate: DefaultArrayFieldTemplate,
+                ArrayFieldItemTemplate: DefaultArrayFieldItemTemplate,
+                FieldTemplate: DefaultFieldTemplate,
+                BaseInputTemplate: WrappingInputTemplate,
+                ErrorListTemplate,
+              }}
+              widgets={{
+                institutionAutocomplete: InstitutionAutocompleteWidget,
+                projectNameAutocomplete: ProjectNameAutocompleteWidget,
+                abstractSourceAutocomplete: AbstractSourceAutocompleteWidget,
+                journalTitleAutocomplete: JournalTitleAutocompleteWidget,
+                latexTextarea: LatexTextareaWidget,
+                recordRef: RecordRefWidget,
+                viewRecordWidget: ViewRecordWidget,
+                enumMultiSelect: EnumMultiSelectWidget,
+                toggle: ToggleWidget,
+              }}
+              className="editor-form"
+              experimental_defaultFormStateBehavior={{
+                arrayMinItems: { populate: 'requiredOnly' },
+              }}
+              noHtml5Validate
+            />
+          </ConfigProvider>
+        </EditorTabContext.Provider>
+      </DocumentUploadContext.Provider>
     </div>
   );
 };

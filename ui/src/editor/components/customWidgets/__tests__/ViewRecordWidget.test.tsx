@@ -15,4 +15,12 @@ describe('<ViewRecordWidget />', () => {
       screen.getByRole('link', { name: 'View institution' })
     ).toHaveAttribute('href', `${window.location.origin}/institutions/902725`);
   });
+
+  it('should render nothing when the value is not a record URL', () => {
+    const { container } = render(
+      <ViewRecordWidget {...buildWidgetProps()} value="abc" />
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
 });
