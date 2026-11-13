@@ -23,6 +23,7 @@ def get_references(f):
     """Extract references from LaTeX string (whole file)"""
 
     references = {}
+    # A % starts a comment unless it is escaped by an odd number of backslashes.
     cstrip = re.compile(r"(?<!\\)((?:\\\\)*)%.*$", re.M)
 
     for num, line in enumerate(f, 1):
