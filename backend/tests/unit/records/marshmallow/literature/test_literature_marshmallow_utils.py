@@ -4,7 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.records.marshmallow.literature.utils import latex_encode
+from inspirehep.records.marshmallow.literature.utils import (
+    get_documents_without_error_field,
+    latex_encode,
+)
 
 
 def test_latex_encode_returns_none_when_input_is_none():
@@ -84,3 +87,32 @@ def test_latex_encodes_joao():
     expected = r"Jo{\~a}o"
 
     assert expected == latex_encode(text, contains_math=True)
+
+
+def test_get_documents_without_error_field_excludes_hidden_documents():
+    data = {
+        "documents": [
+            {"key": "visible", "hidden": False},
+            {"key": "hidden", "hidden": True},
+            {"key": "without_hidden_field"},
+        ]
+    }
+
+    result = get_documents_without_error_field(data)
+
+    assert result == [
+        {"key": "visible", "hidden": False},
+        {"key": "without_hidden_field"},
+    ]
+
+
+def test_get_documents_without_error_field_removes_error_field():
+    data = {
+        "documents": [
+            {"key": "document", "_error": "some error"},
+        ]
+    }
+
+    result = get_documents_without_error_field(data)
+
+    assert result == [{"key": "document"}]

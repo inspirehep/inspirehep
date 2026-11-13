@@ -190,7 +190,7 @@ def get_documents_without_error_field(data):
     documents = data.get("documents", [])
     non_hidden_documents = []
     for document in documents:
-        if "hidden" in document:
+        if document.get("hidden") is True:
             continue
         if "_error" in document:
             del document["_error"]
