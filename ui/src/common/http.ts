@@ -1,6 +1,7 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_created_at", "_updated_at"] }] */
 import axios, {
   AxiosRequestConfig,
+  AxiosResponse,
   CancelTokenSource,
   InternalAxiosRequestConfig,
 } from 'axios';
@@ -53,9 +54,22 @@ export class HttpClientWrapper {
     return config;
   }
 
+  // axios `settle` resolves responses with `status === 0` (the request ended
+  // without a real HTTP response). Firefox does this for in-flight requests
+  // when the page is left (reload / Back) without firing an error event.
+  private static handleEmptyStatusInterceptor(response: AxiosResponse) {
+    if (response.status === 0) {
+      return new Promise<AxiosResponse>(() => {});
+    }
+    return response;
+  }
+
   private setupInterceptors() {
     this.httpClient.interceptors.request.use(
       HttpClientWrapper.handleRequestUrlInterceptor
+    );
+    this.httpClient.interceptors.response.use(
+      HttpClientWrapper.handleEmptyStatusInterceptor
     );
   }
 

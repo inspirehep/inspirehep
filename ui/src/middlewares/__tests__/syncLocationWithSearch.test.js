@@ -238,6 +238,27 @@ describe('syncLocationWithSearch middleware', () => {
       expect(mockDispatch).not.toHaveBeenCalledWith(newSearch(namespace));
     });
 
+    it('does not dispatch newSearch if previous pathname only starts with a search pathname (ex: /literaturesearch)', () => {
+      const location = {
+        pathname: `${LITERATURE}search`,
+        search: '?query=foo',
+        query: { query: 'foo' },
+      };
+      const router = { location };
+      const getState = () => ({ router });
+      const mockDispatch = jest.fn();
+      const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
+        (action) => action
+      );
+
+      testMiddleware({
+        type: LOCATION_CHANGE,
+        payload: { location: { pathname: '/errors' } },
+      });
+
+      expect(mockDispatch).not.toHaveBeenCalled();
+    });
+
     it('does not dispatch SEARCH_QUERY_UPDATE if pathame is not search page but location query is not sync with search namespace query', () => {
       const namespace = LITERATURE_NS;
       const location = {
