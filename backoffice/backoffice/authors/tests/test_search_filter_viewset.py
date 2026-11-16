@@ -1,6 +1,5 @@
 import contextlib
 
-import unittest
 import dateutil
 import dateutil.parser
 import opensearchpy
@@ -141,6 +140,67 @@ class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         for item in results:
             assert item["workflow_type"] == AuthorWorkflowType.AUTHOR_CREATE
 
+    def test_facets_shape(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint)
+        facets = response.json()["facets"]
+
+        status_buckets = facets["_filter_status"]["status"]["buckets"]
+        assert status_buckets == [
+            {"key": AuthorStatusChoices.APPROVAL, "doc_count": 1},
+            {"key": AuthorStatusChoices.RUNNING, "doc_count": 1},
+        ]
+
+        [workflow_type_bucket] = facets["_filter_workflow_type"]["workflow_type"][
+            "buckets"
+        ]
+        assert workflow_type_bucket["key"] == AuthorWorkflowType.AUTHOR_CREATE
+        assert workflow_type_bucket["doc_count"] == 2
+        assert {
+            bucket["key"]: bucket["doc_count"]
+            for bucket in workflow_type_bucket["status"]["buckets"]
+        } == {AuthorStatusChoices.APPROVAL: 1, AuthorStatusChoices.RUNNING: 1}
+
+    def test_filter_status_repeated_values(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={
+                "status": [AuthorStatusChoices.RUNNING, AuthorStatusChoices.APPROVAL]
+            },
+        )
+        results = response.json()["results"]
+        assert {item["status"] for item in results} == {
+            AuthorStatusChoices.RUNNING,
+            AuthorStatusChoices.APPROVAL,
+        }
+
+    def test_pagination_links(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        first_page = self.api_client.get(self.endpoint, data={"size": 1}).json()
+        assert first_page["count"] == 2
+        assert len(first_page["results"]) == 1
+        assert first_page["previous"] is None
+        assert "page=2" in first_page["next"]
+
+        second_page = self.api_client.get(
+            self.endpoint, data={"size": 1, "page": 2}
+        ).json()
+        assert len(second_page["results"]) == 1
+        assert second_page["previous"] is not None
+        assert second_page["next"] is None
+        assert second_page["results"][0]["id"] != first_page["results"][0]["id"]
+
+    @parameterized.expand(["3", "0", "abc"])
+    def test_invalid_page_returns_404(self, page):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint, data={"size": 1, "page": page})
+        assert response.status_code == 404
+
     @parameterized.expand([None, "-_updated_at"])
     def test_ordering_updated_at(self, ordering):
         self.api_client.force_authenticate(user=self.admin)
@@ -162,24 +222,20 @@ class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 assert cur_date < previous_date
             previous_date = cur_date
 
-    @unittest.skip(
-        "This is wrong. Only works because of 2 vs 1 value in name. The boosts are not applied."
+    @parameterized.expand(
+        [
+            ("-_score", ["Frank Castle", "John Smith"]),
+            ("_score", ["John Smith", "Frank Castle"]),
+        ]
     )
-    def test_ordering_score(self):
+    def test_ordering_score(self, ordering, expected_names):
         self.api_client.force_authenticate(user=self.admin)
 
-        search_str = "search=Frank Castle^10 OR John^6"
-
-        url = self.endpoint + f"?ordering=_score&{search_str}"
-        response = self.api_client.get(url)
-        self.assertEqual(
-            response.json()["results"][0]["data"]["name"]["preferred_name"],
-            "John Smith",
+        response = self.api_client.get(
+            self.endpoint,
+            data={"search": "Frank Castle John", "ordering": ordering},
         )
-
-        url = self.endpoint + f"?ordering=-_score&{search_str}"
-        response = self.api_client.get(url)
-        self.assertEqual(
-            response.json()["results"][0]["data"]["name"]["preferred_name"],
-            "Frank Castle",
-        )
+        assert [
+            item["data"]["name"]["preferred_name"]
+            for item in response.json()["results"]
+        ] == expected_names
