@@ -129,7 +129,6 @@ jobs:
           DJANGO_READ_DOT_ENV_FILE=False
           REDIS_URL=redis://localhost:6379/4
           CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
-          CELERY_RESULT_BACKEND=redis://localhost:6379/5
           CELERY_TASK_ALWAYS_EAGER=True
           POSTGRES_HOST=localhost
           POSTGRES_PORT=5433

@@ -29,7 +29,7 @@ def trigger_hep_workflow_initialization(workflow_id, workflow_type):
     return airflow_utils.trigger_airflow_dag(dag_id, workflow_id)
 
 
-@celery_app.task(soft_time_limit=30 * 60, time_limit=31 * 60, ignore_result=True)
+@celery_app.task(soft_time_limit=30 * 60, time_limit=31 * 60)
 def batch_resolve_workflows(data):
     """Clear the requested Airflow task for each workflow in a batch.
 
