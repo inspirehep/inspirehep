@@ -10,25 +10,17 @@ from drf_spectacular.utils import (
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from django_elasticsearch_dsl_drf.filter_backends import (
-    CompoundSearchFilterBackend,
-    DefaultOrderingFilterBackend,
-    FacetedSearchFilterBackend,
-    FilteringFilterBackend,
-    OrderingFilterBackend,
-)
-from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
-from backoffice.utils.pagination import OSStandardResultsSetPagination
-from opensearch_dsl import TermsFacet
 from backoffice.authors.utils import add_author_decision, is_another_author_running
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
-    AuthorWorkflowDocumentSerializer,
     AuthorWorkflowSerializer,
     AuthorWorkflowTicketSerializer,
 )
-from backoffice.common.views import BaseWorkflowTicketViewSet
+from backoffice.common.views import (
+    BaseWorkflowSearchViewSet,
+    BaseWorkflowTicketViewSet,
+)
 from backoffice.authors.constants import (
     AuthorResolutionDags,
     AuthorStatusChoices,
@@ -336,6 +328,7 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
     list=extend_schema(
         summary="Search with opensearch",
         description="text",
+        responses=OpenApiTypes.OBJECT,
         parameters=[
             OpenApiParameter(
                 name="search",
@@ -370,7 +363,7 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
         ],
     ),
 )
-class AuthorWorkflowDocumentView(BaseDocumentViewSet):
+class AuthorWorkflowDocumentView(BaseWorkflowSearchViewSet):
     renderer_classes = (
         JSONRenderer,
         BackofficeUIRenderer,
@@ -378,27 +371,14 @@ class AuthorWorkflowDocumentView(BaseDocumentViewSet):
         BackofficeUIBrowsableRenderer,
     )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.search = self.search.extra(track_total_hits=True)
-
     document = AuthorWorkflowDocument
-    serializer_class = AuthorWorkflowDocumentSerializer
-    pagination_class = OSStandardResultsSetPagination
-    filter_backends = [
-        DefaultOrderingFilterBackend,
-        CompoundSearchFilterBackend,
-        FacetedSearchFilterBackend,
-        FilteringFilterBackend,
-        OrderingFilterBackend,
-    ]
-    search_fields = {
+    search_fields = (
         "data.ids.value",
         "data.ids.schema",
         "data.name.value",
         "data.name.preferred_name",
         "data.email_addresses.value",
-    }
+    )
 
     filter_fields = {
         "status": "status",
@@ -412,18 +392,15 @@ class AuthorWorkflowDocumentView(BaseDocumentViewSet):
     faceted_search_fields = {
         "status": {
             "field": "status",
-            "facet": TermsFacet,
             "options": {
                 "size": 10,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "workflow_type": {
             "field": "workflow_type",
-            "facet": TermsFacet,
             "options": {
                 "size": 10,
                 "order": {
@@ -431,6 +408,5 @@ class AuthorWorkflowDocumentView(BaseDocumentViewSet):
                 },
                 "aggs": {"status": {"terms": {"field": "status"}}},
             },
-            "enabled": True,
         },
     }

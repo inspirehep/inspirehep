@@ -1,4 +1,3 @@
-from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 from backoffice.common.serializers import (
@@ -10,7 +9,6 @@ from backoffice.authors.constants import (
     AuthorStatusChoices,
     AuthorWorkflowType,
 )
-from backoffice.authors.documents import AuthorWorkflowDocument
 from backoffice.authors.models import (
     AuthorDecision,
     AuthorWorkflow,
@@ -67,30 +65,6 @@ class AuthorWorkflowSerializer(BaseWorkflowSerializer):
 
     class Meta(BaseWorkflowSerializer.Meta):
         model = AuthorWorkflow
-
-
-@extend_schema_serializer(
-    exclude_fields=[
-        "_created_at",
-        "_updated_at",
-    ],  # Exclude internal fields from schema
-    examples=[
-        OpenApiExample(
-            "Author Workflow Serializer",
-            summary="Author Workflow Serializer no data",
-            description="Author Workflow Serializer",
-            value={
-                "workflow_type": AuthorWorkflowType.AUTHOR_CREATE,
-                "status": AuthorStatusChoices.RUNNING,
-                "data": {},
-            },
-        ),
-    ],
-)
-class AuthorWorkflowDocumentSerializer(DocumentSerializer):
-    class Meta:
-        document = AuthorWorkflowDocument
-        fields = "__all__"
 
 
 @extend_schema_serializer(
