@@ -103,8 +103,6 @@ services:
       context: backoffice
       dockerfile: Dockerfile
     depends_on:
-      cache:
-        condition: service_started
       db-backoffice:
         condition: service_started
       es:
