@@ -239,8 +239,6 @@ ALEMBIC_CONTEXT = {
 
 ALEMBIC_SKIP_TABLES = [
     "alembic_version",
-    "crawler_job",
-    "crawler_workflows_object",
     "files_bucket",
     "files_buckettags",
     "files_files",
@@ -252,11 +250,6 @@ ALEMBIC_SKIP_TABLES = [
     "records_buckets",
     "oaiharvester_configs",
     "transaction",
-    "workflows_audit_logging",
-    "workflows_buckets",
-    "workflows_object",
-    "workflows_pending_record",
-    "workflows_workflow",
 ]
 
 SEARCH_MAX_RECURSION_LIMIT = 5000
