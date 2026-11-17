@@ -11,6 +11,7 @@ import structlog
 from celery import shared_task
 from celery.signals import setup_logging, task_failure, task_postrun, task_prerun
 from inspirehep.utils import get_failure_message_by_task, send_zulip_notification
+from sqlalchemy.orm.exc import StaleDataError
 from structlog_sentry import SentryJsonProcessor
 
 # Sentry
@@ -145,4 +146,6 @@ def log_error(
         args = ()
     if kwargs is None:
         kwargs = {}
+    if isinstance(exception, StaleDataError):
+        return
     send_zulip_notification_async.delay(task_name, exception_message, *args, **kwargs)
