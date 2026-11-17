@@ -7,7 +7,9 @@
 from unittest import mock
 
 from flask import Flask
+from inspirehep.logger.config import log_error
 from inspirehep.logger.ext import InspireLogger
+from sqlalchemy.orm.exc import StaleDataError
 
 
 @mock.patch("inspirehep.logger.ext.sentry_sdk.init")
@@ -58,3 +60,41 @@ def test_ext_without_prometheus_flask_metrics(mock_prometheus_metrics):
     )
     InspireLogger(app)
     mock_prometheus_metrics.assert_not_called()
+
+
+@mock.patch("inspirehep.logger.config.send_zulip_notification_async.delay")
+def test_log_error_sends_zulip_notification(mock_send_zulip_notification):
+    sender = mock.Mock()
+    sender.name = "inspirehep.indexer.tasks.index_record"
+
+    log_error(
+        sender=sender,
+        task_id="123",
+        exception=ValueError("boom"),
+        args=(),
+        kwargs={"uuid": "abc"},
+    )
+
+    mock_send_zulip_notification.assert_called_once_with(
+        "inspirehep.indexer.tasks.index_record",
+        "builtins.ValueError - boom",
+        uuid="abc",
+    )
+
+
+@mock.patch("inspirehep.logger.config.send_zulip_notification_async.delay")
+def test_log_error_skips_zulip_notification_for_stale_data_error(
+    mock_send_zulip_notification,
+):
+    sender = mock.Mock()
+    sender.name = "inspirehep.indexer.tasks.index_record"
+
+    log_error(
+        sender=sender,
+        task_id="123",
+        exception=StaleDataError(),
+        args=(),
+        kwargs={"uuid": "abc"},
+    )
+
+    mock_send_zulip_notification.assert_not_called()
