@@ -7,6 +7,7 @@ Example:
     ...     stuck_hep_statuses=[HepStatusChoices.ERROR],
     ...     workflow_types=[HepWorkflowType.HEP_CREATE, HepWorkflowType.HEP_UPDATE],
     ... )
+    >>> restart_stuck_workflows(from_date="2026-11-01", to_date="2026-11-15")
 
     >>> from backoffice.management.maintenance import restart_resolved_workflows
     >>> restart_resolved_workflows()
@@ -22,6 +23,7 @@ Example:
 import logging
 import time
 from copy import deepcopy
+from datetime import datetime
 
 from requests.exceptions import RequestException
 
@@ -42,6 +44,11 @@ logger = logging.getLogger(__name__)
 STUCK_HEP_STATUSES = [HepStatusChoices.ERROR]
 RESOLVED_HEP_STATUSES = [HepStatusChoices.RUNNING]
 WORKFLOW_TYPES = [HepWorkflowType.HEP_CREATE]
+DATE_FORMAT = "%Y-%m-%d"
+
+
+def _parse_date(value):
+    return datetime.strptime(value, DATE_FORMAT).date() if value else None
 
 
 def restart_stuck_workflows(
@@ -50,6 +57,8 @@ def restart_stuck_workflows(
     batch_size=30,
     sleep_between_batches=10,
     only_failed=True,
+    from_date=None,
+    to_date=None,
 ):
     """Restart stuck HEP workflows by clearing their initialize DAG run.
 
@@ -58,7 +67,13 @@ def restart_stuck_workflows(
     :param batch_size: how many workflows to restart before sleeping
     :param sleep_between_batches: seconds to sleep between batches
     :param only_failed: restart only the failed/current task instead of from scratch
+    :param from_date: only workflows last updated on or after this date,
+        as YYYY-MM-DD (inclusive)
+    :param to_date: only workflows last updated on or before this date,
+        as YYYY-MM-DD (inclusive)
     """
+    from_date = _parse_date(from_date)
+    to_date = _parse_date(to_date)
     stuck_hep_statuses = stuck_hep_statuses or STUCK_HEP_STATUSES
     workflow_types = workflow_types or WORKFLOW_TYPES
 
@@ -67,19 +82,26 @@ def restart_stuck_workflows(
 
     logger.info(
         "Restarting stuck workflows: statuses=%s types=%s "
-        "batch_size=%s sleep=%ss only_failed=%s",
+        "batch_size=%s sleep=%ss only_failed=%s from=%s to=%s",
         statuses,
         types,
         batch_size,
         sleep_between_batches,
         only_failed,
+        from_date,
+        to_date,
     )
 
     failed = []
     for workflow_type in types:
         workflows = HepWorkflow.objects.filter(
             status__in=statuses, workflow_type=workflow_type
-        ).order_by("id")
+        )
+        if from_date:
+            workflows = workflows.filter(_updated_at__date__gte=from_date)
+        if to_date:
+            workflows = workflows.filter(_updated_at__date__lte=to_date)
+        workflows = workflows.order_by("id")
 
         total = workflows.count()
         logger.info("Found %s stuck workflow(s) of type %s", total, workflow_type)
