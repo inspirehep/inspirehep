@@ -75,3 +75,31 @@ export function notifyDocumentUploadError(error: string) {
     description: error,
   });
 }
+
+export function notifyReferencesExtractionSuccess(count: number) {
+  notification.success({
+    title: 'Success',
+    description: `${count} references extracted.`,
+  });
+}
+
+export function notifyReferencesExtractionError() {
+  notification.error({
+    title: 'Error',
+    description: 'Could not extract references',
+  });
+}
+
+export function notifyReferencesLinkingSuccess() {
+  notification.success({
+    title: 'Success',
+    description: 'References are linked.',
+  });
+}
+
+export function notifyReferencesLinkingError() {
+  notification.error({
+    title: 'Error',
+    description: 'Could not link references',
+  });
+}

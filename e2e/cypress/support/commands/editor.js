@@ -41,7 +41,7 @@ Cypress.Commands.add("addPositionAtCern", (index, endDate, rank) => {
 });
 
 Cypress.Commands.add("addAward", (index, name, year) => {
-  cy.get('[data-testid="awards"]').click();
+  cy.get('[data-testid="awards (0)"]').click();
   cy.contains(
     ".ant-dropdown:not(.ant-dropdown-hidden) button",
     "Add new",

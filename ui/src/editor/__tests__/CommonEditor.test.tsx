@@ -1,12 +1,14 @@
 import { within, screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 import { authorWithSchema } from './authorWithSchemaFixture';
 import CommonEditor from '../components/CommonEditor';
 import prepareAuthorSchema from '../utils/prepareAuthorSchema';
 import { renderWithProviders } from '../../fixtures/render';
 import authorUiSchema from '../uiSchema/authorUiSchema';
+import TabsObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/TabsObjectFieldTemplate';
+import referencesUiSchema from '../uiSchema/literature/referencesUiSchema';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -120,6 +122,69 @@ describe('<CommonEditor />', () => {
       await user.click(screen.getByRole('button', { name: /undo/i }));
       expect(input).toHaveFocus();
       expect(input).toHaveValue(initialValue);
+    });
+  });
+
+  describe('references requests', () => {
+    const referencesSchema = {
+      type: 'object',
+      properties: {
+        references: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              reference: {
+                type: 'object',
+                properties: { label: { type: 'string' } },
+              },
+            },
+          },
+        },
+      },
+    } as any;
+
+    it('should make the form read-only while linking references and restore it afterwards', async () => {
+      const user = userEvent.setup();
+      let resolveRequest: (value: unknown) => void = () => {};
+      const dispatch = vi.fn(
+        () =>
+          new Promise((resolve) => {
+            resolveRequest = resolve;
+          })
+      );
+      renderWithProviders(
+        <CommonEditor
+          {...baseCommonEditorProps}
+          data={
+            fromJS({ references: [{ reference: { label: '1' } }] }) as Map<
+              string,
+              any
+            >
+          }
+          schema={referencesSchema}
+          uiSchema={{
+            'ui:ObjectFieldTemplate': TabsObjectFieldTemplate,
+            'ui:options': {
+              tabs: [{ name: 'References', properties: ['references'] }],
+            },
+            references: referencesUiSchema,
+          }}
+          dispatch={dispatch as any}
+        />
+      );
+      await user.click(screen.getByRole('tab', { name: /References/ }));
+      const item = screen.getByTestId('list-item');
+      await user.click(within(item).getByRole('button', { expanded: false }));
+      const getLabel = () => within(item).getByRole('textbox');
+      expect(getLabel()).toBeEnabled();
+
+      await user.click(screen.getByRole('button', { name: /Refresh to link/ }));
+      expect(getLabel()).toBeDisabled();
+      expect(dispatch).toHaveBeenCalledTimes(1);
+
+      await act(async () => resolveRequest(undefined));
+      expect(getLabel()).toBeEnabled();
     });
   });
 });
