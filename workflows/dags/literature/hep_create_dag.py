@@ -132,6 +132,10 @@ from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
 
+# arXiv eprints rejected in inspire-next are not known to the backoffice, so
+# updates with eprints older than the backoffice release are auto-rejected
+NEXT_DISCONTINUATION_DATE = datetime.datetime(2026, 7, 27)
+
 
 @dag(
     params={
@@ -438,23 +442,19 @@ def hep_create_dag():
 
         eprints = get_value(workflow_data, "data.arxiv_eprints.value", [])
         eprint_value = eprints[0] if eprints else None
-        created_at = workflow_data.get("_created_at")
 
         is_arxiv = workflows.is_arxiv_paper(workflow_data["data"])
-        datetime_created = datetime.datetime.fromisoformat(created_at).replace(
-            tzinfo=None
-        )
 
         is_sub = is_submission(workflow_data)
 
-        is_old_arxiv = False
+        is_arxiv_predating_backoffice = False
         if is_arxiv and eprint_value:
             try:
-                is_old_arxiv = eprint_to_datetime(
-                    eprint_value
-                ) < datetime_created - datetime.timedelta(days=60)
+                is_arxiv_predating_backoffice = (
+                    eprint_to_datetime(eprint_value) < NEXT_DISCONTINUATION_DATE
+                )
             except ValueError:
-                is_old_arxiv = False
+                is_arxiv_predating_backoffice = False
 
         is_update = s3_store.get_flag("is-update", workflow_id)
         is_auto_approved = s3_store.get_flag("auto-approved", workflow_id)
@@ -464,16 +464,22 @@ def hep_create_dag():
             )
         )
 
-        is_likely_duplicate_of_rejection = (
+        is_duplicate_of_rejected_workflow = (
             not is_auto_approved and has_rejected_duplicate
         )
         should_auto_reject = (
             not is_update
             and not is_sub
-            and (is_likely_duplicate_of_rejection or is_old_arxiv)
+            and (is_duplicate_of_rejected_workflow or is_arxiv_predating_backoffice)
         )
 
         if should_auto_reject:
+            reason = (
+                "previously rejected workflow with same source"
+                if is_duplicate_of_rejected_workflow
+                else f"arXiv eprint {eprint_value} predates backoffice release"
+            )
+            logger.info("Auto-rejecting workflow: %s", reason)
             workflow_management_hook.add_decision(
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_AUTO_REJECT},

@@ -572,6 +572,39 @@ class Test_HEPCreateDAG:
         assert result == "save_and_complete_workflow"
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
+    @patch(
+        "include.utils.workflows.has_previously_rejected_wf_in_backoffice_w_same_source",
+        return_value=False,
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_check_if_previously_rejected_false_arxiv_after_release(
+        self, mock_add_decision, mock_has_previously_rejected
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A title"}],
+                "arxiv_eprints": [{"value": "2609.01123"}],
+                "acquisition_source": {
+                    "source": "arXiv",
+                    "method": "hepcrawl",
+                },
+            },
+            "_created_at": "2026-11-02T00:00:00.000Z",
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False},
+            self.workflow_id,
+        )
+
+        result = task_test(self.dag, "check_if_previously_rejected", self.context)
+
+        assert result == "preprocessing"
+        mock_add_decision.assert_not_called()
+
     @pytest.mark.vcr
     def test_check_if_previously_rejected_false(self):
         workflow_data = {
