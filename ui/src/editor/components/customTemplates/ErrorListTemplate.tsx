@@ -2,11 +2,14 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { ErrorListProps } from '@rjsf/utils';
 import { Alert, Button } from 'antd';
 import { useState } from 'react';
+import { flushSync } from 'react-dom';
+import { getTabNameForErrorPath, useEditorTab } from '../../EditorTabContext';
 
 const ID_PREFIX = 'root';
 const ID_SEPARATOR = '_';
 
-function ErrorListTemplate({ errors }: ErrorListProps) {
+function ErrorListTemplate({ errors, uiSchema }: ErrorListProps) {
+  const { setActiveTab } = useEditorTab();
   const [isExtended, setIsExtended] = useState(false);
   const errorsToBeDisplayed = errors.filter((error) => error.name !== 'if');
   const numberOfErrors = errorsToBeDisplayed.length;
@@ -21,6 +24,11 @@ function ErrorListTemplate({ errors }: ErrorListProps) {
   };
 
   function focusField(property: string) {
+    flushSync(() =>
+      setActiveTab(
+        getTabNameForErrorPath(uiSchema?.['ui:options']?.tabs, property)
+      )
+    );
     const field = convertErrorPropertyToField(property);
     if (field) {
       field.scrollIntoView({ behavior: 'smooth', block: 'center' });

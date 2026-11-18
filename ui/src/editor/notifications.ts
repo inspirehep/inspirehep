@@ -49,3 +49,29 @@ export function notifyParallelEdition(message: string) {
     placement: 'bottomRight',
   });
 }
+
+const DOCUMENT_UPLOAD_NOTIFICATION_KEY = 'editor-document-upload';
+
+export function notifyDocumentUploadInProgress(filename: string) {
+  notification.info({
+    key: DOCUMENT_UPLOAD_NOTIFICATION_KEY,
+    title: 'In progress',
+    description: `Uploading ${filename}`,
+  });
+}
+
+export function notifyDocumentUploadSuccess(filename: string) {
+  notification.success({
+    key: DOCUMENT_UPLOAD_NOTIFICATION_KEY,
+    title: 'Success',
+    description: `${filename} uploaded successfully`,
+  });
+}
+
+export function notifyDocumentUploadError(error: string) {
+  notification.error({
+    key: DOCUMENT_UPLOAD_NOTIFICATION_KEY,
+    title: 'Unable to upload the file',
+    description: error,
+  });
+}

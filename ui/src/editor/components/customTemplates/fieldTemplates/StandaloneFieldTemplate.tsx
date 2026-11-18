@@ -1,5 +1,5 @@
 import { FieldTemplateProps } from '@rjsf/utils';
-import ActionsDropdown from '../ActionsDropdown';
+import LabelWithActions from '../LabelWithActions';
 
 function StandaloneFieldTemplate({
   label,
@@ -12,7 +12,7 @@ function StandaloneFieldTemplate({
   return (
     <div className="editor-field">
       <div className="editor-field__label">
-        <ActionsDropdown
+        <LabelWithActions
           canAdd={false}
           onRemoveClick={() => onChange(undefined, fieldPathId.path)}
           disabled={readonly ?? false}
