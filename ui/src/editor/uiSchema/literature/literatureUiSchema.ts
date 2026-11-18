@@ -7,6 +7,7 @@ import ObjectPropertyFieldTemplate from '../../components/customTemplates/fieldT
 import DisplayAsListArrayFieldTemplate from '../../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldTemplate';
 import DisplayAsListArrayFieldItemTemplate from '../../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldItemTemplate';
 import ArrayItemObjectFieldTemplate from '../../components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
+import referencesUiSchema from './referencesUiSchema';
 import { ISO_LANGUAGE_MAP } from '../../constants/isoLanguageMap';
 
 const literatureUiSchema: UiSchema = {
@@ -485,6 +486,7 @@ const literatureUiSchema: UiSchema = {
       },
     },
   },
+  references: referencesUiSchema,
   related_records: {
     'ui:title': 'related records',
     items: {

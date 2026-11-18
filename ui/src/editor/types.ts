@@ -107,3 +107,12 @@ export const toExtraErrors = (
   });
   return extraErrors;
 };
+
+export interface ToolbarActionsProps {
+  formData: any[];
+  onChange: (value: any[] | undefined) => void;
+  readonly: boolean;
+  onReset?: () => void;
+}
+
+export type Reference = Record<string, any>;
