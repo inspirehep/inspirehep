@@ -1,7 +1,6 @@
 import codecs
 from copy import deepcopy
 
-from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 from backoffice.common.serializers import (
@@ -15,7 +14,6 @@ from backoffice.hep.constants import (
     HepStatusChoices,
     HEP_DECISION_CHOICES,
 )
-from backoffice.hep.documents import HepWorkflowDocument
 from backoffice.hep.models import (
     HepDecision,
     HepWorkflow,
@@ -141,30 +139,6 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         if not request:
             raise RuntimeError("Request required to build callback URL")
         return request.build_absolute_uri(path)
-
-
-@extend_schema_serializer(
-    exclude_fields=[
-        "_created_at",
-        "_updated_at",
-    ],  # Exclude internal fields from schema
-    examples=[
-        OpenApiExample(
-            "Hep Workflow Serializer",
-            summary="Hep Workflow Serializer no data",
-            description="Hep Workflow Serializer",
-            value={
-                "workflow_type": HepWorkflowType.HEP_CREATE,
-                "status": HepStatusChoices.RUNNING,
-                "data": {},
-            },
-        ),
-    ],
-)
-class HepWorkflowDocumentSerializer(DocumentSerializer):
-    class Meta:
-        document = HepWorkflowDocument
-        fields = "__all__"
 
 
 HEP_SEARCH_RESULT_DATA_FIELDS = (
