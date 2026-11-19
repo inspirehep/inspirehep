@@ -1,14 +1,7 @@
 from django.core.paginator import InvalidPage, Page, Paginator
-from django_elasticsearch_dsl_drf.pagination import QueryFriendlyPageNumberPagination
 from rest_framework.exceptions import NotFound
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-
-
-class OSStandardResultsSetPagination(QueryFriendlyPageNumberPagination):
-    page_size = 10
-    page_size_query_param = "size"
-    max_page_size = 250
 
 
 class OSSearchResultsSetPagination(PageNumberPagination):

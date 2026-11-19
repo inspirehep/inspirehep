@@ -15,7 +15,7 @@ from django.conf import settings
 from backoffice.common.utils import get_index_for_document
 from backoffice.common.tests.base import BaseTransactionTestCase
 from backoffice.common.constants import APPLICATION_VND_INSPIREHEP_JSON
-from backoffice.utils.pagination import OSStandardResultsSetPagination
+from backoffice.utils.pagination import OSSearchResultsSetPagination
 
 from django.apps import apps
 
@@ -129,6 +129,90 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         assert "_filter_decision" in response.json()["facets"]
         assert "_filter_source" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
+
+    def test_facets_shape(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint)
+        facets = response.json()["facets"]
+
+        assert facets["_filter_status"]["status"]["buckets"] == [
+            {"key": HepStatusChoices.APPROVAL, "doc_count": 1},
+            {"key": HepStatusChoices.RUNNING, "doc_count": 5},
+        ]
+        assert facets["_filter_subject"]["subject"]["buckets"] == [
+            {"key": "Astrophysics", "doc_count": 1},
+            {"key": "Experiment-HEP", "doc_count": 1},
+            {"key": "Phenomenology-HEP", "doc_count": 1},
+            {"key": "Theory-HEP", "doc_count": 3},
+        ]
+        assert facets["_filter_decision"]["decision"]["buckets"] == [
+            {"key": "CORE", "doc_count": 4},
+            {"key": "REJECTED", "doc_count": 2},
+        ]
+
+        [workflow_type_bucket] = facets["_filter_workflow_type"]["workflow_type"][
+            "buckets"
+        ]
+        assert workflow_type_bucket["key"] == HepWorkflowType.HEP_CREATE
+        assert workflow_type_bucket["doc_count"] == 6
+        assert {
+            bucket["key"]: bucket["doc_count"]
+            for bucket in workflow_type_bucket["status"]["buckets"]
+        } == {HepStatusChoices.APPROVAL: 1, HepStatusChoices.RUNNING: 5}
+
+    def test_filter_subject_repeated_values(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        subjects = ["Astrophysics", "Experiment-HEP"]
+        response = self.api_client.get(self.endpoint, data={"subject": subjects})
+        results = response.json()["results"]
+
+        assert len(results) == 2
+        assert {item["data"]["inspire_categories"][0]["term"] for item in results} == (
+            set(subjects)
+        )
+
+    def test_filter_status_repeated_values(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"status": [HepStatusChoices.RUNNING, HepStatusChoices.APPROVAL]},
+        )
+        payload = response.json()
+
+        assert payload["count"] == 6
+        assert {item["status"] for item in payload["results"]} == {
+            HepStatusChoices.RUNNING,
+            HepStatusChoices.APPROVAL,
+        }
+
+    def test_pagination_links(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        first_page = self.api_client.get(self.endpoint, data={"size": 4}).json()
+        assert first_page["count"] == 6
+        assert len(first_page["results"]) == 4
+        assert first_page["previous"] is None
+        assert "page=2" in first_page["next"]
+
+        second_page = self.api_client.get(
+            self.endpoint, data={"size": 4, "page": 2}
+        ).json()
+        assert len(second_page["results"]) == 2
+        assert second_page["previous"] is not None
+        assert second_page["next"] is None
+        assert not {item["id"] for item in first_page["results"]} & {
+            item["id"] for item in second_page["results"]
+        }
+
+    @parameterized.expand(["3", "0", "abc"])
+    def test_invalid_page_returns_404(self, page):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint, data={"size": 4, "page": page})
+        assert response.status_code == 404
 
     def test_ui_format_response_shape(self):
         self.api_client.force_authenticate(user=self.admin)
@@ -299,7 +383,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_size_query_param_is_capped_by_max_page_size(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        with patch.object(OSStandardResultsSetPagination, "max_page_size", 3):
+        with patch.object(OSSearchResultsSetPagination, "max_page_size", 3):
             response = self.api_client.get(
                 self.endpoint,
                 data={"size": 100, "status": HepStatusChoices.RUNNING},

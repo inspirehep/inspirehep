@@ -17,7 +17,6 @@ from backoffice.hep.utils import (
 )
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
-    HepWorkflowDocumentSerializer,
     HepWorkflowTicketSerializer,
     HepDecisionSerializer,
     HepResolutionSerializer,
@@ -25,12 +24,13 @@ from backoffice.hep.api.serializers import (
     ManualMergeWorkflowSerializer,
 )
 from rest_framework.decorators import action
-from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
+from backoffice.common.views import (
+    BaseWorkflowSearchViewSet,
+    BaseWorkflowTicketViewSet,
+    BaseWorkflowViewSet,
+)
 from backoffice.hep.models import HepWorkflowTicket, HepDecision, HepWorkflow
 from backoffice.hep.documents import HepWorkflowDocument
-from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
-from backoffice.utils.pagination import OSStandardResultsSetPagination
-from opensearch_dsl import TermsFacet
 from drf_spectacular.utils import (
     OpenApiExample,
     OpenApiParameter,
@@ -52,13 +52,6 @@ from backoffice.hep.api.renderers import (
     HepBackofficeUIRenderer,
 )
 from backoffice.hep.tasks import trigger_hep_workflow_initialization
-from django_elasticsearch_dsl_drf.filter_backends import (
-    CompoundSearchFilterBackend,
-    DefaultOrderingFilterBackend,
-    FacetedSearchFilterBackend,
-    FilteringFilterBackend,
-    OrderingFilterBackend,
-)
 from backoffice.hep.constants import (
     ERROR_STATUSES,
     HepStatusChoices,
@@ -379,6 +372,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     list=extend_schema(
         summary="Search with opensearch",
         description="text",
+        responses=OpenApiTypes.OBJECT,
         parameters=[
             OpenApiParameter(
                 name="search",
@@ -447,7 +441,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         ],
     ),
 )
-class HepWorkflowDocumentView(BaseDocumentViewSet):
+class HepWorkflowDocumentView(BaseWorkflowSearchViewSet):
     renderer_classes = (
         JSONRenderer,
         HepBackofficeUIRenderer,
@@ -455,20 +449,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
         HepBackofficeUIBrowsableRenderer,
     )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.search = self.search.extra(track_total_hits=True)
-
     document = HepWorkflowDocument
-    serializer_class = HepWorkflowDocumentSerializer
-    pagination_class = OSStandardResultsSetPagination
-    filter_backends = [
-        DefaultOrderingFilterBackend,
-        CompoundSearchFilterBackend,
-        FacetedSearchFilterBackend,
-        FilteringFilterBackend,
-        OrderingFilterBackend,
-    ]
     search_fields = (
         "data.titles.full_title.search",
         "data.titles.full_title.keyword",
@@ -499,62 +480,51 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
     faceted_search_fields = {
         "status": {
             "field": "status",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "subject": {
             "field": "data.inspire_categories.term",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "journal": {
             "field": "data.publication_info.journal_title.raw",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "decision": {
             "field": "relevance_prediction.decision",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "source": {
             "field": "data.source",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_LARGE,
                 "order": {
                     "_key": "asc",
                 },
             },
-            "enabled": True,
         },
         "workflow_type": {
             "field": "workflow_type",
-            "facet": TermsFacet,
             "options": {
                 "size": FACET_SIZE_MEDIUM,
                 "order": {
@@ -562,6 +532,5 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
                 },
                 "aggs": {"status": {"terms": {"field": "status"}}},
             },
-            "enabled": True,
         },
     }

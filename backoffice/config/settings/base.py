@@ -105,7 +105,6 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.orcid",
     "django_prometheus",
     "django_opensearch_dsl",
-    "django_elasticsearch_dsl_drf",
     "rest_framework_simplejwt",
     "django_json_widget",
 ]
