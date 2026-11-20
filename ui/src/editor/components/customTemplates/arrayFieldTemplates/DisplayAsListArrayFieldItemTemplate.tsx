@@ -1,8 +1,6 @@
 import { ArrayFieldItemTemplateProps } from '@rjsf/utils';
-import { Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { useArrayAddItem } from '../../../ArrayAddItemContext';
 import { ArrayItemRemoveContext } from '../../../ArrayItemRemoveContext';
+import AddElementHereButton from './AddElementHereButton';
 import ReorderButtons from './ReorderButtons';
 
 function DisplayAsListArrayFieldItemTemplate({
@@ -11,26 +9,13 @@ function DisplayAsListArrayFieldItemTemplate({
   readonly,
   index,
 }: ArrayFieldItemTemplateProps) {
-  const addAt = useArrayAddItem()?.addAt;
   const canReorder = buttonsProps.hasMoveUp || buttonsProps.hasMoveDown;
-
   return (
     <>
-      {addAt && (
-        <Button
-          type="link"
-          icon={<PlusOutlined />}
-          onClick={() => addAt(index)}
-          disabled={readonly}
-        >
-          Add new element here
-        </Button>
-      )}
+      <AddElementHereButton index={index} readonly={readonly} />
       <div className="editor-field__item">
         <ArrayItemRemoveContext.Provider
-          value={{
-            remove: buttonsProps.onRemoveItem,
-          }}
+          value={{ remove: buttonsProps.onRemoveItem }}
         >
           {canReorder && (
             <div className="flex justify-end pb1">
