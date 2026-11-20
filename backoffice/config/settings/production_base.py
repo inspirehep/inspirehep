@@ -3,7 +3,6 @@ import logging
 import sentry_sdk
 from sentry_sdk.scrubber import EventScrubber, DEFAULT_DENYLIST
 
-from opensearch_dsl import connections
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -232,9 +231,6 @@ OPENSEARCH_DSL = {
         "url_prefix": "os",
     },
 }
-
-# Workaround because it wont add the connection settings automatically
-connections.configure(default=OPENSEARCH_DSL["default"])
 
 # Allow cookies to be sent in headers
 CORS_ALLOW_CREDENTIALS = True
