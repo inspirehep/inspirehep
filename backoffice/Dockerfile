@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && rm -rf /var/lib/apt/lists/*
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-2.2.1}"
+ENV POETRY_VERSION="${POETRY_VERSION:-2.5.1}"
 RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
