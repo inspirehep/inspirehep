@@ -1,7 +1,7 @@
 import { ArrayFieldTemplateProps, RJSFSchema, UiSchema } from '@rjsf/utils';
 
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
-import LabelWithActions from '../LabelWithActions';
+import ActionsDropdown from '../ActionsDropdown';
 
 function NestedWithHeaderArrayFieldTemplate({
   title,
@@ -27,7 +27,7 @@ function NestedWithHeaderArrayFieldTemplate({
   return (
     <tr>
       <td className="editor-array__row-label">
-        <LabelWithActions
+        <ActionsDropdown
           onAddClick={onAddClick}
           onRemoveClick={() => onFieldChange(undefined)}
           disabled={readonly ?? false}

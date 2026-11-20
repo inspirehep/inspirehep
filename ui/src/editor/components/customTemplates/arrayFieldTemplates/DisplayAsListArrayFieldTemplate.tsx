@@ -1,7 +1,7 @@
 import { ArrayFieldTemplateProps } from '@rjsf/utils';
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
 import { ArrayAddItemContext } from '../../../ArrayAddItemContext';
-import LabelWithActions from '../LabelWithActions';
+import ActionsDropdown from '../ActionsDropdown';
 
 function DisplayAsListArrayFieldTemplate({
   title,
@@ -19,7 +19,7 @@ function DisplayAsListArrayFieldTemplate({
   return (
     <div className="editor-field">
       <div className="editor-field__label">
-        <LabelWithActions
+        <ActionsDropdown
           onAddClick={onAddClick}
           onRemoveClick={() => onFieldChange(undefined)}
           disabled={readonly ?? false}

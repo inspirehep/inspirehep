@@ -6,7 +6,7 @@ import {
   ArrayItemRemoveContext,
   useArrayItemRemove,
 } from '../../../ArrayItemRemoveContext';
-import LabelWithActions from '../LabelWithActions';
+import ActionsDropdown from '../ActionsDropdown';
 
 function TableObjectFieldTemplate({
   title,
@@ -27,7 +27,7 @@ function TableObjectFieldTemplate({
     <div className="editor-array">
       {showHeader && (
         <div className="editor-array__header">
-          <LabelWithActions
+          <ActionsDropdown
             canAdd={false}
             onRemoveClick={handleDelete}
             disabled={readonly ?? false}

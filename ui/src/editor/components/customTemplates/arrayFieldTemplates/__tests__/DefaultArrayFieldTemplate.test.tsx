@@ -71,12 +71,15 @@ describe('<DefaultArrayFieldTemplate />', () => {
   });
 
   it('does not render "Add new" in the menu when canAdd is false', async () => {
+    const user = userEvent.setup();
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: false,
     });
 
     renderWithFieldOnChangeContext(props);
+
+    await user.click(screen.getByText('Authors'));
 
     expect(
       screen.queryByRole('button', { name: 'Add new' })
@@ -93,6 +96,7 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
+    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Add new' }));
 
     expect(onAddClick).toHaveBeenCalledTimes(1);
@@ -103,13 +107,16 @@ describe('<DefaultArrayFieldTemplate />', () => {
     ['clearable', { clearable: false }],
   ])(
     'does not render "Delete" in the menu when ui:options.%s is false',
-    (_optionName, uiOptions) => {
+    async (_optionName, uiOptions) => {
+      const user = userEvent.setup();
       const props = buildArrayFieldTemplateProps({
         title: 'Authors',
         uiSchema: { 'ui:options': uiOptions },
       });
 
       renderWithFieldOnChangeContext(props);
+
+      await user.click(screen.getByText('Authors'));
 
       expect(
         screen.queryByRole('button', { name: 'Delete' })
@@ -137,12 +144,14 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     const { onFieldChange } = renderWithFieldOnChangeContext(props);
 
+    await user.click(screen.getByText('Authors'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onFieldChange).toHaveBeenCalledWith(undefined);
   });
 
-  it('disables the action buttons when readonly', () => {
+  it('disables the menu when readonly', async () => {
+    const user = userEvent.setup();
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: true,
@@ -151,8 +160,14 @@ describe('<DefaultArrayFieldTemplate />', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    expect(screen.getByRole('button', { name: 'Add new' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    await user.click(screen.getByText('Authors'));
+
+    expect(
+      screen.queryByRole('button', { name: 'Add new' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Delete' })
+    ).not.toBeInTheDocument();
   });
 
   it('wraps the table in a horizontal scroll container when scrollable', () => {
