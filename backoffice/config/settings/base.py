@@ -7,7 +7,6 @@ from pathlib import Path
 
 import dj_database_url
 import environ
-from opensearch_dsl import connections
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # backoffice/
@@ -398,6 +397,3 @@ OPENSEARCH_DSL = {
 }
 
 OPENSEARCH_DSL_SIGNAL_PROCESSOR = "backoffice.common.signals.OnCommitSignalProcessor"
-
-# Workaround because it wont add the connection settings automatically
-connections.configure(default=OPENSEARCH_DSL["default"])
