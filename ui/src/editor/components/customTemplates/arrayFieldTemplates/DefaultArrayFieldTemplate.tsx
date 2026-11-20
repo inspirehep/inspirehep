@@ -2,7 +2,7 @@ import { ArrayFieldTemplateProps, RJSFSchema, UiSchema } from '@rjsf/utils';
 
 import { useFieldOnChange } from '../../../FieldOnChangeContext';
 import { useDocumentUpload } from '../../../DocumentUploadContext';
-import LabelWithActions from '../LabelWithActions';
+import ActionsDropdown from '../ActionsDropdown';
 
 function DefaultArrayFieldTemplate({
   title,
@@ -50,7 +50,7 @@ function DefaultArrayFieldTemplate({
   return (
     <div className="editor-array">
       <div className="editor-array__header">
-        <LabelWithActions
+        <ActionsDropdown
           canAdd={canAdd ?? false}
           canRemove={canRemove}
           onAddClick={onAddClick}

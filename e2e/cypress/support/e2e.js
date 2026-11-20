@@ -13,3 +13,20 @@ Cypress.on('uncaught:exception', error => {
 
   return shouldThrow;
 });
+
+// The home page fetches the latest posts from the external INSPIRE blog.
+// Stub it so e2e runs don't depend on (or hang on) a third-party service.
+const STUBBED_BLOG_POSTS = [1, 2, 3].map((id) => ({
+  id,
+  link: `https://blog.inspirehep.net/post-${id}`,
+  title: { rendered: `Blog post ${id}` },
+  excerpt: { rendered: `<p>Excerpt ${id}</p>` },
+  date: "2024-01-01T00:00:00",
+}));
+
+beforeEach(() => {
+  cy.intercept("GET", "https://blog.inspirehep.net/wp-json/wp/v2/posts*", {
+    statusCode: 200,
+    body: STUBBED_BLOG_POSTS,
+  });
+});

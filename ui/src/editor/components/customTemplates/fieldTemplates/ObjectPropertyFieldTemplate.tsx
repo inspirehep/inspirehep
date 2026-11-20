@@ -1,5 +1,5 @@
 import { FieldTemplateProps } from '@rjsf/utils';
-import LabelWithActions from '../LabelWithActions';
+import ActionsDropdown from '../ActionsDropdown';
 
 function ObjectPropertyFieldTemplate({
   label,
@@ -16,7 +16,7 @@ function ObjectPropertyFieldTemplate({
     <tr>
       {withLabel && (
         <td className="editor-array__row-label">
-          <LabelWithActions
+          <ActionsDropdown
             canAdd={false}
             onRemoveClick={() => onChange(undefined, fieldPathId.path)}
             disabled={readonly ?? false}

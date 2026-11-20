@@ -40,6 +40,7 @@ describe('<ObjectPropertyFieldTemplate />', () => {
 
     renderObjectPropertyFieldTemplateInTable(props);
 
+    await user.click(screen.getByText(/Name/));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onChange).toHaveBeenCalledWith(undefined, ['name']);

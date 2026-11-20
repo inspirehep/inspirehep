@@ -116,7 +116,9 @@ const selectOtherRevision1 = async (
 };
 
 const getNameValueInput = () =>
-  within(screen.getByRole('row', { name: /^value/ })).getByRole('textbox');
+  within(screen.getByRole('row', { name: /value caret-down / })).getByRole(
+    'textbox'
+  );
 
 describe('<RecordEditorContainer/>', () => {
   it('should render generic error when fetching author failed', () => {
@@ -143,11 +145,8 @@ describe('<RecordEditorContainer/>', () => {
 
       renderEditor();
 
-      await user.click(
-        within(screen.getByTestId('name variants')).getByRole('button', {
-          name: 'Add new',
-        })
-      );
+      await user.click(screen.getByText(/name variants/));
+      await user.click(screen.getByRole('button', { name: 'Add new' }));
 
       const nameVariantInput = within(
         screen.getByRole('row', { name: /name variants/ })

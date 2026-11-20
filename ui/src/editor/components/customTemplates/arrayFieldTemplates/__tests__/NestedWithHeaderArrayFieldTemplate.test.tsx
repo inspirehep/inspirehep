@@ -75,6 +75,7 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
 
     renderWithFieldOnChangeContext(props);
 
+    await user.click(screen.getByText('Name'));
     await user.click(screen.getByRole('button', { name: 'Add new' }));
 
     expect(onAddClick).toHaveBeenCalledTimes(1);
@@ -88,11 +89,13 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
 
     renderWithFieldOnChangeContext(props, onFieldChange);
 
+    await user.click(screen.getByText('Name'));
     await user.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(onFieldChange).toHaveBeenCalledTimes(1);
   });
-  it('disables the action buttons when readonly', async () => {
+  it('disables the menu when readonly', async () => {
+    const user = userEvent.setup();
     const props = buildArrayFieldTemplateProps({
       title: 'Authors',
       canAdd: true,
@@ -101,7 +104,13 @@ describe('<NestedWithHeaderArrayFieldTemplate/>', () => {
 
     renderWithFieldOnChangeContext(props);
 
-    expect(screen.getByRole('button', { name: 'Add new' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    await user.click(screen.getByText('Authors'));
+
+    expect(
+      screen.queryByRole('button', { name: 'Add new' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Delete' })
+    ).not.toBeInTheDocument();
   });
 });
