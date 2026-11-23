@@ -64,7 +64,7 @@
     white-space: nowrap;
     cursor: pointer;
     vertical-align: top;
-    width: 30%;
+    width: 1%;
   }
 
   &__actions-col {
@@ -136,4 +136,52 @@
 tr:has(> .editor-array__cell > .latex-field)
   > .editor-array__cell:not(:has(> .latex-field)) {
   min-width: 12rem;
+}
+
+.editor-list {
+  &__toolbar {
+    position: sticky;
+    top: 55px;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 4px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &__search {
+    width: 240px;
+  }
+
+  &__pagination {
+    margin-left: auto;
+  }
+
+  &__extract {
+    width: 320px;
+  }
+
+  &__extract-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  &__brief {
+    display: inline-flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+
+  &__status--warning {
+    color: #faad14;
+  }
+
+  &__status--ok {
+    color: #16a085;
+  }
 }

@@ -1,6 +1,7 @@
 import { List, Map } from 'immutable';
 import { useParams } from 'react-router-dom';
-import { Action, ActionCreator } from 'redux';
+import { Action } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import FormType from '@rjsf/core';
 import { RJSFSchema, UiSchema } from '@rjsf/utils';
@@ -15,7 +16,12 @@ import {
   resetRecordRevisionData,
   uploadDocument,
 } from '../../actions/editor/record';
-import { BackendValidationError, Revision, toExtraErrors } from '../types';
+import {
+  BackendValidationError,
+  Reference,
+  Revision,
+  toExtraErrors,
+} from '../types';
 import Header from './Header';
 import validator from '../utils/validator';
 import DefaultObjectFieldTemplate from './customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
@@ -35,6 +41,11 @@ import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
 import ToggleWidget from './customWidgets/ToggleWidget';
 import { RootState } from '../../types';
 import { DocumentUploadContext } from '../DocumentUploadContext';
+import { ReferencesActionsContext } from '../ReferencesActionsContext';
+import {
+  extractReferences,
+  linkReferences,
+} from '../../actions/editor/references';
 import { HttpClientWrapper } from '../../common/http';
 import { DEFAULT_TAB_NAME, EditorTabContext } from '../EditorTabContext';
 import './CommonEditor.less';
@@ -68,7 +79,7 @@ const isTextEntryElement = (element: Element | null) =>
   element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement;
 
 interface CommonEditorProps {
-  dispatch: ActionCreator<Action>;
+  dispatch: ThunkDispatch<RootState, HttpClientWrapper, Action>;
   data: Map<string, any>;
   schema: RJSFSchema | null;
   uiSchema?: UiSchema;
@@ -77,11 +88,7 @@ interface CommonEditorProps {
   save: (
     id: string,
     record: object
-  ) => (
-    dispatch: ActionCreator<Action, any[]>,
-    getState: () => RootState,
-    http: HttpClientWrapper
-  ) => Promise<void>;
+  ) => ThunkAction<Promise<void>, RootState, HttpClientWrapper, Action>;
   validationErrors?: List<Map<string, any>>;
   withRevisions:
     | false
@@ -173,11 +180,29 @@ const CommonEditor = ({
 
   const onUploadDocument = useCallback(
     (file: File): Promise<string | undefined> =>
-      dispatch(
-        uploadDocument(type as string, id as string, file)
-      ) as unknown as Promise<string | undefined>,
+      dispatch(uploadDocument(type as string, id as string, file)),
     [dispatch, type, id]
   );
+
+  const [isReferencesRequestPending, setIsReferencesRequestPending] =
+    useState(false);
+
+  const referencesActions = useMemo(() => {
+    const whileLocked = async <T,>(request: Promise<T>): Promise<T> => {
+      setIsReferencesRequestPending(true);
+      try {
+        return await request;
+      } finally {
+        setIsReferencesRequestPending(false);
+      }
+    };
+    return {
+      extractReferences: (source: string) =>
+        whileLocked(dispatch(extractReferences(source))),
+      linkReferences: (references: Reference[]) =>
+        whileLocked(dispatch(linkReferences(references))),
+    };
+  }, [dispatch]);
 
   const tabContextValue = useMemo(
     () => ({ activeTab, setActiveTab }),
@@ -262,29 +287,31 @@ const CommonEditor = ({
       />
 
       <DocumentUploadContext.Provider value={onUploadDocument}>
-        <EditorTabContext.Provider value={tabContextValue}>
-          <ConfigProvider componentSize="small">
-            <Form
-              ref={formRef}
-              schema={schema}
-              validator={validator}
-              formData={formData}
-              extraErrors={extraErrors}
-              readonly={isViewingRevision}
-              onChange={({ formData: nextFormData }) =>
-                onFormChange(nextFormData)
-              }
-              uiSchema={getUiSchema?.(formData) ?? uiSchema}
-              templates={TEMPLATES}
-              widgets={WIDGETS}
-              className="editor-form"
-              experimental_defaultFormStateBehavior={
-                DEFAULT_FORM_STATE_BEHAVIOR
-              }
-              noHtml5Validate
-            />
-          </ConfigProvider>
-        </EditorTabContext.Provider>
+        <ReferencesActionsContext.Provider value={referencesActions}>
+          <EditorTabContext.Provider value={tabContextValue}>
+            <ConfigProvider componentSize="small">
+              <Form
+                ref={formRef}
+                schema={schema}
+                validator={validator}
+                formData={formData}
+                extraErrors={extraErrors}
+                readonly={isViewingRevision || isReferencesRequestPending}
+                onChange={({ formData: nextFormData }) =>
+                  onFormChange(nextFormData)
+                }
+                uiSchema={getUiSchema?.(formData) ?? uiSchema}
+                templates={TEMPLATES}
+                widgets={WIDGETS}
+                className="editor-form"
+                experimental_defaultFormStateBehavior={
+                  DEFAULT_FORM_STATE_BEHAVIOR
+                }
+                noHtml5Validate
+              />
+            </ConfigProvider>
+          </EditorTabContext.Provider>
+        </ReferencesActionsContext.Provider>
       </DocumentUploadContext.Provider>
     </div>
   );

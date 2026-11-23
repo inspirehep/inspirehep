@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 
 export interface ArrayAddItem {
   addAt: (index: number) => void;
+  addAtDisabled?: boolean;
 }
 
 export const ArrayAddItemContext = createContext<ArrayAddItem | undefined>(
