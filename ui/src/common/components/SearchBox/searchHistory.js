@@ -3,7 +3,7 @@ import LRASet from './LRASet';
 import storage from '../../storage';
 
 const STORAGE_KEY = 'search-box-history';
-const HISTORY_LIMIT = 25;
+export const HISTORY_LIMIT = 25;
 
 function runWhenIdle(task) {
   if ('requestIdleCallback' in window) {

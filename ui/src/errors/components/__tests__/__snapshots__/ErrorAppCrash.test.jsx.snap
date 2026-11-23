@@ -7,9 +7,7 @@ exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
     type="flex"
   >
     <div
-      align="middle"
       class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
-      justify="center"
     >
       <div
         class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -18,7 +16,7 @@ exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
           class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <h3
-            class="f2 sm-f3"
+            class="f2 sm-f3 tc"
           >
             Something went wrong
           </h3>
@@ -31,7 +29,7 @@ exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
           class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
         >
           <h3
-            class="f3 normal sm-f4"
+            class="f3 normal sm-f4 tc"
           >
             <span>
               Please try again later, you can 
