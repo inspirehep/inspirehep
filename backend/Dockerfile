@@ -26,7 +26,10 @@ RUN apt-get update && \
     update-ca-certificates && \
     pip config set global.cert "${REQUESTS_CA_BUNDLE}"
 
-RUN curl -sSL https://install.python-poetry.org | python3.11 - --version 2.1.3 && poetry --version
+
+ARG POETRY_VERSION
+ENV POETRY_VERSION="${POETRY_VERSION:-2.5.1}"
+RUN curl -sSL https://install.python-poetry.org | python3.11 - --version "${POETRY_VERSION}"  && poetry --version
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root
 
