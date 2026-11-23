@@ -12,10 +12,13 @@ import structlog
 from click import UsageError
 from flask import current_app
 from flask.cli import with_appcontext
+from inspirehep.indexer.api import get_references_to_update
+from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.utils import chunker
 from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
@@ -200,12 +203,26 @@ def reindex_records(
     if pid:
         pid_type = pid[0]
         if pid_type not in allowed_pids:
-            raise ValueError(f"PID {pidtype} not allowed. Use one of {allowed_pids}.")
+            raise ValueError(f"PID {pid_type} not allowed. Use one of {allowed_pids}.")
         pid_value = pid[1]
-        record = InspireRecord.get_record_by_pid_value(
-            pid_value, pid_type, original_record=True
-        )
-        record.index()
+        try:
+            record = InspireRecord.get_record_by_pid_value(
+                pid_value, pid_type, original_record=True
+            )
+        except PIDDoesNotExistError as error:
+            raise click.ClickException(f"Record {pid} does not exist.") from error
+        try:
+            InspireRecordIndexer().index(record, record_version=record.model.version_id)
+        except Exception as error:
+            raise click.ClickException(
+                f"Failed to reindex record {pid}: {error}"
+            ) from error
+        uuids_to_reindex = get_references_to_update(record)
+        if uuids_to_reindex:
+            batch_index.apply_async(
+                kwargs={"records_uuids": [str(uuid) for uuid in uuids_to_reindex]},
+                queue=queue_name,
+            )
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
