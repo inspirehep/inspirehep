@@ -23,6 +23,7 @@ import {
   toExtraErrors,
 } from '../types';
 import Header from './Header';
+import DocumentViewer, { getDefaultViewerWidth } from './DocumentViewer';
 import validator from '../utils/validator';
 import DefaultObjectFieldTemplate from './customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
 import DefaultArrayFieldTemplate from './customTemplates/arrayFieldTemplates/DefaultArrayFieldTemplate';
@@ -116,6 +117,7 @@ const CommonEditor = ({
   const isViewingRevision = !!currentRevision;
 
   const [formData, setFormData] = useState(() => data?.toJS());
+  const [viewerFormData, setViewerFormData] = useState(formData);
 
   const [extraErrors, setExtraErrors] = useState(() =>
     toExtraErrors(
@@ -125,6 +127,9 @@ const CommonEditor = ({
   );
 
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB_NAME);
+
+  const [isViewerOpen, setIsViewerOpen] = useState(true);
+  const [viewerWidth, setViewerWidth] = useState(getDefaultViewerWidth);
 
   const formRef = useRef<FormType>(null);
   const historyRef = useRef<any[]>([]);
@@ -157,7 +162,9 @@ const CommonEditor = ({
   }, []);
 
   useEffect(() => {
-    setFormData(data?.toJS());
+    const loadedData = data?.toJS();
+    setFormData(loadedData);
+    setViewerFormData(loadedData);
     setExtraErrors(
       toExtraErrors(
         validationErrors?.toJS() as BackendValidationError[],
@@ -174,7 +181,9 @@ const CommonEditor = ({
       if (preRevisionFormDataRef.current === null) {
         preRevisionFormDataRef.current = formDataRef.current;
       }
-      setFormData(currentRevision.toJS());
+      const revisionData = currentRevision.toJS();
+      setFormData(revisionData);
+      setViewerFormData(revisionData);
     }
   }, [currentRevision]);
 
@@ -255,14 +264,20 @@ const CommonEditor = ({
   };
 
   const resetToLastUpdate = () => {
-    setFormData(preRevisionFormDataRef.current ?? data?.toJS());
+    const restoredData = preRevisionFormDataRef.current ?? data?.toJS();
+    setFormData(restoredData);
+    setViewerFormData(restoredData);
     preRevisionFormDataRef.current = null;
     dispatch(resetRecordRevisionData());
   };
 
+  const hasDocumentViewer = type === 'literature';
+  const showViewer = hasDocumentViewer && isViewerOpen;
+
   return (
     <div
       className="__CommonEditor__"
+      style={showViewer ? { paddingRight: viewerWidth } : undefined}
       onBlur={() => {
         isTypingGroupOpenRef.current = false;
       }}
@@ -284,6 +299,14 @@ const CommonEditor = ({
         onUndo={onUndo}
         canUndo={historyRef.current.length > 0}
         dispatch={dispatch}
+        documentViewer={
+          hasDocumentViewer
+            ? {
+                isOpen: isViewerOpen,
+                onToggle: () => setIsViewerOpen((open) => !open),
+              }
+            : undefined
+        }
       />
 
       <DocumentUploadContext.Provider value={onUploadDocument}>
@@ -313,6 +336,14 @@ const CommonEditor = ({
           </EditorTabContext.Provider>
         </ReferencesActionsContext.Provider>
       </DocumentUploadContext.Provider>
+
+      {showViewer && (
+        <DocumentViewer
+          formData={viewerFormData}
+          width={viewerWidth}
+          onWidthChange={setViewerWidth}
+        />
+      )}
     </div>
   );
 };
