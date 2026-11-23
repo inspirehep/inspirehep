@@ -49,10 +49,6 @@ jobs:
         image: rabbitmq:4.2-management-alpine
         ports:
           - 5672:5672
-      redis:
-        image: redis:8-alpine
-        ports:
-          - 6379:6379
       db-backoffice:
         image: postgres:15.15
         env:

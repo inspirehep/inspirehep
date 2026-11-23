@@ -127,7 +127,6 @@ jobs:
           cat <<EOF >backoffice-env.list
           USE_DOCKER=yes
           DJANGO_READ_DOT_ENV_FILE=False
-          REDIS_URL=redis://localhost:6379/4
           CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
           CELERY_TASK_ALWAYS_EAGER=True
           POSTGRES_HOST=localhost
