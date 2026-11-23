@@ -5,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
+import pytest
 from helpers.providers.faker import faker
 from helpers.utils import (
     create_record,
@@ -128,6 +129,59 @@ def test_does_not_update_stale(inspire_app):
         )
 
     assert stale_put_response.status_code == 412
+
+
+@pytest.mark.parametrize(
+    "existing_identifiers", [[], [{"schema": "CDS", "value": "existing"}]]
+)
+def test_patch_literature_external_system_identifiers(
+    inspire_app, existing_identifiers
+):
+    cataloger = create_user(role="cataloger")
+    added_identifier = {"schema": "CDSRDM", "value": "1849g-prn51"}
+    data = {"titles": [{"title": "CDS patch test"}]}
+    if existing_identifiers:
+        data["external_system_identifiers"] = existing_identifiers
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+    expected_identifiers = [*existing_identifiers, added_identifier]
+    patch = [
+        {
+            "op": "add",
+            "path": "/external_system_identifiers",
+            "value": expected_identifiers,
+        }
+    ]
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        etag = client.get(f"/literature/{record_control_number}").headers["ETag"]
+        response = client.patch(
+            f"/literature/{record_control_number}",
+            content_type="application/json-patch+json",
+            data=orjson.dumps(patch),
+            headers={"If-Match": etag},
+        )
+        assert response.status_code == 200
+        assert response.headers["ETag"] != etag
+
+        patch[0]["value"] = []
+        stale_response = client.patch(
+            f"/literature/{record_control_number}",
+            content_type="application/json-patch+json",
+            data=orjson.dumps(patch),
+            headers={"If-Match": etag},
+        )
+
+    assert stale_response.status_code == 412
+    assert (
+        response.json["metadata"]["external_system_identifiers"] == expected_identifiers
+    )
+
+    db.session.remove()
+    updated_record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    assert updated_record["external_system_identifiers"] == expected_identifiers
+    assert updated_record["titles"] == data["titles"]
 
 
 def test_returns_200_if_not_modified(inspire_app):
