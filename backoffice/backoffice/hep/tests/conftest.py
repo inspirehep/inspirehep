@@ -12,7 +12,6 @@ def vcr_config():
             "flower",
             "mq",
             "postgres-backoffice",
-            "redis",
         ),
         "record_mode": "once",
     }
