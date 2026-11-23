@@ -4,13 +4,28 @@ import { HistoryOutlined } from '@ant-design/icons';
 
 import './SearchBox.less';
 import SearchBoxNamespaceSelectContainer from '../../containers/SearchBoxNamespaceSelectContainer';
-import { readHistory, persistHistory } from './searchHistory';
+import { readHistory, persistHistory, HISTORY_LIMIT } from './searchHistory';
+import { SEARCH_BOX_NAMESPACES } from '../../../search/constants';
 import LRASet from './LRASet';
 import IconText from '../IconText';
 
-let HISTORY_BY_NAMESPACE = {};
-readHistory((history: History) => {
-  HISTORY_BY_NAMESPACE = history;
+let HISTORY_BY_NAMESPACE: Record<string, LRASet> = {};
+SEARCH_BOX_NAMESPACES.forEach((namespace: string) => {
+  HISTORY_BY_NAMESPACE[namespace] = new LRASet([], HISTORY_LIMIT);
+});
+
+readHistory((storedHistory: Record<string, LRASet>) => {
+  const merged: Record<string, LRASet> = {};
+  SEARCH_BOX_NAMESPACES.forEach((namespace: string) => {
+    merged[namespace] = new LRASet(
+      [
+        ...(storedHistory[namespace]?.values ?? []),
+        ...HISTORY_BY_NAMESPACE[namespace].values,
+      ],
+      HISTORY_LIMIT
+    );
+  });
+  HISTORY_BY_NAMESPACE = merged;
 });
 
 const SearchBox = ({

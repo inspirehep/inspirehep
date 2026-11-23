@@ -3,9 +3,7 @@
 exports[`Error401 > renders Error401 with correct props 1`] = `
 <DocumentFragment>
   <div
-    align="middle"
     class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-oc1rc0 css-var-root"
-    justify="center"
   >
     <div
       class="ant-row css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -14,7 +12,7 @@ exports[`Error401 > renders Error401 with correct props 1`] = `
         class="ant-col ant-col-24 css-dev-only-do-not-override-oc1rc0 css-var-root"
       >
         <h3
-          class="f2 sm-f3"
+          class="f2 sm-f3 tc"
         >
           Sorry, you are not authorised to view this page.
         </h3>
