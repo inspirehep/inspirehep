@@ -71,13 +71,22 @@ export function checkIsTrackerBlocked() {
   return Array.isArray(window._paq) || navigator.doNotTrack === '1'; // eslint-disable-line no-underscore-dangle
 }
 
+let inMemoryClientId = null;
+
 export function getClientId() {
-  let clientId = localStorage.getItem('clientId');
-  if (!clientId) {
-    clientId = generateUUIDv4();
-    localStorage.setItem('clientId', clientId);
+  try {
+    let clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = generateUUIDv4();
+      localStorage.setItem('clientId', clientId);
+    }
+    return clientId;
+  } catch {
+    if (!inMemoryClientId) {
+      inMemoryClientId = generateUUIDv4();
+    }
+    return inMemoryClientId;
   }
-  return clientId;
 }
 
 export function setClientId() {
