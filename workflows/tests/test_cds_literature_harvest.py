@@ -31,8 +31,5 @@ class TestCDSLiteratureHarvest:
             params={"sets": ["cerncds:atlas-pub"]},
         )
 
-        failed_records = self.s3_store.read_object(result)
+        assert result is None
         assert mock_post_workflow.call_count == 2
-        assert len(failed_records["failed_sets"]) == 0
-        assert len(failed_records["failed_build_records"]) == 0
-        assert len(failed_records["failed_load_records"]) == 0

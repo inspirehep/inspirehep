@@ -7,7 +7,11 @@ from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHoo
 from include.utils.alerts import FailedDagNotifier
 from include.utils.cds_harvest import build_records
 from include.utils.constants import HEP_PUBLISHER_CREATE
-from include.utils.harvests import fetch_records_oaipmh, load_records
+from include.utils.harvests import (
+    fetch_records_oaipmh,
+    load_records,
+    write_failed_records,
+)
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 from literature.oai_harvest_tasks import get_sets
@@ -71,12 +75,15 @@ def cds_literature_harvest_dag():
             workflow_type=HEP_PUBLISHER_CREATE,
         )
 
-        return s3_store.write_object(
+        return write_failed_records(
+            s3_store,
             {
                 "failed_sets": failed_sets,
                 "failed_build_records": failed_build_records,
                 "failed_load_records": failed_load_records,
-            }
+            },
+            prefix="cds_literature_harvest_dag",
+            run_id=context["run_id"],
         )
 
     sets = get_sets()

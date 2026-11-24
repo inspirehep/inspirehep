@@ -6,7 +6,11 @@ from airflow.models import DagBag
 from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.constants import HEP_CREATE, HEP_PUBLISHER_CREATE
-from include.utils.harvests import fetch_records_oaipmh, load_records
+from include.utils.harvests import (
+    fetch_records_oaipmh,
+    load_records,
+    write_failed_records,
+)
 from sickle.oaiexceptions import NoRecordsMatch
 
 from tests.test_utils import task_test
@@ -210,3 +214,32 @@ class TestUtilsHarvests:
 
         assert xml_records == ["<record>Test Record</record>"]
         assert failed_sets == ["physics:hep-th"]
+
+    def test_write_failed_records_skips_when_no_failures(self):
+        key = write_failed_records(
+            self.s3_store,
+            {"failed_build_records": [], "failed_load_records": []},
+            prefix="test_dag",
+            run_id="test_run_id_no_failures",
+        )
+
+        assert key is None
+        assert not self.s3_store.hook.check_for_key(
+            "harvests/test_dag/test_run_id_no_failures.json",
+            bucket_name=self.s3_store.bucket_name,
+        )
+
+    def test_write_failed_records_stores_under_harvests_prefix(self):
+        failures = {"failed_build_records": ["record"], "failed_load_records": []}
+
+        key = write_failed_records(
+            self.s3_store,
+            failures,
+            prefix="test_dag",
+            run_id="test_run_id",
+        )
+
+        assert key == "harvests/test_dag/test_run_id.json"
+        assert self.s3_store.read_object(key) == failures
+
+        self.s3_store.hook.delete_objects(bucket=self.s3_store.bucket_name, keys=[key])

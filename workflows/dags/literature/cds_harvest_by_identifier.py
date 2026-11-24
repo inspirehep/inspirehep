@@ -8,6 +8,7 @@ from include.utils.constants import HEP_PUBLISHER_CREATE
 from include.utils.harvests import (
     fetch_record_oaipmh_by_identifier,
     load_records,
+    write_failed_records,
 )
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
@@ -56,11 +57,14 @@ def cds_literature_harvest_by_identifier_dag():
             workflow_type=HEP_PUBLISHER_CREATE,
         )
 
-        return s3_store.write_object(
+        return write_failed_records(
+            s3_store,
             {
                 "failed_build_records": failed_build_records,
                 "failed_load_records": failed_load_records,
-            }
+            },
+            prefix="cds_literature_harvest_by_identifier_dag",
+            run_id=context["run_id"],
         )
 
     identifiers = get_identifiers()

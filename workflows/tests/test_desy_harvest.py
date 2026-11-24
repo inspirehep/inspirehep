@@ -38,9 +38,7 @@ class TestDesyHarvestDag:
                     at_least_one_document_updated = True
         assert at_least_one_document_updated
 
-        failed_records = self.s3_store.read_object(failure_s3_key, self.output_bucket)
-        assert failed_records["failed_parse_records"] == []
-        assert failed_records["failed_load_records"] == []
+        assert failure_s3_key is None
 
         assert (
             len(
@@ -53,7 +51,7 @@ class TestDesyHarvestDag:
         prefixes = self.s3_store.hook.list_prefixes(
             delimiter="/", bucket_name=self.output_bucket
         )
-        prefixes.remove("harvests/")
+        assert "harvests/" not in prefixes
         assert len(prefixes) == 2
 
     def test_process_subdirectories_skip_when_empty(self, mock_post_workflow):
@@ -82,6 +80,7 @@ class TestDesyHarvestDag:
         )
 
         assert mock_post_workflow.call_count == 1
+        assert failure_s3_key == "harvests/desy_harvest_dag/desy_test_errors.json"
 
         failed_records = self.s3_store.read_object(failure_s3_key, self.output_bucket)
         assert len(failed_records["failed_parse_records"]) == 1

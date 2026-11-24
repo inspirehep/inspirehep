@@ -111,3 +111,29 @@ def fetch_record_oaipmh_by_identifier(connection_id, metadata_prefix, identifier
         raise AirflowSkipException(f"No record for identifier '{identifier}'") from None
 
     return record.raw
+
+
+def write_failed_records(s3_store, failed_records, prefix, run_id, bucket_name=None):
+    """Store the failed records of a harvest in S3, only if there are any.
+
+    Args:
+        s3_store (S3JsonStore): Store used to write the object.
+        failed_records (dict): Mapping of failure category to list of failures.
+        prefix (str): Directory under ``harvests/`` where the object is stored,
+            usually the DAG id.
+        run_id (str): The DAG run id, used as the object name.
+        bucket_name (str, optional): Bucket where to store the object.
+
+    Returns:
+        str | None: The S3 key of the stored object, or None if there were no
+        failures and nothing was stored.
+    """
+    if not any(failed_records.values()):
+        logger.info("No failed records, nothing stored in S3.")
+        return None
+
+    return s3_store.write_object(
+        failed_records,
+        key=f"harvests/{prefix}/{run_id}.json",
+        bucket_name=bucket_name,
+    )

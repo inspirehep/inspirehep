@@ -6,6 +6,7 @@ from airflow.sdk.exceptions import AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.desy import process_subdirectory
+from include.utils.harvests import write_failed_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
@@ -64,12 +65,14 @@ def desy_harvest_dag():
             failed_parse_records.extend(failed_records["failed_parse_records"])
             failed_load_records.extend(failed_records["failed_load_records"])
 
-        return s3_publisher_store.write_object(
+        return write_failed_records(
+            s3_publisher_store,
             {
                 "failed_parse_records": failed_parse_records,
                 "failed_load_records": failed_load_records,
             },
-            key=f"harvests/{run_id}",
+            prefix="desy_harvest_dag",
+            run_id=run_id,
             bucket_name=output_bucket,
         )
 

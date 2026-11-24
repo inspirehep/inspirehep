@@ -13,6 +13,7 @@ from include.utils.data import (
     download_record_versions,
     load_record,
 )
+from include.utils.harvests import write_failed_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
@@ -143,8 +144,11 @@ def data_harvest_dag():
                 logger.error(f"Error occurred while loading record {data_record}: {e}")
                 failed_records["load_failed"].append(data_record)
 
-        return s3_json_store.write_object(
-            failed_records, f"harvests/data/{context['run_id']}.json"
+        return write_failed_records(
+            s3_json_store,
+            failed_records,
+            prefix="data_harvest_dag",
+            run_id=context["run_id"],
         )
 
     collected_ids_key = collect_ids()
