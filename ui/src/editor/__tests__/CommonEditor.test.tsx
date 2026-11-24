@@ -2,6 +2,7 @@ import { within, screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { act, render } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
+import { useParams } from 'react-router-dom';
 import { authorWithSchema } from './authorWithSchemaFixture';
 import CommonEditor from '../components/CommonEditor';
 import prepareAuthorSchema from '../utils/prepareAuthorSchema';
@@ -185,6 +186,43 @@ describe('<CommonEditor />', () => {
 
       await act(async () => resolveRequest(undefined));
       expect(getLabel()).toBeEnabled();
+    });
+    describe('document viewer', () => {
+      afterEach(() => {
+        vi.mocked(useParams).mockReturnValue({ id: '123', type: 'authors' });
+      });
+
+      it('should not offer a document viewer for non-literature records', () => {
+        renderEditor();
+        expect(
+          screen.queryByRole('button', { name: /eye-invisible/i })
+        ).not.toBeInTheDocument();
+      });
+
+      it('should show the document viewer for literature and hide it via the header button', async () => {
+        const user = userEvent.setup();
+        vi.mocked(useParams).mockReturnValue({ id: '123', type: 'literature' });
+        renderEditor({
+          ...baseCommonEditorProps,
+          data: fromJS({ arxiv_eprints: [{ value: '2101.00001' }] }) as Map<
+            string,
+            any
+          >,
+          schema: { type: 'object', properties: {} } as any,
+        });
+
+        expect(screen.getByLabelText('Document viewer')).toBeVisible();
+
+        await user.click(
+          screen.getByRole('button', { name: /eye-invisible/i })
+        );
+        expect(
+          screen.queryByLabelText('Document viewer')
+        ).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: /eye/i }));
+        expect(screen.getByLabelText('Document viewer')).toBeVisible();
+      });
     });
   });
 });

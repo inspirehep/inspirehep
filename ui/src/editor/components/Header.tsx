@@ -1,10 +1,15 @@
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { useEffect, useState } from 'react';
 
 import './Header.less';
-import { SaveOutlined, UndoOutlined } from '@ant-design/icons';
+import {
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  SaveOutlined,
+  UndoOutlined,
+} from '@ant-design/icons';
 import { Revision } from '../types';
 import { RootState } from '../../types';
 import { HttpClientWrapper } from '../../common/http';
@@ -31,6 +36,7 @@ export type HeaderProps = {
   onSave: () => void;
   dispatch: ThunkDispatch<RootState, HttpClientWrapper, Action>;
   withRevisions: false | HeaderWithRevisionProps;
+  documentViewer?: { isOpen: boolean; onToggle: () => void };
 };
 
 const Header = ({
@@ -41,6 +47,7 @@ const Header = ({
   onSave,
   dispatch,
   withRevisions,
+  documentViewer,
 }: HeaderProps) => {
   const [selectedRevision, setSelectedRevision] = useState<Revision | null>(
     null
@@ -116,6 +123,27 @@ const Header = ({
           }
         />
         <Help />
+        {documentViewer && (
+          <Tooltip
+            title={documentViewer.isOpen ? 'Hide document' : 'Show document'}
+          >
+            <Button
+              type="text"
+              icon={
+                documentViewer.isOpen ? (
+                  <EyeInvisibleOutlined />
+                ) : (
+                  <EyeOutlined />
+                )
+              }
+              onClick={documentViewer.onToggle}
+              style={{
+                fontSize: '20px',
+                color: 'white',
+              }}
+            />
+          </Tooltip>
+        )}
       </div>
 
       <div className="rightContainer">

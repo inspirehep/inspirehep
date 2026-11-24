@@ -162,4 +162,21 @@ describe('Header', () => {
       'https://inspire-schemas.readthedocs.io/en/latest/schemas/index.html'
     );
   });
+
+  it('should not display the toggle when there is no document viewer', () => {
+    renderHeaderWithProps();
+    expect(
+      screen.queryByRole('button', { name: /eye-invisible/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it('should toggle the document viewer', async () => {
+    const user = userEvent.setup();
+    const onToggle = vi.fn();
+    renderHeaderWithProps({ documentViewer: { isOpen: true, onToggle } });
+
+    await user.click(screen.getByRole('button', { name: /eye-invisible/i }));
+
+    expect(onToggle).toHaveBeenCalledTimes(1);
+  });
 });

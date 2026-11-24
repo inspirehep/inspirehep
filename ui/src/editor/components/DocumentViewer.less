@@ -1,0 +1,71 @@
+.__DocumentViewer__ {
+  position: fixed;
+  top: 55px;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  display: flex;
+  background: #fff;
+  border-left: 1px solid #d9d9d9;
+
+  .resize-handle {
+    flex: 0 0 6px;
+    cursor: col-resize;
+    background: #f0f0f0;
+    &:hover,
+    &:focus-visible {
+      background: #16a085;
+      outline: none;
+    }
+  }
+
+  .viewer-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .viewer-tabs {
+    flex: 1;
+    min-height: 0;
+    .ant-tabs-nav {
+      margin: 0;
+      padding: 0 8px;
+    }
+    .ant-tabs-body-holder {
+      flex: 1;
+      min-height: 0;
+    }
+    .ant-tabs-body,
+    .ant-tabs-content {
+      height: 100%;
+    }
+  }
+
+  .viewer-tab-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .viewer-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .viewer-empty {
+    margin: auto;
+    padding: 0 16px;
+  }
+}
+
+body.document-viewer-resizing {
+  user-select: none;
+  cursor: col-resize;
+  iframe {
+    pointer-events: none;
+  }
+}
