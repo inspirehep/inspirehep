@@ -116,3 +116,10 @@ export interface ToolbarActionsProps {
 }
 
 export type Reference = Record<string, any>;
+
+export type Author = Record<string, any>;
+
+export interface AuthorsExtractionResult {
+  authors: Author[];
+  warnings?: string[];
+}

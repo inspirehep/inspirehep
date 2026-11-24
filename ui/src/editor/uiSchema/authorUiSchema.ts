@@ -1,7 +1,5 @@
 import { UiSchema } from '@rjsf/utils';
 
-import NestedArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/NestedArrayFieldTemplate';
-import NestedArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/NestedArrayFieldItemTemplate';
 import NestedWithHeaderArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/NestedWithHeaderArrayFieldTemplate';
 import DefaultArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
 import ArrayItemObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
@@ -10,6 +8,7 @@ import TableObjectFieldTemplate from '../components/customTemplates/objectFieldT
 import StandaloneFieldTemplate from '../components/customTemplates/fieldTemplates/StandaloneFieldTemplate';
 import DisplayAsListArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldTemplate';
 import DisplayAsListArrayFieldItemTemplate from '../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldItemTemplate';
+import { property, stringList } from './helpers';
 
 const authorUiSchema: UiSchema = {
   'ui:submitButtonOptions': { norender: true },
@@ -61,46 +60,13 @@ const authorUiSchema: UiSchema = {
       'title',
       'numeration',
     ],
-    preferred_name: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'preferred name',
-    },
-    value: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'value',
-    },
-    title: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'title',
-    },
-    numeration: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'numeration',
-    },
-    name_variants: {
-      'ui:ArrayFieldTemplate': NestedArrayFieldTemplate,
-      'ui:ArrayFieldItemTemplate': NestedArrayFieldItemTemplate,
-      'ui:title': 'name variants',
-      items: {
-        'ui:options': { label: false },
-      },
-    },
-    native_names: {
-      'ui:ArrayFieldTemplate': NestedArrayFieldTemplate,
-      'ui:ArrayFieldItemTemplate': NestedArrayFieldItemTemplate,
-      'ui:title': 'native names',
-      items: {
-        'ui:options': { label: false },
-      },
-    },
-    previous_names: {
-      'ui:ArrayFieldTemplate': NestedArrayFieldTemplate,
-      'ui:ArrayFieldItemTemplate': NestedArrayFieldItemTemplate,
-      'ui:title': 'previous names',
-      items: {
-        'ui:options': { label: false },
-      },
-    },
+    preferred_name: property('preferred name'),
+    value: property('value'),
+    title: property('title'),
+    numeration: property('numeration'),
+    name_variants: stringList('name variants'),
+    native_names: stringList('native names'),
+    previous_names: stringList('previous names'),
   },
   advisors: {
     'ui:ArrayFieldTemplate': DisplayAsListArrayFieldTemplate,
@@ -146,10 +112,7 @@ const authorUiSchema: UiSchema = {
         'ui:title': 'record',
         $ref: { 'ui:options': { label: false } },
       },
-      degree_type: {
-        'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-        'ui:title': 'degree type',
-      },
+      degree_type: property('degree type'),
       name: {
         'ui:FieldTemplate': ObjectPropertyFieldTemplate,
       },
@@ -175,14 +138,8 @@ const authorUiSchema: UiSchema = {
         'ui:title': 'url',
         'ui:options': { showHeader: false },
         'ui:order': ['description', 'value'],
-        description: {
-          'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-          'ui:title': 'description',
-        },
-        value: {
-          'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-          'ui:title': 'value',
-        },
+        description: property('description'),
+        value: property('value'),
       },
       year: {
         'ui:title': 'year',

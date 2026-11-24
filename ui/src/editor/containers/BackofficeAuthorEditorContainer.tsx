@@ -15,13 +15,13 @@ import {
   fetchAuthorWorkflow,
   saveAuthorWorkflow,
 } from '../../actions/editor/workflow';
-import prepareAuthorSchema from '../utils/prepareAuthorSchema';
+import prepareSchema from '../utils/prepareSchema';
 import authorUiSchema from '../uiSchema/authorUiSchema';
 
 const stateToProps = (state: RootState) => ({
   data: state.editor.getIn(['workflowData', 'author']).get('data'),
   schema: state.editor.getIn(['workflowData', 'schema'])
-    ? prepareAuthorSchema(state.editor.getIn(['workflowData', 'schema']).toJS())
+    ? prepareSchema(state.editor.getIn(['workflowData', 'schema']).toJS())
     : null,
   error:
     state.editor.getIn(['workflowData', 'fetchAuthorError']) ??

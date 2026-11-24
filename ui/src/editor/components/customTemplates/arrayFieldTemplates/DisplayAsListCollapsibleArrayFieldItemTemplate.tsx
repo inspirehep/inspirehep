@@ -15,7 +15,7 @@ function DisplayAsListCollapsibleArrayFieldItemTemplate({
   readonly,
   index,
 }: ArrayFieldItemTemplateProps) {
-  const { brief, href, flagged } = useDisplayAsListItemInfo(index) ?? {
+  const { brief, href, suffix, flagged } = useDisplayAsListItemInfo(index) ?? {
     brief: '',
     flagged: false,
   };
@@ -65,6 +65,7 @@ function DisplayAsListCollapsibleArrayFieldItemTemplate({
                     ) : (
                       brief
                     )}
+                    {suffix && ` ${suffix}`}
                   </span>
                 ),
                 extra: (

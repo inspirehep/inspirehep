@@ -1,7 +1,6 @@
 import { UiSchema } from '@rjsf/utils';
 
 import TableObjectFieldTemplate from '../../components/customTemplates/objectFieldTemplates/TableObjectFieldTemplate';
-import ObjectPropertyFieldTemplate from '../../components/customTemplates/fieldTemplates/ObjectPropertyFieldTemplate';
 import DisplayAsListArrayFieldTemplate from '../../components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldTemplate';
 import DisplayAsListCollapsibleArrayFieldItemTemplate from '../../components/customTemplates/arrayFieldTemplates/DisplayAsListCollapsibleArrayFieldItemTemplate';
 import ReferencesToolbarActions from '../../components/customTemplates/ReferencesToolbarActions';
@@ -10,65 +9,13 @@ import {
   referenceHref,
   referenceNeedsEdit,
 } from '../../utils/referenceBrief';
-import NestedArrayFieldTemplate from '../../components/customTemplates/arrayFieldTemplates/NestedArrayFieldTemplate';
-import NestedArrayFieldItemTemplate from '../../components/customTemplates/arrayFieldTemplates/NestedArrayFieldItemTemplate';
-import NestedWithHeaderArrayFieldTemplate from '../../components/customTemplates/arrayFieldTemplates/NestedWithHeaderArrayFieldTemplate';
-import DefaultArrayFieldItemTemplate from '../../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldItemTemplate';
-import ArrayItemObjectFieldTemplate from '../../components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
-
-const referenceProperty = (title: string, extra: UiSchema = {}): UiSchema => ({
-  'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-  'ui:title': title,
-  ...extra,
-});
-
-const referenceRecordLink = (
-  title: string,
-  refUiSchema: UiSchema = { 'ui:widget': 'viewRecordWidget' }
-): UiSchema => referenceProperty(title, { $ref: refUiSchema });
-
-const referenceObject = (
-  title: string,
-  order: string[],
-  properties: Record<string, string | UiSchema> = {}
-): UiSchema => ({
-  'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-  'ui:ObjectFieldTemplate': TableObjectFieldTemplate,
-  'ui:title': title,
-  'ui:options': { showHeader: false },
-  'ui:order': order,
-  ...Object.fromEntries(
-    order.map((name) => {
-      const override = properties[name];
-      return [
-        name,
-        typeof override === 'object'
-          ? override
-          : referenceProperty(override ?? name.replace(/_/g, ' ')),
-      ];
-    })
-  ),
-});
-
-const referenceStringList = (title: string): UiSchema => ({
-  'ui:ArrayFieldTemplate': NestedArrayFieldTemplate,
-  'ui:ArrayFieldItemTemplate': NestedArrayFieldItemTemplate,
-  'ui:title': title,
-  items: { 'ui:options': { label: false } },
-});
-
-const referenceObjectList = (title: string, order: string[]): UiSchema => ({
-  'ui:ArrayFieldTemplate': NestedWithHeaderArrayFieldTemplate,
-  'ui:ArrayFieldItemTemplate': DefaultArrayFieldItemTemplate,
-  'ui:title': title,
-  items: {
-    'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
-    'ui:order': order,
-    ...Object.fromEntries(
-      order.map((name) => [name, { 'ui:options': { label: false } }])
-    ),
-  },
-});
+import {
+  property,
+  recordLink,
+  stringList,
+  objectList,
+  tableObject,
+} from '../helpers';
 
 const referencesUiSchema: UiSchema = {
   'ui:ArrayFieldTemplate': DisplayAsListArrayFieldTemplate,
@@ -93,7 +40,7 @@ const referencesUiSchema: UiSchema = {
       'raw_refs',
       'record',
     ],
-    reference: referenceObject(
+    reference: tableObject(
       'reference',
       [
         'label',
@@ -115,26 +62,26 @@ const referencesUiSchema: UiSchema = {
         'urls',
       ],
       {
-        title: referenceObject('title', ['source', 'subtitle', 'title']),
-        authors: referenceObjectList('authors', ['full_name', 'inspire_role']),
-        arxiv_eprint: referenceProperty('arxiv eprint', {
+        title: tableObject('title', ['source', 'subtitle', 'title']),
+        authors: objectList('authors', ['full_name', 'inspire_role']),
+        arxiv_eprint: property('arxiv eprint', {
           'ui:placeholder': 'arXiv eprint number',
         }),
-        book_series: referenceObject('book series', ['title', 'volume']),
-        collaborations: referenceStringList('collaborations'),
-        document_type: referenceProperty('document type'),
-        dois: referenceStringList('dois'),
-        external_system_identifiers: referenceObjectList(
-          'external system identifiers',
-          ['schema', 'value']
-        ),
-        imprint: referenceObject('imprint', ['date', 'place', 'publisher']),
-        misc: referenceStringList('misc'),
-        persistent_identifiers: referenceObjectList('persistent identifiers', [
+        book_series: tableObject('book series', ['title', 'volume']),
+        collaborations: stringList('collaborations'),
+        document_type: property('document type'),
+        dois: stringList('dois'),
+        external_system_identifiers: objectList('external system identifiers', [
           'schema',
           'value',
         ]),
-        publication_info: referenceObject(
+        imprint: tableObject('imprint', ['date', 'place', 'publisher']),
+        misc: stringList('misc'),
+        persistent_identifiers: objectList('persistent identifiers', [
+          'schema',
+          'value',
+        ]),
+        publication_info: tableObject(
           'publication info',
           [
             'journal_title',
@@ -152,24 +99,24 @@ const referencesUiSchema: UiSchema = {
             'parent_title',
           ],
           {
-            journal_record: referenceProperty('journal record', {
+            journal_record: property('journal record', {
               $ref: { 'ui:widget': 'viewRecordWidget' },
             }),
           }
         ),
-        report_numbers: referenceStringList('report numbers'),
-        urls: referenceObjectList('urls', ['description', 'value']),
+        report_numbers: stringList('report numbers'),
+        urls: objectList('urls', ['description', 'value']),
       }
     ),
-    curated_relation: referenceProperty('curated relation', {
+    curated_relation: property('curated relation', {
       'ui:options': { label: false },
     }),
-    legacy_curated: referenceProperty('legacy curated', {
+    legacy_curated: property('legacy curated', {
       'ui:options': { label: false },
     }),
-    raw_refs: referenceObjectList('raw refs', ['schema', 'source', 'value']),
-    record: referenceRecordLink('record', {
-      'ui:widget': 'viewRecordWidget',
+    raw_refs: objectList('raw refs', ['schema', 'source', 'value']),
+    record: recordLink('record', {
+      'ui:widget': 'recordRef',
       'ui:options': { label: false },
     }),
   },

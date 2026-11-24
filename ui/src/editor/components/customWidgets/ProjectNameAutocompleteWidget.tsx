@@ -23,8 +23,10 @@ function ProjectNameAutocompleteWidget({
   value,
   onChange,
   onBlur,
+  options,
   ...props
 }: WidgetProps) {
+  const valueKey = (options?.valueKey as string | undefined) ?? 'name';
   const {
     formData: projectMembershipFormData,
     onChange: onProjectMembershipChange,
@@ -36,7 +38,7 @@ function ProjectNameAutocompleteWidget({
     if (projectMembershipFormData.record) {
       onProjectMembershipChange({
         ...projectMembershipFormData,
-        name: newValue,
+        [valueKey]: newValue,
         record: undefined,
         curated_relation: false,
       });
@@ -49,7 +51,7 @@ function ProjectNameAutocompleteWidget({
   ) => {
     onProjectMembershipChange({
       ...projectMembershipFormData,
-      name: getProjectLegacyName(suggestion),
+      [valueKey]: getProjectLegacyName(suggestion),
       record: {
         $ref: `${window.location.origin}/api/experiments/${controlNumber}`,
       },
@@ -68,6 +70,7 @@ function ProjectNameAutocompleteWidget({
       onChange={onProjectNameChange}
       onSelectSuggestion={onProjectNameSelect}
       onBlur={() => onBlur(id, value)}
+      options={options}
       {...props}
     />
   );

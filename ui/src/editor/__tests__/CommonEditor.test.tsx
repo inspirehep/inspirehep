@@ -4,7 +4,7 @@ import { act, render } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 import { authorWithSchema } from './authorWithSchemaFixture';
 import CommonEditor from '../components/CommonEditor';
-import prepareAuthorSchema from '../utils/prepareAuthorSchema';
+import prepareSchema from '../utils/prepareSchema';
 import { renderWithProviders } from '../../fixtures/render';
 import authorUiSchema from '../uiSchema/authorUiSchema';
 import TabsObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/TabsObjectFieldTemplate';
@@ -20,7 +20,7 @@ vi.mock('react-router-dom', async () => {
 
 const baseCommonEditorProps = {
   data: fromJS(authorWithSchema.record) as Map<string, any>,
-  schema: prepareAuthorSchema(authorWithSchema.schema),
+  schema: prepareSchema(authorWithSchema.schema),
   error: null,
   dispatch: vi.fn(),
   save: vi.fn(),
