@@ -63,8 +63,8 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db-airflow/workflows
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db-airflow/workflows
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db-backoffice/workflows
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db-backoffice/workflows
     AIRFLOW__CELERY__BROKER_URL: redis://cache:6379/3
     AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"
     AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
@@ -94,7 +94,7 @@ x-airflow-common:
     &airflow-common-depends-on
     cache:
       condition: service_healthy
-    db-airflow:
+    db-backoffice:
       condition: service_healthy
 
 services:
@@ -104,7 +104,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       db-backoffice:
-        condition: service_started
+        condition: service_healthy
       es:
         condition: service_healthy
       backoffice-mq:
@@ -140,27 +140,15 @@ services:
       - "POSTGRES_DB=inspirehep"
     ports:
       - "5432:5432"
-    command: postgres -c 'max_connections=200'
-  db-airflow:
-    extends:
-      file: docker-compose.services.yml
-      service: db
-    image: postgres:16
-    environment:
-      - "POSTGRES_DB=workflows"
-    ports:
-      - "5433:5432"
-    command: postgres -c 'max_connections=200'
   db-backoffice:
     extends:
       file: docker-compose.services.yml
       service: db
-    image: postgres:15.15
-    environment:
-      - "POSTGRES_DB=backoffice"
+    image: postgres:17.10
+    volumes:
+      - ./docker/postgres/init-databases.sql:/docker-entrypoint-initdb.d/init-databases.sql
     ports:
-      - "5434:5432"
-    command: postgres -c 'max_connections=200'
+      - "5433:5432"
   mq:
     extends:
       file: docker-compose.services.yml

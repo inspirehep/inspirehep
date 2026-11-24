@@ -88,5 +88,5 @@ load-records:
 	docker compose exec hep-web inspirehep importer demo-records
 
 services:
-	docker compose up -d cache db mq es db-airflow db-backoffice s3
+	docker compose up -d cache db db-backoffice mq es s3
 	docker compose run --rm create_buckets

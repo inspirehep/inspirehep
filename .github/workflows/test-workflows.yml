@@ -42,7 +42,7 @@ jobs:
 
       - name: Spin up Docker containers
         run: |
-          docker compose up -d cache db-airflow s3 airflow-init
+          docker compose up -d cache db-backoffice s3 airflow-init
           docker compose run --rm create_buckets
 
       - name: Test

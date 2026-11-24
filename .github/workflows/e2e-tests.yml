@@ -55,7 +55,7 @@ jobs:
           - 5432:5432
 
       backoffice-postgresql:
-        image: postgres:15.15
+        image: postgres:17.10
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
