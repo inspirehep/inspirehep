@@ -50,7 +50,7 @@ jobs:
         ports:
           - 5672:5672
       db-backoffice:
-        image: postgres:15.15
+        image: postgres:17.10
         env:
           POSTGRES_DB: backoffice
           POSTGRES_USER: postgres
