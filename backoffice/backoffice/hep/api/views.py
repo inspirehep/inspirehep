@@ -120,6 +120,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     serializer_class = HepWorkflowSerializer
     resolution_serializer = HepResolutionSerializer
     status_choices = HepStatusChoices
+    error_statuses = ERROR_STATUSES
     schema_name = "hep"
 
     def retrieve(self, request, *args, **kwargs):
@@ -253,46 +254,6 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow.status = HepStatusChoices.BLOCKED
         workflow.save()
         return Response(status=status.HTTP_200_OK)
-
-    @action(detail=True, methods=["post"])
-    def restart(self, request, pk=None):
-        workflow = get_object_or_404(HepWorkflow, pk=pk)
-
-        if workflow.status == HepStatusChoices.COMPLETED:
-            return Response(
-                {"message": "Cannot restart a completed workflow."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        only_failed = request.data.get("restart_current_task", False)
-
-        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
-
-        if only_failed and workflow.status not in ERROR_STATUSES:
-            return Response(
-                {
-                    "message": "Can only restart current task for workflows in error state."
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        try:
-            airflow_utils.clear_airflow_dag_run(
-                dag_id, str(workflow.id), only_failed=only_failed
-            )
-            workflow.status = (
-                HepStatusChoices.RUNNING if only_failed else HepStatusChoices.PROCESSING
-            )
-            workflow.save()
-        except RequestException as e:
-            return handle_request_exception(
-                "Error restarting Airflow DAGs for workflow %s",
-                e,
-                workflow.id,
-                response_text="Error restarting Airflow DAGs for workflow %s",
-            )
-
-        return Response(self.get_serializer(workflow).data)
 
     @action(detail=True, methods=["post"])
     def restore(self, request, pk=None):

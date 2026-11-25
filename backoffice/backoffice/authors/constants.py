@@ -19,6 +19,9 @@ class AuthorStatusChoices(models.TextChoices):
     ERROR = "error", "Error"
 
 
+ERROR_STATUSES = [AuthorStatusChoices.ERROR]
+
+
 AUTHOR_DEFAULT_STATUS_CHOICE = AuthorStatusChoices.PROCESSING
 
 

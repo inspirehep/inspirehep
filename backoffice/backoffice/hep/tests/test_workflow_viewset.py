@@ -747,6 +747,30 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL)
         mock_clear_airflow_dag_run.assert_not_called()
 
+    @patch(
+        "backoffice.common.views.airflow_utils.clear_airflow_dag_run",
+        side_effect=RequestException("Airflow clear failed"),
+    )
+    def test_restart_airflow_error(self, mock_clear_airflow_dag_run):
+        self.workflow.status = HepStatusChoices.ERROR
+        self.workflow.save()
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(
+            url, format="json", data={"restart_current_task": True}
+        )
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(
+            response.json()["error"],
+            f"Error restarting Airflow DAGs for workflow {self.workflow.id}",
+        )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.ERROR)
+        mock_clear_airflow_dag_run.assert_called_once()
+
     def test_restart_completed_workflow(self):
         completed_workflow = HepWorkflow.objects.create(
             data={},
