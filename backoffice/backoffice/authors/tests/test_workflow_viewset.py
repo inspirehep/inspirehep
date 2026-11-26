@@ -265,11 +265,13 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
+        self.workflow.status = AuthorStatusChoices.COMPLETED
+        self.workflow.save()
         response = self.api_client.post(url)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json()["error"],
-            "Workflow has already run successfully. Skipping restart.",
+            response.json()["message"],
+            "Cannot restart a completed workflow.",
         )
 
     @pytest.mark.vcr
@@ -284,9 +286,13 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("test", response.json()["data"])
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, AuthorStatusChoices.PROCESSING)
 
     @pytest.mark.vcr
     def test_restart_a_task(self):
+        self.workflow.status = AuthorStatusChoices.ERROR
+        self.workflow.save()
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:authors-restart",
@@ -297,9 +303,14 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             url, format="json", data={"restart_current_task": True}
         )
         self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, AuthorStatusChoices.RUNNING)
 
     @pytest.mark.vcr
-    def test_restart_current_task_without_failed_dags(self):
+    @patch("backoffice.common.views.airflow_utils.clear_airflow_dag_run")
+    def test_restart_current_task_without_failed_tasks(
+        self, mock_clear_airflow_dag_run
+    ):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:authors-restart",
@@ -310,22 +321,36 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(),
-            {"error": "No failed tasks found to restart. Skipping restart."},
+            response.json()["message"],
+            "Can only restart current task for workflows in error state.",
         )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, AuthorStatusChoices.RUNNING)
+        mock_clear_airflow_dag_run.assert_not_called()
 
     @pytest.mark.vcr
-    def test_restart_with_params(self):
+    @patch(
+        "backoffice.common.views.airflow_utils.clear_airflow_dag_run",
+        side_effect=RequestException("Airflow clear failed"),
+    )
+    def test_restart_airflow_error(self, mock_clear_airflow_dag_run):
+        self.workflow.status = AuthorStatusChoices.ERROR
+        self.workflow.save()
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(
-            url, format="json", data={"params": {"workflow": {"id": self.workflow.id}}}
+            url, format="json", data={"restart_current_task": True}
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["id"], str(self.workflow.id))
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(
+            response.json()["error"],
+            f"Error restarting Airflow DAGs for workflow {self.workflow.id}",
+        )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, AuthorStatusChoices.ERROR)
 
     @pytest.mark.vcr
     def test_validate_valid_record(self):

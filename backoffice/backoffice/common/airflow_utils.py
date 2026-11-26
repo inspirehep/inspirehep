@@ -143,38 +143,6 @@ def clear_airflow_dag_run(dag_id, workflow_id, only_failed=False):
     return response.content, response.status_code
 
 
-def restart_failed_tasks(workflow_id, workflow_type):
-    """Restarts failed tasks of an airflow dag.
-
-    :param workflow_id: id of workflow to restart failed tasks
-    :param workflow_type: type of workflow to retrieve
-    :returns: request response content if dags were found, None otherwise
-    """
-    dag_id = find_failed_dag(workflow_id, workflow_type)
-    if dag_id is None:
-        return None
-
-    #  assumes current task is one of the failed tasks
-    data = {
-        "dry_run": False,
-        "dag_run_id": str(workflow_id),
-        "reset_dag_runs": True,
-        "only_failed": True,
-        "run_on_latest_version": True,
-    }
-
-    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/clearTaskInstances"
-
-    logger.info("Clearing Failed Tasks of DAG %s with id %s", dag_id, str(workflow_id))
-    response = requests.post(
-        url,
-        json=data,
-        headers=AIRFLOW_HEADERS,
-    )
-    response.raise_for_status()
-    return response.content, response.status_code
-
-
 def find_executed_dags(workflow_id, workflow_type):
     """For a given workflow find dags associated to it.
 
@@ -196,31 +164,6 @@ def find_executed_dags(workflow_id, workflow_type):
     return executed_dags_for_workflow
 
 
-def find_failed_dag_for_workflow(executed_dags_for_workflow):
-    """Finds all failed dags for a given workflow.
-
-    :param executed_dags_for_workflow: dictionary with executed dags and their status
-
-    :returns: list of failed dag ids
-    """
-    for dag, dag_data in executed_dags_for_workflow.items():
-        if dag_data["state"] == "failed":
-            return dag
-
-
-def find_failed_dag(workflow_id, workflow_type):
-    """For a given workflow find failed dags.
-
-    :param workflow_id: id of workflow to retrieve the failed dags
-    :param workflow_type: type of workflow to retrieve
-
-    :returns: failed dag id or none
-    """
-
-    executed_dags_for_workflow = find_executed_dags(str(workflow_id), workflow_type)
-    return find_failed_dag_for_workflow(executed_dags_for_workflow)
-
-
 def delete_workflow_dag(dag_id, workflow_id):
     """Delete dag run.
 
@@ -236,59 +179,13 @@ def delete_workflow_dag(dag_id, workflow_id):
     return response.content, response.status_code
 
 
-def restart_workflow_dags(workflow_id, workflow_type, params=None, workflow=None):
-    """Restarts dags of a given workflow.
-
-    :param workflow_id: workflow_id  for dags that should be restarted
-    :param workflow_type: type of workflow the will be restarted
-    :param params: parameters of new dag execution, if not provided will be fetched from the workflow
-    :param workflow: workflow data to be used in the new dag if not provided workflow data from previous execution will be used
-    :returns: request response content
-    """
-
-    if params:
-        conf = params
-    elif workflow:
-        conf = {"workflow": workflow}
-    else:
-        conf = fetch_conf_workflow_dag(workflow_id, workflow_type)
-
-    if not conf:
-        return None
-
-    delete_workflow_dag_runs(workflow_id, workflow_type)
-
-    return trigger_airflow_dag(
-        WORKFLOW_DAGS[workflow_type].initialize,
-        str(workflow_id),
-        workflow=conf.get("workflow"),
-        data=conf.get("data"),
-    )
-
-
 def delete_workflow_dag_runs(workflow_id, workflow_type):
     """Deletes runs of a given workflow.
 
-    :param workflow_id: workflow_id  for dags that should be restarted
-    :param workflow_type: type of workflow the will be restarted
+    :param workflow_id: workflow_id  for dags that should be deleted
+    :param workflow_type: type of workflow whose runs will be deleted
     """
     executed_dags_for_workflow = find_executed_dags(workflow_id, workflow_type)
 
     for dag_id, _ in executed_dags_for_workflow.items():
         delete_workflow_dag(dag_id, str(workflow_id))
-
-
-def fetch_conf_workflow_dag(workflow_id, workflow_type):
-    """Fetches Data that the workflow ran with
-
-    :param workflow_id: workflow_id for dag to get data of
-    :param workflow_type: type of workflow
-    :returns: data workflow dags used
-    """
-
-    executed_dags_for_workflow = find_executed_dags(workflow_id, workflow_type)
-    if not executed_dags_for_workflow:
-        return None
-
-    _, dag = next(iter(executed_dags_for_workflow.items()))
-    return dag["conf"]
