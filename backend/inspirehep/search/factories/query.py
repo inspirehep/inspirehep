@@ -4,10 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import inspire_query_parser
 from flask import current_app
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery
+from inspirehep.search.query_parser import parse_query
 from inspirehep.search.utils import RecursionLimit
 from opensearch_dsl import Q
 
@@ -52,7 +52,7 @@ def inspire_query_factory():
     def inspire_query(query_string, search):
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
             try:
-                query = Q(inspire_query_parser.parse_query(query_string))
+                query = Q(parse_query(query_string))
             except ValueError as e:
                 raise MalformatedQuery from e
             if "citedby" in query_string:
