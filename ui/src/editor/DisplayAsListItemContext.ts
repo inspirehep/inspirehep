@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react';
 export interface DisplayAsListItemInfo {
   brief: string;
   href?: string;
+  suffix?: string;
   flagged: boolean;
 }
 

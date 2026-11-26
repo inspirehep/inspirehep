@@ -146,6 +146,44 @@ describe('ProjectNameAutocompleteWidget', () => {
     });
   });
 
+  it('writes the legacy name under the configured valueKey', async () => {
+    const user = userEvent.setup();
+    mockHttp
+      .onGet('/experiments/_search_as_you_type?experiment=DE')
+      .replyOnce(200, {
+        experiment: [
+          {
+            options: [
+              { _source: { control_number: 1108381, legacy_name: 'DES' } },
+            ],
+          },
+        ],
+      });
+
+    const onProjectChange = vi.fn();
+
+    render(
+      <ControlledWidget
+        widgetProps={{ options: { valueKey: 'legacy_name' } }}
+        contextValue={{
+          formData: { legacy_name: '' },
+          onChange: onProjectChange,
+        }}
+      />
+    );
+
+    await user.type(screen.getByRole('combobox'), 'DE');
+    await user.click(await screen.findByText('DES'));
+
+    expect(onProjectChange).toHaveBeenCalledWith({
+      legacy_name: 'DES',
+      record: {
+        $ref: `${window.location.origin}/api/experiments/1108381`,
+      },
+      curated_relation: true,
+    });
+  });
+
   it('is disabled when readonly', () => {
     render(
       <ControlledWidget

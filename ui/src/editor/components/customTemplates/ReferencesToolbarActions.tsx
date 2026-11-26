@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Checkbox, Input, Popover } from 'antd';
-import { useReferencesActions } from '../../ReferencesActionsContext';
+import { useToolbarActions } from '../../ToolbarActionsContext';
 import removeEmptyValues from '../../utils/removeEmptyValues';
 import { ToolbarActionsProps } from '../../types';
 
@@ -10,7 +10,7 @@ function ReferencesToolbarActions({
   readonly,
   onReset,
 }: ToolbarActionsProps) {
-  const { extractReferences, linkReferences } = useReferencesActions();
+  const { extractReferences, linkReferences } = useToolbarActions();
   const [isExtractOpen, setIsExtractOpen] = useState(false);
   const [source, setSource] = useState('');
   const [replace, setReplace] = useState(true);

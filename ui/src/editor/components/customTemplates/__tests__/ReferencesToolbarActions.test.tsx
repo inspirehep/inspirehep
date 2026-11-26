@@ -2,7 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import ReferencesToolbarActions from '../ReferencesToolbarActions';
-import { ReferencesActionsContext } from '../../../ReferencesActionsContext';
+import {
+  ToolbarActions,
+  ToolbarActionsContext,
+} from '../../../ToolbarActionsContext';
 
 const existing = { reference: { label: '1' } };
 const extracted = { reference: { label: '2' } };
@@ -14,19 +17,21 @@ function renderReferencesToolbarActions({
   actions = {
     extractReferences: vi.fn().mockResolvedValue([extracted]),
     linkReferences: vi.fn().mockResolvedValue([linked]),
-  },
+  } as Partial<ToolbarActions>,
 } = {}) {
   const onChange = vi.fn();
   const onReset = vi.fn();
   render(
-    <ReferencesActionsContext.Provider value={actions}>
+    <ToolbarActionsContext.Provider
+      value={{ extractAuthors: vi.fn(), ...actions } as ToolbarActions}
+    >
       <ReferencesToolbarActions
         formData={formData}
         onChange={onChange}
         readonly={readonly}
         onReset={onReset}
       />
-    </ReferencesActionsContext.Provider>
+    </ToolbarActionsContext.Provider>
   );
   return { onChange, onReset, actions };
 }
@@ -47,7 +52,7 @@ describe('<ReferencesToolbarActions />', () => {
       render(
         <ReferencesToolbarActions formData={[]} onChange={vi.fn()} readonly />
       )
-    ).toThrow('useReferencesActions must be used within');
+    ).toThrow('useToolbarActions must be used within');
   });
 
   it('replaces existing references on extract by default', async () => {

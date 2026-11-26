@@ -9,6 +9,8 @@ import DisplayAsListArrayFieldItemTemplate from '../../components/customTemplate
 import ArrayItemObjectFieldTemplate from '../../components/customTemplates/objectFieldTemplates/ArrayItemObjectFieldTemplate';
 import referencesUiSchema from './referencesUiSchema';
 import { ISO_LANGUAGE_MAP } from '../../constants/isoLanguageMap';
+import authorsUiSchema from './authorsUiSchema';
+import { property } from '../helpers';
 
 const literatureUiSchema: UiSchema = {
   'ui:submitButtonOptions': { norender: true },
@@ -30,8 +32,8 @@ const literatureUiSchema: UiSchema = {
         properties: [
           'collaborations',
           'accelerator_experiments',
-          'authors',
           'corporate_author',
+          'authors',
         ],
       },
     ],
@@ -87,8 +89,8 @@ const literatureUiSchema: UiSchema = {
     '_desy_bookkeeping',
     'collaborations',
     'accelerator_experiments',
-    'authors',
     'corporate_author',
+    'authors',
     '*',
   ],
   curated: {
@@ -406,18 +408,9 @@ const literatureUiSchema: UiSchema = {
       'ui:widget': 'text',
       'ui:title': 'datetime',
     },
-    email: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'email',
-    },
-    method: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'method',
-    },
-    orcid: {
-      'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-      'ui:title': 'orcid',
-    },
+    email: property('email'),
+    method: property('method'),
+    orcid: property('orcid'),
     source: { 'ui:FieldTemplate': ObjectPropertyFieldTemplate },
     internal_uid: { 'ui:widget': 'hidden' },
     submission_number: { 'ui:widget': 'hidden' },
@@ -467,14 +460,8 @@ const literatureUiSchema: UiSchema = {
         'ui:title': 'doi',
         'ui:options': { showHeader: false },
         'ui:order': ['source', 'value'],
-        source: {
-          'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-          'ui:title': 'source',
-        },
-        value: {
-          'ui:FieldTemplate': ObjectPropertyFieldTemplate,
-          'ui:title': 'value',
-        },
+        source: property('source'),
+        value: property('value'),
       },
       record: {
         'ui:FieldTemplate': ObjectPropertyFieldTemplate,
@@ -586,6 +573,51 @@ const literatureUiSchema: UiSchema = {
     'ui:FieldTemplate': StandaloneFieldTemplate,
     'ui:options': { readonly: true },
   },
+  collaborations: {
+    'ui:title': 'collaborations',
+    items: {
+      'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
+      'ui:order': ['value', 'record'],
+      value: {
+        'ui:placeholder': 'Collaboration name',
+      },
+      record: {
+        $ref: {
+          'ui:widget': 'recordRef',
+          'ui:placeholder': 'Record of the collaboration',
+        },
+      },
+    },
+  },
+  accelerator_experiments: {
+    'ui:title': 'accelerator experiments',
+    items: {
+      'ui:ObjectFieldTemplate': ArrayItemObjectFieldTemplate,
+      'ui:order': [
+        'legacy_name',
+        'institution',
+        'accelerator',
+        'experiment',
+        'record',
+        'curated_relation',
+      ],
+      legacy_name: {
+        'ui:widget': 'projectNameAutocomplete',
+        'ui:options': { valueKey: 'legacy_name' },
+      },
+      curated_relation: {
+        'ui:options': { label: false },
+      },
+      record: { $ref: { 'ui:widget': 'viewRecordWidget' } },
+    },
+  },
+  corporate_author: {
+    'ui:title': 'corporate author',
+    items: {
+      'ui:placeholder': 'List of corporate authors',
+    },
+  },
+  authors: authorsUiSchema,
   thesis_info: {
     'ui:widget': 'hidden',
   },

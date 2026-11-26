@@ -15,7 +15,7 @@ import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher'
 import '../components/customTemplates/Templates.less';
 import { resetEditor } from '../../actions/editor/common';
 import CommonEditor from '../components/CommonEditor';
-import prepareAuthorSchema from '../utils/prepareAuthorSchema';
+import prepareSchema from '../utils/prepareSchema';
 import { getUiSchema } from '../utils/getUiSchema';
 
 const getUiSchemaFromFormData = (formData?: any) =>
@@ -31,9 +31,7 @@ const stateToProps = (state: RootState) => {
     ?.get('metadata');
   return {
     data: recordMetadata,
-    schema: schemaFromState
-      ? prepareAuthorSchema(schemaFromState.toJS())
-      : null,
+    schema: schemaFromState ? prepareSchema(schemaFromState.toJS()) : null,
     error: state.editor.getIn(['recordData', 'fetchRecordError']),
     save: saveAuthor,
     withRevisions: {

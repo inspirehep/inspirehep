@@ -42,11 +42,12 @@ import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
 import ToggleWidget from './customWidgets/ToggleWidget';
 import { RootState } from '../../types';
 import { DocumentUploadContext } from '../DocumentUploadContext';
-import { ReferencesActionsContext } from '../ReferencesActionsContext';
+import { ToolbarActionsContext } from '../ToolbarActionsContext';
 import {
   extractReferences,
   linkReferences,
 } from '../../actions/editor/references';
+import { extractAuthors } from '../../actions/editor/authors';
 import { HttpClientWrapper } from '../../common/http';
 import { DEFAULT_TAB_NAME, EditorTabContext } from '../EditorTabContext';
 import './CommonEditor.less';
@@ -193,16 +194,15 @@ const CommonEditor = ({
     [dispatch, type, id]
   );
 
-  const [isReferencesRequestPending, setIsReferencesRequestPending] =
-    useState(false);
+  const [isToolbarRequestPending, setIsToolbarRequestPending] = useState(false);
 
-  const referencesActions = useMemo(() => {
+  const toolbarActions = useMemo(() => {
     const whileLocked = async <T,>(request: Promise<T>): Promise<T> => {
-      setIsReferencesRequestPending(true);
+      setIsToolbarRequestPending(true);
       try {
         return await request;
       } finally {
-        setIsReferencesRequestPending(false);
+        setIsToolbarRequestPending(false);
       }
     };
     return {
@@ -210,6 +210,8 @@ const CommonEditor = ({
         whileLocked(dispatch(extractReferences(source))),
       linkReferences: (references: Reference[]) =>
         whileLocked(dispatch(linkReferences(references))),
+      extractAuthors: (source: string) =>
+        whileLocked(dispatch(extractAuthors(source))),
     };
   }, [dispatch]);
 
@@ -310,7 +312,7 @@ const CommonEditor = ({
       />
 
       <DocumentUploadContext.Provider value={onUploadDocument}>
-        <ReferencesActionsContext.Provider value={referencesActions}>
+        <ToolbarActionsContext.Provider value={toolbarActions}>
           <EditorTabContext.Provider value={tabContextValue}>
             <ConfigProvider componentSize="small">
               <Form
@@ -319,7 +321,7 @@ const CommonEditor = ({
                 validator={validator}
                 formData={formData}
                 extraErrors={extraErrors}
-                readonly={isViewingRevision || isReferencesRequestPending}
+                readonly={isViewingRevision || isToolbarRequestPending}
                 onChange={({ formData: nextFormData }) =>
                   onFormChange(nextFormData)
                 }
@@ -334,7 +336,7 @@ const CommonEditor = ({
               />
             </ConfigProvider>
           </EditorTabContext.Provider>
-        </ReferencesActionsContext.Provider>
+        </ToolbarActionsContext.Provider>
       </DocumentUploadContext.Provider>
 
       {showViewer && (

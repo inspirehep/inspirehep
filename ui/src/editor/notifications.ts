@@ -103,3 +103,26 @@ export function notifyReferencesLinkingError() {
     description: 'Could not link references',
   });
 }
+
+export function notifyAuthorsExtractionSuccess(count: number) {
+  notification.success({
+    title: 'Success',
+    description: `${count} authors extracted.`,
+  });
+}
+
+export function notifyAuthorsExtractionWarning(warning: string) {
+  notification.warning({
+    title: 'Warning',
+    description: warning,
+    duration: false,
+  });
+}
+
+export function notifyAuthorsExtractionError(message?: string) {
+  notification.error({
+    title: 'Error',
+    description: message || 'Could not extract authors',
+    duration: message ? false : undefined,
+  });
+}

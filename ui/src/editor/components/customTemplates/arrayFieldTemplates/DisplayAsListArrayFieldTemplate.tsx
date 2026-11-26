@@ -24,6 +24,9 @@ function DisplayAsListArrayFieldTemplate({
   const getItemBrief = options.getItemBrief as
     | ((item: any) => string)
     | undefined;
+  const getItemSuffix = options.getItemSuffix as
+    | ((item: any) => string | undefined)
+    | undefined;
   const getItemHref = options.getItemHref as
     | ((item: any) => string | undefined)
     | undefined;
@@ -105,12 +108,13 @@ function DisplayAsListArrayFieldTemplate({
               return {
                 brief: getItemBrief(item),
                 href: getItemHref?.(item),
+                suffix: getItemSuffix?.(item),
                 flagged: needsEdit(item),
               };
             },
           }
         : undefined,
-    [list, getItemBrief, getItemHref, needsEdit]
+    [list, getItemBrief, getItemHref, getItemSuffix, needsEdit]
   );
 
   return (
