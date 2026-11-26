@@ -6,6 +6,7 @@ from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHoo
 from hooks.generic_http_hook import GenericHttpHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.elsevier import extract_package_entries, process_package
+from include.utils.harvests import write_failed_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 from tenacity import RetryError
@@ -93,13 +94,12 @@ def elsevier_harvest_dag():
                 )
             )
 
-        if len(failed_records) > 0:
-            return s3_store.write_object(
-                {
-                    "failed_records": failed_records,
-                },
-                key=f"failed/{context['run_id']}.json",
-            )
+        return write_failed_records(
+            s3_store,
+            {"failed_records": failed_records},
+            prefix="elsevier_harvest_dag",
+            run_id=submission_number,
+        )
 
     packages = fetch_package_feed()
     new_package_keys = download_new_packages(packages)

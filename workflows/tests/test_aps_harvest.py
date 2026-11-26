@@ -108,9 +108,7 @@ class TestAPSHarvest:
             context={"run_id": "test_run_id"},
         )
 
-        failures = self.s3_aps_store.read_object(failed_records_key)
-
-        assert failures == {"failed_records": []}
+        assert failed_records_key is None
         assert mock_post_workflow.call_count == 1
         stored_document_path = urlparse(
             mock_post_workflow.call_args.kwargs["workflow_data"]["data"]["documents"][

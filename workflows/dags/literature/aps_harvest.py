@@ -13,6 +13,7 @@ from include.utils.aps import (
     store_record_documents,
 )
 from include.utils.constants import APS_ARTICLES_ENDPOINT, HEP_PUBLISHER_CREATE
+from include.utils.harvests import write_failed_records
 from include.utils.s3 import S3JsonStore
 from inspire_utils.record import get_value
 from literature.check_failures_task import check_failures
@@ -146,7 +147,12 @@ def aps_harvest_dag():
                 logger.warning("Failed to process APS article %s: %s", doi, exc)
                 failed_records.append({"doi": doi, "error": str(exc)})
 
-        return s3_store.write_object({"failed_records": failed_records})
+        return write_failed_records(
+            s3_store,
+            {"failed_records": failed_records},
+            prefix="aps_harvest_dag",
+            run_id=submission_number,
+        )
 
     articles_key = fetch_articles()
     failed_records_key = process_articles(articles_key)

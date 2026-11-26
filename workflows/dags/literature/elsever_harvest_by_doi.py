@@ -4,6 +4,7 @@ from airflow.sdk import Param, dag, task
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.elsevier import process_article
+from include.utils.harvests import write_failed_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
@@ -69,12 +70,12 @@ def elsevier_harvest_by_doi_dag():
             if failed_record:
                 failed_records.append(failed_record)
 
-        if failed_records:
-            return s3_store.write_object(
-                {
-                    "failed_records": failed_records,
-                }
-            )
+        return write_failed_records(
+            s3_store,
+            {"failed_records": failed_records},
+            prefix="elsevier_harvest_by_doi_dag",
+            run_id=context["run_id"],
+        )
 
     dois = get_dois()
     failed_load_record_key = process_records(dois)
