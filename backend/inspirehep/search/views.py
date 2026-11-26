@@ -8,10 +8,10 @@ import json
 
 import structlog
 from flask import Blueprint, Response, abort, current_app, request, stream_with_context
-from inspire_query_parser import parse_query
 
 from inspirehep.accounts.decorators import login_required
 from inspirehep.search.ai_search import AiSearchError, run_ai_search, stream_ai_search
+from inspirehep.search.query_parser import parse_query
 from inspirehep.serializers import jsonify
 
 LOGGER = structlog.getLogger()

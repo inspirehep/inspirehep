@@ -1363,7 +1363,7 @@ def test_literature_journal_title_search_is_case_insensitive(inspire_app):
 
 
 @pytest.mark.skip(reason="Test is wrong. Returns results for path with raw and without")
-@mock.patch("inspirehep.search.factories.query.inspire_query_parser.parse_query")
+@mock.patch("inspirehep.search.factories.query.parse_query")
 def test_citedby_query(mocked_query_parser, inspire_app):
     cited_record = create_record("lit")
     citing_record = create_record(
