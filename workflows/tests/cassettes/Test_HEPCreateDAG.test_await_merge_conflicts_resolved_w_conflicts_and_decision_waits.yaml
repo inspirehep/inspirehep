@@ -162,7 +162,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"status": "running"}'
+    body: '{"status": "approval_merge"}'
     headers:
       Accept:
       - application/json
@@ -171,7 +171,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '21'
+      - '28'
       Content-Type:
       - application/json
     method: PATCH

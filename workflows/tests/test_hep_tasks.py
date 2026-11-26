@@ -3140,7 +3140,7 @@ class Test_HEPCreateDAG:
         assert not result
 
     @pytest.mark.vcr
-    def test_await_merge_conflicts_resolved_w_conflicts_and_decision(self):
+    def test_await_merge_conflicts_resolved_w_conflicts_and_decision_waits(self):
         workflow_id = "f9fc9d83-fd28-450e-bfde-d1ed07dc87f5"
 
         context_params = {"workflow_id": workflow_id}
@@ -3151,8 +3151,31 @@ class Test_HEPCreateDAG:
             context_params=context_params,
         )
 
+        assert not result
+
+    @patch.object(WorkflowManagementHook, "set_workflow_status")
+    @patch.object(WorkflowManagementHook, "get_workflow")
+    def test_await_merge_conflicts_resolved_w_empty_conflicts_and_decision(
+        self, mock_get_workflow, mock_set_workflow_status
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {"titles": [{"title": "Resolved merge"}]},
+            "merge_details": {"conflicts": []},
+            "decisions": [{"action": "merge_approve"}],
+        }
+        mock_get_workflow.return_value = workflow_data
+
+        result = task_test(
+            self.dag,
+            "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
+            context=self.context,
+        )
+
         assert result
-        assert self.s3_store.get_flag("approved", workflow_id)
+        mock_set_workflow_status.assert_not_called()
+        assert self.s3_store.get_flag("approved", self.workflow_id)
+        assert self.s3_store.read_workflow(self.workflow_id) == workflow_data
 
     def test_update_inspire_categories(self):
         workflow_data = {

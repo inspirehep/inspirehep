@@ -105,19 +105,38 @@ class TestHEPManualMergeDAG:
         assert result is False
         mock_set_workflow_status.assert_called_once()
 
+    @patch("literature.hep_manual_merge.WorkflowManagementHook.set_workflow_status")
+    @patch("literature.hep_manual_merge.WorkflowManagementHook.get_workflow")
+    def test_await_merge_conflicts_resolved_waits_if_conflicts_remain_after_decision(
+        self,
+        mock_get_workflow,
+        mock_set_workflow_status,
+    ):
+        mock_get_workflow.return_value = {
+            "merge_details": {"conflicts": [{"path": "/authors/0"}]},
+            "decisions": [{"action": "manual_merge_approve"}],
+        }
+
+        result = task_test(self.dag, "await_merge_conflicts_resolved", self.context)
+
+        assert result is False
+        mock_set_workflow_status.assert_called_once()
+
+    @patch("literature.hep_manual_merge.WorkflowManagementHook.set_workflow_status")
     @patch("literature.hep_manual_merge.WorkflowManagementHook.get_workflow")
     def test_await_merge_conflicts_resolved_persists_resolved_workflow(
-        self, mock_get_workflow
+        self, mock_get_workflow, mock_set_workflow_status
     ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {"titles": [{"title": "Resolved merge"}]},
-            "merge_details": {"conflicts": [{"path": "/authors/0"}]},
+            "merge_details": {"conflicts": []},
             "decisions": [{"action": "manual_merge_approve"}],
         }
         mock_get_workflow.return_value = workflow_data
 
         assert task_test(self.dag, "await_merge_conflicts_resolved", self.context)
+        mock_set_workflow_status.assert_not_called()
         assert self.s3_store.read_workflow(self.workflow_id) == workflow_data
 
     @patch("literature.hep_manual_merge.workflows.delete_wf_record_source")

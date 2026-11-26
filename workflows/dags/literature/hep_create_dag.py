@@ -64,7 +64,6 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
-    DECISION_MERGE_APPROVE,
     DISCARDABLE_STATUSES,
     FERMILAB_COLLECTION_NAME,
     HEP_PUBLISHER_CREATE,
@@ -1453,11 +1452,8 @@ def hep_create_dag():
             workflow_data = workflow_management_hook.get_workflow(workflow_id)
             merge_details = workflow_data.get("merge_details") or {}
             conflicts = get_value(merge_details, "conflicts")
-            is_conflicts_resolved = get_decision(
-                workflow_data.get("decisions"), DECISION_MERGE_APPROVE
-            )
 
-            if conflicts and not is_conflicts_resolved:
+            if conflicts:
                 workflow_management_hook.set_workflow_status(
                     status_name=STATUS_APPROVAL_MERGE, workflow_id=workflow_id
                 )
