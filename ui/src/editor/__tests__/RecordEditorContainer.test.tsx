@@ -9,7 +9,7 @@ import { authorWithSchema } from './authorWithSchemaFixture';
 import {
   fetchRecordRevisionData,
   revertToRevision,
-  saveAuthor,
+  saveRecord,
 } from '../../actions/editor/record';
 
 vi.mock('react-router-dom', async () => {
@@ -24,13 +24,13 @@ vi.mock('../../actions/editor/record', async () => {
   const actual = await vi.importActual('../../actions/editor/record');
   return {
     ...actual,
-    saveAuthor: vi.fn(),
+    saveRecord: vi.fn(),
     fetchRecordRevisionData: vi.fn(),
     revertToRevision: vi.fn(),
   };
 });
 
-mockActionCreator(saveAuthor);
+mockActionCreator(saveRecord);
 mockActionCreator(fetchRecordRevisionData);
 mockActionCreator(revertToRevision);
 
@@ -155,7 +155,7 @@ describe('<RecordEditorContainer/>', () => {
 
       await user.click(screen.getByRole('button', { name: /save/ }));
 
-      expect(saveAuthor).toHaveBeenCalledWith(123, {
+      expect(saveRecord).toHaveBeenCalledWith('authors', 123, {
         ...authorWithSchema.record.metadata,
         name: {
           ...authorWithSchema.record.metadata.name,
@@ -177,7 +177,7 @@ describe('<RecordEditorContainer/>', () => {
       expect(
         screen.getByText("must have required property 'value'")
       ).toBeVisible();
-      expect(saveAuthor).not.toHaveBeenCalled();
+      expect(saveRecord).not.toHaveBeenCalled();
     });
     it('should display details on click and go to errored field on click and hide details on click', async () => {
       const user = userEvent.setup();

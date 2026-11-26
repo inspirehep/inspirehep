@@ -1,22 +1,33 @@
 import { notification } from 'antd';
 
-export function notifyEditionInProgress(controlNumber: string) {
+import { PidType } from '../types';
+
+const RECORD_TYPE_LABELS: Partial<Record<PidType, string>> = {
+  authors: 'Author',
+  literature: 'Literature',
+};
+
+function recordLabel(type: PidType) {
+  return RECORD_TYPE_LABELS[type] ?? type;
+}
+
+export function notifyEditionInProgress(controlNumber: string, type: PidType) {
   notification.info({
     title: 'In progress',
-    description: `Editing author ${controlNumber}`,
+    description: `Editing ${recordLabel(type).toLowerCase()} ${controlNumber}`,
   });
 }
 
-export function notifyEditionSuccess(controlNumber: string) {
+export function notifyEditionSuccess(controlNumber: string, type: PidType) {
   notification.success({
     title: 'Success',
-    description: `Author ${controlNumber} edited successfully`,
+    description: `${recordLabel(type)} ${controlNumber} edited successfully`,
   });
 }
 
-export function notifyEditionError(error: string) {
+export function notifyEditionError(error: string, type: PidType) {
   notification.error({
-    title: 'Unable to edit author',
+    title: `Unable to edit ${recordLabel(type).toLowerCase()}`,
     description: error,
   });
 }

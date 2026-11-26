@@ -139,7 +139,7 @@ describe('workflow - async actions creator', () => {
           fromJS(currentAuthor)
         ),
       });
-      await store.dispatch(saveAuthorWorkflow('abc', workflow));
+      await store.dispatch(saveAuthorWorkflow('authors', 'abc', workflow));
 
       expect(store.getActions()).toEqual([
         { type: EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST },
@@ -149,8 +149,8 @@ describe('workflow - async actions creator', () => {
         workflow
       );
       expect(JSON.parse(mockBackofficeHttp.history.put[0].data)).toEqual(saved);
-      expect(notifyEditionInProgress).toHaveBeenCalledWith('abc');
-      expect(notifyEditionSuccess).toHaveBeenCalledWith('abc');
+      expect(notifyEditionInProgress).toHaveBeenCalledWith('abc', 'authors');
+      expect(notifyEditionSuccess).toHaveBeenCalledWith('abc', 'authors');
       expect(notifyEditionError).not.toHaveBeenCalled();
     });
 
@@ -170,7 +170,7 @@ describe('workflow - async actions creator', () => {
         },
       ]);
       expect(mockBackofficeHttp.history.put).toHaveLength(0);
-      expect(notifyEditionError).toHaveBeenCalledWith('Invalid');
+      expect(notifyEditionError).toHaveBeenCalledWith('Invalid', 'authors');
       expect(notifyEditionSuccess).not.toHaveBeenCalled();
     });
 
@@ -179,7 +179,7 @@ describe('workflow - async actions creator', () => {
       mockBackofficeHttp.onPut(workflowUrl('abc')).replyOnce(500, {});
 
       const store = getStore();
-      await store.dispatch(saveAuthorWorkflow('abc', workflow));
+      await store.dispatch(saveAuthorWorkflow('authors', 'abc', workflow));
 
       expect(store.getActions()).toEqual([
         { type: EDITOR_AUTHOR_WORKFLOW_SAVE_REQUEST },
@@ -188,7 +188,10 @@ describe('workflow - async actions creator', () => {
           payload: { error: { status: 500 } },
         },
       ]);
-      expect(notifyEditionError).toHaveBeenCalledWith('An error occurred');
+      expect(notifyEditionError).toHaveBeenCalledWith(
+        'An error occurred',
+        'authors'
+      );
     });
   });
 });

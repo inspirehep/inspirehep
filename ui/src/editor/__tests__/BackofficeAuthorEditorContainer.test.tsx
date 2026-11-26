@@ -156,7 +156,7 @@ describe('<BackofficeAuthorEditorContainer/>', () => {
 
       await user.click(screen.getByRole('button', { name: /save/ }));
 
-      expect(saveAuthorWorkflow).toHaveBeenCalledWith(123, {
+      expect(saveAuthorWorkflow).toHaveBeenCalledWith('authors', 123, {
         ...authorWorkflow.data,
         name: {
           ...authorWorkflow.data.name,

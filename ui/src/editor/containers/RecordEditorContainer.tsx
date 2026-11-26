@@ -3,7 +3,7 @@ import { legacy_connect as connect } from 'react-redux';
 import {
   fetchRecord,
   fetchRecordRevisions,
-  saveAuthor,
+  saveRecord,
 } from '../../actions/editor/record';
 import {
   fetchQueues,
@@ -33,7 +33,7 @@ const stateToProps = (state: RootState) => {
     data: recordMetadata,
     schema: schemaFromState ? prepareSchema(schemaFromState.toJS()) : null,
     error: state.editor.getIn(['recordData', 'fetchRecordError']),
-    save: saveAuthor,
+    save: saveRecord,
     withRevisions: {
       revisions: state.editor.getIn(['recordData', 'record_revisions']),
       currentRevision: state.editor.getIn([
