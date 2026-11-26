@@ -21,6 +21,7 @@ from include.utils.constants import (
     DECISION_AUTO_REJECT,
     DECISION_FUZZY_MATCH,
     DECISION_HEP_REJECT,
+    DECISION_WITHDRAWN,
     LITERATURE_PID_TYPE,
     STATUS_COMPLETED,
 )
@@ -32,6 +33,25 @@ from parsel import Selector
 from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
+
+
+def handle_withdrawn_arxiv_error(error, hook, workflow_id):
+    response_body = hook.last_response.text if hook.last_response is not None else ""
+
+    # tenacity only wraps the error in a RetryError when it retried
+    if isinstance(error, RetryError):
+        error = error.last_attempt.exception()
+
+    is_not_found = str(error).lower().startswith("404:not found")
+    is_withdrawn = "withdrawn and is unavailable" in response_body
+    if not (is_not_found and is_withdrawn):
+        return False
+
+    WorkflowManagementHook(HEP).add_decision(
+        workflow_id=workflow_id,
+        decision_data={"action": DECISION_WITHDRAWN},
+    )
+    return True
 
 
 def get_decision(decisions, actions):
@@ -85,6 +105,10 @@ def clean_instances_from_data(output):
                 keywords[key.id] = keywords.pop(key)
         new_output[output_key] = keywords
     return new_output
+
+
+def get_tarball_key(workflow_id):
+    return f"{workflow_id}/tarball.tar.gz"
 
 
 def get_document_key_in_workflow(workflow):

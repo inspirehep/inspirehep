@@ -14,6 +14,7 @@ DECISION_AUTO_REJECT = "auto_reject"
 DECISION_MERGE_APPROVE = "merge_approve"
 DECISION_MANUAL_MERGE_APPROVE = "manual_merge_approve"
 DECISION_DISCARD = "discard"
+DECISION_WITHDRAWN = "withdrawn"
 
 DECISION_ACCEPT = "accept"
 DECISION_REJECT = "reject"
