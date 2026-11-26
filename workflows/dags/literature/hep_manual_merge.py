@@ -13,7 +13,6 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 from include.utils import s3, workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
-    DECISION_MANUAL_MERGE_APPROVE,
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL_MERGE,
     STATUS_COMPLETED,
@@ -141,12 +140,8 @@ def hep_manual_merge_dag():
         workflow_data = workflow_management_hook.get_workflow(workflow_id)
         merge_details = workflow_data.get("merge_details") or {}
         conflicts = get_value(merge_details, "conflicts")
-        is_conflicts_resolved = workflows.get_decision(
-            workflow_data.get("decisions"),
-            DECISION_MANUAL_MERGE_APPROVE,
-        )
 
-        if conflicts and not is_conflicts_resolved:
+        if conflicts:
             workflow_management_hook.set_workflow_status(
                 status_name=STATUS_APPROVAL_MERGE,
                 workflow_id=workflow_id,

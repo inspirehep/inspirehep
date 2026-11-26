@@ -102,12 +102,13 @@ export class BackofficeApiService extends CommonApiService {
   }
 
   saveWorkflowObject(object: WorkflowObject, request_data): Observable<void> {
+    const body = { ...request_data, data: object.metadata };
+    const conflicts = object._extra_data && object._extra_data.conflicts;
+    if (conflicts) {
+      body.merge_details = { ...request_data.merge_details, conflicts };
+    }
     return this.http
-      .put(
-        this.currentWorkflowObjectApiUrl,
-        { ...request_data, data: object.metadata },
-        { withCredentials: true },
-      )
+      .put(this.currentWorkflowObjectApiUrl, body, { withCredentials: true })
       .catch((error) => Observable.throw(new ApiError(error)))
       .map((res) => res.json());
   }
