@@ -12,9 +12,9 @@ import {
   EDITOR_RECORD_REVISION_DATA_REQUEST,
   EDITOR_RECORD_REVISION_DATA_ERROR,
   EDITOR_RECORD_REVISION_DATA_SUCCESS,
-  EDITOR_AUTHOR_SAVE_ERROR,
-  EDITOR_AUTHOR_SAVE_REQUEST,
-  EDITOR_AUTHOR_SAVE_SUCCESS,
+  EDITOR_RECORD_SAVE_ERROR,
+  EDITOR_RECORD_SAVE_REQUEST,
+  EDITOR_RECORD_SAVE_SUCCESS,
   EDITOR_RECORD_REVERT_TO_REVISION_REQUEST,
   EDITOR_RECORD_REVERT_TO_REVISION_SUCCESS,
   EDITOR_RECORD_REVERT_TO_REVISION_ERROR,
@@ -28,7 +28,7 @@ import {
   fetchRecordRevisionData,
   fetchRecordRevisions,
   revertToRevision,
-  saveAuthor,
+  saveRecord,
   uploadDocument,
 } from '../../editor/record';
 import {
@@ -200,13 +200,13 @@ describe('record - async actions creator', () => {
     });
   });
 
-  describe('saveAuthor', () => {
-    it('creates EDITOR_AUTHOR_SAVE_SUCCESS', async () => {
+  describe('saveRecord', () => {
+    it('creates EDITOR_RECORD_SAVE_SUCCESS', async () => {
       mockHttp.onPut('/authors/123').replyOnce(200);
 
       const expectedActions = [
-        { type: EDITOR_AUTHOR_SAVE_REQUEST },
-        { type: EDITOR_AUTHOR_SAVE_SUCCESS },
+        { type: EDITOR_RECORD_SAVE_REQUEST },
+        { type: EDITOR_RECORD_SAVE_SUCCESS },
         {
           type: CALL_HISTORY_METHOD,
           payload: {
@@ -218,20 +218,23 @@ describe('record - async actions creator', () => {
 
       const store = getStore();
       await store.dispatch(
-        saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
+        saveRecord('authors', '123', {
+          control_number: '123',
+          name: { value: 'Test' },
+        })
       );
       expect(store.getActions()).toEqual(expectedActions);
-      expect(notifyEditionInProgress).toHaveBeenCalledWith('123');
-      expect(notifyEditionSuccess).toHaveBeenCalledWith('123');
+      expect(notifyEditionInProgress).toHaveBeenCalledWith('123', 'authors');
+      expect(notifyEditionSuccess).toHaveBeenCalledWith('123', 'authors');
     });
 
-    it('creates EDITOR_AUTHOR_SAVE_ERROR', async () => {
+    it('creates EDITOR_RECORD_SAVE_ERROR', async () => {
       mockHttp.onPut('/authors/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
-        { type: EDITOR_AUTHOR_SAVE_REQUEST },
+        { type: EDITOR_RECORD_SAVE_REQUEST },
         {
-          type: EDITOR_AUTHOR_SAVE_ERROR,
+          type: EDITOR_RECORD_SAVE_ERROR,
           payload: {
             error: { status: 500, message: 'Error' },
           },
@@ -240,11 +243,14 @@ describe('record - async actions creator', () => {
 
       const store = getStore();
       await store.dispatch(
-        saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
+        saveRecord('authors', '123', {
+          control_number: '123',
+          name: { value: 'Test' },
+        })
       );
       expect(store.getActions()).toEqual(expectedActions);
-      expect(notifyEditionInProgress).toHaveBeenCalledWith('123');
-      expect(notifyEditionError).toHaveBeenCalledWith('Error');
+      expect(notifyEditionInProgress).toHaveBeenCalledWith('123', 'authors');
+      expect(notifyEditionError).toHaveBeenCalledWith('Error', 'authors');
     });
   });
 

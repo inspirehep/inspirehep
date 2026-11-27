@@ -40,7 +40,7 @@ import RecordRefWidget from './customWidgets/RecordRefWidget';
 import ViewRecordWidget from './customWidgets/ViewRecordWidget';
 import EnumMultiSelectWidget from './customWidgets/EnumMultiSelectWidget';
 import ToggleWidget from './customWidgets/ToggleWidget';
-import { RootState } from '../../types';
+import { PidType, RootState } from '../../types';
 import { DocumentUploadContext } from '../DocumentUploadContext';
 import { ToolbarActionsContext } from '../ToolbarActionsContext';
 import {
@@ -88,6 +88,7 @@ interface CommonEditorProps {
   getUiSchema?: (formData: any) => UiSchema;
   error: number | null;
   save: (
+    type: PidType,
     id: string,
     record: object
   ) => ThunkAction<Promise<void>, RootState, HttpClientWrapper, Action>;
@@ -262,7 +263,7 @@ const CommonEditor = ({
       window.scrollTo(0, 0);
       return;
     }
-    dispatch(save(id, prunedFormData));
+    dispatch(save(type as PidType, id, prunedFormData));
   };
 
   const resetToLastUpdate = () => {

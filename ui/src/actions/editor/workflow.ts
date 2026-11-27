@@ -12,7 +12,7 @@ import {
   EDITOR_AUTHOR_WORKFLOW_SCHEMA_SUCCESS,
   EDITOR_AUTHOR_WORKFLOW_SUCCESS,
 } from '../actionTypes';
-import { RootState } from '../../types';
+import { PidType, RootState } from '../../types';
 import { HttpClientWrapper } from '../../common/http';
 import {
   notifyEditionError,
@@ -128,6 +128,7 @@ function saveAuthorWorkflowError(errorPayload: { error: Error }) {
 }
 
 export function saveAuthorWorkflow(
+  _type: PidType,
   id: string,
   workflow: object
 ): (
@@ -137,7 +138,7 @@ export function saveAuthorWorkflow(
 ) => Promise<void> {
   return async (dispatch, getState) => {
     dispatch(savingAuthorWorkflow());
-    notifyEditionInProgress(id);
+    notifyEditionInProgress(id, 'authors');
     try {
       const currentAuthor =
         getState().editor.getIn(['workflowData', 'author'])?.toJS() || {};
@@ -150,13 +151,14 @@ export function saveAuthorWorkflow(
         { ...currentAuthor, data: workflow }
       );
       dispatch(saveAuthorWorkflowSuccess(response?.data));
-      notifyEditionSuccess(id);
+      notifyEditionSuccess(id, 'authors');
     } catch (err) {
       const error = httpErrorToActionPayload(err);
       notifyEditionError(
         (typeof error?.error === 'string'
           ? error?.error
-          : error?.error?.message) || 'An error occurred'
+          : error?.error?.message) || 'An error occurred',
+        'authors'
       );
       dispatch(saveAuthorWorkflowError(error));
     }

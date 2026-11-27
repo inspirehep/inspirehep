@@ -69,7 +69,7 @@ describe('<CommonEditor />', () => {
       await user.click(screen.getByRole('button', { name: /save/i }));
 
       expect(save).toHaveBeenCalledTimes(1);
-      const savedRecord = save.mock.calls[0][1];
+      const savedRecord = save.mock.calls[0][2];
       expect(savedRecord.name.value).toBe(initialValue);
     });
   });

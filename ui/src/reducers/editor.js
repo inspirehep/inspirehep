@@ -7,9 +7,9 @@ import {
   EDITOR_RECORD_REVISIONS_REQUEST,
   EDITOR_RECORD_REVISIONS_ERROR,
   EDITOR_RECORD_REVISIONS_SUCCESS,
-  EDITOR_AUTHOR_SAVE_REQUEST,
-  EDITOR_AUTHOR_SAVE_SUCCESS,
-  EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_RECORD_SAVE_REQUEST,
+  EDITOR_RECORD_SAVE_SUCCESS,
+  EDITOR_RECORD_SAVE_ERROR,
   EDITOR_RECORD_REVISION_DATA_REQUEST,
   EDITOR_RECORD_REVISION_DATA_ERROR,
   EDITOR_RECORD_REVISION_DATA_SUCCESS,
@@ -134,14 +134,14 @@ const EditorReducer = (state = initialState, action) => {
         ['recordData', 'current_record_revision'],
         initialState.getIn(['recordData', 'current_record_revision'])
       );
-    case EDITOR_AUTHOR_SAVE_REQUEST:
+    case EDITOR_RECORD_SAVE_REQUEST:
       return state.setIn(
         ['recordData', 'saveError'],
         initialState.getIn(['recordData', 'saveError'])
       );
-    case EDITOR_AUTHOR_SAVE_SUCCESS:
+    case EDITOR_RECORD_SAVE_SUCCESS:
       return state;
-    case EDITOR_AUTHOR_SAVE_ERROR:
+    case EDITOR_RECORD_SAVE_ERROR:
       return state.setIn(
         ['recordData', 'saveError'],
         fromJS(action.payload.error)

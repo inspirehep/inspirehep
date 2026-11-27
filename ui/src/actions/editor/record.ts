@@ -16,14 +16,14 @@ import {
   EDITOR_RECORD_REVERT_TO_REVISION_REQUEST,
   EDITOR_RECORD_REVERT_TO_REVISION_SUCCESS,
   EDITOR_RECORD_REVERT_TO_REVISION_ERROR,
-  EDITOR_AUTHOR_SAVE_SUCCESS,
-  EDITOR_AUTHOR_SAVE_REQUEST,
-  EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_RECORD_SAVE_SUCCESS,
+  EDITOR_RECORD_SAVE_REQUEST,
+  EDITOR_RECORD_SAVE_ERROR,
   EDITOR_DOCUMENT_UPLOAD_REQUEST,
   EDITOR_DOCUMENT_UPLOAD_SUCCESS,
   EDITOR_DOCUMENT_UPLOAD_ERROR,
 } from '../actionTypes';
-import { RootState } from '../../types';
+import { PidType, RootState } from '../../types';
 import { HttpClientWrapper } from '../../common/http';
 import {
   notifyDocumentUploadError,
@@ -225,26 +225,27 @@ export function revertToRevision(
   };
 }
 
-function savingAuthor() {
+function savingRecord() {
   return {
-    type: EDITOR_AUTHOR_SAVE_REQUEST,
+    type: EDITOR_RECORD_SAVE_REQUEST,
   };
 }
 
-function saveAuthorSuccess() {
+function saveRecordSuccess() {
   return {
-    type: EDITOR_AUTHOR_SAVE_SUCCESS,
+    type: EDITOR_RECORD_SAVE_SUCCESS,
   };
 }
 
-function saveAuthorError(errorPayload: { error: Error }) {
+function saveRecordError(errorPayload: { error: Error }) {
   return {
-    type: EDITOR_AUTHOR_SAVE_ERROR,
+    type: EDITOR_RECORD_SAVE_ERROR,
     payload: { ...errorPayload },
   };
 }
 
-export function saveAuthor(
+export function saveRecord(
+  type: PidType,
   id: string,
   record: object
 ): (
@@ -253,27 +254,28 @@ export function saveAuthor(
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
-    dispatch(savingAuthor());
-    notifyEditionInProgress(id);
+    dispatch(savingRecord());
+    notifyEditionInProgress(id, type);
     try {
       const ifMatchHeader = getState().editor.getIn([
         'recordData',
         'currentRecordETag',
       ]);
-      await http.put(`/authors/${id}`, record, {
+      await http.put(`/${type}/${id}`, record, {
         headers: new AxiosHeaders({ 'If-Match': ifMatchHeader }),
       });
-      dispatch(saveAuthorSuccess());
-      notifyEditionSuccess(id);
-      dispatch(push(`/authors/${id}`));
+      dispatch(saveRecordSuccess());
+      notifyEditionSuccess(id, type);
+      dispatch(push(`/${type}/${id}`));
     } catch (err) {
       const error = httpErrorToActionPayload(err);
       notifyEditionError(
         (typeof error?.error === 'string'
           ? error?.error
-          : error?.error?.message) || 'An error occurred'
+          : error?.error?.message) || 'An error occurred',
+        type
       );
-      dispatch(saveAuthorError(error));
+      dispatch(saveRecordError(error));
     }
   };
 }

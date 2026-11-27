@@ -12,9 +12,9 @@ import {
   EDITOR_RECORD_REVISIONS_ERROR,
   EDITOR_RECORD_REVISIONS_REQUEST,
   EDITOR_RECORD_REVISIONS_SUCCESS,
-  EDITOR_AUTHOR_SAVE_REQUEST,
-  EDITOR_AUTHOR_SAVE_SUCCESS,
-  EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_RECORD_SAVE_REQUEST,
+  EDITOR_RECORD_SAVE_SUCCESS,
+  EDITOR_RECORD_SAVE_ERROR,
   EDITOR_RECORD_REVISION_DATA_REQUEST,
   EDITOR_RECORD_REVISION_DATA_SUCCESS,
   EDITOR_RECORD_REVISION_DATA_ERROR,
@@ -237,24 +237,24 @@ describe('editor reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('EDITOR_AUTHOR_SAVE_REQUEST', () => {
-    const state = reducer(Map(), { type: EDITOR_AUTHOR_SAVE_REQUEST });
+  it('EDITOR_RECORD_SAVE_REQUEST', () => {
+    const state = reducer(Map(), { type: EDITOR_RECORD_SAVE_REQUEST });
     const expected = recordData({ saveError: null });
     expect(state).toEqual(expected);
   });
 
-  it('EDITOR_AUTHOR_SAVE_SUCCESS', () => {
+  it('EDITOR_RECORD_SAVE_SUCCESS', () => {
     const state = reducer(initialState, {
-      type: EDITOR_AUTHOR_SAVE_SUCCESS,
+      type: EDITOR_RECORD_SAVE_SUCCESS,
     });
     expect(state).toEqual(initialState);
   });
 
-  it('EDITOR_AUTHOR_SAVE_ERROR', () => {
+  it('EDITOR_RECORD_SAVE_ERROR', () => {
     const errorMessage = ' not working';
     const currentState = recordData({ saveError: null });
     const state = reducer(currentState, {
-      type: EDITOR_AUTHOR_SAVE_ERROR,
+      type: EDITOR_RECORD_SAVE_ERROR,
       payload: { error: errorMessage },
     });
     const expected = recordData({
