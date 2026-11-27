@@ -46,7 +46,7 @@ jobs:
         ports:
           - 9200:9200
       rabbitmq:
-        image: rabbitmq:4.2-management-alpine
+        image: rabbitmq:4.4-management-alpine
         ports:
           - 5672:5672
       db-backoffice:

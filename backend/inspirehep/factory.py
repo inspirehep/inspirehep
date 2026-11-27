@@ -12,12 +12,14 @@ from invenio_config import create_config_loader
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from inspirehep import config
+from inspirehep.celery_queues import configure_celery_queues
 from inspirehep.errors import BaseRestError
 
 env_prefix = "INVENIO"
 
 
 def config_loader(app, **kwargs_config):
+    configure_celery_queues()
     invenio_config_loader = create_config_loader(config=config, env_prefix=env_prefix)
     result = invenio_config_loader(app, **kwargs_config)
     app.url_map.strict_slashes = False
